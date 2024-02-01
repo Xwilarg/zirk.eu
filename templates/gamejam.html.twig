@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<h1>Gamejams</h1>
+
+<div class="flex">
+{% for jam in jams.data | filter(x => x.duration >= 24) | sort((a, b) => a.score <=> b.score)[:6] %}
+{% include 'gamejam-data.html.twig' %}
+{% endfor %}
+</div>
+
+<hr/>
+
+<div class="flex">
+{% for jam in jams.data %}
+{% include 'gamejam-data.html.twig' %}
+{% endfor %}
+</div>
+{% endblock %}

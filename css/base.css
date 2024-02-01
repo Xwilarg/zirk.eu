@@ -1,0 +1,39 @@
+html {
+    font-family: Space Mono, sans-serif;
+    text-align: center;
+    background: rgb(30,30,30);
+    background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(30,30,35,1) 100%);
+    color: #ccc;
+    line-height: 1.5em;
+    font-size: 1.2em;
+}
+
+#intro {
+    margin-top: 10em;
+}
+
+#intro h1 {
+    margin-bottom: 2em;
+}
+
+hr {
+    width: 50%;
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+
+.flex {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+a {
+    color: rgb(255, 61, 61);
+    text-decoration-style: dotted;
+}
+
+a:hover {
+    color: #ccc;
+    text-decoration: none;
+}

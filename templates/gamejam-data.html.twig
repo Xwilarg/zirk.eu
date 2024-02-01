@@ -1,0 +1,39 @@
+<div class="gamejam" data-location="{{jam.location}}" data-duration="{{jam.duration}}" data-date="{{jam.date}}" data-year="{{jam.date[:4]}}" data-engine="{{jam.engine}}" data-event="{{jam.shortEvent}}" data-entries="{{jam.entriesTotal}}" data-language="{{jam.language | join(';')}}" data-team="{{jam.team | join(';')}}" data-score={{jam.score}} data-missinggif={{jam.gif is null}}>
+    <div class="jam-title">
+        <p>
+            {{jam.event}}{% if jam.eventCategory %} ({{ jam.eventCategory }}){% endif %}<br/>
+            <span class="sub-info">{% if jam.theme %}{{ jam.theme }} - {% endif %}{{jam.duration|round(0, 'floor')}} hour{% if jam.duration > 1 %}s{% endif %} - {{jam.date|replace({'-': '&#x2011;'}) | raw}}</span>
+        </p>
+    </div>
+    {% if jam.image is null %}
+    <img src="img/gamejam/ComingSoon.png"></img>
+    {% else %}
+    <img src="{{ jam.image }}" class="lazy {% if jam.gifPosOverrides == "right" %}gif-pos-right{% else %}gif-pos-middle{% endif %} {% if jam.imagePosOverrides == "right" %}image-pos-right{% endif %}"></img>
+    {% endif %}
+    <br/>
+    <span class="jam-info">
+        <span class="jam-buttons">
+            {% if jam.webgl is not null %}
+                <a class="button green" target="_blank" href="{{ jam.webgl }}"><i class="fa-solid fa-play"></i>&nbsp;Play</a>
+            {% endif %}
+            {% if jam.website is not null %}
+                <a class="button" target="_blank" href="{{ jam.website }}"><i class="fa-solid fa-globe"></i></a>
+            {% endif %}
+            {% if jam.source is not null %}
+                <a class="button" target="_blank" href="{{ jam.source }}"><i class="fa-brands fa-github"></i></a>
+            {% endif %}
+            {% for video in jam.gameplay %}
+                <a class="button" target="_blank" href="{{ video }}"><i class="fa-brands fa-youtube"></i></a>
+            {% endfor %}
+            {% for video in jam.stream %}
+                <a class="button" target="_blank" href="{{ video }}"><i class="fa-solid fa-video"></i></a>
+            {% endfor %}
+        </span>
+
+        {% if jam.entries != 0 %}
+        <span class="rating">
+            Ranked {{ jam.overall }} out of {{ jam.entries }}<br/>({{ (jam.score * 100) | number_format(2) }}% tier)
+        </span>
+        {% endif %}
+    </span>
+</div>

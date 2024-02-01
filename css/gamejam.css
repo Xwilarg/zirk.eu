@@ -1,0 +1,121 @@
+h1 {
+    margin-bottom: 5em;
+}
+
+/* GAMEJAM PREVIEWS */
+
+.gamejam {
+    width: 500px;
+    margin-left: .5em;
+    margin-right: .5em;
+    margin-bottom: 3em;
+}
+
+.gamejam img {
+    width: 500px;
+    height: calc(500px / 1.25);
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+}
+
+.gamejam .gif-pos-middle {
+    background-position: center;
+}
+
+.gamejam .gif-pos-right {
+    background-position: right;
+}
+
+.gamejam .image-pos-right {
+    object-position: right;
+}
+
+@media (max-width: 500px) {
+    .gamejam img {
+        width: 90vw;
+        height: calc(90vw/1.25);
+    }
+}
+
+.jam-title {
+    display: flex;
+    justify-content: center;
+    font-size: 1.2em;
+    width: 100%;
+    height: 3.5em;
+    margin-bottom: .25em;
+}
+
+.jam-title > p {
+    align-self: flex-end;
+}
+
+.jam-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.jam-buttons {
+    display: flex;
+    justify-content: left;
+}
+
+.rating {
+    font-size: .8em;
+}
+
+.sub-info {
+    font-size: .8em;
+}
+
+/* BUTTONS */
+
+.button {
+    border: none;
+    text-decoration: none;
+    margin: .1em;
+    border-radius: 5px;
+    font-size: 1.7em;
+    color: #ccc;
+    background-color: #555;
+    padding: 0 .25em;
+    cursor: pointer;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.button:hover {
+    color: #555;
+    background-color: #222;
+}
+
+.button.green {
+    background-color: green;
+    color: white;
+    width: auto;
+}
+
+.button.green:hover {
+    background-color: #222;
+    color: green;
+}
+
+/* TODO */
+
+.filter {
+    margin-bottom: 2em;
+}
+
+#gamejam-stats > div {
+    width: 500px;
+    height: calc(500px / 1.75);
+}
+
+@media (max-width: 500px) {
+    #gamejam-stats > div {
+        width: 90vw;
+        height: calc(90vw/1.75);
+    }
+}
