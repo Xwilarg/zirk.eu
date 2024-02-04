@@ -19,6 +19,15 @@ h1 {
     object-fit: cover;
 }
 
+@media (max-width: 500px) {
+    .gamejam img {
+        width: 90vw;
+        height: calc(90vw/1.25);
+    }
+}
+
+/* All possible pos */
+
 .gamejam .gif-pos-middle {
     background-position: center;
 }
@@ -27,15 +36,32 @@ h1 {
     background-position: right;
 }
 
+.gamejam .gif-pos-left {
+    background-position: left;
+}
+
+.gamejam .gif-pos-up {
+    background-position: top;
+}
+
+.gamejam .gif-pos-down {
+    background-position: bottom;
+}
+
 .gamejam .image-pos-right {
     object-position: right;
 }
 
-@media (max-width: 500px) {
-    .gamejam img {
-        width: 90vw;
-        height: calc(90vw/1.25);
-    }
+.gamejam .image-pos-left {
+    object-position: left;
+}
+
+.gamejam .image-pos-up {
+    object-position: top;
+}
+
+.gamejam .image-pos-down {
+    object-position: bottom;
 }
 
 .jam-title {
@@ -67,6 +93,10 @@ h1 {
 
 .sub-info {
     font-size: .8em;
+}
+
+.sub-title {
+    font-family: Space Mono, sans-serif;
 }
 
 /* BUTTONS */

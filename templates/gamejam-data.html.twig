@@ -1,14 +1,14 @@
 <div class="gamejam" data-location="{{jam.location}}" data-duration="{{jam.duration}}" data-date="{{jam.date}}" data-year="{{jam.date[:4]}}" data-engine="{{jam.engine}}" data-event="{{jam.shortEvent}}" data-entries="{{jam.entriesTotal}}" data-language="{{jam.language | join(';')}}" data-team="{{jam.team | join(';')}}" data-score={{jam.score}} data-missinggif={{jam.gif is null}}>
     <div class="jam-title">
         <p>
-            {{jam.event}}{% if jam.eventCategory %} ({{ jam.eventCategory }}){% endif %}<br/>
+            <span class="sub-title">{{jam.event}}{% if jam.eventCategory %} ({{ jam.eventCategory }}){% endif %}</span><br/>
             <span class="sub-info">{% if jam.theme %}{{ jam.theme }} - {% endif %}{{jam.duration|round(0, 'floor')}} hour{% if jam.duration > 1 %}s{% endif %} - {{jam.date|replace({'-': '&#x2011;'}) | raw}}</span>
         </p>
     </div>
     {% if jam.image is null %}
     <img src="img/gamejam/ComingSoon.png"></img>
     {% else %}
-    <img src="{{ jam.image }}" class="lazy {% if jam.gifPosOverrides == "right" %}gif-pos-right{% else %}gif-pos-middle{% endif %} {% if jam.imagePosOverrides == "right" %}image-pos-right{% endif %}"></img>
+    <img src="{{ jam.image }}" class="lazy {% if jam.gifPosOverrides is not null %}gif-pos-{{ jam.gifPosOverrides }}{% else %}gif-pos-middle{% endif %} {% if jam.imagePosOverrides is not null %}image-pos-{{ jam.imagePosOverrides }}{% endif %}"></img>
     {% endif %}
     <br/>
     <span class="jam-info">

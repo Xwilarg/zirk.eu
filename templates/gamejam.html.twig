@@ -3,13 +3,17 @@
 {% block content %}
 <h1>Gamejams</h1>
 
+<h2>Best Scores (≥24h)</h2>
+
 <div class="flex">
 {% for jam in jams.data | filter(x => x.duration >= 24) | sort((a, b) => a.score <=> b.score)[:6] %}
 {% include 'gamejam-data.html.twig' %}
 {% endfor %}
 </div>
 
-<hr/>
+<hr>
+
+<h3>{{ jams.data | length }} total entries</h3>
 
 <div class="flex">
 {% for jam in jams.data %}
