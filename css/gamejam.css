@@ -132,11 +132,24 @@ h1 {
     color: green;
 }
 
-/* TODO */
+/* Filters */
 
-.filter {
-    margin-bottom: 2em;
+#filters {
+    margin-bottom: 5em;
 }
+
+select {
+    font-size: 1em;
+    padding: 10px;
+}
+
+input {
+    transform: scale(3);
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+/* TODO */
 
 #gamejam-stats > div {
     width: 500px;
