@@ -67,16 +67,19 @@ let filters;
 function filter() {
     const jamsList = document.querySelectorAll(".gamejam");
 
+    let filteredCount = jamsList.length;
     for (const j of jamsList) {
         j.classList.remove("is-hidden");
 
         for (const f of filters) {
             if (f.isExisting() && f.isActive() && !f.isValid(j.dataset)) {
                 j.classList.add("is-hidden");
+                filteredCount--;
                 break;
             }
         }
     }
+    document.getElementById("entriesFiltered").innerHTML = ` (${filteredCount})`;
 }
 
 export function setupGamejams()
