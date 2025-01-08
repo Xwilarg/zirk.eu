@@ -1,13 +1,15 @@
 /* Hide NSFW content */
-.gamejam .image {
-    overflow: hidden
-}
-
 .blur {
     filter: blur(25px);
     pointer-events: none;
 }
 
+/* By default blug overflow go overflow container */
+.gamejam .image {
+    overflow: hidden
+}
+
+/* Gamejam image adjustements */
 .gif-pos-middle {
     background-position: center;
 }
@@ -28,6 +30,7 @@
     object-position: top;
 }
 
+/* Gamejam container sizes and display */
 .gamejam {
     width: 500px;
 }
@@ -38,4 +41,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: cover;
+}
+
+/* Legend for project images */
+legend {
+    font-style: italic;
+    font-weight: lighter;
+    font-size: .8em;
 }

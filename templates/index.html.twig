@@ -8,10 +8,33 @@
     </ul>
 </div>
 <div id="articles">
-    <div class="container notification" id="target-about">
-        Welcome on my website<br>
-        Things are quite more empty than before, the old website was a bit of a mess on some points so I'm slowly redoing things with Bulma<br>
-        And of course as a good developer I'm pushing in prod <span class="material-symbols-outlined">plumbing</span>
+    <div id="target-about">
+        <div class="container notification">
+            Welcome on my website<br>
+            Things are quite more empty than before, the old website was a bit of a mess on some points so I'm slowly redoing things with Bulma<br>
+            And of course as a good developer I'm pushing in prod <span class="material-symbols-outlined">plumbing</span>
+        </div>
+        <div class="container">
+            <h2 class="title">Ongoing projects</h2>
+            {% for project in projects %}
+            <div class="content">
+                <h3 class="subtitle">{{ project.name }}</h2>
+                <p>{{ project.description }}</p>
+            </div>
+            <div class="content">
+                {% for link in project.links %}
+                <a class="button{% if link.type == "primary" %} is-primary{% endif %}" href="{{ link.content }}" target="_blank"/>{{ link.name }}</a>
+                {% endfor %}
+            </div>
+            <div class="fixed-grid  has-{{ project.images | length }}-cols">
+                <div class="grid">
+                    {% for img in project.images %}
+                    <div class="cell"><img src="/data/img/projects/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}"/><legend>{{ img.description }}</legend></div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
     </div>
     <div class="is-hidden container is-fluid" id="target-gamejam">
         <div class="container control">

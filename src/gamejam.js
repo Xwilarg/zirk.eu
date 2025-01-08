@@ -11,6 +11,10 @@ class AFilterComponent {
         this.validationFunc = validationFunc;
     }
 
+    isExisting() {
+        return this.component != null;
+    }
+
     isValid(e) {
         return this.validationFunc(e, this.component, this);
     }
@@ -22,7 +26,7 @@ class Checkbox extends AFilterComponent {
     }
 
     isActive() {
-        return this.component !== null && this.component.checked;
+        return this.component.checked;
     }
 }
 
@@ -67,7 +71,7 @@ function filter() {
         j.classList.remove("is-hidden");
 
         for (const f of filters) {
-            if (f.isActive() && !f.isValid(j.dataset)) {
+            if (f.isExisting() && f.isActive() && !f.isValid(j.dataset)) {
                 j.classList.add("is-hidden");
                 break;
             }
