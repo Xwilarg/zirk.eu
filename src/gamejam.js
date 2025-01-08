@@ -91,4 +91,23 @@ export function setupGamejams()
     ];
 
     filter();
+
+    const jamsList = document.querySelectorAll(".gamejam");
+    for (let elem of jamsList) {
+        const img = elem.querySelector("img");
+        const src = img.src;
+
+        elem.addEventListener("mouseover", e => { // Display the underlying GIF
+            if (elem.dataset.missinggif !== "1") {
+                img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="; // Display an empty image so we don't have the "missing image" thing
+                img.style.backgroundImage = `url(${img.dataset.hover})`;
+            }
+        });
+        elem.addEventListener("mouseout", _ => { // Display the image
+            if (elem.dataset.missinggif !== "1") {
+                img.src = src;
+                img.style.backgroundImage = "";
+            }
+        });
+    }
 }
