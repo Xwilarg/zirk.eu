@@ -1,104 +1,94 @@
-export function setupGamejams()
-{
-    const jamsList = document.querySelectorAll(".gamejam");
-    function filter() {
-        for (let elem of jamsList) {
-            let l = document.getElementById("filter-location")
-            if (l.value !== "" && l.value !== elem.dataset.location) {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let isOk;
-            let d = document.getElementById("filter-duration")
-            let entries = Array.from(d.selectedOptions).map(x => x.value);
-            for (let e of entries) {
-                const s = e.split('-');
-                const duration = parseInt(elem.dataset.duration);
-                if (duration >= parseInt(s[0]) && duration <= parseInt(s[1])) {
-                    isOk = true;
-                    break;
-                }
-            }
-            if (!isOk) {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let en = document.getElementById("filter-entries");
-            entries = Array.from(en.selectedOptions).map(x => x.value);
-            if (elem.dataset.entries == -1) {
-                if (!entries.includes("-1")) {
-                    elem.classList.add("is-hidden");
-                    continue;
-                }
-            }
-            else
-            {
-                isOk = false;
-                for (let e of entries) {
-                    const s = e.split('-');
-                    const enGame = parseInt(elem.dataset.entries);
-                    if (enGame >= parseInt(s[0]) && enGame <= parseInt(s[1])) {
-                        isOk = true;
-                        break;
-                    }
-                }
-                if (!isOk) {
-                    elem.classList.add("is-hidden");
-                    continue;
-                }
-            }
-            let y = document.getElementById("filter-year");
-            if (y.value !== "" && y.value !== elem.dataset.year) {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let e = document.getElementById("filter-engine");
-            if (e.value !== "" && e.value !== elem.dataset.engine) {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let e2 = document.getElementById("filter-event");
-            if (e2.value !== "" && e2.value !== elem.dataset.event) {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let pe = document.getElementById("filter-people");
-            if (pe.value !== "" && !elem.dataset.team.split(';').includes(pe.value)) {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let alone = document.getElementById("filter-alone");
-            if (alone.checked && elem.dataset.team !== "") {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let ranked = document.getElementById("filter-ranked");
-            if (ranked.checked && elem.dataset.score === "1") {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            let nsfw = document.getElementById("filter-nsfw");
-            if (nsfw && nsfw.checked && elem.dataset.nsfw !== "1") {
-                elem.classList.add("is-hidden");
-                continue;
-            }
-            elem.classList.remove("is-hidden");
-        }
-
-        document.getElementById("entriesFiltered").innerHTML = ` (${Array.from(jamsList).filter(x => !x.classList.contains("is-hidden")).length})`;
-    }
-
-    let filters = [
-        "filter-location", "filter-duration", "filter-year", "filter-engine", "filter-event", "filter-entries", "filter-people", "filter-alone", "filter-ranked", "filter-nsfw"
-    ]
-
-    for (let f of filters) {
-        const fDoc = document.getElementById(f);
-        if (fDoc) {
-            fDoc.addEventListener("change", _ => {
+class AFilterComponent {
+    constructor(id, validationFunc) {
+        const target = document.getElementById(id);
+        if (target) {
+            target.addEventListener("change", _ => {
                 filter();
             });
         }
+
+        this.component = document.getElementById(id);
+        this.validationFunc = validationFunc;
     }
+
+    isValid(e) {
+        return this.validationFunc(e, this.component, this);
+    }
+}
+
+class Checkbox extends AFilterComponent {
+    constructor(id, validationFunc) {
+        super(id, validationFunc);
+    }
+
+    isActive() {
+        return this.component !== null && this.component.checked;
+    }
+}
+
+class Select extends AFilterComponent {
+    constructor(id, validationFunc) {
+        super(id, validationFunc);
+    }
+
+    isActive() {
+        return this.component.value !== "";
+    }
+}
+
+class RangeMultipleSelect extends AFilterComponent {
+    constructor(id, validationFunc) {
+        super(id, validationFunc);
+    }
+
+    isActive() {
+        return this.component.value !== "";
+    }
+
+    checkAgainst(datasetValue) {
+        let entries = Array.from(this.component.selectedOptions).map(x => x.value);
+        for (let e of entries) {
+            const s = e.split('-');
+            const value = parseInt(datasetValue);
+            if (value >= parseInt(s[0]) && value <= parseInt(s[1])) {
+                return true
+            }
+        }
+        return false;
+    }
+}
+
+let filters;
+
+function filter() {
+    const jamsList = document.querySelectorAll(".gamejam");
+
+    for (const j of jamsList) {
+        j.classList.remove("is-hidden");
+
+        for (const f of filters) {
+            if (f.isActive() && !f.isValid(j.dataset)) {
+                j.classList.add("is-hidden");
+                break;
+            }
+        }
+    }
+}
+
+export function setupGamejams()
+{
+    filters  = [
+        new Checkbox("filter-alone", (ds, c, me) => ds.team === ""),
+        new Checkbox("filter-ranked", (ds, c, me) => ds.score !== "1"),
+        new Checkbox("filter-nsfw", (ds, c, me) => ds.nsfw === "1"),
+        new Select("filter-people", (ds, c, me) => ds.team.split(';').includes(c.value)),
+        new Select("filter-event", (ds, c, me) => c.value === ds.event),
+        new Select("filter-engine", (ds, c, me) => c.value === ds.engine),
+        new Select("filter-year", (ds, c, me) => c.value === ds.year),
+        new Select("filter-location", (ds, c, me) => c.value === ds.location),
+        new RangeMultipleSelect("filter-duration", (ds, c, me) => me.checkAgainst(ds.duration)),
+        new RangeMultipleSelect("filter-entries", (ds, c, me) => { return ds.entries == -1 ? Array.from(c.selectedOptions).map(x => x.value).includes("-1") : me.checkAgainst(ds.entries); })
+    ];
+
     filter();
 }
