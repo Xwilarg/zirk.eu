@@ -49,3 +49,10 @@ legend {
     font-weight: lighter;
     font-size: .8em;
 }
+
+/* Bulma issues */
+/* https://github.com/jgthms/bulma/issues/2398#issuecomment-471254235 */
+.gamejam:last-child
+{
+    margin-bottom: 1.5rem;
+}
