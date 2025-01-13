@@ -56,3 +56,12 @@ legend {
 {
     margin-bottom: 1.5rem;
 }
+
+/* FAQ */
+.answer {
+    padding: 1em
+}
+
+.answer a:not(.button):hover {
+    color: lightblue;
+}
