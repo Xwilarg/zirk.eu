@@ -24,7 +24,7 @@
             </div>
             <div class="content">
                 {% for link in project.links %}
-                    {% if nsfw and link.nsfw or not img.nsfw %}
+                    {% if nsfw and link.nsfw or not link.nsfw %}
                     <a class="button{% if link.type == "primary" %} is-primary{% endif %}" href="{{ link.content }}" target="_blank"/>{{ link.name }}</a>
                     {% endif %}
                 {% endfor %}
