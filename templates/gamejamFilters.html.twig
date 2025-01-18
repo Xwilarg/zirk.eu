@@ -1,4 +1,4 @@
-<div class="select">
+<div class="jam-field select">
     <select id="filter-location">
         <option value="">-- Select location --</option>
         {% for key, value in jams.locations %}
@@ -6,7 +6,7 @@
         {% endfor %}
     </select>
 </div>
-<div class="select">
+<div class="jam-field select">
     <select id="filter-engine">
         <option value="">-- Select engine --</option>
         {% for key, value in jams.engines %}
@@ -14,7 +14,7 @@
         {% endfor %}
     </select>
 </div>
-<div class="select">
+<div class="jam-field select">
     <select id="filter-event">
         <option value="">-- Select event --</option>
         {% for key, value in jams.events %}
@@ -22,7 +22,7 @@
         {% endfor %}
     </select>
 </div>
-<div class="select">
+<div class="jam-field select">
     <select id="filter-people">
         <option value="">-- Select participant --</option>
         {% for key, value in jams.people %}
@@ -32,7 +32,7 @@
         {% endfor %}
     </select>
 </div>
-<div class="select is-multiple">
+<div class="jam-field select is-multiple">
     <select id="filter-duration" multiple>
         <option value="0-1">≤1h</option>
         <option value="2-24" selected>≤1 day</option>
@@ -42,7 +42,7 @@
         <option value="169-10000" selected>&gt;1 week</option>
     </select>
 </div>
-<div class="select is-multiple">
+<div class="jam-field select is-multiple">
     <select id="filter-entries" multiple>
         <option value="-1" selected>Unknown</option>
         <option value="1-10" selected>≤10</option>
@@ -52,7 +52,7 @@
         <option value="5001-100000" selected>&gt;5000</option>
     </select>
 </div>
-<div class="select">
+<div class="jam-field select">
     <select id="filter-year">
         <option value="">-- Select year --</option>
         {% for y in "now"|date("Y").."2016-01-01"|date("Y") %}

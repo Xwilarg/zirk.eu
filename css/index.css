@@ -43,6 +43,17 @@
     object-fit: cover;
 }
 
+/* Make jam filters full-width on small screens */
+@media (max-width: 1000px) {
+    .jam-field {
+        width: 100%;
+    }
+
+    .jam-field > select {
+        width: 100%;
+    }
+}
+
 /* Legend for project images */
 legend {
     font-style: italic;
