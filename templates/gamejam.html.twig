@@ -30,6 +30,7 @@
                 <p>{% if jam.theme and not jam.nsfw %}Theme: {{ jam.theme }}{% else %}&nbsp;{% endif %}</p>
                 <p>Duration: {{jam.duration|round(0, 'floor')}} hour{% if jam.duration > 1 %}s{% endif %}</p>
                 <p>Date: {{jam.date}}</p>
+                <p>{% if jam.score != 1 %}Ranked {{ jam.overall }} / {{ jam.entriesTotal }} <small>({{ (jam.score * 100) | number_format(1) }}%</small>){% else %}&nbsp;{% endif %}</p>
             </div>
         </div>
     </div>

@@ -94,9 +94,6 @@ foreach ($data["jams"] as $jam) {
         "website" => (!$nsfw && $jam["nsfw"]) ? null : $jam["website"],
         "source" => (!$nsfw && $jam["nsfw"])? null : $jam["github"],
         "webgl" => (!$nsfw && $jam["nsfw"]) || count($jam["webgl"]) == 0 ? null : $jam["webgl"][0],
-        "gameplay" => $jam["gameplay"],
-        "stream" => $jam["stream"],
-        "language" => $jam["language"],
         "entriesTotal" => ($jam["rating"] === null || $jam["rating"]["entries"] === null) ? -1 : $jam["rating"]["entries"],
         "score" => $overall === 0 || $entries == 0 ? 1
             : ($overall / $entries),
