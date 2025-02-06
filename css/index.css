@@ -76,3 +76,8 @@ legend {
 .answer a:not(.button):hover {
     color: lightblue;
 }
+
+/* Project */
+.project-image {
+    max-height: 394px;
+}

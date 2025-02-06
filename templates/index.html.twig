@@ -33,7 +33,7 @@
                 <div class="grid">
                     {% for img in project.images %}
                         {% if nsfw and img.nsfw or not img.nsfw %}
-                        <div class="cell"><img src="/data/img/projects/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}"/><legend>{{ img.description }}</legend></div>
+                        <div class="cell"><img class="project-image" src="/data/img/projects/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}"/><legend>{{ img.description }}</legend></div>
                         {% endif %}
                     {% endfor %}
                 </div>
