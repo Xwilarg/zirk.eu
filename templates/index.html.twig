@@ -3,18 +3,13 @@
 {% block content %}
 <div class="tabs is-centered is-medium is-toggle mt-5" id="main-nav">
     <ul>
-        <li class="is-active"><a href="#main">Main</a></li>
+        <li class="is-active"><a href="#main">Projects</a></li>
         <li><a href="#gamejam">Gamejams</a></li>
         <li><a href="#about">About</a></li>
     </ul>
 </div>
 <div id="articles">
     <div id="target-main">
-        <div class="container notification">
-            Welcome on my website<br>
-            Things are quite more empty than before, the old website was a bit of a mess on some points so I'm slowly redoing things with Bulma<br>
-            And of course as a good developer I'm pushing in prod <span class="material-symbols-outlined">plumbing</span>
-        </div>
         <div class="container">
             <h2 class="title">Ongoing projects</h2>
             {% for project in projects %}
