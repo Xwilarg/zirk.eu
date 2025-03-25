@@ -68,6 +68,10 @@ legend {
     margin-bottom: 1.5rem;
 }
 
+option {
+    color: white;
+}
+
 /* FAQ */
 .answer {
     padding: 1em
