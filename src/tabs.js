@@ -27,5 +27,11 @@ export function setupTabs() {
         if (urlParam === link.querySelector("a").href.split('#')[1]) {
             goToTab(mainNav, link);
         }
+
+        for (let btn of document.querySelectorAll(`.target-${link.querySelector("a").href.split('#')[1]}`)) {
+            btn.addEventListener("click", (_) => {
+                goToTab(mainNav, link);
+            });
+        }
     }
 }
