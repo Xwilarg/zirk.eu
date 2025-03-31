@@ -35,7 +35,7 @@
 <div class="jam-field select is-multiple">
     <select id="filter-duration" multiple>
         <option value="0-1">≤1h</option>
-        <option value="2-24" selected>≤1 day</option>
+        <option value="2-24">≤1 day</option>
         <option value="25-48" selected>2 days</option>
         <option value="49-72" selected>3 days</option>
         <option value="73-168" selected>1 week</option>
@@ -58,6 +58,12 @@
         {% for y in "now"|date("Y").."2016-01-01"|date("Y") %}
             <option value="{{y}}">{{y}}</option>
         {% endfor %}
+    </select>
+</div>
+<div class="jam-field select">
+    <select id="filter-order">
+        <option value="date">Sort by date</option>
+        <option value="score">Sort by score</option>
     </select>
 </div>
 <br>

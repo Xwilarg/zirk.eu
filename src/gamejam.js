@@ -117,4 +117,20 @@ export function setupGamejams()
             }
         });
     }
+
+    document.getElementById("filter-order").addEventListener("change", e => {
+        let i = 0;
+        if (e.target.value === "date") {
+            for (let elem of [...document.querySelectorAll(".gamejam")].sort((a, b) => { return Date.parse(b.dataset.date) - Date.parse(a.dataset.date); })) {
+                elem.style.order = i.toString();
+                i++;
+            }
+        } else if (e.target.value === "score") {
+            console.log(document.querySelectorAll(".gamejam"));
+            for (let elem of [...document.querySelectorAll(".gamejam")].sort((a, b) => { return a.dataset.score === b.dataset.score ? parseInt(b.dataset.entries) - parseInt(a.dataset.entries) : parseFloat(a.dataset.score) - parseFloat(b.dataset.score); })) {
+                elem.style.order = i.toString();
+                i++;
+            }
+        }
+    });
 }
