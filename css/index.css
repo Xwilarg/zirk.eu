@@ -4,6 +4,11 @@
     pointer-events: none;
 }
 
+/* Make sure preview window don't overflow */
+#modal-preview img {
+    max-height: 90vh;
+}
+
 /* By default blug overflow go overflow container */
 .gamejam .image {
     overflow: hidden
@@ -84,4 +89,5 @@ option {
 /* Project */
 .project-image {
     max-height: 394px;
+    cursor: pointer;
 }
