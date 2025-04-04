@@ -1,10 +1,14 @@
 export function setupLifeline() {
-    fetch("/lifeline/send.php")
-    .then(resp => resp.ok ? resp.json() : Promise.reject(`${resp.status}`))
-    .then(json => {
-        console.log(json);
-        document.getElementById("lifelines").innerHTML =
-        "<div>" + Object.keys(json).map(x => `<p>${x}: ${json[x] ?? "Broken"}</p>`).join("<br>") + "</div>";
-    })
-    .catch((err) => { console.error(err); });
+    document.getElementById("lifelines-update").addEventListener("click", e => {
+        fetch("/lifeline/send.php")
+        .then(resp => resp.ok ? resp.json() : Promise.reject(`${resp.status}`))
+        .then(json => {
+            for (const [key, value] of Object.entries(json)) {
+                document.getElementById(`lifeline-${key}`).innerHTML = value ?? "Broken";
+            }
+        })
+        .catch((err) => { console.error(err); });
+
+        e.target.classList.add("is-hidden");
+    });
 }

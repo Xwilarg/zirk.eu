@@ -74,8 +74,14 @@
     <div class="is-hidden container" id="target-about">
         <div class="section">
             <h2 class="subtitle">Lifelines</h2>
-            <div id="lifelines">
+            <div>
+                {% for line in lifelines %}
+                    <p>
+                        {{ line.name }}: <span id="lifeline-{{line.name}}">{{ line.id ?? "Broken" }}</span>
+                    </p>
+                {% endfor %}
             </div>
+            <button class="button" id="lifelines-update">Pull lines</button>
         </div>
         <div class="section">
             {% include 'faq.html.twig' %}

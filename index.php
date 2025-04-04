@@ -1,5 +1,4 @@
 <?php
-
 require_once "vendor/autoload.php";
 
 use Twig\Loader\FilesystemLoader;
@@ -108,6 +107,14 @@ arsort($events);
 arsort($languages);
 arsort($people);
 
+$db = new SQLite3('lifeline/lifeline.db');
+
+$lifelines = [];
+$results = $db->query("SELECT name, id, lastInsert FROM lifelines");
+while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
+    array_push($lifelines, $row);
+}
+
 echo $twig->render("index.html.twig", [
     "jams" => [
         "data" => $jamData,
@@ -120,5 +127,6 @@ echo $twig->render("index.html.twig", [
     "nsfw" => $nsfw,
     "home" => json_decode(file_get_contents("data/json/home.json"), true),
     "projects" => json_decode(file_get_contents("data/json/projects.json"), true),
-    "analyticsKey" => json_decode(file_get_contents("data/json/analytics.json"), true)["key"]
+    "analyticsKey" => json_decode(file_get_contents("data/json/analytics.json"), true)["key"],
+    "lifelines" => $lifelines
 ]);
