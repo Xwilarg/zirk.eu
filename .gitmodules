@@ -4,3 +4,6 @@
 [submodule "lifeline"]
 	path = lifeline
 	url = https://github.com/Xwilarg/Lifeline
+[submodule "lore"]
+	path = lore
+	url = https://github.com/Xwilarg/zirk.eu-lore
