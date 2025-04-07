@@ -1,37 +1,52 @@
-<h2 class="subtitle">Questions</h2>
-<div class="button container question" id="contact">How can I contact you?</div>
-<div class="container is-hidden answer" id="answer-contact">
-    You can either contact me on Discord at <code>zirk</code> or by mail at <a href="mailto:contact@zirk.eu">contact@zirk.eu</a><br>
-    <small>Please don't message me about improving my website ranking or promoting your stuff, I'm not answering them</small>
+<div class="section">
+    <h2 class="subtitle">Tell me more about...</h2>
+    <div class="button container question" id="more-gamejam">... gamejams</div>
+    <div class="container is-hidden answer" id="answer-more-gamejam">
+        Gamejams are events where you need to make a game given a duration and a set of constraints<br>
+        Constraints are usually a theme but they can also be technical constraints (make a game for gameboy), thematic constraints (make a game related to Touhou) or anything left!
+    </div>
+    <div class="button container question" id="more-lifeline">... lifelines</div>
+    <div class="container is-hidden answer" id="answer-more-lifeline">
+        <a href="https://github.com/Xwilarg/Lifeline">Lifelines</a> are a small project which have for goal to link two websites!<br>
+        Everytimes you "pull" the line, it send a unique identifier to the other website, ensuring that both websites are in communication
+    </div>
 </div>
-<div class="button container question" id="framework">What is this website made with?</div>
-<div class="container is-hidden answer" id="answer-framework">
-    This website was made using <a href="https://twig.symfony.com/" target="_blank">Twig</a> for the structure and <a href="https://bulma.io/" target="_blank">Bulma</a> for the styling<br>
-    <br>
-    I'm have been <a href="/data/img/website/v1.png" target="_blank">redoing</a> <a href="/data/img/website/v2.png" target="_blank">this</a> <a href="/data/img/website/v3.png" target="_blank">website</a> <a href="/data/img/website/v4.png" target="_blank">maybe</a> <a href="/data/img/website/v5.png" target="_blank">too</a> <a href="/data/img/website/v6.png" target="_blank">many</a> <a href="/data/img/website/v7.png" target="_blank">times</a><br>
-    ...But this time I have a good structure and good framework so this should be the last time... Right?<br>
-    <br>
-    Source code <a href="https://github.com/Xwilarg/zirk.eu" target="_blank">is available on GitHub</a><br>
-    If you are interested by older versions, there are also repos for <a href="https://github.com/Xwilarg/zirk.eu-v7" target="_blank">V6/V7</a>, <a href="https://github.com/Xwilarg/zirk.eu-v5" target="_blank">V5</a> and <a href="https://github.com/Xwilarg/zirk.eu-old" target="_blank">older versions</a>
-</div>
-<div class="button container question" id="data">What information does this website collect?</div>
-<div class="container is-hidden answer" id="answer-data">
-    This website is using <a href="https://github.com/Astylodon/Shika" target="_blank">Shika</a> for its analytics<br>
-    We still need to write a proper privacy policy for it, but basically we don't collect store anything that associate data to an user
-</div>
-<div class="button container question" id="nsfw">How to toggle sensitive content?</div>
-<div class="container is-hidden answer" id="answer-nsfw">
-    {% if nsfw %}
-        You are on the adult version of this website<br>
+<div class="section">
+    <h2 class="subtitle">Technical details</h2>
+    <div class="button container question" id="contact">How can I contact you?</div>
+    <div class="container is-hidden answer" id="answer-contact">
+        You can either contact me on Discord at <code>zirk</code> or by mail at <a href="mailto:contact@zirk.eu">contact@zirk.eu</a><br>
+        <small>Please don't message me about improving my website ranking or promoting your stuff, I'm not answering them</small>
+    </div>
+    <div class="button container question" id="framework">What is this website made with?</div>
+    <div class="container is-hidden answer" id="answer-framework">
+        This website was made using <a href="https://twig.symfony.com/" target="_blank">Twig</a> for the structure and <a href="https://bulma.io/" target="_blank">Bulma</a> for the styling<br>
         <br>
-        You can choose to go back on the all-age version by clicking here: <a class="button" href="?s=1">Disable mature content</a>
-    {% else %}
-        You are on the all-ages version of this website<br>
+        I'm have been <a href="/data/img/website/v1.png" target="_blank">redoing</a> <a href="/data/img/website/v2.png" target="_blank">this</a> <a href="/data/img/website/v3.png" target="_blank">website</a> <a href="/data/img/website/v4.png" target="_blank">maybe</a> <a href="/data/img/website/v5.png" target="_blank">too</a> <a href="/data/img/website/v6.png" target="_blank">many</a> <a href="/data/img/website/v7.png" target="_blank">times</a><br>
+        ...But this time I have a good structure and good framework so this should be the last time... Right?<br>
         <br>
-        You can choose opt-in for mature content by clicking here: <a class="button" href="?s=0">Enable mature content</a>
-    {% endif %}
-</div>
-<div class="button container question" id="other">Anything else?</div>
-<div class="container is-hidden answer has-text-centered" id="answer-other">
-    <img class="is-image" src="/img/potato.png"/>
+        Source code <a href="https://github.com/Xwilarg/zirk.eu" target="_blank">is available on GitHub</a><br>
+        If you are interested by older versions, there are also repos for <a href="https://github.com/Xwilarg/zirk.eu-v7" target="_blank">V6/V7</a>, <a href="https://github.com/Xwilarg/zirk.eu-v5" target="_blank">V5</a> and <a href="https://github.com/Xwilarg/zirk.eu-old" target="_blank">older versions</a>
+    </div>
+    <div class="button container question" id="data">What information does this website collect?</div>
+    <div class="container is-hidden answer" id="answer-data">
+        This website is using <a href="https://github.com/Astylodon/Shika" target="_blank">Shika</a> for its analytics<br>
+        We still need to write a proper privacy policy for it, but basically we don't collect store anything that associate data to an user
+    </div>
+    <div class="button container question" id="nsfw">How to toggle sensitive content?</div>
+    <div class="container is-hidden answer" id="answer-nsfw">
+        {% if nsfw %}
+            You are on the adult version of this website<br>
+            <br>
+            You can choose to go back on the all-age version by clicking here: <a class="button" href="?s=1">Disable mature content</a>
+        {% else %}
+            You are on the all-ages version of this website<br>
+            <br>
+            You can choose opt-in for mature content by clicking here: <a class="button" href="?s=0">Enable mature content</a>
+        {% endif %}
+    </div>
+    <div class="button container question" id="other">Anything else?</div>
+    <div class="container is-hidden answer has-text-centered" id="answer-other">
+        <img class="is-image" src="/img/potato.png"/>
+    </div>
 </div>
