@@ -1,4 +1,5 @@
 import { setupGamejams } from "./gamejam";
+import { setupLeaflet } from "./leaflet";
 import { setupLifeline } from "./lifeline";
 import { setupPreview } from "./preview";
 import { setupQuestions } from "./question";
@@ -11,6 +12,7 @@ async function initAsync() {
     setupQuestions();
     setupLifeline();
     setupPreview();
+    setupLeaflet();
 }
 
 document.onreadystatechange = async function () {

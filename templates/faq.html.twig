@@ -33,6 +33,7 @@
         This website is using <a href="https://github.com/Astylodon/Shika" target="_blank">Shika</a> for its analytics<br>
         We still need to write a proper privacy policy for it, but basically we don't collect store anything that associate data to an user
     </div>
+    {% if not fullSfw %}
     <div class="button container question" id="nsfw">How to toggle sensitive content?</div>
     <div class="container is-hidden answer" id="answer-nsfw">
         {% if nsfw %}
@@ -45,6 +46,7 @@
             You can choose opt-in for mature content by clicking here: <a class="button" href="?s=0">Enable mature content</a>
         {% endif %}
     </div>
+    {% endif %}
     <div class="button container question" id="other">Anything else?</div>
     <div class="container is-hidden answer has-text-centered" id="answer-other">
         <img class="is-image" src="/img/potato.png"/>

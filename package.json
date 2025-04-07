@@ -4,5 +4,8 @@
   },
   "devDependencies": {
     "esbuild": "^0.24.2"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
   }
 }

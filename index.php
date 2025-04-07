@@ -8,6 +8,7 @@ $loader = new FilesystemLoader(["templates"]);
 $twig = new Environment($loader);
 
 $nsfw = isset($_GET["s"]) && $_GET["s"] === "0";
+$fullSfw = isset($_GET["s"]) && $_GET["s"] === "2";
 
 // Gamejams
 $jamData = array();
@@ -125,6 +126,7 @@ echo $twig->render("index.html.twig", [
         "people" => $people
     ],
     "nsfw" => $nsfw,
+    "fullSfw" => $fullSfw,
     "home" => json_decode(file_get_contents("data/json/home.json"), true),
     "projects" => json_decode(file_get_contents("data/json/projects.json"), true),
     "analyticsKey" => json_decode(file_get_contents("data/json/analytics.json"), true)["key"],
