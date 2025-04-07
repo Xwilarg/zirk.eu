@@ -80,6 +80,13 @@
         <div class="section">
             {% include 'faq.html.twig' %}
         </div>
+        <div>
+            <div class="button container question" id="prod-debug">Ohno please don't click here</div>
+            <div class="container is-hidden answer" id="answer-prod-debug">
+                If you're reading this, it's because I'm coding new features in production (yay)<br>
+                {% include 'lore.html.twig' %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

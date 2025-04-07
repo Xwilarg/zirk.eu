@@ -1,3 +1,8 @@
+/* Lore */
+#lore-container {
+    height: 500px;
+}
+
 /* Hide NSFW content */
 .blur {
     filter: blur(25px);
