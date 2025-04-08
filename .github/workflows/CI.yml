@@ -43,5 +43,5 @@ jobs:
         username: ${{ secrets.DEPLOY_USER }}
         port: 22
         key: ${{ secrets.DEPLOY_SSHKEY }}
-        source: "css/,data/,img/,js/,templates/,index.php,vendor/,sketch/,favicon.ico"
+        source: "css/,data/,img/,js/,templates/,index.php,vendor/,sketch/,lifeline/,lore/,node_modules/,favicon.ico"
         target: ${{ secrets.DEPLOY_TARGET }}
