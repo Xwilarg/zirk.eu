@@ -4,7 +4,7 @@ export function setupLifeline() {
         .then(resp => resp.ok ? resp.json() : Promise.reject(`${resp.status}`))
         .then(json => {
             for (const [key, value] of Object.entries(json)) {
-                document.getElementById(`lifeline-${key}`).innerHTML = value ?? "Broken";
+                document.getElementById(`lifeline-${key}`).innerHTML = value["id"] ?? "Broken";
             }
         })
         .catch((err) => { console.error(err); });
