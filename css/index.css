@@ -11,7 +11,8 @@
 }
 
 #map-preview {
-    width: 50%;
+    max-width: 50%;
+    max-height: 560px;
 }
 
 @media (max-width: 1000px) {
@@ -25,7 +26,8 @@
     }
 
     #map-preview {
-        width: 100%;
+        max-width: 100%;
+        max-height: calc(560px / 2);
     }
 }
 
