@@ -92,13 +92,13 @@
         </div>
         <div class="section">
             <h2 class="subtitle">Travels</h2>
-            <div id="map"></div>
-            <div>
-                <script type="application/json" id="travels-json">
-                    {{ travels | replace({'<': '&lt;' }) | raw }}
-                </script>
+            <div id="map-container">
+                <div id="map"></div>
                 <img id="map-preview" class="is-hidden"/>
             </div>
+            <script type="application/json" id="travels-json">
+                {{ travels | replace({'<': '&lt;' }) | raw }}
+            </script>
         </div>
         {% include 'faq.html.twig' %}
     </div>

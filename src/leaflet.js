@@ -8,7 +8,6 @@ export function setupLeaflet() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     const travels = JSON.parse(document.getElementById("travels-json").innerHTML);
-    console.log(travels);
     for (const dest of travels) {
         L.marker([dest.lat, dest.long]).addTo(map).on('click', () => { showOnClick(`/data/travel/${dest.image}.jpg`) });
     }
