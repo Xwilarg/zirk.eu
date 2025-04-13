@@ -51,8 +51,12 @@ textarea {
 }
 
 /* Make sure preview window don't overflow */
-#modal-preview img {
-    max-height: 90vh;
+.modal-content {
+    width: 90%;
+}
+
+#image-preview {
+    object-fit: contain;
 }
 
 /* By default blug overflow go overflow container */
