@@ -1,3 +1,16 @@
+#steam img {
+    max-width: 50%;
+}
+@media (max-width: 1000px) {
+    #steam img {
+        max-width: 100%;
+    }
+}
+
+textarea {
+    resize: none !important;
+}
+
 /* Leaflet map */
 #map {
     height: 560px;

@@ -10,6 +10,11 @@
         <a href="https://github.com/Xwilarg/Lifeline">Lifelines</a> are a small project which have for goal to link two websites!<br>
         Everytimes you "pull" the line, it send a unique identifier to the other website, ensuring that both websites are in communication
     </div>
+    <div class="button container question" id="more-travel">... travel</div>
+    <div class="container is-hidden answer" id="answer-more-travel">
+        Click a pin on the map to see the photo that was taken there!<br>
+        Sometimes the map doesn't load well, in that case you can just reload the page and it should be fixed
+    </div>
 </div>
 <div class="section">
     <h2 class="subtitle">Technical details</h2>
@@ -47,6 +52,12 @@
         {% endif %}
     </div>
     {% endif %}
+    <span id="lore-tab-faq">
+        <div class="button container question" id="secret">Any content hidden?</div>
+        <div class="container is-hidden answer" id="answer-secret">
+            <button id="lore-tab-button" class="button">Yes</button>
+        </div>
+    </span>
     <div class="button container question" id="other">Anything else?</div>
     <div class="container is-hidden answer has-text-centered" id="answer-other">
         <img class="is-image" src="/img/potato.png"/>

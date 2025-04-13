@@ -13,6 +13,7 @@
         <li class="is-active"><a href="#main">Home</a></li>
         <li><a href="#project">Projects</a></li>
         <li><a href="#gamejam">Gamejams</a></li>
+        <li class="is-hidden" id="lore-tab"><a href="#lore">Lore</a></li>
         <li><a href="#about">About</a></li>
     </ul>
 </div>
@@ -78,6 +79,20 @@
             {% endfor %}
         </div>
     </div>
+    <div class="is-hidden container is-fluid" id="target-lore">
+        <h2 class="subtitle">Lore</h2>
+        <div class="container">
+            <textarea class="textarea" id="lore-field" readonly></textarea>
+            <form class="field has-addons container" id="lore-form">
+                <p class="control is-expanded">
+                    <input type="text" class="input" id="lore-input" />
+                </p>
+                <p class="control">
+                    <button class="button is-link" type="submit">Send</button>
+                </p>
+            </form>
+        </div>
+    </div>
     <div class="is-hidden container" id="target-about">
         <div class="section">
             <h2 class="subtitle">Lifelines</h2>
@@ -99,6 +114,31 @@
             <script type="application/json" id="travels-json">
                 {{ travels | replace({'<': '&lt;' }) | raw }}
             </script>
+        </div>
+        <div class="section">
+            <h2 class="subtitle">Lore</h2>
+            <div>
+                <textarea class="textarea" id="lore-field" readonly></textarea>
+                <form class="field has-addons container" id="lore-form">
+                    <p class="control is-expanded">
+                        <input type="text" class="input" id="lore-input" />
+                    </p>
+                    <p class="control">
+                        <button class="button is-link" type="submit">Send</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="subtitle">Games</h2>            
+            <div class="button container question" id="games-replay">Steam replay</div>
+            <div class="container is-hidden answer" id="answer-games-replay">
+                <div class="is-flex is-flex-wrap-wrap" id="steam">
+                    <img src="/data/img/steam/2024.png" />
+                    <img src="/data/img/steam/2023.png" />
+                    <img src="/data/img/steam/2022.png" />
+                </div>
+            </div>
         </div>
         {% include 'faq.html.twig' %}
     </div>
