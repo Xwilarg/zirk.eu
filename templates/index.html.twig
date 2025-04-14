@@ -14,6 +14,7 @@
         <li><a href="#project">Projects</a></li>
         <li><a href="#gamejam">Gamejams</a></li>
         <li class="is-hidden" id="lore-tab"><a href="#lore">Lore</a></li>
+        <li><a href="#console">Console</a></li>
         <li><a href="#about">About</a></li>
     </ul>
 </div>
@@ -91,6 +92,20 @@
                     <button class="button is-link" type="submit">Send</button>
                 </p>
             </form>
+        </div>
+    </div>
+    <div class="is-hidden container is-fluid" id="target-console">
+        <h2 class="subtitle">Console</h2>
+        <div class="container">
+            <div id="console-explanations">
+                Micropis are hidden around this website, each of them are capable of doing one simple task, try to find them and compile your own nanopi!<br>
+                <button class="button micropi" data-instruction="print">PRINT</button>
+            </div>
+            <hr/>
+            <div id="console-data">You look around you and see a bunch of empty small seats, any micropi that would seat on them would feel very comfortable</div>
+            <textarea class="textarea" id="console-field" rows="15"></textarea>
+            <textarea class="textarea" id="console-output" rows="10" readonly></textarea>
+            <button class="button is-link" id="console-btn">Input</button>
         </div>
     </div>
     <div class="is-hidden container" id="target-about">
