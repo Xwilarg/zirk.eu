@@ -107,22 +107,26 @@
             <button class="button" id="lifelines-update">Pull lines</button>
         </div>
         <div class="section">
-            <h2 class="subtitle">Travels</h2>
-            <div id="map-container">
-                <div id="map"></div>
-                <img id="map-preview" class="is-hidden"/>
+            <h2 class="subtitle">About me</h2>
+            <div class="button container question" id="travels">Travels</div>
+            <div class="container is-hidden answer" id="answer-travels">
+                <div id="map-container">
+                    <div id="map"></div>
+                    <img id="map-preview" class="is-hidden"/>
+                </div>
+                <script type="application/json" id="travels-json">
+                    {{ travels | replace({'<': '&lt;' }) | raw }}
+                </script>
             </div>
-            <script type="application/json" id="travels-json">
-                {{ travels | replace({'<': '&lt;' }) | raw }}
-            </script>
-        </div>
-        <div class="section">
-            <h2 class="subtitle">Console</h2>            
             <div class="button container question" id="console">Micropis</div>
             <div class="container is-hidden answer" id="answer-console">
                 <div id="console-explanations">
                     Micropis are hidden around this website, each of them are capable of doing one simple task, try to find them and compile your own nanopi!<br>
-                    <button class="button micropi" data-instruction="print">PRINT</button>
+                    <!--
+                    <button class="button micropi" data-instruction="print">PRINT</button> 
+                    <button class="button micropi" data-instruction="add">ADD</button>
+                    <button class="button micropi" data-instruction="remove">REMOVE</button>
+                    -->
                 </div>
                 <hr/>
                 <div id="console-data">You look around you and see a bunch of empty small seats, any micropi that would seat on them would feel very comfortable</div>
@@ -130,9 +134,6 @@
                 <textarea class="textarea" id="console-output" rows="10" readonly></textarea>
                 <button class="button is-link" id="console-btn">Input</button>
             </div>
-        </div>
-        <div class="section">
-            <h2 class="subtitle">Games</h2>            
             <div class="button container question" id="games-replay">Steam replay</div>
             <div class="container is-hidden answer" id="answer-games-replay">
                 <div class="is-flex is-flex-wrap-wrap" id="steam">

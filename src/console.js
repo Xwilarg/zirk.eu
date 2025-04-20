@@ -1,4 +1,4 @@
-export function setupSecret() {
+export function setupControl() {
     document.getElementById("console-btn").addEventListener("click", _ => {
         let content = document.getElementById("console-field");
         compile(content.value.split("\n"));
@@ -19,6 +19,7 @@ export function setupSecret() {
             }
         });
     }
+    updateMicropiDisplay();
 }
 
 function updateMicropiDisplay() {
@@ -44,7 +45,7 @@ let validInstructions = [
     new Instruction("REMOVE", 1, "REMOVE value: Remove a value to the buffer", p => buffer[0] -= p),
     new Instruction("PRINT", 0, "PRINT: Print the current value on screen", () => finalBuffer += String.fromCharCode(buffer[0]))
 ];
-let myInstructions = [];
+let myInstructions = validInstructions; // TODO: When hidden replace by "[]"
 function compile(data) {
     let content = document.getElementById("console-output");
 

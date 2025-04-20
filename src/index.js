@@ -4,7 +4,7 @@ import { setupLifeline } from "./lifeline";
 import { setupLore } from "./lore";
 import { setupPreview } from "./preview";
 import { setupQuestions } from "./question";
-import { setupSecret } from "./secret";
+import { setupControl } from "./console";
 import { setupTabs } from "./tabs";
 
 
@@ -16,7 +16,7 @@ async function initAsync() {
     setupPreview();
     setupLeaflet();
     setupLore();
-    setupSecret();
+    setupControl();
 }
 
 document.onreadystatechange = async function () {
