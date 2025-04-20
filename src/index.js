@@ -6,6 +6,7 @@ import { setupPreview } from "./preview";
 import { setupQuestions } from "./question";
 import { setupControl } from "./console";
 import { setupTabs } from "./tabs";
+import { setupSketch } from "./sketch";
 
 
 async function initAsync() {
@@ -17,6 +18,7 @@ async function initAsync() {
     setupLeaflet();
     setupLore();
     setupControl();
+    setupSketch();
 }
 
 document.onreadystatechange = async function () {
