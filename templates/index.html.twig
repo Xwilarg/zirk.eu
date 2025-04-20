@@ -19,25 +19,37 @@
 </div>
 <div id="articles">
     <div id="target-main">
-        <div class="container">
+        <div class="container is-flex is-flex-wrap-wrap">
             {% for elem in home %}
-            <div class="content">
-                <h3 class="subtitle">{{ elem.name }}</h2>
-            </div>
-            <div class="content">
-                {% if nsfw and elem.link.nsfw or not elem.link.nsfw %}
-                    {% if elem.link.target %}
-                        <a class="button is-primary target-{{ elem.link.target }}" href="#{{ elem.link.target }}"/>{{ elem.link.name }}</a>
-                    {% else %}
-                        <a class="button is-primary" href="{{ elem.link.content }}" target="_blank"/>{{ elem.link.name }}</a>
-                    {% endif %}
-                {% endif %}
-            </div>
-            <div class="fixed-grid has-3-cols">
-                <div class="grid">
-                    {% for img in elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
-                        <div class="cell"><img class="project-image" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}"/><legend>{{ img.description }}</legend></div>
-                    {% endfor %}
+            <div class="card">
+                <div class="card-content">
+                    <div class="content">
+                        <h2 class="title">{{ elem.name }}</h2>
+                        <p class="subtitle">{{ elem.catch }}</p>
+                    </div>
+                    <div class="content">
+                        {% if nsfw and elem.link.nsfw or not elem.link.nsfw %}
+                            {% if elem.link.target %}
+                                <a class="button is-primary target-{{ elem.link.target }}" href="#{{ elem.link.target }}"/>{{ elem.link.name }}</a>
+                            {% else %}
+                                <a class="button is-primary" href="{{ elem.link.content }}" target="_blank"/>{{ elem.link.name }}</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="is-flex card-images">
+                        {% set img = elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw)) | first %}
+                        <div class="is-flex is-align-items-center">
+                            <div>
+                                <img class="project-image" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}"/>
+                                <legend>{{ img.description }}</legend>
+                            </div>
+                        </div>
+                        <div class="menu-container is-flex is-flex-direction-column">
+                            {% for key,img in elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
+                                <img class="small {% if key == 0 %}selected{% endif %}" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}" data-preview="{{ img.description }}"/>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}

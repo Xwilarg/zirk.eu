@@ -141,7 +141,27 @@ option {
 }
 
 /* Project */
-.project-image {
-    max-height: 394px;
+.menu-container img {
     cursor: pointer;
+}
+
+.project-image {
+    width: 400px;
+    height: auto;
+}
+
+.project-image.small{
+    max-height: 150px;
+}
+
+#target-main .is-flex {
+    gap: 10px;
+}
+
+.menu-container {
+    width: 150px;
+}
+
+.menu-container img:not(.selected) {
+    filter: brightness(25%);
 }
