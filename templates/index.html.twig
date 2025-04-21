@@ -40,13 +40,13 @@
                         {% set img = elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw)) | first %}
                         <div class="is-flex is-align-items-center">
                             <div>
-                                <img loading="lazy" class="project-image" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}"/>
+                                <img class="project-image" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}"/>
                                 <legend>{{ img.description }}</legend>
                             </div>
                         </div>
                         <div class="menu-container is-flex is-flex-direction-column">
                             {% for key,img in elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
-                                <img loading="lazy" class="small {% if key == 0 %}selected{% endif %}" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}" data-preview="{{ img.description }}"/>
+                                <img class="small {% if key == 0 %}selected{% endif %}" src="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}" data-preview="{{ img.description }}"/>
                             {% endfor %}
                         </div>
                     </div>
@@ -73,7 +73,7 @@
             <div class="fixed-grid has-3-cols">
                 <div class="grid">
                     {% for img in project.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
-                        <div class="cell"><img class="project-image" src="/data/img/projects/{{ img.name }}" alt="{{ img.description }}"/><legend>{{ img.description }}</legend></div>
+                        <div class="cell"><img loading="lazy" class="project-image" src="/data/img/projects/{{ img.name }}" alt="{{ img.description }}"/><legend>{{ img.description }}</legend></div>
                     {% endfor %}
                 </div>
             </div>
@@ -85,7 +85,7 @@
             <div class="fixed-grid has-3-cols">
                 <div class="grid" id="old-projects">
                     {% for p in projectsOld | filter(x => nsfw or not x.nsfw) %}
-                        <div class="cell is-hidden"><img class="project-image" src="/data/img/projects-old/{{ p.image.id }}.png" alt="{{ p.description }}"/><legend>{{ p.description }}</legend></div>
+                        <div class="cell is-hidden"><img loading="lazy" class="project-image" src="/data/img/projects-old/{{ p.image.id }}.png" alt="{{ p.description }}"/><legend>{{ p.description }}</legend></div>
                     {% endfor %}
                 </div>
             </div>
@@ -104,19 +104,7 @@
         </div>
     </div>
     <div class="is-hidden container is-fluid" id="target-lore">
-        <h2 class="subtitle">Lore</h2>
-        <div class="container">
-            <textarea class="textarea" id="lore-field" readonly></textarea>
-            <form class="field has-addons container" id="lore-form">
-                <p class="control is-expanded">
-                    <input type="text" class="input" id="lore-input" />
-                </p>
-                <p class="control">
-                    <button class="button is-link" type="submit">Send</button>
-                </p>
-            </form>
-            <div id="lore-network"></div>
-        </div>
+            {% include 'lore.html.twig' %}
     </div>
     <div class="is-hidden container" id="target-about">
         <div class="section">

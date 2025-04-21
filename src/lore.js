@@ -18,11 +18,11 @@ export function setupLore() {
         .then(resp => resp.ok ? resp.json() : Promise.reject(`${resp.status}`))
         .then(json => {
             document.getElementById("lore-field").value = json.data.join("\n");
-            if (!(inputValue in discovered)) {
+            if (!(json.hash in discovered)) {
                 const id = Object.keys(discovered).length;
-                discovered[inputValue] = id;
+                discovered[json.hash] = id;
                 let group = categories.indexOf(json.category);
-                nodes.push({ id: id, label: json.name, group: group, color: colors[group], shape: "circle" });
+                nodes.push({ id: id, label: json.name, group: group, color: colors[group], shape: "circle", search: inputValue });
 
                 for (let l of json.links)
                 {
@@ -51,5 +51,11 @@ function renderNetwork() {
     };
     const options = {};
 
-    new vis.Network(container, data, options);
+    const network = new vis.Network(container, data, options);
+    network.on('click', function(properties) {
+    var ids = properties.nodes;
+    if (ids.length > 0) {
+    console.log(nodes.filter(x => ids.includes(x.id)));
+    }
+});
 }

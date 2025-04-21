@@ -1,3 +1,8 @@
+/* https://github.com/jgthms/bulma/issues/2398 */
+.card:last-child {
+    margin-bottom: 1.5rem;
+}
+
 #lore-network {
     height: 500px;
 }
