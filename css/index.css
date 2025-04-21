@@ -146,8 +146,12 @@ option {
 }
 
 .project-image {
-    width: 400px;
+    display: block;
+    width: auto;
     height: auto;
+    max-width: 400px;
+    max-height: 400px;
+    cursor: pointer;
 }
 
 .project-image.small{
