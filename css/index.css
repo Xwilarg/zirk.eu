@@ -3,6 +3,11 @@
     margin-bottom: 1.5rem;
 }
 
+i > i {
+    position: absolute;
+    font-size: 50%;
+}
+
 #lore-network {
     height: 500px;
 }
@@ -141,7 +146,12 @@ option {
     padding: 1em
 }
 
-.answer a:not(.button):hover {
+#socials {
+    margin-bottom: 2em;
+    font-size: 1.75em;
+}
+
+.answer a:not(.button):hover, #socials a:hover {
     color: lightblue;
 }
 
@@ -166,8 +176,12 @@ option {
     max-height: 150px;
 }
 
-#target-main .is-flex {
+#target-main .is-flex:not(#socials) {
     gap: 10px;
+}
+
+#target-main .is-flex#socials {
+    gap: 20px;
 }
 
 .menu-container {
