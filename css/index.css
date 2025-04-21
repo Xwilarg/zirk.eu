@@ -146,6 +146,10 @@ option {
 }
 
 /* Project */
+#target-main .card {
+    width: 550px;
+}
+
 .menu-container img {
     cursor: pointer;
 }
@@ -154,7 +158,6 @@ option {
     display: block;
     width: auto;
     height: auto;
-    max-width: 400px;
     max-height: 400px;
     cursor: pointer;
 }

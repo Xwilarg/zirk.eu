@@ -2,9 +2,12 @@ let discovered = {};
 let links = [];
 let nodes = [];
 
+let content = {};
+
 let colors = [ "#ff7f7f" ];
 
 let categories = [ "katsis" ];
+let censor = false;
 
 export function setupLore() {
     const loreInput = document.getElementById("lore-input");
@@ -21,8 +24,9 @@ export function setupLore() {
             if (!(json.hash in discovered)) {
                 const id = Object.keys(discovered).length;
                 discovered[json.hash] = id;
+                content[id] = json.data.join("\n");
                 let group = categories.indexOf(json.category);
-                nodes.push({ id: id, label: json.name, group: group, color: colors[group], shape: "circle", search: inputValue });
+                nodes.push({ id: id, label: censor ? (json.hash.substring(0, 5) + "…") : json.name, group: group, color: colors[group], shape: "circle", name: json.name, hash: json.hash });
 
                 for (let l of json.links)
                 {
@@ -40,6 +44,14 @@ export function setupLore() {
         });
         loreInput.value = "";
     });
+
+    document.getElementById("lore-censor").addEventListener("change", e => {
+        censor = e.target.checked;
+        for (let n of nodes) {
+            n.label = censor ? (n.hash.substring(0, 5) + "…") : n.name;
+        }
+        renderNetwork();
+    })
 }
 
 function renderNetwork() {
@@ -55,7 +67,7 @@ function renderNetwork() {
     network.on('click', function(properties) {
     var ids = properties.nodes;
     if (ids.length > 0) {
-    console.log(nodes.filter(x => ids.includes(x.id)));
+        document.getElementById("lore-field").value = content[ids[0]];
     }
 });
 }
