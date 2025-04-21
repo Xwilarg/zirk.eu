@@ -129,6 +129,7 @@ echo $twig->render("index.html.twig", [
     "fullSfw" => $fullSfw,
     "home" => json_decode(file_get_contents("data/json/home.json"), true),
     "projects" => json_decode(file_get_contents("data/json/projects.json"), true),
+    "projectsOld" => json_decode(file_get_contents("data/json/projects-old.json"), true),
     "analyticsKey" => json_decode(file_get_contents("data/json/analytics.json"), true)["key"],
     "travels" => file_get_contents("data/json/travels.json"),
     "sketch" => json_decode(file_get_contents("data/json/sketch.json"), true),

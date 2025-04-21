@@ -8,6 +8,7 @@ import { setupControl } from "./console";
 import { setupTabs } from "./tabs";
 import { setupSketch } from "./sketch";
 import { setupHome } from "./home";
+import { setupProject } from "./project";
 
 
 async function initAsync() {
@@ -21,6 +22,7 @@ async function initAsync() {
     setupControl();
     setupSketch();
     setupHome();
+    setupProject();
 }
 
 document.onreadystatechange = async function () {
