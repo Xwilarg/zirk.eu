@@ -4,9 +4,9 @@ let nodes = [];
 
 let content = {};
 
-let colors = [ "#ff7f7f" ];
+let colors = [ "#ff7f7f", "#bfbfbf", "#14d983" ];
 
-let categories = [ "katsis" ];
+let categories = [ "katsis", "energy", "god" ];
 let censor = false;
 
 export function setupLore() {
@@ -26,7 +26,14 @@ export function setupLore() {
                 discovered[json.hash] = id;
                 content[id] = json.data.join("\n");
                 let group = categories.indexOf(json.category);
-                nodes.push({ id: id, label: censor ? (json.hash.substring(0, 5) + "…") : json.name, group: group, color: colors[group], shape: "circle", name: json.name, hash: json.hash });
+                nodes.push({
+                    id: id,
+                    label: censor ? (json.hash.substring(0, 5) + "…") : json.name,
+                    group: group,
+                    color: colors[group],
+                    name: json.name,
+                    hash: json.hash
+                });
 
                 for (let l of json.links)
                 {
@@ -61,7 +68,15 @@ function renderNetwork() {
         nodes: new vis.DataSet(nodes),
         edges: new vis.DataSet(links)
     };
-    const options = {};
+    const options = {
+        nodes: {
+            shape: "dot",
+            size: 25,
+            font: {
+                color: "white"
+            }
+        }
+    };
 
     const network = new vis.Network(container, data, options);
     network.on('click', function(properties) {
