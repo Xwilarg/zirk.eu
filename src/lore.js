@@ -13,7 +13,7 @@ export function setupLore() {
     const loreInput = document.getElementById("lore-input");
     document.getElementById("lore-form").addEventListener("submit", e => {
         e.preventDefault();
-        const inputValue = loreInput.value.toLowerCase();
+        const inputValue = loreInput.value.toLowerCase().replaceAll(" ", "");
         fetch("/php/lore.php", {
             method: 'POST',
             body: inputValue
