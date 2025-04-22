@@ -132,6 +132,7 @@ echo $twig->render("index.html.twig", [
     "projectsOld" => json_decode(file_get_contents("data/json/projects-old.json"), true),
     "analyticsKey" => json_decode(file_get_contents("data/json/analytics.json"), true)["key"],
     "travels" => file_get_contents("data/json/travels.json"),
+    "socials" => json_decode(file_get_contents("data/json/socials.json")),
     "sketch" => json_decode(file_get_contents("data/json/sketch.json"), true),
     "lifelines" => $lifelines
 ]);

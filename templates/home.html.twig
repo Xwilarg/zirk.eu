@@ -1,14 +1,3 @@
-<div class="container is-flex is-justify-content-center is-flex-wrap-wrap" id="socials">
-    <a href="https://steamcommunity.com/id/xwilarg/" target="_blank"><i class="fa-brands fa-steam"></i></a>
-    <a href="https://discord.com/users/144851584478740481" target="_blank"><i class="fa-brands fa-discord"></i></a>
-    <a href="https://www.youtube.com/@Xwilarg" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-    <a href="https://www.twitch.tv/xwilarg" target="_blank"><i class="fa-brands fa-twitch"></i></a>
-    <a href="https://github.com/Xwilarg" target="_blank"><i class="fa-brands fa-github"></i></a>
-    <a href="https://zirk.itch.io/" target="_blank"><i class="fa-brands fa-itch-io"></i></a>
-    <a href="https://ldjam.com/users/xwilarg/games" target="_blank"><i class="fa-solid fa-gamepad"><i class="fa-solid fa-l"></i></i></a>
-    <a href="https://globalgamejam.org/users/zirk" target="_blank"><i class="fa-solid fa-gamepad"><i class="fa-solid fa-g"></i></i></a>
-    {% if nsfw %}<a href="https://onehourgamejam.com/?page=author&author=xwilarg" target="_blank"><i class="fa-solid fa-gamepad"><i class="fa-solid fa-o"></i></i></a>{% endif %}
-</div>
 <div class="container is-flex is-flex-wrap-wrap is-justify-content-center">
     {% for elem in home %}
     <div class="card">
@@ -42,5 +31,10 @@
             </div>
         </div>
     </div>
+    {% endfor %}
+</div>
+<div class="container is-flex is-justify-content-center is-flex-wrap-wrap" id="socials">
+    {% for social in socials | filter(x => nsfw or not x.nsfw) %}
+    <a href="{{ social.url }}" target="_blank"><i class="{{ social.icon }}">{% if social.sub %}<i class="{{ social.sub }}"></i>{% endif %}</i></a>
     {% endfor %}
 </div>
