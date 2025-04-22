@@ -17,33 +17,35 @@ function searchItem(inputValue) {
         body: inputValue
     })
     .then(resp => resp.ok ? resp.json() : Promise.reject(`${resp.status}`))
-    .then(json => {
-        document.getElementById("lore-field").value = json.data.join("\n");
-        if (!(json.hash in discovered)) {
-            // Update storage
-            searches.push(inputValue);
-            localStorage.setItem("lore", searches.join(","));
+    .then(res => {
+        for (let json of res) {
+            document.getElementById("lore-field").value = json.data.join("\n");
+            if (!(json.hash in discovered)) {
+                // Update storage
+                searches.push(json.key);
+                localStorage.setItem("lore", searches.join(","));
 
-            const id = Object.keys(discovered).length;
-            discovered[json.hash] = id;
-            content[id] = json.data.join("\n");
-            let group = categories.indexOf(json.category);
-            nodes.push({
-                id: id,
-                label: censor ? (json.hash.substring(0, 5) + "…") : json.name,
-                group: group,
-                color: colors[group],
-                name: json.name,
-                hash: json.hash
-            });
+                const id = Object.keys(discovered).length;
+                discovered[json.hash] = id;
+                content[id] = json.data.join("\n");
+                let group = categories.indexOf(json.category);
+                nodes.push({
+                    id: id,
+                    label: censor ? (json.hash.substring(0, 5) + "…") : json.name,
+                    group: group,
+                    color: colors[group],
+                    name: json.name,
+                    hash: json.hash
+                });
 
-            for (let l of json.links)
-            {
-                if (l in discovered && !links.some(x => (x.from === discovered[l] && x.to === id) || (x.from === id && x.to === discovered[l])))
+                for (let l of json.links)
                 {
-                    links.push({ from: id, to: discovered[l] });
+                    if (l in discovered && !links.some(x => (x.from === discovered[l] && x.to === id) || (x.from === id && x.to === discovered[l])))
+                    {
+                        links.push({ from: id, to: discovered[l] });
+                    }
                 }
-            }
+            } 
         }
 
         renderNetwork();
@@ -57,9 +59,7 @@ export function setupLore() {
     // Update current data with what we stored
     const loreData = localStorage.getItem("lore");
     if (loreData !== null) {
-        for (let e of loreData.split(",")) {
-            searchItem(e);
-        }
+        searchItem(loreData);
     }
 
     // New lore input
