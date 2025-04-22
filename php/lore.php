@@ -7,25 +7,35 @@ function array_in_array($a1, $a2) {
     return false;
 }
 
+$files = [
+    "katsis"    => "katsis.json",
+    "energy"    => "energy.json",
+    "god"       => "god.json",
+    "time"      => "time.json"
+];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = explode(",", strtolower(file_get_contents('php://input')));
-    $data = json_decode(file_get_contents("../lore/data.json"), true);
     $result = [];
 
-    foreach ($data as $key => $value) {
-        if (in_array($key, $input) || array_in_array($input, $value["aliases"])) {
-            $d = $data[$key];
-            $d["key"] = $key;
-            $d["hash"] = sha1($key);
+    foreach ($files as $fName => $fPath) {
+        $data = json_decode(file_get_contents("../lore/$fPath"), true);
+        foreach ($data as $key => $value) {
+            if (in_array($key, $input) || array_in_array($input, $value["aliases"])) {
+                $d = $data[$key];
+                $d["key"] = $key;
+                $d["hash"] = sha1($key);
+                $d["category"] = $fName;
 
-            $links = [];
-            foreach ($d["links"] as $l) {
-                array_push($links, sha1($l));
+                $links = [];
+                foreach ($d["links"] as $l) {
+                    array_push($links, sha1($l));
+                }
+                $d["links"] = $links;
+                unset($d["aliases"]);
+
+                array_push($result, $d);
             }
-            $d["links"] = $links;
-            unset($d["aliases"]);
-
-            array_push($result, $d);
         }
     }
 
