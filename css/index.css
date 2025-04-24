@@ -158,6 +158,7 @@ option {
 /* Project */
 #target-main .card {
     width: 550px;
+    height: 550px;
 }
 
 .menu-container img {
