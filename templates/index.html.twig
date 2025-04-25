@@ -90,36 +90,13 @@
             <div class="container is-hidden answer" id="answer-travels">
                 <div id="map-container">
                     <div id="map"></div>
-                    <img id="map-preview" class="is-hidden"/>
+                    <div id="map-preview-container" class="is-hidden is-flex is-justify-content-center is-align-items-center">
+                        <img id="map-preview"/>
+                    </div>
                 </div>
                 <script type="application/json" id="travels-json">
                     {{ travels | replace({'<': '&lt;' }) | raw }}
                 </script>
-            </div>
-            <div class="button container question" id="games-sketch">Sketch</div>
-            <div class="container is-hidden answer" id="answer-games-sketch">
-                <p id="unity-loading">
-                Loading...
-                </p>
-                <div id="unity-container" class="unity-desktop">
-                    <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-                    <div id="unity-warning"></div>
-                </div>
-                <div id="unity-buttons">
-                {% for s in sketch %}
-                <button class="button" id="sketch-{{ s.id }}" data-scene="{{ s.scene }}">{{ s.name }}</button>
-                {% endfor %}
-                </div>
-                <div id="unity-explanations">
-                <fieldset>
-                    <legend>Explanations</legend>
-                    {% for s in sketch %}
-                    <div id="sketch-{{ s.id }}-expl" hidden>
-                    {{ s.explanations | join("<br>") | raw }}
-                    </div>
-                    {% endfor %}
-                </fieldset>
-                </div>
             </div>
             <div class="button container question" id="console">Micropis</div>
             <div class="container is-hidden answer" id="answer-console">

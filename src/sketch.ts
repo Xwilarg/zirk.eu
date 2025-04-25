@@ -2,6 +2,8 @@ let isSketchLoaded = false;
 let sketchInstance: any;
 
 function explanation_show_sketch(id: string) {
+    return;
+
     document.querySelectorAll("#unity-explanations div").forEach(e => (e as HTMLElement).hidden = true);
     document.getElementById(`${id}-expl`)!.hidden = false;
 }
@@ -18,7 +20,9 @@ export function setupSketch() {
         setupSketchButton(b as HTMLElement);
     }
 
-    document.getElementById("games-sketch")!.addEventListener("click", _ => {
+    document.getElementById("screen-power")!.addEventListener("click", _ => {
+        document.getElementById("screen-off")!.classList.add("is-hidden");
+        document.getElementById("screen-on")!.classList.remove("is-hidden");
         loadSketch();
     })
 }
@@ -62,9 +66,11 @@ function loadSketch() {
         showBanner: unityShowBanner,
     };
 
-    const containerWidth = document.getElementById("unity-container")!.clientWidth;
-    canvas.style.width = `${containerWidth}px`;
-    canvas.style.height = "600px";
+    const container = document.getElementById("unity-container")!;
+    canvas.width = container.clientWidth;
+    canvas.height = container.clientHeight;
+    canvas.style.width = `${container.clientWidth}px`;
+    canvas.style.height = `${container.clientHeight}px`;
 
     const script = document.createElement("script");
     script.src = loaderUrl;

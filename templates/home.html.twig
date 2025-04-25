@@ -6,7 +6,40 @@
                 <p class="subtitle"></p>
             </div>
             <div class="content" id="screen-container">
-                <canvas id="screen-canvas"></canvas>
+                <div id="screen-off">
+                    <button class="button" id="screen-power"><span class="material-symbols-outlined">power_settings_new</span></button>
+                    <canvas id="screen-canvas"></canvas>
+                </div>
+                <div id="screen-on" class="is-hidden">
+                    <p id="unity-loading">
+                    Loading...
+                    </p>
+                    <div id="unity-container" class="unity-desktop">
+                        <canvas id="unity-canvas" tabindex="-1"></canvas>
+                        <div id="unity-warning"></div>
+                    </div>
+                    <div id="unity-buttons">
+                    {% for s in sketch %}
+                    <button class="button" id="sketch-{{ s.id }}" data-scene="{{ s.scene }}">
+                        {% if s.type == "icon" %}
+                            <span class="material-symbols-outlined">{{ s.name }}</span>
+                        {% else %}
+                            {{ s.name }}
+                        {% endif %}
+                    </button>
+                    {% endfor %}
+                    </div>
+                    <!--<div id="unity-explanations">
+                        <fieldset>
+                            <legend>Explanations</legend>
+                            {% for s in sketch %}
+                            <div id="sketch-{{ s.id }}-expl" hidden>
+                            {{ s.explanations | join("<br>") | raw }}
+                            </div>
+                            {% endfor %}
+                        </fieldset>
+                    </div>-->
+                </div>
             </div>
         </div>
     </div>

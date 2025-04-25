@@ -2,6 +2,27 @@
     border: 1px solid rgba(255, 255, 255, 0.123);
 }
 
+#screen-off, #screen-on {
+    position: relative;
+}
+
+#screen-power {
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+    z-index: 1;
+}
+
+#unity-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#unity-container {
+    height: 375px;
+}
+
 /* https://github.com/jgthms/bulma/issues/2398 */
 .card:last-child {
     margin-bottom: 1.5rem;
@@ -41,9 +62,13 @@ textarea {
     width: 100%;
 }
 
-#map-preview {
+#map-preview-container {
     max-width: 50%;
-    max-height: 560px;
+    height: 560px;
+}
+
+#map-preview {
+    height: auto;
 }
 
 @media (max-width: 1000px) {
@@ -56,9 +81,13 @@ textarea {
         height: calc(560px / 2);
     }
 
-    #map-preview {
+    #map-preview-container {
         max-width: 100%;
-        max-height: calc(560px / 2);
+        height: auto;
+    }
+
+    #map-preview {
+        height: calc(560px / 2);
     }
 }
 

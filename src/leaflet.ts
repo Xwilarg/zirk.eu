@@ -15,6 +15,6 @@ export function setupLeaflet() {
 }
 
 function showOnClick(img: string) {
-    document.getElementById("map-preview")!.classList.remove("is-hidden");
+    document.getElementById("map-preview-container")!.classList.remove("is-hidden");
     (document.getElementById("map-preview") as HTMLImageElement).src = img;
 }
