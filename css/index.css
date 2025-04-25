@@ -1,3 +1,7 @@
+#screen-canvas {
+    border: 1px solid rgba(255, 255, 255, 0.123);
+}
+
 /* https://github.com/jgthms/bulma/issues/2398 */
 .card:last-child {
     margin-bottom: 1.5rem;
@@ -158,22 +162,23 @@ option {
 /* Project */
 #target-main .card {
     width: 550px;
+    height: 550px;
 }
 
 .menu-container img {
     cursor: pointer;
 }
 
+.home-main-image {
+    height: 250px;
+}
+
 .project-image {
     display: block;
     width: auto;
     height: auto;
-    max-height: 400px;
+    max-height: 250px;
     cursor: pointer;
-}
-
-.project-image.small{
-    max-height: 150px;
 }
 
 #target-main .is-flex:not(#socials) {
@@ -185,9 +190,25 @@ option {
 }
 
 .menu-container {
-    width: 150px;
+    margin-top: 1em;
+}
+
+.menu-container img{
+    max-height: 75px;
+    max-width: calc(100% / 4);
+    width: auto;
+    height: auto;
+    display: block;
 }
 
 .menu-container img:not(.selected) {
     filter: brightness(25%);
+}
+
+.menu-container img:not(.selected):hover {
+    filter: brightness(40%);
+}
+
+.home-buttons {
+    height: 50px;
 }

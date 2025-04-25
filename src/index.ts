@@ -9,6 +9,7 @@ import { setupTabs } from "./tabs";
 import { setupSketch } from "./sketch";
 import { setupHome } from "./home";
 import { setupProject } from "./project";
+import { setupScreen } from "./screen";
 
 
 async function initAsync() {
@@ -23,6 +24,7 @@ async function initAsync() {
     setupSketch();
     setupHome();
     setupProject();
+    setupScreen();
 }
 
 document.onreadystatechange = async function () {
