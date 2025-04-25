@@ -1,12 +1,12 @@
 export function setupControl() {
-    document.getElementById("console-btn").addEventListener("click", _ => {
-        let content = document.getElementById("console-field");
+    document.getElementById("console-btn")!.addEventListener("click", _ => {
+        let content = document.getElementById("console-field") as HTMLTextAreaElement;
         compile(content.value.split("\n"));
     });
 
-    for (let micropi of document.getElementsByClassName("micropi")) {
+    for (let micropi of document.getElementsByClassName("micropi") as HTMLCollectionOf<HTMLElement>) {
         micropi.addEventListener("click", _ => {
-            const target = validInstructions.find(x => x.word === micropi.dataset.instruction.toUpperCase());
+            const target = validInstructions.find(x => x.word === micropi.dataset.instruction!.toUpperCase());
             if (!target) {
                 console.error("Impossible to find minipi matching instruction");
             } else if (myInstructions.some(x => x.word === target.word)) {
@@ -23,12 +23,17 @@ export function setupControl() {
 }
 
 function updateMicropiDisplay() {
-    document.getElementById("console-data").innerHTML = `${myInstructions.length} micropi${myInstructions.length > 1 ? "s" : ""} are looking at you:<br>`
+    document.getElementById("console-data")!.innerHTML = `${myInstructions.length} micropi${myInstructions.length > 1 ? "s" : ""} are looking at you:<br>`
         + myInstructions.map(x => x.description).join("<br>")
 }
 
 class Instruction {
-    constructor(word, paramCount, description, action) {
+    word: string;
+    description: string;
+    paramCount: number;
+    action: (number?) => void;
+
+    constructor(word: string, paramCount: number, description: string, action: (number?) => void) {
         this.word = word;
         this.description = description;
         this.paramCount = paramCount;
@@ -46,8 +51,8 @@ let validInstructions = [
     new Instruction("PRINT", 0, "PRINT: Print the current value on screen", () => finalBuffer += String.fromCharCode(buffer[0]))
 ];
 let myInstructions = validInstructions; // TODO: When hidden replace by "[]"
-function compile(data) {
-    let content = document.getElementById("console-output");
+function compile(data: string[]) {
+    let content = document.getElementById("console-output") as HTMLTextAreaElement;
 
     if (myInstructions.length === 0) {
         content.value = "This place would be much better with some micropis, better go look for them";
@@ -70,7 +75,7 @@ function compile(data) {
 
         const cmd = elems[0].toUpperCase();
         let target = myInstructions.find(x => x.word === cmd);
-        if (target === null) {
+        if (!target) {
             if (myInstructions.length === 0) content.value = 'The micropi is looking around, it looks like you called one of them but nobody matched that name';
             else content.value = 'Micropis are looking at each others, it looks like you called one of them but nobody matched that name';
             return;
@@ -92,7 +97,7 @@ function compile(data) {
             }
             target.action(arg);
         } else {
-            target.action();
+            target.action(null);
         }
     }
     let endTime = Date.now();

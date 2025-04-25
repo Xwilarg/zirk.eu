@@ -1,13 +1,13 @@
 let isSketchLoaded = false;
-let sketchInstance;
+let sketchInstance: any;
 
-function explanation_show_sketch(id) {
-    document.querySelectorAll("#unity-explanations div").forEach(e => e.hidden = true);
-    document.getElementById(`${id}-expl`).hidden = false;
+function explanation_show_sketch(id: string) {
+    document.querySelectorAll("#unity-explanations div").forEach(e => (e as HTMLElement).hidden = true);
+    document.getElementById(`${id}-expl`)!.hidden = false;
 }
 
-function setupSketchButton(data) {
-    document.getElementById(data.id).addEventListener("click", _ => {
+function setupSketchButton(data: HTMLElement) {
+    document.getElementById(data.id)!.addEventListener("click", _ => {
         sketchInstance.SendMessage('LevelLoader', 'LoadScene', data.dataset.scene);
         explanation_show_sketch(data.id);
     });
@@ -15,10 +15,10 @@ function setupSketchButton(data) {
 
 export function setupSketch() {
     for (let b of document.querySelectorAll("#unity-buttons > button")) {
-        setupSketchButton(b);
+        setupSketchButton(b as HTMLElement);
     }
 
-    document.getElementById("games-sketch").addEventListener("click", _ => {
+    document.getElementById("games-sketch")!.addEventListener("click", _ => {
         loadSketch();
     })
 }
@@ -28,10 +28,10 @@ function loadSketch() {
     if (isSketchLoaded) return;
     isSketchLoaded = true;
 
-    const canvas = document.querySelector("#unity-canvas");
-    const warningBanner = document.querySelector("#unity-warning");
+    const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
+    const warningBanner = document.querySelector("#unity-warning") as HTMLElement;
 
-    function unityShowBanner(msg, type) {
+    function unityShowBanner(msg: string, type: string) {
         function updateBannerVisibility() {
             warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
         }
@@ -56,21 +56,25 @@ function loadSketch() {
         frameworkUrl: buildUrl + "/Sketch.framework.js.unityweb",
         codeUrl: buildUrl + "/Sketch.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
+        companyName: "Zirk",
         productName: "Sketch",
         productVersion: "1.0",
         showBanner: unityShowBanner,
     };
+
+    const containerWidth = document.getElementById("unity-container")!.clientWidth;
+    canvas.style.width = `${containerWidth}px`;
+    canvas.style.height = "600px";
 
     const script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
         // @ts-ignore
         createUnityInstance(canvas, config, (_) => {
-        }).then((unityInstance) => {
+        }).then((unityInstance: any) => {
             sketchInstance = unityInstance;
-            document.getElementById("unity-loading").hidden = true;
-        }).catch((message) => {
+            document.getElementById("unity-loading")!.hidden = true;
+        }).catch((message: string) => {
             alert(message);
         });
     };

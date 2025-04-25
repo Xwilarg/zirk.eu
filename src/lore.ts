@@ -1,17 +1,29 @@
-let discovered = {};
-let links = [];
-let nodes = [];
+import { Network, DataSet, Node, Edge } from "vis-network/standalone";
 
-let searches = [];
+let discovered: { [hash: string] : number; } = {};
+let links: Edge[] = [];
+let nodes: NodeData[] = [];
 
-let content = {};
+let searches: string[] = [];
+
+let content: { [id: number] : string; } = {};
 
 let colors = [ "#ff7f7f", "#bfbfbf", "#14d983" ];
 
 let categories = [ "katsis", "energy", "god" ];
 let censor = false;
 
-function searchItem(inputValue) {
+interface NodeData extends Node
+{
+    id: number
+    label: string
+    group: string
+    color: string
+    name: string
+    hash: string
+}
+
+function searchItem(inputValue: string) {
     fetch("/php/lore.php", {
         method: 'POST',
         body: inputValue
@@ -19,7 +31,7 @@ function searchItem(inputValue) {
     .then(resp => resp.ok ? resp.json() : Promise.reject(`${resp.status}`))
     .then(res => {
         for (let json of res) {
-            document.getElementById("lore-field").value = json.data.join("\n");
+            (document.getElementById("lore-field") as HTMLInputElement).value = json.data.join("\n");
             if (!(json.hash in discovered)) {
                 // Update storage
                 searches.push(json.key);
@@ -32,7 +44,7 @@ function searchItem(inputValue) {
                 nodes.push({
                     id: id,
                     label: censor ? (json.hash.substring(0, 5) + "…") : json.name,
-                    group: group,
+                    group: group.toString(),
                     color: colors[group],
                     name: json.name,
                     hash: json.hash
@@ -51,7 +63,7 @@ function searchItem(inputValue) {
         renderNetwork();
     })
     .catch((err) => { 
-        document.getElementById("lore-field").value = `Search failed: ${err}`;
+        (document.getElementById("lore-field") as HTMLInputElement).value = `Search failed: ${err}`;
     });
 }
 
@@ -63,8 +75,8 @@ export function setupLore() {
     }
 
     // New lore input
-    const loreInput = document.getElementById("lore-input");
-    document.getElementById("lore-form").addEventListener("submit", e => {
+    const loreInput = document.getElementById("lore-input") as HTMLInputElement;
+    document.getElementById("lore-form")!.addEventListener("submit", e => {
         e.preventDefault();
         const inputValue = loreInput.value.toLowerCase().replaceAll(" ", "").replaceAll(",", "");
         searchItem(inputValue);
@@ -72,15 +84,15 @@ export function setupLore() {
     });
 
     // Hide/show names
-    document.getElementById("lore-censor").addEventListener("change", e => {
-        censor = e.target.checked;
+    document.getElementById("lore-censor")!.addEventListener("change", e => {
+        censor = (e.target as HTMLInputElement).checked;
         for (let n of nodes) {
             n.label = censor ? (n.hash.substring(0, 5) + "…") : n.name;
         }
         renderNetwork();
     });
 
-    document.getElementById("lore-delete").addEventListener("click", e => {
+    document.getElementById("lore-delete")!.addEventListener("click", e => {
         if (confirm("Are you sure you want to delete lore data from local storage?")) {
             localStorage.removeItem("lore");
             alert("Local storage was deleted");
@@ -89,11 +101,11 @@ export function setupLore() {
 }
 
 function renderNetwork() {
-    const container = document.getElementById('lore-network');
+    const container = document.getElementById('lore-network') as HTMLElement;
 
     const data = {
-        nodes: new vis.DataSet(nodes),
-        edges: new vis.DataSet(links)
+        nodes: new DataSet<Node>(nodes),
+        edges: new DataSet<Edge>(links)
     };
     const options = {
         nodes: {
@@ -105,11 +117,11 @@ function renderNetwork() {
         }
     };
 
-    const network = new vis.Network(container, data, options);
+    const network = new Network(container, data, options);
     network.on('click', function(properties) {
     var ids = properties.nodes;
     if (ids.length > 0) {
-        document.getElementById("lore-field").value = content[ids[0]];
+        (document.getElementById("lore-field") as HTMLInputElement).value = content[ids[0]];
     }
 });
 }
