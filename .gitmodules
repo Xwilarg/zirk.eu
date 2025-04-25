@@ -7,6 +7,3 @@
 [submodule "lore"]
 	path = lore
 	url = https://github.com/Xwilarg/zirk.eu-lore
-[submodule "sketch"]
-	path = sketch
-	url = https://github.com/Xwilarg/Sketch-build/
