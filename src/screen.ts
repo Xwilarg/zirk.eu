@@ -7,7 +7,9 @@ let vx = -1;
 let vy = -1;
 let size = 25;
 
-let speed = 4;
+let speed = 2;
+
+let refTime: number;
 
 export function setupScreen()
 {
@@ -22,6 +24,7 @@ export function setupScreen()
     x = Math.floor(canvas.width / 2);
     y = Math.floor(canvas.height / 2);
 
+    refTime = Date.now();
     window.requestAnimationFrame(updateCanvas);
 }
 
@@ -34,9 +37,13 @@ function updateFillColor() {
 }
 
 function updateCanvas() {
+    const now = Date.now();
+    const delta = now - refTime;
+    refTime = Date.now();
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    x += speed * vx;
-    y += speed * vy;
+    x += (speed * delta / 10) * vx;
+    y += (speed * delta / 10) * vy;
 
     if (x <= 0) {
         x = 0;
