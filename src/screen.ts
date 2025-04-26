@@ -15,7 +15,7 @@ export function setupScreen()
 {
     canvas = document.getElementById("screen-canvas") as HTMLCanvasElement;
     const targetWidth = document.getElementById("screen-container")!.clientWidth;
-    canvas.width = targetWidth;
+    canvas.width = targetWidth === 0 ? 500 : targetWidth;
     canvas.height = 450;
 
     ctx = canvas.getContext("2d");
