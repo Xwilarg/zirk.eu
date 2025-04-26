@@ -69,6 +69,7 @@ textarea {
 
 #map-preview {
     height: auto;
+    max-height: 100%;
 }
 
 @media (max-width: 1000px) {
