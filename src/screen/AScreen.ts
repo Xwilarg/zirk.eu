@@ -5,6 +5,7 @@ export abstract class AScreen
 
     mouseX: number | null = null;
     mouseY: number | null = null;
+    refTime: number;
 
     constructor() {
         this.mouseX = null;
@@ -34,9 +35,12 @@ export abstract class AScreen
     updateCanvas() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.render();
+        const now = Date.now();
+        const delta = now - this.refTime;
+        this.refTime = Date.now();
+        this.render(delta);
     }
 
-    abstract render(): void;
+    abstract render(deltaTime: number): void;
     abstract setMousePos(x: number, y: number): void;
 }

@@ -70,11 +70,11 @@ export class BallsScreen extends AScreen {
         this.spawnNewBall();
     }
 
-    render() {
+    render(deltaTime: number) {
         for (let sq of this.squares)
         {
-            sq.x += sq.speed * sq.vx;
-            sq.y += sq.speed * sq.vy;
+            sq.x += (sq.speed * deltaTime / 10) * sq.vx
+            sq.y += (sq.speed * deltaTime / 10) * sq.vy;
 
             // Map bounds
             if (sq.x <= 0) {

@@ -1,5 +1,5 @@
 export function setupPreview() {
-    document.getElementById("close-preview")!.addEventListener("click", _ => {
+    document.getElementById("modal-preview")!.addEventListener("click", _ => {
         document.getElementById("modal-preview")!.classList.remove("is-active");
     });
 

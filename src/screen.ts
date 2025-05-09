@@ -1,8 +1,6 @@
 import { AScreen } from "./screen/AScreen";
 import { BallsScreen } from "./screen/BallsScreen";
 
-
-
 let screenAnim: AScreen;
 
 function updateLoop() {
