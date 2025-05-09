@@ -95,12 +95,14 @@ export class ParticleOrbits extends AScreen
             if (p.y >= this.canvas.height) p.y = this.canvas.height - 1;
             */
 
-            let i = 4 * (Math.round(p.y) * this.canvas.width + Math.round(p.x));
-            // RGBA
-            imageData.data[i] = 255;
-            imageData.data[i + 1] = 0;
-            imageData.data[i + 2] = 0;
-            imageData.data[i + 3] = 255;
+            if (!isOob) {
+                let i = 4 * (Math.round(p.y) * this.canvas.width + Math.round(p.x));
+                // RGBA
+                imageData.data[i] = 255;
+                imageData.data[i + 1] = 0;
+                imageData.data[i + 2] = 0;
+                imageData.data[i + 3] = 255;
+            }
         }
 	    this.ctx.putImageData(imageData, 0, 0);
     }
