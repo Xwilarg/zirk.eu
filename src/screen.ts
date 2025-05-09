@@ -1,5 +1,8 @@
 import { AScreen } from "./screen/AScreen";
 import { BallsScreen } from "./screen/BallsScreen";
+import { ParticleOrbits } from "./screen/ParticleOrbits";
+import { Waves } from "./screen/Waves";
+import { randInt } from "./utils";
 
 let screenAnim: AScreen;
 
@@ -10,7 +13,8 @@ function updateLoop() {
 
 export function setupScreen()
 {
-    screenAnim = new BallsScreen();
+    let possibilities = [ BallsScreen, ParticleOrbits ];
+    screenAnim = new ParticleOrbits();// new Waves();// new possibilities[randInt(possibilities.length)];
     document.addEventListener("mousemove", screenAnim.handleMouse.bind(screenAnim));
     window.requestAnimationFrame(updateLoop);
 }

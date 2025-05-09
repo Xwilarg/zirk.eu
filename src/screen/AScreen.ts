@@ -16,7 +16,7 @@ export abstract class AScreen
         this.canvas.width = targetWidth;
         this.canvas.height = 450;
 
-        this.ctx = this.canvas.getContext("2d");
+        this.ctx = this.canvas.getContext("2d", { willReadFrequently: true });
     }
 
     // https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Mouse_controls
@@ -38,7 +38,7 @@ export abstract class AScreen
         const now = Date.now();
         const delta = now - this.refTime;
         this.refTime = Date.now();
-        this.render(delta);
+        this.render(isNaN(delta) ? 0 : delta);
     }
 
     abstract render(deltaTime: number): void;

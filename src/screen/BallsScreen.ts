@@ -5,10 +5,10 @@ class Square
 {
     x: number;
     y: number;
-    vx = -1;
-    vy = -1;
-    size = 25;
-    speed = 4;
+    vx: number;
+    vy: number;
+    size: number;
+    speed: number;
 
     color: string;
 
@@ -41,7 +41,7 @@ class Square
         const dir = Math.random() * 2 * Math.PI;
         this.setDirection(Math.cos(dir), Math.sin(dir));
         this.size = 25;
-        this.speed = 4;
+        this.speed = randInt(5) + 2;
 
         this.changeColor();
     }
@@ -73,14 +73,14 @@ export class BallsScreen extends AScreen {
     render(deltaTime: number) {
         for (let sq of this.squares)
         {
-            sq.x += (sq.speed * deltaTime / 10) * sq.vx
+            sq.x += (sq.speed * deltaTime / 10) * sq.vx;
             sq.y += (sq.speed * deltaTime / 10) * sq.vy;
 
             // Map bounds
             if (sq.x <= 0) {
                 sq.x = 0;
                 sq.vx = Math.abs(sq.vx);
-                sq.changeColor();
+                //sq.changeColor();
             }
             if (sq.y <= 0) {
                 sq.y = 0;
@@ -123,6 +123,10 @@ export class BallsScreen extends AScreen {
 
                     other.setDirection(oX, oY);
                     sq.setDirection(-oX, -oY);
+
+                    let tmp = sq.speed;
+                    sq.speed = other.speed;
+                    other.speed = tmp;
                 }
             }
 
