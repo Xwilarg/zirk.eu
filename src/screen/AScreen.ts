@@ -13,7 +13,7 @@ export abstract class AScreen
 
         this.canvas = document.getElementById("screen-canvas") as HTMLCanvasElement;
         const targetWidth = document.getElementById("screen-container")!.clientWidth;
-        this.canvas.width = targetWidth;
+        this.canvas.width = targetWidth === 0 ? 500 : targetWidth;
         this.canvas.height = 450;
 
         this.ctx = this.canvas.getContext("2d", { willReadFrequently: true });
