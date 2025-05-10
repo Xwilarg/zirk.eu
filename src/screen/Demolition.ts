@@ -34,6 +34,7 @@ class Ball
         this.vx = vx;
         this.vy = vy;
         this.size = 30;
+        this.radius = this.size / 2;
     }
 
     x: number;
@@ -41,6 +42,7 @@ class Ball
     vx: number;
     vy: number;
     size: number;
+    radius: number;
 }
 
 export class Demolition extends AScreen
@@ -69,19 +71,26 @@ export class Demolition extends AScreen
     spawnBallTimer() {
         this.spawnBall();
         this.ballSpawnCount++;
-        if (this.ballSpawnCount === 30) {
+        if (this.ballSpawnCount === 20) {
             clearInterval(this.intervalBallSpawn);
         }
     }
 
     spawnBall() {
-        this.balls.push(new Ball(-35, this.canvas.height / 2, 10, Math.random() * 10 - 10));
+        this.balls.push(new Ball(-35, this.canvas.height / 2, 5, Math.random() * 15 - 10));
     }
 
     waitAndTriggerRespawn() {
         clearInterval(this.intervalBallSpawn);
         this.intervalBallSpawn = setInterval(this.spawnBallTimer.bind(this), 50);
         this.ballSpawnCount = 0;
+    }
+
+    isPointInsideCircle(dx: number, dy: number, r: number): boolean {
+        if (dx + dy <= r) return true;
+        if (dx > r) return false;
+        if (dy > r) return false;
+        return Math.pow(dx, 2) + Math.pow(dy, 2) <= Math.pow(r, 2);
     }
 
     render(deltaTime: number): void {
@@ -92,7 +101,7 @@ export class Demolition extends AScreen
             ball.x += ball.vx * deltaTime * 0.1;
             ball.y += ball.vy * deltaTime * 0.1;
 
-            if (ball.x - ball.size / 2 > this.canvas.width || ball.y - ball.size / 2 > this.canvas.height) {
+            if (ball.x - ball.radius > this.canvas.width || ball.y - ball.radius > this.canvas.height) {
                 this.balls.splice(i, 1);
                 if (this.balls.length === 0) {
                     this.intervalBallSpawn = setInterval(this.waitAndTriggerRespawn.bind(this), 2500);
@@ -101,7 +110,7 @@ export class Demolition extends AScreen
 
             this.ctx.fillStyle = "blue";
             this.ctx.beginPath();
-            this.ctx.arc(ball.x + ball.size / 2, ball.y + ball.size / 2, ball.size / 2, 0, 2 * Math.PI);
+            this.ctx.arc(ball.x + ball.radius, ball.y + ball.radius, ball.radius, 0, 2 * Math.PI);
             this.ctx.fill();
             this.ctx.closePath();
         }
@@ -111,20 +120,22 @@ export class Demolition extends AScreen
             if (p.isStatic === 0) {
                 for (let ball of this.balls) {
                     // Is in the ball way?
-                    if (Math.pow(p.x - (ball.x + ball.size / 2), 2) + Math.pow(p.y - (ball.y + ball.size / 2), 2) < Math.pow(ball.size / 2, 2)) {
+
+                    let dx = Math.abs(p.x - (ball.x + ball.radius));
+                    let dy = Math.abs(p.y - (ball.y + ball.radius));
+                    if (this.isPointInsideCircle(dx, dy, ball.radius)) {
                         p.isStatic = 1;
-                        let ballSpeed = Math.sqrt(Math.pow(ball.vx, 2) + Math.pow(ball.vy, 2)) * 2;
 
                         // Propulse in opposite direction
-                        let dx = p.x - ball.x;
-                        let dy = p.y - ball.y;
-                        const m = Math.sqrt(dx * dx + dy * dy);
-                        p.vx = dx / m * ballSpeed;
-                        p.vy = dy / m * ballSpeed;
+                        let dirX = p.x - ball.x;
+                        let dirY = p.y - ball.y;
+                        const m = Math.sqrt(dirX * dirX + dirY * dirY);
+                        p.vx = dirX / m * m;
+                        p.vy = dirY / m * m;
 
                         // Slow down ball
-                        ball.vx /= 1.001;
-                        ball.vy /= 1.001;
+                        ball.vx /= 1.0002;
+                        ball.vy /= 1.0002;
 
                         break;
                     }
