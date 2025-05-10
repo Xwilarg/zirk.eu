@@ -74,7 +74,6 @@ export class ParticleOrbits extends AScreen
         // Draw particles
         this.centerX = this.mouseX ?? this.canvasCenterX;
         this.centerY = this.mouseY ?? this.canvasCenterY;
-        this.ctx.fillStyle = "red";
 
 	    const imageData = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
         for (let p of this.particles) {
