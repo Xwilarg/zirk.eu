@@ -13,7 +13,7 @@ function updateLoop() {
 
 export function setupScreen()
 {
-    let possibilities = [ BallsScreen, ParticleOrbits, Demolition ];
+    let possibilities = [ BallsScreen, ParticleOrbits ];
     screenAnim = new possibilities[randInt(possibilities.length)];
     document.addEventListener("mousemove", screenAnim.handleMouse.bind(screenAnim));
     window.requestAnimationFrame(updateLoop);
