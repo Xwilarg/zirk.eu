@@ -63,6 +63,8 @@ export class ParticleOrbits extends AScreen
     }
 
     render(deltaTime: number): void {
+        if (deltaTime > 500) deltaTime = 500; // If user is away for too long, huge deltaTime would make all particules disappear
+
         // Draw cursor
         let mouseSize = 20;
         const gradient = this.ctx.createRadialGradient(this.mouseX, this.mouseY, 3, this.mouseX, this.mouseY, mouseSize / 2);
