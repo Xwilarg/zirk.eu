@@ -8,7 +8,7 @@ using FakeTerminal;
 namespace Zirk.Backend.Controllers.Websocket;
 
 [ApiController]
-[Route("/ws/terminal/")]
+[Route("/ws/terminal")]
 public class FakeTerminalController : ControllerBase
 {
     private readonly ILogger<FakeTerminalController> _logger;
@@ -26,7 +26,7 @@ public class FakeTerminalController : ControllerBase
         if (HttpContext.WebSockets.IsWebSocketRequest)
         {
             // New connection
-            var client = await HttpContext.WebSockets.AcceptWebSocketAsync("client");
+            var client = await HttpContext.WebSockets.AcceptWebSocketAsync();
             FakeTerminal.Client term = new TerminalInstance(".").CreateClient();
 
             while (true)
@@ -50,7 +50,8 @@ public class FakeTerminalController : ControllerBase
 
                     try
                     {
-                        var baseMsg = JsonSerializer.Deserialize<TerminalMessage>(Encoding.UTF8.GetString(buffer), _options);
+                        var text = Encoding.UTF8.GetString(buffer);
+                        var baseMsg = JsonSerializer.Deserialize<TerminalMessage>(text, _options);
 
                         if (baseMsg.Message == MessageType.Heartbeat)
                         {
@@ -59,13 +60,14 @@ public class FakeTerminalController : ControllerBase
                         }
                         else if (baseMsg.Message == MessageType.Command)
                         {
-                            var termMsg = (TerminalCommand)baseMsg;
+                            var termMsg = JsonSerializer.Deserialize<TerminalCommand>(text, _options);;
                             var output = term.ParseCommand(termMsg.Command);
 
                             var msg = JsonSerializer.Serialize(new TerminalResponse()
                             {
                                 Message = MessageType.Command,
-                                CurrentPath = term.CurrentDir.FullName
+                                CurrentPath = term.CurrentDir.FullName,
+                                Output = output
                             }, _options);
                             await client.SendAsync(Encoding.UTF8.GetBytes(msg), WebSocketMessageType.Text, true, CancellationToken.None);
                         }

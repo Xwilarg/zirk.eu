@@ -10,6 +10,7 @@ import { setupSketch } from "./sketch";
 import { setupHome } from "./home";
 import { setupProject } from "./project";
 import { setupScreen } from "./screen";
+import { setupTerminal } from "./terminal";
 
 
 async function initAsync() {
@@ -25,6 +26,7 @@ async function initAsync() {
     setupHome();
     setupProject();
     setupScreen();
+    setupTerminal();
 }
 
 document.onreadystatechange = async function () {

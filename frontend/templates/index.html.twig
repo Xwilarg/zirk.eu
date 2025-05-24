@@ -86,6 +86,12 @@
         </div>
         <div class="section">
             <h2 class="subtitle">About me</h2>
+            <div class="button container question" id="terminal">Terminal</div>
+            <div class="container is-hidden answer" id="answer-terminal">
+                <textarea class="textarea" id="terminal-output" rows="10" readonly></textarea>
+                <input class="input" type="text" id="terminal-field"/>
+                <button class="button is-link" id="terminal-btn">Input</button>
+            </div>
             <div class="button container question" id="travels">Travels</div>
             <div class="container is-hidden answer" id="answer-travels">
                 <div id="map-container">
@@ -98,7 +104,7 @@
                     {{ travels | replace({'<': '&lt;' }) | raw }}
                 </script>
             </div>
-            <div class="button container question" id="console">Micropis</div>
+            <!--<div class="button container question" id="console">Micropis</div>-->
             <div class="container is-hidden answer" id="answer-console">
                 <div id="console-explanations">
                     Each micropi are capable of doing one simple task, try to find them and compile your own nanopi!<br>
