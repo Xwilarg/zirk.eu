@@ -1,0 +1,10 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Zirk.Backend/Dockerfile
+    user: "1000:1000"
+    ports:
+      - "5008:8080"
+    volumes:
+      - ./data:/data

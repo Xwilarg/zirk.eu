@@ -27,7 +27,7 @@ public class FakeTerminalController : ControllerBase
         {
             // New connection
             var client = await HttpContext.WebSockets.AcceptWebSocketAsync();
-            FakeTerminal.Client term = new TerminalInstance(".").CreateClient();
+            FakeTerminal.Client term = new TerminalInstance("/data").CreateClient();
 
             while (true)
             {
