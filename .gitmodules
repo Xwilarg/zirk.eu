@@ -7,3 +7,6 @@
 [submodule "frontend/lifeline"]
 	path = frontend/lifeline
 	url = https://github.com/Xwilarg/Lifeline
+[submodule "backend/FakeTerminal"]
+	path = backend/FakeTerminal
+	url = https://github.com/Xwilarg/FakeTerminal
