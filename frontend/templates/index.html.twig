@@ -89,8 +89,14 @@
             <div class="button container question" id="terminal">Terminal</div>
             <div class="container is-hidden answer" id="answer-terminal">
                 <textarea class="textarea" id="terminal-output" rows="10" readonly></textarea>
-                <input class="input" type="text" id="terminal-field"/>
-                <button class="button is-link" id="terminal-btn">Input</button>
+                <form class="field has-addons container" id="terminal-form">
+                    <p class="control is-expanded">
+                        <input class="input" type="text" id="terminal-field"/>
+                    </p>
+                    <p class="control">
+                        <button class="button is-link" type="submit">Input</button>
+                    </p>
+                </form>
             </div>
             <div class="button container question" id="travels">Travels</div>
             <div class="container is-hidden answer" id="answer-travels">
