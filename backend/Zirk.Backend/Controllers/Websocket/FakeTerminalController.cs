@@ -61,7 +61,7 @@ public class FakeTerminalController : ControllerBase
                         else if (baseMsg.Message == MessageType.Command)
                         {
                             var termMsg = JsonSerializer.Deserialize<TerminalCommand>(text, _options);;
-                            var output = term.ParseCommand(termMsg.Command);
+                            var output = term.ParseCommand(termMsg.Command, out var _);
 
                             var msg = JsonSerializer.Serialize(new TerminalResponse()
                             {
