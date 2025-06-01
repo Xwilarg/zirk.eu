@@ -29,7 +29,7 @@
 
 #unity-buttons {
     max-height: 80px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 /* https://github.com/jgthms/bulma/issues/2398 */
