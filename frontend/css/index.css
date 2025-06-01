@@ -27,6 +27,11 @@
     height: 375px;
 }
 
+#unity-buttons {
+    max-height: 80px;
+    overflow-y: scroll;
+}
+
 /* https://github.com/jgthms/bulma/issues/2398 */
 .card:last-child {
     margin-bottom: 1.5rem;
