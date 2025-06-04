@@ -1,3 +1,7 @@
+.lifeline-static-container .is-flex {
+    gap: 5px;
+}
+
 .social-no-url {
     padding-top: 0;
 }
