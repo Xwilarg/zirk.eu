@@ -2,7 +2,7 @@ let socket = null;
 let endpoint = "wss://zirk.eu/ws/terminal"
 
 export function setupTerminal() {
-    document.getElementById("terminal-form")!.addEventListener("click", e => {
+    document.getElementById("terminal-form")!.addEventListener("submit", e => {
         e.preventDefault();
         let inputValue = (document.getElementById("terminal-field") as HTMLInputElement).value;
         if (socket === null)
