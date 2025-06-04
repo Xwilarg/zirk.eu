@@ -20,4 +20,5 @@ public class TerminalResponse : TerminalMessage
 {
     public string Output { set; get; }
     public string CurrentPath { set; get; }
+    public string CurrentCmd { set; get; }
 }

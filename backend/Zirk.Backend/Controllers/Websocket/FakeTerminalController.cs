@@ -67,6 +67,7 @@ public class FakeTerminalController : ControllerBase
                             {
                                 Message = MessageType.Command,
                                 CurrentPath = term.CurrentDir.FullName,
+                                CurrentCmd = termMsg.Command,
                                 Output = output
                             }, _options);
                             await client.SendAsync(Encoding.UTF8.GetBytes(msg), WebSocketMessageType.Text, true, CancellationToken.None);

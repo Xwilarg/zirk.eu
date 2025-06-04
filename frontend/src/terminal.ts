@@ -1,5 +1,5 @@
 let socket = null;
-let endpoint = "wss://zirk.eu/ws/terminal"
+let endpoint = "wss://zirk.eu/ws/terminal";
 
 export function setupTerminal() {
     document.getElementById("terminal-form")!.addEventListener("submit", e => {
@@ -20,8 +20,9 @@ export function setupTerminal() {
                 socket = null;
             });
             socket.addEventListener("message", async function(e) {
+                let inputValue = input.value;
                 const json = JSON.parse(e.data);
-                (document.getElementById("terminal-output") as HTMLInputElement).value += `${json.currentPath} > ${inputValue}\n${json.output}\n\n`;
+                (document.getElementById("terminal-output") as HTMLInputElement).value += `${json.currentPath} > ${json.currentCmd}\n${json.output}\n\n`;
                 input.scrollTop = input.scrollHeight;
             });
         }
@@ -32,6 +33,6 @@ export function setupTerminal() {
                 command: inputValue
             }));
         }
-        (document.getElementById("terminal-field") as HTMLInputElement).value = "";
+        input.value = "";
     });
 }
