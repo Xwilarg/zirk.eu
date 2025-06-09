@@ -1,3 +1,17 @@
+@media (max-width: 1215px) {
+    #card-intro {
+        order: 0;
+    }
+
+    #card-sketch {
+        order: 1;
+    }
+
+    .card {
+        order: 2;
+    }
+}
+
 .social-no-url {
     padding-top: 0;
 }
