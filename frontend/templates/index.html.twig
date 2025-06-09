@@ -75,14 +75,25 @@
     <div class="is-hidden container" id="target-about">
         <div class="section">
             <h2 class="subtitle">Lifelines</h2>
+            <h3 class="subtitle">Dynamics</h3>
             <div>
-                {% for line in lifelines %}
+                {% for line in lifeline.dynamics %}
                     <p>
                         {{ line.name }}: <span id="lifeline-{{line.name}}">{{ line.id ?? "Broken" }}</span>
                     </p>
                 {% endfor %}
             </div>
             <button class="button" id="lifelines-update">Pull lines</button>
+            <h3 class="subtitle">Statics</h3>
+            <div class="lifeline-static-container">
+                {% for name, data in lifeline.statics %}
+                    <div class="is-flex is-align-items-center">
+                        <p class="has-text-centered">{{ name }}: <span>{{ data.id }}</span></p>
+                        <input type="text" class="input" placeholder="Verification" data-id="{{ data.id }}" data-hash="{{ data.hash }}" id="lifeline-{{ name | lower }}-input"/>
+                        <button class="button static-lifeline" id="lifeline-{{ name | lower }}">Validate</button>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="section">
             <h2 class="subtitle">About me</h2>

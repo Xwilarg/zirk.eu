@@ -134,5 +134,8 @@ echo $twig->render("index.html.twig", [
     "travels" => file_get_contents("data/json/travels.json"),
     "socials" => json_decode(file_get_contents("data/json/socials.json")),
     "sketch" => json_decode(file_get_contents("data/json/sketch.json"), true),
-    "lifelines" => $lifelines
+    "lifeline" => [
+        "dynamics" => $lifelines,
+        "statics" => json_decode(file_get_contents("data/json/lifeline.json"), true)["statics"]
+    ]
 ]);
