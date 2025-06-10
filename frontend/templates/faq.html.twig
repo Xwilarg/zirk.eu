@@ -1,48 +1,4 @@
 <div class="section">
-    <h2 class="subtitle">Tell me more about...</h2>
-    <div class="button container question" id="more-gamejam">... gamejams</div>
-    <div class="container is-hidden answer" id="answer-more-gamejam">
-        Gamejams are events where you need to make a game given a duration and a set of constraints<br>
-        Constraints are usually a theme but they can also be technical constraints (make a game for gameboy), thematic constraints (make a game related to Touhou) or anything left!
-    </div>
-    <div class="button container question" id="more-lifeline">... lifelines</div>
-    <div class="container is-hidden answer" id="answer-more-lifeline">
-        <a href="https://github.com/Xwilarg/Lifeline">Lifelines</a> are a small project which have for goal to link two websites!<br>
-        Everytimes you "pull" the line, it send a unique identifier to the other website, ensuring that both websites are in communication
-    </div>
-    <div class="button container question" id="more-travel">... travel</div>
-    <div class="container is-hidden answer" id="answer-more-travel">
-        Click a pin on the map to see the photo that was taken there!
-    </div>
-    <!--<div class="button container question" id="more-console">... micropis</div>-->
-    <div class="container is-hidden answer" id="answer-more-console">
-        This is still a work in progress! The goal is to make my own little language akin to assembly<br>
-        This is more of a fun little project for myself, here is an example of code:
-        <pre>
-            <code>
-ADD 72
-PRINT
-ADD 29
-PRINT
-ADD 7
-PRINT
-PRINT
-ADD 3
-PRINT
-            </code>
-        </pre>
-    </div>
-    <div class="button container question" id="more-sketch">... sketch</div>
-    <div class="container is-hidden answer" id="answer-more-sketch">
-        This project is a group of small independent modules made to showcare various gameplay mechanisms made under Unity<br/>
-        You can use the buttons at the bottom to switch between them
-    </div>
-    <div class="button container question" id="more-lore">... ???</div>
-    <div class="container is-hidden answer" id="answer-more-lore">
-        This is a placeholder for my little secret tab, try to input things and see where it leads you!
-    </div>
-</div>
-<div class="section">
     <h2 class="subtitle">Technical details</h2>
     <div class="button container question" id="contact">How can I contact you?</div>
     <div class="container is-hidden answer" id="answer-contact">
@@ -87,5 +43,67 @@ PRINT
     <div class="button container question" id="other">Anything else?</div>
     <div class="container is-hidden answer has-text-centered" id="answer-other">
         <img loading="lazy" class="is-image" src="/img/potato.png"/>
+    </div>
+</div>
+<div class="section">
+    <h2 class="subtitle">Tell me more about...</h2>
+    <div class="button container question" id="more-sketch">... sketches</div>
+    <div class="container is-hidden answer" id="answer-more-sketch">
+        What you see at first is just the """screensaver""" but if you click the power button at the bottom right, the real project will load!<br>
+        <br>
+        Sketches are a collection of small coding projects I made<br>
+        Their original goal were to find a way to showcase cool things I did, trying to accentuate algorithm without relying too much on external assets (since I'm not super good at drawing and/or VFX)
+        <br>
+        The buttons at the bottom of the display can be used to switch between them
+    </div>
+    <div class="button container question" id="more-gamejam">... gamejams</div>
+    <div class="container is-hidden answer" id="answer-more-gamejam">
+        Gamejams are events where you need to make a game given a duration and a set of constraints<br>
+        Constraints are usually a theme but they can also be technical constraints (make a game for gameboy), thematic constraints (make a game given a theme) or anything else!
+    </div>
+    <div class="button container question" id="more-lifeline">... lifelines</div>
+    <div class="container is-hidden answer" id="answer-more-lifeline">
+        Lifeline is a way to connect this website to someone else<br>
+        There are 2 kinds of lifelines, dynamic and static<br>
+        <br>
+        <a href="https://github.com/Xwilarg/Lifeline" target="_blank">Dynamic lifeline</a> actually ensure a connection between two websites<br>
+        When you press the "pull lines" button, it actually contact the other website and update the ID both here and there, ensuring that both websites are in communication<br>
+        If you go to the other website, the ID there will be the same as displayed here!<br>
+        <br>
+        Dynamics lifelines however require the target user to have a website that can have a PHP backend, so statics lifelines are here where it's not the case!<br>
+        They simply function by both users having a unique ID, once you enter the other user ID in the verification box, it validate that the two values combined give the expected result<br>
+        This is simply done by combining the ID then computing a hash, comparing it to the expected value
+    </div>
+    <div class="button container question" id="more-terminal">... terminal</div>
+    <div class="container is-hidden answer" id="answer-more-terminal">
+        <a href="https://github.com/Xwilarg/FakeTerminal" target="_blank">Terminal</a> is a project that emulate a shell for a fake environment<br>
+        If you're not sure how that work, typing <code>help</code> is a good starting point to get the list of available commands
+    </div>
+    <div class="button container question" id="more-travel">... travel</div>
+    <div class="container is-hidden answer" id="answer-more-travel">
+        A little map that display a bunch of location I went to<br>
+        Click on a pin to see the photo that was taken there!
+    </div>
+    <div class="button container question" id="more-lore">... ???</div>
+    <div class="container is-hidden answer" id="answer-more-lore">
+        [Placeholder text]
+    </div>
+    <!--<div class="button container question" id="more-console">... micropis</div>-->
+    <div class="container is-hidden answer" id="answer-more-console">
+        This is still a work in progress! The goal is to make my own little language akin to assembly<br>
+        This is more of a fun little project for myself, here is an example of code:
+        <pre>
+            <code>
+ADD 72
+PRINT
+ADD 29
+PRINT
+ADD 7
+PRINT
+PRINT
+ADD 3
+PRINT
+            </code>
+        </pre>
     </div>
 </div>
