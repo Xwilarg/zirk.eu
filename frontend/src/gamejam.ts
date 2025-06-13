@@ -57,10 +57,14 @@ class RangeMultipleSelect extends AFilterComponent {
     checkAgainst(datasetValue: string) {
         let entries = Array.from((this.component as HTMLSelectElement).selectedOptions).map(x => x.value);
         for (let e of entries) {
-            const s = e.split('-');
             const value = parseInt(datasetValue);
-            if (value >= parseInt(s[0]) && value <= parseInt(s[1])) {
-                return true
+            if (e === '-1') {
+                if (value === -1) return true;
+            } else {
+                const s = e.split('-');
+                if (value >= parseInt(s[0]) && value <= parseInt(s[1])) {
+                    return true
+                }
             }
         }
         return false;
