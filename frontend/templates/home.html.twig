@@ -78,7 +78,7 @@
                 {% set img = elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw)) | first %}
                 <div class="home-main-image is-flex is-align-items-center is-justify-content-center">
                     <div>
-                        <img class="project-image" src="/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}"/>
+                        <img class="project-image" src="/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" data-target="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" />
                         <legend>{{ img.description }}</legend>
                     </div>
                 </div>
