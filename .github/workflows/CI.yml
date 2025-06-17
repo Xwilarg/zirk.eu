@@ -21,6 +21,8 @@ jobs:
         token: ${{ secrets.GIT_TOKEN }}
         submodules: recursive
 
+    - uses: mfinelli/setup-imagemagick@v6
+
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v4
@@ -40,7 +42,6 @@ jobs:
       run: npm run build
     
     - name: Run resize script
-      uses: mfinelli/setup-imagemagick@v6
       working-directory: ./frontend/scripts
       run: ./resize.sh
 
