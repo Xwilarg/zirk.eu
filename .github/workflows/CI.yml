@@ -40,6 +40,7 @@ jobs:
       run: npm run build
     
     - name: Run resize script
+      uses: mfinelli/setup-imagemagick@v6
       working-directory: ./frontend/scripts
       run: ./resize.sh
 
