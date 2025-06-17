@@ -74,8 +74,8 @@ foreach ($data["jams"] as $jam) {
         $entries = $jam["rating"]["entriesRated"] === null ? $jam["rating"]["entries"] : $jam["rating"]["entriesRated"];
     }
 
-    $imagePath = "data/img/gamejam/" . $jam["name"] . "." . (array_key_exists("format", $jam) ? $jam["format"] : "jpg");
-    $gifPath = "data/img/gamejam/" . $jam["name"] . ".gif";
+    $imagePath = "img/gamejam/" . $jam["name"] . "." . (array_key_exists("format", $jam) ? $jam["format"] : "jpg");
+    $gifPath = "img/gamejam/" . $jam["name"] . ".gif";
     array_push($jamData, [
         "name" => $jam["fullName"],
         "image" => file_exists($imagePath) ? $imagePath : null,

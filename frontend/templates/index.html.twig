@@ -39,7 +39,7 @@
             <div class="fixed-grid has-3-cols">
                 <div class="grid">
                     {% for img in project.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
-                        <div class="cell"><img loading="lazy" class="project-image" src="/data/img/projects/{{ img.name }}" alt="{{ img.description }}"/><legend>{{ img.description }}</legend></div>
+                        <div class="cell"><img loading="lazy" class="project-image" src="/img/projects/{{ img.name }}" alt="{{ img.description }}"/><legend>{{ img.description }}</legend></div>
                     {% endfor %}
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="fixed-grid has-3-cols">
                 <div class="grid" id="old-projects">
                     {% for p in projectsOld | filter(x => nsfw or not x.nsfw) %}
-                        <div class="cell is-hidden"><img loading="lazy" class="project-image" src="/data/img/projects-old/{{ p.image.id }}.png" alt="{{ p.description }}"/><legend>{{ p.description }}</legend></div>
+                        <div class="cell is-hidden"><img loading="lazy" class="project-image" src="/img/projects-old/{{ p.image.id }}.png" alt="{{ p.description }}"/><legend>{{ p.description }}</legend></div>
                     {% endfor %}
                 </div>
             </div>
