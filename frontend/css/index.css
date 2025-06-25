@@ -1,3 +1,12 @@
+* {
+    font-family: "Aldrich", sans-serif;
+}
+
+#main-intro {
+    font-size: 1.2em;
+    line-height: 1.75em;
+}
+
 @media (max-width: 1215px) {
     #card-intro {
         order: 0;
