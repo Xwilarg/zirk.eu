@@ -84,7 +84,10 @@
                 </div>
                 <div class="menu-container is-flex is-justify-content-center">
                     {% for key,img in elem.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
-                        <img class="{% if key == 0 %}selected{% endif %}" src="/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" alt="{{ project.name }} preview: {{ img.description }}" data-preview="{{ img.description }}"/>
+                        <img class="{% if key == 0 %}selected{% endif %}"
+                            src="/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}" 
+                            data-target="/data/img/{% if img.folder %}{{ img.folder }}{% else %}home{% endif %}/{{ img.name }}"
+                            data-preview="{{ img.description }}" alt="{{ img.description }}"/>
                     {% endfor %}
                 </div>
             </div>
