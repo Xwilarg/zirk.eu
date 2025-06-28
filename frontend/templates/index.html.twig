@@ -89,7 +89,7 @@
                 {% for name, data in lifeline.statics %}
                     <div class="is-flex is-align-items-center is-flex-direction-column">
                         <p class="has-text-centered">{{ name }}: <span>{{ data.id }}</span></p>
-                        <div class="field has-addons is-fullwidth">
+                        <div class="field has-addons">
                             <div class="control is-expanded">
                                 <input type="text" class="input" placeholder="Verification" data-id="{{ data.id }}" data-hash="{{ data.hash }}" id="lifeline-{{ name | lower }}-input"/>
                             </div>
