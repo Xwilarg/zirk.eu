@@ -19,10 +19,18 @@
     .card {
         order: 2;
     }
+
+    #main-intro {
+        line-height: 1.25em;
+    }
 }
 
 .lifeline-static-container .is-flex {
     gap: 5px;
+}
+
+.lifeline-static-container .field {
+    width: 100%; /* No idea why Bulma don't do that */
 }
 
 .social-no-url {

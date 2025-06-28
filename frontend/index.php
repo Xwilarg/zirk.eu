@@ -108,12 +108,19 @@ arsort($events);
 arsort($languages);
 arsort($people);
 
-$db = new SQLite3('lifeline/lifeline.db');
+if (in_array($_SERVER['REMOTE_ADDR'], array('127.0.0.1', "::1")))
+{
+    $lifelines = [];
+}
+else
+{
+    $db = new SQLite3('lifeline/lifeline.db');
 
-$lifelines = [];
-$results = $db->query("SELECT name, id, lastInsert FROM lifelines");
-while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
-    array_push($lifelines, $row);
+    $lifelines = [];
+    $results = $db->query("SELECT name, id, lastInsert FROM lifelines");
+    while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
+        array_push($lifelines, $row);
+    }
 }
 
 echo $twig->render("index.html.twig", [

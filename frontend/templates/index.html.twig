@@ -87,10 +87,16 @@
             <h3 class="subtitle">Statics</h3>
             <div class="lifeline-static-container">
                 {% for name, data in lifeline.statics %}
-                    <div class="is-flex is-align-items-center">
+                    <div class="is-flex is-align-items-center is-flex-direction-column">
                         <p class="has-text-centered">{{ name }}: <span>{{ data.id }}</span></p>
-                        <input type="text" class="input" placeholder="Verification" data-id="{{ data.id }}" data-hash="{{ data.hash }}" id="lifeline-{{ name | lower }}-input"/>
-                        <button class="button static-lifeline" id="lifeline-{{ name | lower }}">Validate</button>
+                        <div class="field has-addons is-fullwidth">
+                            <div class="control is-expanded">
+                                <input type="text" class="input" placeholder="Verification" data-id="{{ data.id }}" data-hash="{{ data.hash }}" id="lifeline-{{ name | lower }}-input"/>
+                            </div>
+                            <div class="control">
+                                <button class="button static-lifeline" id="lifeline-{{ name | lower }}">Validate</button>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
