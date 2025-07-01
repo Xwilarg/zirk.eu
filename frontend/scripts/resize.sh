@@ -18,11 +18,11 @@ cd -
 echo "Projects images"
 mkdir -p ../img/projects
 cd ../data/img/projects
-magick mogrify -resize "376x270>" -path "../../../img/projects/" *.png;
+magick mogrify -resize "500x400>" -path "../../../img/projects/" *.png;
 cd -
 
 echo "Projects (old) images"
 mkdir -p ../img/projects-old
 cd ../data/img/projects-old
-magick mogrify -resize "376x270>" -path "../../../img/projects-old/" *.png;
+magick mogrify -resize "500x400>" -path "../../../img/projects-old/" *.png;
 cd -

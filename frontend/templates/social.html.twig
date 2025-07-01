@@ -1,0 +1,11 @@
+{% if social.url %}
+<a href="{{ social.url }}" target="_blank">
+{% else %}
+<span class="social-no-url">
+{% endif %}
+<i class="{{ social.icon }}"{% if social.hint %} title="{{ social.hint }}"{% endif %}>{% if social.sub %}<i class="{{ social.sub }}"></i>{% endif %}</i>
+{% if social.url %}
+</a>
+{% else %}
+</span>
+{% endif %}

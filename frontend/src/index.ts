@@ -4,7 +4,7 @@ import { setupLifeline } from "./lifeline";
 import { setupLore } from "./lore";
 import { setupPreview } from "./preview";
 import { setupQuestions } from "./question";
-import { setupControl } from "./console";
+import { setupConsole } from "./console";
 import { setupTabs } from "./tabs";
 import { setupSketch } from "./sketch";
 import { setupHome } from "./home";
@@ -21,12 +21,13 @@ async function initAsync() {
     setupPreview();
     setupLeaflet();
     setupLore();
-    setupControl();
+    setupConsole();
     setupSketch();
     setupHome();
     setupProject();
     setupScreen();
     setupTerminal();
+    setupConsole();
 }
 
 document.onreadystatechange = async function () {

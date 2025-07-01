@@ -1,6 +1,6 @@
 export function setupProject() {
     document.getElementById("old-random")!.addEventListener("click", _ => {
-        let elems = Array.from(document.getElementById("old-projects")!.querySelectorAll(".cell"))
+        let elems = Array.from(document.getElementById("old-projects")!.querySelectorAll(".project"))
             .map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value) as HTMLElement[];

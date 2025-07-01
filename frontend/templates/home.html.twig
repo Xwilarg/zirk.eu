@@ -50,11 +50,17 @@
                 <p class="subtitle"></p>
             </div>
             <div id="main-intro">
-                Welcome on my website, if you heard about me it's probably thanks to Katsis, or possibly through some of my open-source projects (or gamejams)<br>
+                Welcome on my website! I'm a french game and software developer<br>
+                This website is my little green<small>(?)</small> place where I put my likings and organize them into little boxes<br>
                 <br>
-                This website is my little green<small>(?)</small> place where I put my likings and organize them in little boxes<br>
+                This place is always a big work in progress but don't hesitate to explore around :)<br>
                 <br>
-                Don't hesitate to message me by mail, Discord, Revolt, other but please prepare a conversation topic like your favorite socks or something because I'm super good at keeping conversations alive
+                Oh, and if you read until there, please draw me a little sheep and send it to me using one of the mean below so I can feature it on this website once I have enough <small>(your drawing skills doesn't matter, I just want sheepies)</small>
+            </div>
+            <div class="container is-flex is-justify-content-center is-flex-wrap-wrap socials">
+               {% for social in socials["contacts"] | filter(x => nsfw or not x.nsfw) %}
+                   {% include 'social.html.twig' %}
+               {% endfor %}
             </div>
         </div>
     </div>
@@ -95,18 +101,8 @@
     </div>
     {% endfor %}
 </div>
-<div class="container is-flex is-justify-content-center is-flex-wrap-wrap" id="socials">
-    {% for social in socials | filter(x => nsfw or not x.nsfw) %}
-        {% if social.url %}
-        <a href="{{ social.url }}" target="_blank">
-        {% else %}
-        <span class="social-no-url">
-        {% endif %}
-        <i class="{{ social.icon }}"{% if social.hint %} title="{{ social.hint }}"{% endif %}>{% if social.sub %}<i class="{{ social.sub }}"></i>{% endif %}</i>
-        {% if social.url %}
-        </a>
-        {% else %}
-        </span>
-        {% endif %}
+<div class="container is-flex is-justify-content-center is-flex-wrap-wrap socials">
+    {% for social in socials["socials"] | filter(x => nsfw or not x.nsfw) %}
+        {% include 'social.html.twig' %}
     {% endfor %}
 </div>

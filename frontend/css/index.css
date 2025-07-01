@@ -2,9 +2,16 @@
     font-family: "Aldrich", sans-serif;
 }
 
+body {
+    padding-bottom: 2em;
+}
+
 #main-intro {
     font-size: 1.2em;
     line-height: 1.75em;
+    height: 400px;
+
+    overflow-y: scroll;
 }
 
 @media (max-width: 1215px) {
@@ -224,12 +231,15 @@ option {
     padding: 1em
 }
 
-#socials {
-    margin-bottom: 2em;
+#card-intro .socials {
+    height: 40px;
+}
+
+.socials {
     font-size: 1.75em;
 }
 
-.answer a:not(.button):hover, #socials a:hover {
+.answer a:not(.button):hover, .socials a:hover {
     color: lightblue;
 }
 
@@ -237,6 +247,10 @@ option {
 #target-main .card {
     width: 550px;
     height: 550px;
+}
+
+.project {
+    width: 300px;
 }
 
 .menu-container img {

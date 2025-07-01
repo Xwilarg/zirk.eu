@@ -36,24 +36,20 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <div class="fixed-grid has-3-cols">
-                <div class="grid">
-                    {% for img in project.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
-                        <div class="cell"><img loading="lazy" class="project-image" src="/img/projects/{{ img.name }}" data-target="/data/img/projects/{{ img.name }}" alt="{{ img.description }}"/><legend>{{ img.description }}</legend></div>
-                    {% endfor %}
-                </div>
+            <div class="is-flex is-flex-wrap-wrap is-flex-direction-row is-justify-content-space-evenly">
+                {% for img in project.images | filter(x => (nsfw and x.nsfw) or x.nsfw is null or (not nsfw and not x.nsfw))[:3] %}
+                    <div class="project"><img loading="lazy" class="project-image" src="/img/projects/{{ img.name }}" data-target="/data/img/projects/{{ img.name }}" alt="{{ img.description }}"/><legend>{{ img.description }}</legend></div>
+                {% endfor %}
             </div>
             {% endfor %}
             <div class="content">
                 <h3 class="subtitle">Old Projects</h2>
                 <p>Projects that reached a cool state but... that I gaved up on</p>
             </div>
-            <div class="fixed-grid has-3-cols">
-                <div class="grid" id="old-projects">
-                    {% for p in projectsOld | filter(x => nsfw or not x.nsfw) %}
-                        <div class="cell is-hidden"><img loading="lazy" class="project-image" src="/img/projects-old/{{ p.image.id }}.png" data-target="/data/img/projects-old/{{ p.image.id }}.png" alt="{{ p.description }}"/><legend>{{ p.description }}</legend></div>
-                    {% endfor %}
-                </div>
+            <div class="is-flex is-flex-wrap-wrap is-flex-direction-row is-justify-content-space-evenly" id="old-projects">
+                {% for p in projectsOld | filter(x => nsfw or not x.nsfw) %}
+                    <div class="project is-hidden"><img loading="lazy" class="project-image" src="/img/projects-old/{{ p.image.id }}.png" data-target="/data/img/projects-old/{{ p.image.id }}.png" alt="{{ p.description }}"/><legend>{{ p.description }}</legend></div>
+                 {% endfor %}
             </div>
             <button id="old-random" class="button">Show randoms!</button>
         </div>
@@ -103,18 +99,6 @@
         </div>
         <div class="section">
             <h2 class="subtitle">About me</h2>
-            <div class="button container question" id="terminal">Terminal</div>
-            <div class="container is-hidden answer" id="answer-terminal">
-                <textarea class="textarea" id="terminal-output" rows="10" readonly></textarea>
-                <form class="field has-addons container" id="terminal-form">
-                    <p class="control is-expanded">
-                        <input class="input" type="text" id="terminal-field"/>
-                    </p>
-                    <p class="control">
-                        <button class="button is-link" type="submit">Input</button>
-                    </p>
-                </form>
-            </div>
             <div class="button container question" id="travels">Travels</div>
             <div class="container is-hidden answer" id="answer-travels">
                 <div id="map-container">
@@ -126,22 +110,6 @@
                 <script type="application/json" id="travels-json">
                     {{ travels | replace({'<': '&lt;' }) | raw }}
                 </script>
-            </div>
-            <!--<div class="button container question" id="console">Micropis</div>-->
-            <div class="container is-hidden answer" id="answer-console">
-                <div id="console-explanations">
-                    Each micropi are capable of doing one simple task, try to find them and compile your own nanopi!<br>
-                    <!--
-                    <button class="button micropi" data-instruction="print">PRINT</button> 
-                    <button class="button micropi" data-instruction="add">ADD</button>
-                    <button class="button micropi" data-instruction="remove">REMOVE</button>
-                    -->
-                </div>
-                <hr/>
-                <div id="console-data">You look around you and see a bunch of empty small seats, any micropi that would seat on them would feel very comfortable</div>
-                <textarea class="textarea" id="console-field" rows="15"></textarea>
-                <textarea class="textarea" id="console-output" rows="10" readonly></textarea>
-                <button class="button is-link" id="console-btn">Input</button>
             </div>
             <div class="button container question" id="games-replay">Steam replay</div>
             <div class="container is-hidden answer" id="answer-games-replay">
@@ -159,6 +127,32 @@
             </div>
         </div>
         {% include 'faq.html.twig' %}
+        <div class="section">
+            <h2 class="subtitle">Outdated projects</h2>
+            <div class="button container question" id="terminal">Terminal</div>
+            <div class="container is-hidden answer" id="answer-terminal">
+                <textarea class="textarea" id="terminal-output" rows="10" readonly></textarea>
+                <form class="field has-addons container" id="terminal-form">
+                    <p class="control is-expanded">
+                        <input class="input" type="text" id="terminal-field"/>
+                    </p>
+                    <p class="control">
+                        <button class="button is-link" type="submit">Input</button>
+                    </p>
+                </form>
+            </div>
+            <div class="button container question" id="console">Micropis</div>
+            <div class="container is-hidden answer" id="answer-console">
+                <div id="console-explanations">
+                    Each micropi are capable of doing one simple task, try to find them and compile your own nanopi!
+                </div>
+                <hr/>
+                <div id="console-data">You look around you and see a bunch of empty small seats, any micropi that would seat on them would feel very comfortable</div>
+                <textarea class="textarea" id="console-field" rows="15"></textarea>
+                <textarea class="textarea" id="console-output" rows="10" readonly></textarea>
+                <button class="button is-link" id="console-btn">Input</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

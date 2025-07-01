@@ -1,4 +1,4 @@
-export function setupControl() {
+export function setupConsole() {
     document.getElementById("console-btn")!.addEventListener("click", _ => {
         let content = document.getElementById("console-field") as HTMLTextAreaElement;
         compile(content.value.split("\n"));
@@ -19,7 +19,6 @@ export function setupControl() {
             }
         });
     }
-    updateMicropiDisplay();
 }
 
 function updateMicropiDisplay() {
@@ -50,7 +49,7 @@ let validInstructions = [
     new Instruction("REMOVE", 1, "REMOVE value: Remove a value to the buffer", p => buffer[0] -= p),
     new Instruction("PRINT", 0, "PRINT: Print the current value on screen", () => finalBuffer += String.fromCharCode(buffer[0]))
 ];
-let myInstructions = validInstructions; // TODO: When hidden replace by "[]"
+let myInstructions = [];
 function compile(data: string[]) {
     let content = document.getElementById("console-output") as HTMLTextAreaElement;
 
