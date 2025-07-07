@@ -250,7 +250,7 @@ option {
 }
 
 .project {
-    width: 300px;
+    max-width: calc(100% / 3 - 10px);
 }
 
 .menu-container img {
@@ -261,11 +261,16 @@ option {
     height: 250px;
 }
 
+#target-project .is-flex {
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
 .project-image {
     display: block;
     width: auto;
     height: auto;
-    max-height: 250px;
+    max-height: 400px;
     cursor: pointer;
 }
 
