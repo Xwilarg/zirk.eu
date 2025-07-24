@@ -266,6 +266,10 @@ option {
     margin-bottom: 50px;
 }
 
+#card-project .home-main-image > div, #card-project .project-image {
+    max-height: 250px;
+}
+
 .project-image {
     display: block;
     width: auto;
