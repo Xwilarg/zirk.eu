@@ -10,6 +10,8 @@
     data-score="{{jam.score}}"
     data-missinggif="{{jam.gif is null}}"
     data-nsfw="{{jam.nsfw == true}}"
+    data-sketch-folder={{ jam.sketch.folder }}
+    data-sketch-filename={{ jam.sketch.filename }}
 >
     <div class="card-image">
         <figure class="image">
@@ -43,6 +45,9 @@
         {% endif %}
         {% if jam.source is not null %}
             <a class="button" target="_blank" href="{{ jam.source }}"><img class="image is-24x24" src="/img/github.svg" alt="GitHub logo"></a>
+        {% endif %}
+        {% if jam.sketch is not null %}
+            <button class="button sketch-jam-load"><span class="material-symbols-outlined">sd_card</span></button>
         {% endif %}
     </div>
 </div>

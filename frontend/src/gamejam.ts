@@ -1,3 +1,5 @@
+import { sketch_loadProject } from "./sketch";
+
 abstract class AFilterComponent {
     component: HTMLElement;
     validationFunc: (DOMStringMap, HTMLElement, AFilterComponent) => boolean;
@@ -125,6 +127,10 @@ export function setupGamejams()
                 img.style.backgroundImage = "";
             }
         });
+
+        elem.querySelector(".sketch-jam-load")?.addEventListener("click", _ => {
+            sketch_loadProject(elem.dataset.sketchFolder, elem.dataset.sketchFilename, true);
+        });
     }
 
     document.getElementById("filter-order")!.addEventListener("change", e => {
@@ -138,7 +144,6 @@ export function setupGamejams()
                 i++;
             }
         } else if (target.value === "score") {
-            console.log(document.querySelectorAll(".gamejam"));
             // @ts-ignore
             for (let elem of [...document.querySelectorAll(".gamejam")].sort((a, b) => { return a.dataset.score === b.dataset.score ? parseInt(b.dataset.entries) - parseInt(a.dataset.entries) : parseFloat(a.dataset.score) - parseFloat(b.dataset.score); })) {
                 (elem as HTMLElement).style.order = i.toString();

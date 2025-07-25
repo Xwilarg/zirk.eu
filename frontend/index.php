@@ -100,7 +100,11 @@ foreach ($data["jams"] as $jam) {
             : ($overall / $entries),
         "gifPosOverrides" => isset($jam["gifPosOverrides"]) ? $jam["gifPosOverrides"] : null,
         "imagePosOverrides" => isset($jam["imagePosOverrides"]) ? $jam["imagePosOverrides"] : null,
-        "nsfw" => $jam["nsfw"]
+        "nsfw" => $jam["nsfw"],
+        "sketch" => array_key_exists("sketch", $jam) ? [
+            "folder" =>  $jam["sketch"]["folder"],
+            "filename" =>  $jam["sketch"]["filename"]
+        ] : null,
     ]);
 }
 arsort($locations);

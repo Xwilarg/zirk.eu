@@ -1,5 +1,6 @@
 let sketchInstance: any;
 let isSketchLoaded = false;
+let isPinned = false;
 
 function explanation_show_sketch(id: string) {
     return;
@@ -23,8 +24,6 @@ export function setupSketch() {
     }
 
     document.getElementById("screen-power")!.addEventListener("click", _ => {
-        document.getElementById("screen-off")!.classList.add("is-hidden");
-        document.getElementById("screen-on")!.classList.remove("is-hidden");
         loadSketch();
     });
 
@@ -36,15 +35,7 @@ export function setupSketch() {
         resizeUnityCanvas();
     });
     document.getElementById("keep")!.addEventListener("click", _ => {
-        document.getElementById("keep")!.classList.add("is-hidden");
-
-        let outerDiv = document.getElementById("target-main-container");
-        let innerDiv = document.getElementById("card-sketch");
-        let targetDiv = document.getElementById("pinned-sketch");
-
-        targetDiv.appendChild(outerDiv.removeChild(innerDiv));
-
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        pinSketch();
     });
 }
 
@@ -67,14 +58,37 @@ function unityShowBanner(msg: string, type: string) {
     updateBannerVisibility();
 }
 
+function pinSketch() {
+    if (!isPinned)
+    {
+        isPinned = true;
+
+        document.getElementById("keep")!.classList.add("is-hidden");
+
+        let outerDiv = document.getElementById("target-main-container");
+        let innerDiv = document.getElementById("card-sketch");
+        let targetDiv = document.getElementById("pinned-sketch");
+
+        targetDiv.appendChild(outerDiv.removeChild(innerDiv));
+
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+}
+
 function resizeUnityCanvas()
 {
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
     const container = document.getElementById("unity-container")!;
-    canvas.width = container.clientWidth;
-    canvas.height = container.clientHeight;
-    canvas.style.width = `${container.clientWidth}px`;
-    canvas.style.height = `${container.clientHeight}px`;
+
+    if (canvas.width === 0 || canvas.height === 0) {
+        console.log(canvas.width);
+        requestAnimationFrame(resizeUnityCanvas);
+    } else {
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+        canvas.style.width = `${container.clientWidth}px`;
+        canvas.style.height = `${container.clientHeight}px`;
+    }
 }
 
 function loadSketch() {
@@ -82,26 +96,37 @@ function loadSketch() {
     if (isSketchLoaded) return;
     isSketchLoaded = true;
 
+    sketch_loadProject("sketch/", "Sketch", false);
+
+    resizeUnityCanvas();
+}
+
+let loadedScript: HTMLScriptElement | null = null;
+
+export function sketch_loadProject(resFolder: string, filename: string, pinAuto: boolean)
+{
+    document.getElementById("screen-off")!.classList.add("is-hidden");
+    document.getElementById("screen-on")!.classList.remove("is-hidden");
+
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
 
-    var buildUrl = "sketch";
-    var loaderUrl = buildUrl + "/Sketch.loader.js";
+    var buildUrl = resFolder;
+    var loaderUrl = `${buildUrl}${filename}.loader.js`;
     var config = {
-        dataUrl: buildUrl + "/Sketch.data.unityweb",
-        frameworkUrl: buildUrl + "/Sketch.framework.js.unityweb",
-        codeUrl: buildUrl + "/Sketch.wasm.unityweb",
+        dataUrl: `${buildUrl}${filename}.data.unityweb`,
+        frameworkUrl: `${buildUrl}${filename}.framework.js.unityweb`,
+        codeUrl: `${buildUrl}${filename}.wasm.unityweb`,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Zirk",
-        productName: "Sketch",
+        productName: filename,
         productVersion: "1.0",
         showBanner: unityShowBanner,
     };
 
-    resizeUnityCanvas();
-
     const script = document.createElement("script");
     script.src = loaderUrl;
     script.onload = () => {
+        console.log(`Canvas dimensions: ${canvas.width} x ${canvas.height}`);
         // @ts-ignore
         createUnityInstance(canvas, config, (_) => {
         }).then((unityInstance: any) => {
@@ -112,5 +137,8 @@ function loadSketch() {
         });
     };
 
-    document.body.appendChild(script);
+    loadedScript = document.body.appendChild(script);
+    resizeUnityCanvas();
+
+    if (pinAuto) pinSketch();
 }
