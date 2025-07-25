@@ -10,7 +10,7 @@ function explanation_show_sketch(id: string) {
 }
 
 function setupSketchButton(data: HTMLElement) {
-    if (data.dataset.scene) {
+    if (data.classList.contains("sketch-button")) {
         document.getElementById(data.id)!.addEventListener("click", _ => {
             sketchInstance.SendMessage('LevelLoader', 'LoadScene', data.dataset.scene);
             explanation_show_sketch(data.id);
@@ -69,6 +69,8 @@ function pinSketch() {
         let innerDiv = document.getElementById("card-sketch");
         let targetDiv = document.getElementById("pinned-sketch");
 
+        innerDiv.classList.add("pinned");
+
         targetDiv.appendChild(outerDiv.removeChild(innerDiv));
 
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -102,7 +104,7 @@ function loadSketch() {
 
 let loadedScript: HTMLScriptElement | null = null;
 
-export function sketch_loadProject(resFolder: string, filename: string, pinAuto: boolean)
+export function sketch_loadProject(resFolder: string, filename: string, defaultSketchOverride: boolean)
 {
     document.getElementById("screen-off")!.classList.add("is-hidden");
     document.getElementById("screen-on")!.classList.remove("is-hidden");
@@ -139,5 +141,10 @@ export function sketch_loadProject(resFolder: string, filename: string, pinAuto:
 
     loadedScript = document.body.appendChild(script);
 
-    if (pinAuto) pinSketch();
+    if (defaultSketchOverride) pinSketch();
+    for (let sketchBtn of document.querySelectorAll(".sketch-button"))
+    {
+        if (defaultSketchOverride) sketchBtn.classList.add("is-hidden");
+        else sketchBtn.classList.remove("is-hidden");
+    }
 }

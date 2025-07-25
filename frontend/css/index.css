@@ -269,6 +269,10 @@ option {
     overflow-y: auto;
 }
 
+.pinned.fullscreen-view {
+    aspect-ratio: 16 / 10;
+}
+
 .project {
     max-width: calc(100% / 3 - 10px);
 }

@@ -26,7 +26,7 @@
                             <span class="material-symbols-outlined">keep</span>
                         </button>
                         {% for s in sketch %}
-                        <button class="button" id="sketch-{{ s.id }}" data-scene="{{ s.scene }}">
+                        <button class="button sketch-button" id="sketch-{{ s.id }}" data-scene="{{ s.scene }}">
                             {% if s.type == "icon" %}
                                 <span class="material-symbols-outlined">{{ s.name }}</span>
                             {% else %}
