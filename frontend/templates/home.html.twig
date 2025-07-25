@@ -1,4 +1,4 @@
-<div class="container is-flex is-flex-wrap-wrap is-justify-content-center">
+<div class="container is-flex is-flex-wrap-wrap is-justify-content-center" id="target-main-container">
     <div class="card" id="card-sketch">
         <div class="card-content">
             <div class="content">
@@ -19,15 +19,21 @@
                         <div id="unity-warning"></div>
                     </div>
                     <div id="unity-buttons">
-                    {% for s in sketch %}
-                    <button class="button" id="sketch-{{ s.id }}" data-scene="{{ s.scene }}">
-                        {% if s.type == "icon" %}
-                            <span class="material-symbols-outlined">{{ s.name }}</span>
-                        {% else %}
-                            {{ s.name }}
-                        {% endif %}
-                    </button>
-                    {% endfor %}
+                        <button class="button" id="fullscreen">
+                            <span class="material-symbols-outlined">fullscreen</span>
+                        </button>
+                        <button class="button" id="keep">
+                            <span class="material-symbols-outlined">keep</span>
+                        </button>
+                        {% for s in sketch %}
+                        <button class="button" id="sketch-{{ s.id }}" data-scene="{{ s.scene }}">
+                            {% if s.type == "icon" %}
+                                <span class="material-symbols-outlined">{{ s.name }}</span>
+                            {% else %}
+                                {{ s.name }}
+                            {% endif %}
+                        </button>
+                        {% endfor %}
                     </div>
                     <!--<div id="unity-explanations">
                         <fieldset>
@@ -43,6 +49,7 @@
             </div>
         </div>
     </div>
+    <div class="break is-hidden"></div>
     <div class="card" id="card-intro">
         <div class="card-content">
             <div class="content">

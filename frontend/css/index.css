@@ -6,6 +6,11 @@ body {
     padding-bottom: 2em;
 }
 
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
 #main-intro {
     font-size: 1.2em;
     line-height: 1.75em;
@@ -15,18 +20,6 @@ body {
 }
 
 @media (max-width: 1215px) {
-    #card-intro {
-        order: 0;
-    }
-
-    #card-sketch {
-        order: 1;
-    }
-
-    .card {
-        order: 2;
-    }
-
     #main-intro {
         line-height: 1.25em;
     }
@@ -63,15 +56,6 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-}
-
-#unity-container {
-    height: 375px;
-}
-
-#unity-buttons {
-    max-height: 80px;
-    overflow-y: auto;
 }
 
 /* https://github.com/jgthms/bulma/issues/2398 */
@@ -244,9 +228,45 @@ option {
 }
 
 /* Project */
-#target-main .card {
+@media (max-width: 550px) {
+    #fullscreen {
+        display: none;
+    }
+}
+
+#target-main .card, #pinned-sketch .card {
     width: 550px;
     height: 550px;
+}
+
+#target-main .card.fullscreen-view, #pinned-sketch .card.fullscreen-view {
+    width: auto;
+    height: 85dvh;
+}
+
+#target-main-container {
+    max-width: 100vw;
+}
+
+#card-sketch .card-content {
+    height: 100%;
+}
+
+#screen-container {
+    height: calc(100% - 50px);
+}
+
+#screen-on {
+    height: 100%;
+}
+
+#unity-container {
+    height: calc(100% - 80px);
+}
+
+#unity-buttons {
+    max-height: 80px;
+    overflow-y: auto;
 }
 
 .project {
