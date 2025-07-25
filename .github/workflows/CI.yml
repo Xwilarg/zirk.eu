@@ -54,3 +54,4 @@ jobs:
         key: ${{ secrets.DEPLOY_SSHKEY }}
         source: "frontend/css/,frontend/data/,frontend/img/,frontend/js/,frontend/templates/,frontend/index.php,frontend/vendor/,frontend/lore/,frontend/node_modules/,frontend/favicon.ico"
         target: ${{ secrets.DEPLOY_TARGET }}
+        strip_components: 1
