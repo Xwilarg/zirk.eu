@@ -32,7 +32,12 @@
             <div class="content">
                 {% for link in project.links %}
                     {% if nsfw and link.nsfw or not link.nsfw %}
-                    <a class="button{% if link.type == "primary" %} is-primary{% endif %}" href="{{ link.content }}" target="_blank"/>{{ link.name }}</a>
+                    <a class="button
+                    {% if link.type == "primary" %} is-primary
+                    {% elseif link.type == "discord" %} is-info
+                    {% elseif link.type == "revolt" %} is-danger
+                    {% endif %}
+                    " href="{{ link.content }}" target="_blank"/>{{ link.name }}</a>
                     {% endif %}
                 {% endfor %}
             </div>
