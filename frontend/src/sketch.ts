@@ -80,8 +80,7 @@ function resizeUnityCanvas()
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
     const container = document.getElementById("unity-container")!;
 
-    if (canvas.width === 0 || canvas.height === 0) {
-        console.log(canvas.width);
+    if (container.clientWidth === 0 || container.clientHeight === 0) {
         requestAnimationFrame(resizeUnityCanvas);
     } else {
         canvas.width = container.clientWidth;
@@ -109,6 +108,7 @@ export function sketch_loadProject(resFolder: string, filename: string, pinAuto:
     document.getElementById("screen-on")!.classList.remove("is-hidden");
 
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
+    resizeUnityCanvas();
 
     var buildUrl = resFolder;
     var loaderUrl = `${buildUrl}${filename}.loader.js`;
@@ -138,7 +138,6 @@ export function sketch_loadProject(resFolder: string, filename: string, pinAuto:
     };
 
     loadedScript = document.body.appendChild(script);
-    resizeUnityCanvas();
 
     if (pinAuto) pinSketch();
 }
