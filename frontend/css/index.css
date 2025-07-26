@@ -52,12 +52,6 @@ body {
     z-index: 1;
 }
 
-#unity-loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
 /* https://github.com/jgthms/bulma/issues/2398 */
 .card:last-child {
     margin-bottom: 1.5rem;
@@ -269,7 +263,7 @@ option {
     overflow-y: auto;
 }
 
-.pinned.fullscreen-view {
+.fullscreen-view {
     aspect-ratio: 16 / 10;
 }
 

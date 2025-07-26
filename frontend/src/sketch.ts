@@ -1,4 +1,4 @@
-let sketchInstance: any;
+let sketchInstance: any | null = null;
 let isSketchLoaded = false;
 let isPinned = false;
 
@@ -28,14 +28,16 @@ export function setupSketch() {
     });
 
     document.getElementById("fullscreen")!.addEventListener("click", _ => {
-        document.getElementById("fullscreen")!.classList.add("is-hidden");
-        document.getElementById("card-sketch")!.classList.add("fullscreen-view");
-        document.querySelector("#target-main-container .break").classList.remove("is-hidden");
-
-        resizeUnityCanvas();
+        setFullscreen();
     });
     document.getElementById("keep")!.addEventListener("click", _ => {
         pinSketch();
+    });
+
+    window.addEventListener('resize', _ => {
+        if (sketchInstance) {
+            resizeUnityCanvas();
+        }
     });
 }
 
@@ -56,6 +58,14 @@ function unityShowBanner(msg: string, type: string) {
         }, 5000);
     }
     updateBannerVisibility();
+}
+
+function setFullscreen() {
+    document.getElementById("fullscreen")!.classList.add("is-hidden");
+    document.getElementById("card-sketch")!.classList.add("fullscreen-view");
+    document.querySelector("#target-main-container .break").classList.remove("is-hidden");
+
+    resizeUnityCanvas();
 }
 
 function pinSketch() {
@@ -106,8 +116,10 @@ let loadedScript: HTMLScriptElement | null = null;
 
 export function sketch_loadProject(resFolder: string, filename: string, defaultSketchOverride: boolean)
 {
+    document.getElementById("unity-loading")!.classList.remove("is-hidden");
+
     document.getElementById("screen-off")!.classList.add("is-hidden");
-    document.getElementById("screen-on")!.classList.remove("is-hidden");
+    document.getElementById("screen-on")!.classList.add("is-hidden");
 
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
     resizeUnityCanvas();
@@ -133,7 +145,8 @@ export function sketch_loadProject(resFolder: string, filename: string, defaultS
         createUnityInstance(canvas, config, (_) => {
         }).then((unityInstance: any) => {
             sketchInstance = unityInstance;
-            document.getElementById("unity-loading")!.hidden = true;
+            document.getElementById("unity-loading")!.classList.add("is-hidden");
+            document.getElementById("screen-on")!.classList.remove("is-hidden");
         }).catch((message: string) => {
             alert(message);
         });
@@ -141,7 +154,10 @@ export function sketch_loadProject(resFolder: string, filename: string, defaultS
 
     loadedScript = document.body.appendChild(script);
 
-    if (defaultSketchOverride) pinSketch();
+    if (defaultSketchOverride) {
+        pinSketch();
+        setFullscreen();
+    }
     for (let sketchBtn of document.querySelectorAll(".sketch-button"))
     {
         if (defaultSketchOverride) sketchBtn.classList.add("is-hidden");
