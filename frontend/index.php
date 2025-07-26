@@ -102,7 +102,7 @@ foreach ($data["jams"] as $jam) {
         "gifPosOverrides" => isset($jam["gifPosOverrides"]) ? $jam["gifPosOverrides"] : null,
         "imagePosOverrides" => isset($jam["imagePosOverrides"]) ? $jam["imagePosOverrides"] : null,
         "nsfw" => $jam["nsfw"],
-        "sketch" => (!$jam["nsfw"] && array_key_exists("sketch", $jam) && $jam["sketch"] !== null) ? [
+        "sketch" => (($nsfw || !$jam["nsfw"]) && array_key_exists("sketch", $jam) && $jam["sketch"] !== null) ? [
             "folder" =>  $jam["sketch"]["folder"],
             "filename" =>  $jam["sketch"]["filename"]
         ] : null,
