@@ -62,6 +62,13 @@
         </div>
     </div>
     <div class="is-hidden container is-fluid" id="target-gamejam">
+        <h3 class="subtitle has-text-centered">Best ranks</h3>
+        <div class="mt-5 is-flex is-justify-content-center is-flex-wrap-wrap is-gap-5">
+            {% for jam in jams.data | filter(e => e.duration > 24 and e.score < 1) | sort((a, b) => a.score <=> b.score)[:8] %}
+                {% include 'gamejam.html.twig' %}
+            {% endfor %}
+        </div>
+        <hr/>
         <div class="container control">
             {% include 'gamejamFilters.html.twig' %}
         </div>

@@ -76,7 +76,7 @@ foreach ($data["jams"] as $jam) {
 
     $imagePath = "img/gamejam/" . $jam["name"] . "." . (array_key_exists("format", $jam) ? $jam["format"] : "jpg");
     $gifPath = "data/img/gamejam/" . $jam["name"] . ".gif";
-
+    if (!$jam["version"]) echo($jam["fullName"]);
     array_push($jamData, [
         "name" => $jam["fullName"],
         "image" => file_exists($imagePath) ? $imagePath : null,
@@ -102,7 +102,7 @@ foreach ($data["jams"] as $jam) {
         "gifPosOverrides" => isset($jam["gifPosOverrides"]) ? $jam["gifPosOverrides"] : null,
         "imagePosOverrides" => isset($jam["imagePosOverrides"]) ? $jam["imagePosOverrides"] : null,
         "nsfw" => $jam["nsfw"],
-        "sketch" => array_key_exists("sketch", $jam) && $jam["sketch"] !== null ? [
+        "sketch" => (!$jam["nsfw"] && array_key_exists("sketch", $jam) && $jam["sketch"] !== null) ? [
             "folder" =>  $jam["sketch"]["folder"],
             "filename" =>  $jam["sketch"]["filename"]
         ] : null,
