@@ -107,14 +107,14 @@ function loadSketch() {
     if (isSketchLoaded) return;
     isSketchLoaded = true;
 
-    sketch_loadProject("sketch/", "Sketch", false);
+    sketch_loadProject("sketch/", "Sketch", "6000.X", false);
 
     resizeUnityCanvas();
 }
 
 let loadedScript: HTMLScriptElement | null = null;
 
-export function sketch_loadProject(resFolder: string, filename: string, defaultSketchOverride: boolean)
+export function sketch_loadProject(resFolder: string, filename: string, version: string, defaultSketchOverride: boolean)
 {
     document.getElementById("unity-loading")!.classList.remove("is-hidden");
 
@@ -124,18 +124,36 @@ export function sketch_loadProject(resFolder: string, filename: string, defaultS
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
     resizeUnityCanvas();
 
-    var buildUrl = resFolder;
-    var loaderUrl = `${buildUrl}${filename}.loader.js`;
-    var config = {
-        dataUrl: `${buildUrl}${filename}.data.unityweb`,
-        frameworkUrl: `${buildUrl}${filename}.framework.js.unityweb`,
-        codeUrl: `${buildUrl}${filename}.wasm.unityweb`,
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Zirk",
-        productName: filename,
-        productVersion: "1.0",
-        showBanner: unityShowBanner,
-    };
+    let buildUrl = `${resFolder}Build/`;
+    let assetsUrl = `${resFolder}StreamingAssets/`;
+    let loaderUrl = `${buildUrl}${filename}.loader.js`;
+
+
+    let config;
+    
+    if (version.startsWith("2021.")) {
+        config = {
+            dataUrl: `${buildUrl}${filename}.data`,
+            frameworkUrl: `${buildUrl}${filename}.framework.js`,
+            codeUrl: `${buildUrl}${filename}.wasm`,
+            streamingAssetsUrl: assetsUrl,
+            companyName: "Zirk",
+            productName: filename,
+            productVersion: "1.0",
+            showBanner: unityShowBanner,
+        };
+    } else {
+        config = {
+            dataUrl: `${buildUrl}${filename}.data.unityweb`,
+            frameworkUrl: `${buildUrl}${filename}.framework.js.unityweb`,
+            codeUrl: `${buildUrl}${filename}.wasm.unityweb`,
+            streamingAssetsUrl: assetsUrl,
+            companyName: "Zirk",
+            productName: filename,
+            productVersion: "1.0",
+            showBanner: unityShowBanner,
+        };
+    }
 
     const script = document.createElement("script");
     script.src = loaderUrl;

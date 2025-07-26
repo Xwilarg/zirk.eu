@@ -4,6 +4,7 @@
     data-date="{{jam.date}}"
     data-year="{{jam.date[:4]}}"
     data-engine="{{jam.engine}}"
+    data-version="{{jam.version}}"
     data-event="{{jam.shortEvent}}"
     data-entries="{{jam.entriesTotal}}"
     data-team="{{jam.team | join(';')}}"
@@ -37,17 +38,14 @@
         </div>
     </div>
     <div class="content pl-5 pb-5">
-        {% if jam.webgl is not null %}
-            <a class="button is-primary" target="_blank" href="{{ jam.webgl }}"><span class="material-symbols-outlined">play_arrow</span></a>
+        {% if jam.sketch is not null %}
+            <button class="button is-primary sketch-jam-load"><span class="material-symbols-outlined">play_arrow</span></button>
         {% endif %}
         {% if jam.website is not null %}
             <a class="button" target="_blank" href="{{ jam.website }}"><span class="material-symbols-outlined">language</span></a>
         {% endif %}
         {% if jam.source is not null %}
             <a class="button" target="_blank" href="{{ jam.source }}"><img class="image is-24x24" src="/img/github.svg" alt="GitHub logo"></a>
-        {% endif %}
-        {% if jam.sketch is not null %}
-            <button class="button sketch-jam-load"><span class="material-symbols-outlined">sd_card</span></button>
         {% endif %}
     </div>
 </div>

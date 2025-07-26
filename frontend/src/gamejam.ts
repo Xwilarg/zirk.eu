@@ -129,7 +129,7 @@ export function setupGamejams()
         });
 
         elem.querySelector(".sketch-jam-load")?.addEventListener("click", _ => {
-            sketch_loadProject(elem.dataset.sketchFolder, elem.dataset.sketchFilename, true);
+            sketch_loadProject(elem.dataset.sketchFolder, elem.dataset.sketchFilename, elem.dataset.version, true);
         });
     }
 

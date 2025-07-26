@@ -1,5 +1,4 @@
 <?php
-
 require_once "vendor/autoload.php";
 
 use Twig\Loader\FilesystemLoader;
@@ -77,6 +76,7 @@ foreach ($data["jams"] as $jam) {
 
     $imagePath = "img/gamejam/" . $jam["name"] . "." . (array_key_exists("format", $jam) ? $jam["format"] : "jpg");
     $gifPath = "data/img/gamejam/" . $jam["name"] . ".gif";
+
     array_push($jamData, [
         "name" => $jam["fullName"],
         "image" => file_exists($imagePath) ? $imagePath : null,
@@ -88,6 +88,7 @@ foreach ($data["jams"] as $jam) {
         "duration" => $jam["duration"],
         "location" => $location,
         "engine" => $jam["engine"],
+        "version" => $jam["version"],
         "theme" => count($jam["theme"]) > 0 ? $jam["theme"][0] : null,
         "overall" => $overall,
         "team" => $currTeam,
@@ -101,7 +102,7 @@ foreach ($data["jams"] as $jam) {
         "gifPosOverrides" => isset($jam["gifPosOverrides"]) ? $jam["gifPosOverrides"] : null,
         "imagePosOverrides" => isset($jam["imagePosOverrides"]) ? $jam["imagePosOverrides"] : null,
         "nsfw" => $jam["nsfw"],
-        "sketch" => array_key_exists("sketch", $jam) ? [
+        "sketch" => array_key_exists("sketch", $jam) && $jam["sketch"] !== null ? [
             "folder" =>  $jam["sketch"]["folder"],
             "filename" =>  $jam["sketch"]["filename"]
         ] : null,
