@@ -20,7 +20,6 @@ async function initAsync() {
     setupLifeline();
     setupPreview();
     setupLeaflet();
-    setupLore();
     setupConsole();
     setupSketch();
     setupHome();

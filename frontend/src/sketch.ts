@@ -124,14 +124,14 @@ export function sketch_loadProject(resFolder: string, filename: string, version:
     const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
     resizeUnityCanvas();
 
-    let buildUrl = `${resFolder}Build/`;
+    let buildUrl = defaultSketchOverride ? `${resFolder}Build/` : resFolder;
     let assetsUrl = `${resFolder}StreamingAssets/`;
     let loaderUrl = `${buildUrl}${filename}.loader.js`;
 
 
     let config;
     
-    if (version.startsWith("2021.")) {
+    if (version === "2021.1.4f1") {
         config = {
             dataUrl: `${buildUrl}${filename}.data`,
             frameworkUrl: `${buildUrl}${filename}.framework.js`,
