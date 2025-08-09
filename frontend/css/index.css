@@ -327,3 +327,11 @@ option {
 .home-buttons {
     height: 50px;
 }
+
+#target-lore iframe {
+    height: 560px;
+}
+
+#answer-lore-nehneh > .is-flex {
+    gap: 5px;
+}

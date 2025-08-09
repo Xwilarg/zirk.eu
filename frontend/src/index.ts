@@ -25,6 +25,7 @@ async function initAsync() {
     setupHome();
     setupProject();
     setupScreen();
+    setupLore();
     setupTerminal();
     setupConsole();
 }
