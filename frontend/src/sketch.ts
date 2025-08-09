@@ -1,5 +1,4 @@
 let sketchInstance: any | null = null;
-let isSketchLoaded = false;
 let isPinned = false;
 
 function explanation_show_sketch(id: string) {
@@ -36,6 +35,12 @@ export function setupSketch() {
     document.getElementById("keep")!.addEventListener("click", _ => {
         pinSketch();
     });
+    document.getElementById("screen-power-off")!.addEventListener("click", _ => { // Go back to power mode
+        sketchInstance.Quit();
+        sketchInstance = null;
+        document.getElementById("screen-off")!.classList.remove("is-hidden");
+        document.getElementById("screen-on")!.classList.add("is-hidden");
+    })
 
     window.addEventListener('resize', _ => {
         if (sketchInstance) {
@@ -106,10 +111,6 @@ function resizeUnityCanvas()
 }
 
 function loadSketch() {
-    // Don't load things twice
-    if (isSketchLoaded) return;
-    isSketchLoaded = true;
-
     sketch_loadProject("sketch/", "Sketch", "6000.X", false);
 
     resizeUnityCanvas();
