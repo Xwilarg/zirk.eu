@@ -27,8 +27,11 @@ export function setupSketch() {
         loadSketch();
     });
 
-    document.getElementById("fullscreen")!.addEventListener("click", _ => {
+    document.getElementById("widescreen")!.addEventListener("click", _ => {
         setFullscreen();
+    });
+    document.getElementById("fullscreen")!.addEventListener("click", _ => {
+        sketchInstance.SetFullscreen(1);
     });
     document.getElementById("keep")!.addEventListener("click", _ => {
         pinSketch();
@@ -61,7 +64,7 @@ function unityShowBanner(msg: string, type: string) {
 }
 
 function setFullscreen() {
-    document.getElementById("fullscreen")!.classList.add("is-hidden");
+    document.getElementById("widescreen")!.classList.add("is-hidden");
     document.getElementById("card-sketch")!.classList.add("fullscreen-view");
     document.querySelector("#target-main-container .break").classList.remove("is-hidden");
 
@@ -115,6 +118,14 @@ function loadSketch() {
 let loadedScript: HTMLScriptElement | null = null;
 
 export function sketch_loadProject(resFolder: string, filename: string, version: string, defaultSketchOverride: boolean)
+{
+    if (sketchInstance) sketchInstance.Quit().then(() => {
+        loadProjectInternal(resFolder, filename, version, defaultSketchOverride);
+    });
+    else loadProjectInternal(resFolder, filename, version, defaultSketchOverride);
+}
+
+function loadProjectInternal(resFolder: string, filename: string, version: string, defaultSketchOverride: boolean)
 {
     document.getElementById("unity-loading")!.classList.remove("is-hidden");
 

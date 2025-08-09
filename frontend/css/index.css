@@ -223,7 +223,7 @@ option {
 
 /* Project */
 @media (max-width: 550px) {
-    #fullscreen {
+    #widescreen {
         display: none;
     }
 }
