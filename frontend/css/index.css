@@ -335,3 +335,24 @@ option {
 #answer-lore-nehneh > .is-flex {
     gap: 5px;
 }
+
+/* Lore */
+#lore-container {
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+}
+
+#lore-container > * {
+    width: 50%;
+}
+
+@media (max-width: 1000px) {
+    #lore-container {
+        flex-flow: column;
+    }
+
+    #lore-container > * {
+        width: 100%;
+    }
+}

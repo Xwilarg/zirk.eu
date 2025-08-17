@@ -5,6 +5,16 @@
         <a class="button" target="_blank" href="https://minipi.zirk.eu/">Minipi</a>
     </div>
     <div class="container is-hidden" id="answer-lore-rhefir">
+        <h2 class="subtitle">Species</h2>
+        <div id="lore-container">
+            <div>
+                {% for e in lore.species.data %}
+                    <button class="btn-lore button" data-description="{{ e.description | join("<br/>") }}">{{ e.name }}</button>
+                {% endfor %}
+            </div>
+            <textarea id="lore-text" rows="25" readonly>
+            </textarea>
+        </div>
     </div>
     <div class="container is-hidden" id="answer-lore-nehneh">
         <div class="is-flex is-justify-content-center is-flex-wrap-wrap">

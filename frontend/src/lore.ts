@@ -12,4 +12,10 @@ export function setupLore() {
         clearAll();
         document.getElementById("answer-lore-nehneh")!.classList.remove("is-hidden");
     });
+    for (let btn of document.querySelectorAll(".btn-lore"))
+    {
+        btn.addEventListener("click", _ => {
+            (document.getElementById("lore-text") as HTMLTextAreaElement).value = (btn as HTMLElement).dataset.description;
+        });
+    }
 }
