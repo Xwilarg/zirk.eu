@@ -34,9 +34,4 @@ export function setupTabs() {
             });
         }
     }
-
-    document.getElementById("lore-tab-button")!.addEventListener("click", _ => {
-        document.getElementById("lore-tab")!.classList.remove("is-hidden");
-        document.getElementById("lore-tab-faq")!.classList.add("is-hidden");
-    });
 }
