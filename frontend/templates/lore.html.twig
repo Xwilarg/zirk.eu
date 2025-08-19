@@ -9,10 +9,10 @@
         <div id="lore-container">
             <div>
                 {% for e in lore.world.data %}
-                    <button class="btn-lore button" data-description="{{ e.description | join("<br/>") }}">{{ e.name }}</button>
+                    <button class="btn-lore button" data-description="{{ e.description | join("\n") }}">{{ e.name }}</button>
                 {% endfor %}
             </div>
-            <textarea id="lore-text" rows="25" readonly>
+            <textarea class="textarea" id="lore-text" rows="25" readonly>
             </textarea>
         </div>
     </div>

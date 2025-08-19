@@ -1,4 +1,4 @@
-* {
+*, textarea {
     font-family: "Aldrich", sans-serif;
 }
 
@@ -343,8 +343,8 @@ option {
     width: 100%;
 }
 
-#lore-container > * {
-    width: 50%;
+#lore-container button {
+    width: 200px;
 }
 
 @media (max-width: 1000px) {
