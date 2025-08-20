@@ -129,6 +129,8 @@ else
     }
 }
 
+$loreJson = json_decode(file_get_contents("data/json/lore.json"), true);
+
 echo $twig->render("index.html.twig", [
     "jams" => [
         "data" => $jamData,
@@ -147,7 +149,13 @@ echo $twig->render("index.html.twig", [
     "travels" => file_get_contents("data/json/travels.json"),
     "socials" => json_decode(file_get_contents("data/json/socials.json"), true),
     "sketch" => json_decode(file_get_contents("data/json/sketch.json"), true),
-    "lore" => json_decode(file_get_contents("data/json/lore.json"), true),
+    "lore" => [
+        "world" => $loreJson["world"],
+        "species" => [
+            "raw" => json_encode($loreJson["species"]),
+            "json" => $loreJson["species"]
+        ]
+    ],
     "lifeline" => [
         "dynamics" => $lifelines,
         "statics" => json_decode(file_get_contents("data/json/lifeline.json"), true)["statics"]
