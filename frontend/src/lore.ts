@@ -68,10 +68,11 @@ function renderNetwork() {
             shape: "dot",
             size: 25,
             font: {
-                color: "white"
+                color: "white",
+                size: 18
             }
         },
-        width: "500px"
+        width: "600px"
     };
 
     const network = new Network(container, data, options);
