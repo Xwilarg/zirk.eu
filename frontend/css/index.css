@@ -17,6 +17,8 @@ body {
     height: 400px;
 
     overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bulma-text) var(--bulma-background);
 }
 
 @media (max-width: 1215px) {
