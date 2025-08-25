@@ -16,7 +16,7 @@
             {{ lore.world.description | join("<br/>") | raw }}
         </p>
         <div class="lore-display">
-            <div>
+            <div class="lore-display-btns">
                 {% for e in lore.world.data %}
                     <button class="btn-lore button" data-description="{{ e.description | join("\n") }}">{{ e.name }}</button>
                 {% endfor %}

@@ -338,7 +338,10 @@ option {
 .lore-display {
     display: flex;
     flex-flow: row;
-    width: 100%;
+}
+
+.lore-display-btns {
+    width: 200px;
 }
 
 .lore-display button {
@@ -359,4 +362,9 @@ option {
     width: 600px;
     height: 400px;
     border: 1px solid #333;
+}
+
+/* Bulma textarea sucks */
+textarea {
+    min-width: inherit !important;
 }
