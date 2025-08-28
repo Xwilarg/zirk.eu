@@ -159,5 +159,6 @@ echo $twig->render("index.html.twig", [
     "lifeline" => [
         "dynamics" => $lifelines,
         "statics" => json_decode(file_get_contents("data/json/lifeline.json"), true)["statics"]
-    ]
+    ],
+    "sheep" => json_decode(file_get_contents("data/json/sheep.json"), true)
 ]);

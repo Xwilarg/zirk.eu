@@ -215,7 +215,7 @@ option {
     font-size: 1.75em;
 }
 
-.answer a:not(.button):hover, .socials a:hover {
+.answer a:not(.button):hover, .socials a:hover, #main-intro a:hover {
     color: lightblue;
 }
 

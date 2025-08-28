@@ -26,3 +26,9 @@ mkdir -p ../img/projects-old
 cd ../data/img/projects-old
 magick mogrify -resize "500x400^" -path "../../../img/projects-old/" *.png;
 cd -
+
+echo "Sheep images"
+mkdir -p ../img/sheep
+cd ../data/img/sheep
+magick mogrify -resize "500x500^" -path "../../../img/sheep/" *.jpg;
+cd -

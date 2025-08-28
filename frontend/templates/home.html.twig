@@ -66,7 +66,14 @@
                 <br>
                 This place is always a big work in progress but don't hesitate to explore around :)<br>
                 <br>
-                Oh, and if you read until there, please draw me a little sheep and send it to me using one of the mean below so I can feature it on this website once I have enough <small>(your drawing skills doesn't matter, I just want sheepies)</small>
+                Oh, and if you read until there, please draw me a little sheep and send it to me using one of the mean below so I can feature it on this website once I have enough <small>(your drawing skills doesn't matter, I just want <a id="show-sheep-drawings">sheepies</a>)</small>
+                <div id="sheep-drawings" class="is-hidden">
+                    <hr/>
+                    {% for s in sheep %}
+                        <small>By {{ s.name }}</small>
+                        <img src="/img/sheep/{{ s.image }}" />
+                    {% endfor %}
+                </div>
             </div>
             <div class="container is-flex is-justify-content-center is-flex-wrap-wrap socials">
                {% for social in socials["contacts"] | filter(x => nsfw or not x.nsfw) %}

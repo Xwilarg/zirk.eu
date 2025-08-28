@@ -12,4 +12,8 @@ export function setupHome() {
             });
         }
     }
+
+    document.getElementById("show-sheep-drawings").addEventListener("click", () => {
+        document.getElementById("sheep-drawings").classList.remove("is-hidden");
+    });
 }
