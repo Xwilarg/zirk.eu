@@ -1,5 +1,7 @@
 import { Network, DataSet, Node, Edge } from "vis-network/standalone";
 
+let currDescription;
+
 function clearAll() {
     document.getElementById("answer-lore-rhefir")!.classList.add("is-hidden");
     document.getElementById("answer-lore-nehneh")!.classList.add("is-hidden");
@@ -18,9 +20,17 @@ export function setupLore() {
     for (let btn of document.querySelectorAll(".btn-lore"))
     {
         btn.addEventListener("click", _ => {
-            (document.getElementById("lore-world-text") as HTMLTextAreaElement).value = (btn as HTMLElement).dataset.description;
+            const dataset = (btn as HTMLElement).dataset;
+            (document.getElementById("lore-world-text") as HTMLTextAreaElement).value = dataset.summary;
+            document.getElementById("lore-world-text-button").classList.remove("is-hidden");
+            currDescription = dataset.description;
         });
     }
+    document.getElementById("lore-world-text-button").addEventListener("click", _ => {
+        document.getElementById("lore-world-text-button").classList.add("is-hidden");
+        let textarea = (document.getElementById("lore-world-text") as HTMLTextAreaElement);
+        textarea.value += "\n\n" + currDescription;
+    });
 }
 
 

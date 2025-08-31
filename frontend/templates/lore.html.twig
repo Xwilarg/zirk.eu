@@ -18,11 +18,14 @@
         <div class="lore-display">
             <div class="lore-display-btns">
                 {% for e in lore.world.data %}
-                    <button class="btn-lore button" data-description="{{ e.description | join("\n") }}">{{ e.name }}</button>
+                    <button class="btn-lore button" data-summary="{{ e.summary }}" data-description="{{ e.description | join("\n") }}">{{ e.name }}</button>
                 {% endfor %}
             </div>
-            <textarea class="textarea" id="lore-world-text" rows="15" readonly>
-            </textarea>
+            <div id="lore-world-text-container" class="has-text-right">
+                <textarea class="textarea" id="lore-world-text" rows="15" readonly>
+                </textarea>
+                <button id="lore-world-text-button" class="button">See more</button>
+            </div>
         </div>
         <h2 class="subtitle">Species</h2>
         <p>

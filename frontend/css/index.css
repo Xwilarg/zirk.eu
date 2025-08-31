@@ -364,6 +364,10 @@ option {
     border: 1px solid #333;
 }
 
+#lore-world-text-container {
+    width: calc(100% - 200px);
+}
+
 /* Bulma textarea sucks */
 textarea {
     min-width: inherit !important;
