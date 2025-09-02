@@ -1,6 +1,8 @@
 import { Network, DataSet, Node, Edge } from "vis-network/standalone";
 
+let currSummary;
 let currDescription;
+let showDetails = false;
 
 function clearAll() {
     document.getElementById("answer-lore-rhefir")!.classList.add("is-hidden");
@@ -21,15 +23,15 @@ export function setupLore() {
     {
         btn.addEventListener("click", _ => {
             const dataset = (btn as HTMLElement).dataset;
-            (document.getElementById("lore-world-text") as HTMLTextAreaElement).value = dataset.summary;
-            document.getElementById("lore-world-text-button").classList.remove("is-hidden");
             currDescription = dataset.description;
+            currSummary = dataset.summary;
+            (document.getElementById("lore-world-text") as HTMLTextAreaElement).value = showDetails ? `${currSummary}\n\n${currDescription}` : currSummary;
         });
     }
-    document.getElementById("lore-world-text-button").addEventListener("click", _ => {
-        document.getElementById("lore-world-text-button").classList.add("is-hidden");
+    document.getElementById("lore-world-text-button-input").addEventListener("click", e => {
+        showDetails = (e.target as HTMLInputElement).checked;
         let textarea = (document.getElementById("lore-world-text") as HTMLTextAreaElement);
-        textarea.value += "\n\n" + currDescription;
+        textarea.value = showDetails ? `${currSummary}\n\n${currDescription}` : currSummary;
     });
 }
 
