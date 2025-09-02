@@ -68,11 +68,26 @@
     </select>
 </div>
 <br>
-<input id="filter-alone" type="checkbox" class="switch is-rounded"/>
-<label for="filter-alone">Done alone</label>
-<input id="filter-ranked" type="checkbox" class="switch is-rounded"/>
-<label for="filter-ranked">Is ranked</label>
+<span>
+    <label class="label">Done alone</label>
+    <label class="switch is-rounded">
+        <input type="checkbox" id="filter-alone" />
+        <span class="check"></span>
+    </label>
+</span>
+<span>
+    <label class="label">Is ranked</label>
+    <label class="switch is-rounded">
+        <input type="checkbox" id="filter-ranked" />
+        <span class="check"></span>
+    </label>
+</span>
 {% if nsfw %}
-<input id="filter-nsfw" type="checkbox" class="switch is-rounded"/>
-<label for="filter-nsfw">Is NSFW</label>
+<span>
+    <label class="label">Is NSFW</label>
+    <label class="switch is-rounded">
+        <input type="checkbox" id="filter-nsfw" />
+        <span class="check"></span>
+    </label>
+</span>
 {% endif %}

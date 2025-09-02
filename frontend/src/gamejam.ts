@@ -76,7 +76,7 @@ class RangeMultipleSelect extends AFilterComponent {
 let filters: AFilterComponent[];
 
 function filter() {
-    const jamsList = document.querySelectorAll(".gamejam") as NodeListOf<HTMLElement>;
+    const jamsList = document.querySelectorAll("#gamejam-list .gamejam") as NodeListOf<HTMLElement>;
 
     let filteredCount = jamsList.length;
     for (const j of jamsList) {
@@ -139,13 +139,13 @@ export function setupGamejams()
         let i = 0;
         if (target.value === "date") {
             // @ts-ignore
-            for (let elem of [...document.querySelectorAll(".gamejam")].sort((a, b) => { return Date.parse(b.dataset.date) - Date.parse(a.dataset.date); })) {
+            for (let elem of [...document.querySelectorAll("#gamejam-list .gamejam")].sort((a, b) => { return Date.parse(b.dataset.date) - Date.parse(a.dataset.date); })) {
                 (elem as HTMLElement).style.order = i.toString();
                 i++;
             }
         } else if (target.value === "score") {
             // @ts-ignore
-            for (let elem of [...document.querySelectorAll(".gamejam")].sort((a, b) => { return a.dataset.score === b.dataset.score ? parseInt(b.dataset.entries) - parseInt(a.dataset.entries) : parseFloat(a.dataset.score) - parseFloat(b.dataset.score); })) {
+            for (let elem of [...document.querySelectorAll("#gamejam-list .gamejam")].sort((a, b) => { return a.dataset.score === b.dataset.score ? parseInt(b.dataset.entries) - parseInt(a.dataset.entries) : parseFloat(a.dataset.score) - parseFloat(b.dataset.score); })) {
                 (elem as HTMLElement).style.order = i.toString();
                 i++;
             }

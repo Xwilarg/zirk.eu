@@ -73,7 +73,7 @@
             {% include 'gamejamFilters.html.twig' %}
         </div>
         <h3 class="subtitle has-text-centered">{{ jams.data | length }}<span id="entriesFiltered"></span> entries</h3>
-        <div class="mt-5 is-flex is-justify-content-center is-flex-wrap-wrap is-gap-5">
+        <div class="mt-5 is-flex is-justify-content-center is-flex-wrap-wrap is-gap-5" id="gamejam-list">
             {% for jam in jams.data %}
                 {% include 'gamejam.html.twig' %}
             {% endfor %}
