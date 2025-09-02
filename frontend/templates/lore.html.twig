@@ -11,11 +11,11 @@
     </div>
     <hr/>
     <div class="container" id="answer-lore-rhefir">
-        <h2 class="subtitle">Base concepts</h2>
+        <h2 class="subtitle">Basic concepts</h2>
         <p>
             {{ lore.basics.description | join("<br/>") | raw }}
         </p>
-        <div class="is-flex is-wrap-wrap">
+        <div class="is-flex is-flex-wrap-wrap" id="lore-basics-flex">
             {% for e in lore.basics.data %}
             <div class="card lore-card-basics">
                 <header class="card-header">

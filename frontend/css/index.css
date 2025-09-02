@@ -368,8 +368,12 @@ option {
     width: calc(100% - 200px);
 }
 
+#lore-basics-flex {
+    gap: 10px;
+}
+
 .lore-card-basics {
-    width: 450px;
+    width: 400px;
 }
 
 span[disabled] {
