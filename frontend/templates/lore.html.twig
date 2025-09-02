@@ -18,11 +18,18 @@
         <div class="lore-display">
             <div class="lore-display-btns">
                 {% for e in lore.world.data %}
-                    <button class="btn-lore button" data-summary="{{ e.summary }}" data-description="{{ e.description | join("\n") }}">{{ e.name }}</button>
+                    <div class="is-flex">
+                        <span class="button" disabled>
+                            <span class="material-symbols-outlined">
+                                {{ e.icon }}
+                            </span>
+                        </span>
+                        <button class="btn-lore button" data-summary="{{ e.summary }}" data-description="{{ e.description | join("\n") }}">{{ e.name }}</button>
+                    </div>
                 {% endfor %}
             </div>
             <div id="lore-world-text-container" class="has-text-right">
-                <textarea class="textarea" id="lore-world-text" rows="15" readonly>
+                <textarea class="textarea" id="lore-world-text" rows="20" readonly>
                 </textarea>
                 <button id="lore-world-text-button" class="button">See more</button>
             </div>
@@ -33,7 +40,7 @@
         </p>
         <div class="lore-display" id="lore-species">
             <div id="lore-species-network"></div>
-            <textarea class="textarea" id="lore-species-text" rows="15" readonly>
+            <textarea class="textarea" id="lore-species-text" rows="20" readonly>
             </textarea>
         </div>
         <script type="application/json" id="lore-species-json">

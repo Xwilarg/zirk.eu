@@ -360,12 +360,16 @@ option {
 
 #lore-species-network {
     width: 600px;
-    height: 400px;
+    height: 600px;
     border: 1px solid #333;
 }
 
 #lore-world-text-container {
     width: calc(100% - 200px);
+}
+
+span[disabled] {
+    cursor: default !important;
 }
 
 /* Bulma textarea sucks */
