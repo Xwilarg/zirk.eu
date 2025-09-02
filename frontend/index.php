@@ -150,6 +150,7 @@ echo $twig->render("index.html.twig", [
     "socials" => json_decode(file_get_contents("data/json/socials.json"), true),
     "sketch" => json_decode(file_get_contents("data/json/sketch.json"), true),
     "lore" => [
+        "basics" => $loreJson["basics"],
         "world" => $loreJson["world"],
         "species" => [
             "raw" => json_encode($loreJson["species"]),

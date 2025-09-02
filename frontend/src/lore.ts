@@ -13,7 +13,6 @@ export function setupLore() {
     document.getElementById("lore-rhefir")!.addEventListener("click", _ => {
         clearAll();
         document.getElementById("answer-lore-rhefir")!.classList.remove("is-hidden");
-        renderNetwork();
     });
     document.getElementById("lore-nehneh")!.addEventListener("click", _ => {
         clearAll();
@@ -33,6 +32,18 @@ export function setupLore() {
         let textarea = (document.getElementById("lore-world-text") as HTMLTextAreaElement);
         textarea.value = showDetails ? `${currSummary}\n\n${currDescription}` : currSummary;
     });
+
+    document.getElementById("lore-see-all").addEventListener("click", _ => {
+        for (let btn of document.querySelectorAll(".btn-lore-container"))
+        {
+            const e = btn as HTMLElement;
+            e.classList.remove("is-hidden");
+            e.classList.add("is-flex");
+        }
+        document.getElementById("lore-see-all").classList.add("is-hidden");
+    });
+
+    renderNetwork();
 }
 
 
@@ -43,13 +54,14 @@ interface NodeData extends Node
     group: string
     color: string
     description: string
+    size: number
 }
 
 let links: Edge[] = [];
 let nodes: NodeData[] = [];
 
-let colors = [ "#bfbfbf", "#7fff94ff", "#7f8cffff", "#d91414ff" ];
-let categories = [ "origin", "energy", "dragonborn", "hominidae" ];
+let colors = [ "#bfbfbf", "#7fff94ff", "#7f8cffff", "#9714d9ff", "#d91414ff", "#7fc8ffff" ];
+let categories = [ "origin", "transfert", "dragonborn", "hominidae", "energy", "chimera" ];
 
 function renderNetwork() {
     let json = JSON.parse(document.getElementById("lore-species-json")!.innerHTML);
@@ -63,7 +75,8 @@ function renderNetwork() {
             label: l.name,
             group: l.category,
             color: colors[group],
-            description: l.description.join("\n")
+            description: l.description.join("\n"),
+            size: l.type === "abstract" ? 2 : 25
         });
         for (const child of l.children)
         {
@@ -78,7 +91,6 @@ function renderNetwork() {
     const options = {
         nodes: {
             shape: "dot",
-            size: 25,
             font: {
                 color: "white",
                 size: 18

@@ -368,6 +368,10 @@ option {
     width: calc(100% - 200px);
 }
 
+.lore-card-basics {
+    width: 450px;
+}
+
 span[disabled] {
     cursor: default !important;
 }
