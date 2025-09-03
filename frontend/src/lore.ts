@@ -1,7 +1,7 @@
 import { Network, DataSet, Node, Edge } from "vis-network/standalone";
 
-let currSummary;
-let currDescription;
+let currSummary = null;
+let currDescription = null;
 let showDetails = false;
 
 function clearAll() {
@@ -29,8 +29,10 @@ export function setupLore() {
     }
     document.getElementById("lore-world-text-button-input").addEventListener("click", e => {
         showDetails = (e.target as HTMLInputElement).checked;
-        let textarea = (document.getElementById("lore-world-text") as HTMLTextAreaElement);
-        textarea.value = showDetails ? `${currSummary}\n\n${currDescription}` : currSummary;
+        if (currSummary !== null) {
+            let textarea = (document.getElementById("lore-world-text") as HTMLTextAreaElement);
+            textarea.value = showDetails ? `${currSummary}\n\n${currDescription}` : currSummary;
+        }
     });
 
     document.getElementById("lore-see-all").addEventListener("click", _ => {
