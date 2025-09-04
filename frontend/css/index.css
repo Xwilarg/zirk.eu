@@ -354,16 +354,6 @@ option {
     width: 200px;
 }
 
-@media (max-width: 1000px) {
-    .lore-display {
-        flex-flow: column;
-    }
-
-    .lore-display > * {
-        width: 100%;
-    }
-}
-
 #lore-species-network {
     width: 600px;
     height: 600px;
@@ -380,6 +370,24 @@ option {
 
 .lore-card-basics {
     width: 400px;
+}
+
+@media (max-width: 1000px) {
+    .lore-display {
+        flex-flow: column;
+    }
+
+    .lore-display > * {
+        width: 100%;
+    }
+
+    #lore-world-text-container, #lore-species-network, #lore-species-text {
+        width: 100%;
+    }
+
+    .vis-network {
+        width: 100% !important;
+    }
 }
 
 span[disabled] {

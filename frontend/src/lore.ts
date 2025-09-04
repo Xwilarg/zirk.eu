@@ -98,6 +98,9 @@ function renderNetwork() {
                 size: 18
             }
         },
+        interaction: {
+            zoomView: false
+        },
         width: "600px"
     };
 
