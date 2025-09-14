@@ -1,9 +1,6 @@
 [submodule "frontend/data"]
 	path = frontend/data
 	url = https://github.com/Xwilarg/zirk.eu-data
-[submodule "frontend/lore"]
-	path = frontend/lore
-	url = https://github.com/Xwilarg/zirk.eu-lore
 [submodule "frontend/lifeline"]
 	path = frontend/lifeline
 	url = https://github.com/Xwilarg/Lifeline
