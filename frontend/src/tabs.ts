@@ -1,3 +1,5 @@
+import { openTab } from "./index";
+
 function goToTab(mainNav: HTMLElement, li: HTMLElement) {
     // Edit tab view to show current active
     for (let l of mainNav.querySelectorAll("li"))
@@ -12,10 +14,13 @@ function goToTab(mainNav: HTMLElement, li: HTMLElement) {
         l.classList.add("is-hidden");
     }
     const link = li.querySelector("a");
-    document.getElementById(`target-${link!.href.split('#')[1]}`)!.classList.remove("is-hidden");
+    const name = link!.href.split('#')[1];
+    document.getElementById(`target-${name}`)!.classList.remove("is-hidden");
+
+    openTab(name);
 }
 
-export function setupTabs() {
+export function setupTabs(): boolean {
     // Look at the #parameter and open the corresponding things
     const urlParam = window.location.hash.toLowerCase().substring(1);
     const mainNav = document.getElementById("main-nav")!;
@@ -24,9 +29,6 @@ export function setupTabs() {
         link.addEventListener("click", () => {
             goToTab(mainNav, link);
         });
-        if (urlParam === link.querySelector("a")!.href.split('#')[1]) {
-            goToTab(mainNav, link);
-        }
 
         for (let btn of document.querySelectorAll(`.target-${link.querySelector("a")!.href.split('#')[1]}`)) {
             btn.addEventListener("click", (_) => {
@@ -34,4 +36,14 @@ export function setupTabs() {
             });
         }
     }
+
+    for (let link of mainNav.querySelectorAll("li"))
+    {
+        if (urlParam === link.querySelector("a")!.href.split('#')[1]) {
+            goToTab(mainNav, link);
+            return true;
+        }
+    }
+
+    return false;
 }

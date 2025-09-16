@@ -14,20 +14,44 @@ import { setupTerminal } from "./terminal";
 
 
 async function initAsync() {
-    setupTabs();
-    setupGamejams();
+    if (setupTabs()) {
+        openTab("main");
+    }
+
     setupQuestions();
-    setupLifeline();
     setupPreview();
-    setupLeaflet();
-    setupConsole();
     setupSketch();
-    setupHome();
-    setupProject();
-    setupScreen();
-    setupLore();
-    setupTerminal();
-    setupConsole();
+}
+
+let alreadyOpen = [];
+export function openTab(name: string) {
+    if (alreadyOpen.includes(name)) return;
+
+    alreadyOpen.push(name);
+
+    if (name === "main") {
+        setupHome();
+        setupScreen();
+    }
+    else if (name === "project") {
+        setupProject();
+    }
+    else if (name === "gamejam") {
+        setupGamejams();
+    }
+    else if (name === "lore") {
+        setupLore();
+    }
+    else if (name === "about") {
+        setupLeaflet();
+        setupConsole();
+        setupLifeline();
+        setupTerminal();
+        setupConsole();
+    }
+    else {
+        console.error(`Unknown tab ${name}`);
+    }
 }
 
 document.onreadystatechange = async function () {
