@@ -21,6 +21,7 @@ async function initAsync() {
     setupQuestions();
     setupPreview();
     setupSketch();
+    setupScreen();
 }
 
 let alreadyOpen = [];
@@ -31,7 +32,6 @@ export function openTab(name: string) {
 
     if (name === "main") {
         setupHome();
-        setupScreen();
     }
     else if (name === "project") {
         setupProject();

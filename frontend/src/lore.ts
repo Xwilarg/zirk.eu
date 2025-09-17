@@ -1,4 +1,5 @@
-import { Network, DataSet, Node, Edge } from "vis-network/standalone";
+import { DataSet, Edge, Network, Node } from "vis-network/standalone";
+import { Timeline } from "vis-timeline/standalone";
 
 let currSummary = null;
 let currDescription = null;
@@ -46,8 +47,20 @@ export function setupLore() {
     });
 
     renderNetwork();
+    renderTimeline();
 }
 
+function renderTimeline() {
+    let json = JSON.parse(document.getElementById("lore-timeline-json")!.innerHTML);
+
+    const container = document.getElementById('lore-timeline') as HTMLElement;
+
+    const options = {
+        stack: false
+    };
+
+    new Timeline(container, new DataSet(json.data), new DataSet(json.groups), options);
+}
 
 interface NodeData extends Node
 {

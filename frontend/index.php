@@ -152,6 +152,7 @@ echo $twig->render("index.html.twig", [
     "lore" => [
         "basics" => $loreJson["basics"],
         "world" => $loreJson["world"],
+        "timeline" => json_encode($loreJson["timeline"]),
         "species" => [
             "raw" => json_encode($loreJson["species"]),
             "json" => $loreJson["species"]
