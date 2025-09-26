@@ -1,0 +1,17 @@
+{% if nsfw %}
+<div class="modal is-active" id="warn-nsfw">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <section class="modal-card-body">
+        You are on the adult version of this website, please only proceed is you are 18+
+    </section>
+    <footer class="modal-card-foot">
+      <div class="buttons">
+        <button class="button is-danger" id="warn-nsfw-continue">Continue</button>
+        <a href="?s=1" class="button">Go to safe version</a>
+        <a href="about:blank" class="button is-primary">Leave</a>
+      </div>
+    </footer>
+  </div>
+</div>
+{% endif %}

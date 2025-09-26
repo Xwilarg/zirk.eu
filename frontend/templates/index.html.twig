@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+{% include 'nsfwWarning.html.twig' %}
 <div class="modal" id="modal-preview">
     <div class="modal-background"></div>
     <div class="modal-content is-flex is-justify-content-center">
@@ -64,9 +65,15 @@
     <div class="is-hidden container is-fluid" id="target-gamejam">
         <h3 class="subtitle has-text-centered">Best ranks</h3>
         <div class="mt-5 is-flex is-justify-content-center is-flex-wrap-wrap is-gap-5">
-            {% for jam in jams.data | filter(e => e.duration > 24 and e.score < 1) | sort((a, b) => a.score <=> b.score)[:8] %}
-                {% include 'gamejam.html.twig' %}
-            {% endfor %}
+            {% if fullSfw %}
+                {% for jam in jams.data | filter(e => not e.nsfw and e.duration > 24 and e.score < 1) | sort((a, b) => a.score <=> b.score)[:8] %}
+                    {% include 'gamejam.html.twig' %}
+                {% endfor %}
+            {% else %}
+                {% for jam in jams.data | filter(e => e.duration > 24 and e.score < 1) | sort((a, b) => a.score <=> b.score)[:8] %}
+                    {% include 'gamejam.html.twig' %}
+                {% endfor %}
+            {% endif %}
         </div>
         <hr/>
         <div class="container control">
@@ -74,9 +81,15 @@
         </div>
         <h3 class="subtitle has-text-centered">{{ jams.data | length }}<span id="entriesFiltered"></span> entries</h3>
         <div class="mt-5 is-flex is-justify-content-center is-flex-wrap-wrap is-gap-5" id="gamejam-list">
-            {% for jam in jams.data %}
-                {% include 'gamejam.html.twig' %}
-            {% endfor %}
+            {% if fullSfw %}
+                {% for jam in jams.data | filter(e => not e.nsfw) %}
+                    {% include 'gamejam.html.twig' %}
+                {% endfor %}
+            {% else %}
+                {% for jam in jams.data %}
+                    {% include 'gamejam.html.twig' %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
     <div class="is-hidden container is-fluid" id="target-lore">

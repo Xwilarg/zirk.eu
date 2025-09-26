@@ -11,9 +11,12 @@ import { setupHome } from "./home";
 import { setupProject } from "./project";
 import { setupScreen } from "./screen";
 import { setupTerminal } from "./terminal";
+import { setupNsfw } from "./nsfw";
 
 
 async function initAsync() {
+    setupNsfw();
+
     if (setupTabs()) {
         openTab("main");
     }

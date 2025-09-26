@@ -8,7 +8,15 @@
     <div class="button container question" id="framework">What is this website made with?</div>
     <div class="container is-hidden answer" id="answer-framework">
         This website was made using <a href="https://twig.symfony.com/" target="_blank">Twig</a> for the structure and <a href="https://bulma.io/" target="_blank">Bulma</a> for the styling<br>
-        It also have a small <a href="https://dotnet.microsoft.com/en-us/apps/aspnet">ASP.Net</a> backend for parts that are a bit more complex<br>
+        The CSS also get a bit of help from <a href="https://www.npmjs.com/package/bulma-switch-control" target="_blank">Bulma Switch Control</a>, <a href="https://fonts.google.com/icons" target="_blank">Google material icons</a> and <a href="https://fontawesome.com/icons" target="_blank">Font Awesome icons</a><br/>
+        It also have a small <a href="https://dotnet.microsoft.com/en-us/apps/aspnet" target="_blank">ASP.Net</a> backend for parts that are a bit more complex<br>
+        For the JavaScript, here are the libraries used:
+        <ul>
+            <li><a href="https://www.npmjs.com/package/esbuild" target="_blank">esbuild</a></li>
+            <li><a href="https://www.npmjs.com/package/leaflet" target="_blank">Leaflet</a></li>
+            <li><a href="https://www.npmjs.com/package/vis-network" target="_blank">vis-network</a></li>
+            <li><a href="https://www.npmjs.com/package/vis-timeline" target="_blank">vis-timeline</a></li>
+        </ul>
         <br>
         I have been <a href="/data/img/website/v1.png" target="_blank">redoing</a> <a href="/data/img/website/v2.png" target="_blank">this</a> <a href="/data/img/website/v3.png" target="_blank">website</a> <a href="/data/img/website/v4.png" target="_blank">maybe</a> <a href="/data/img/website/v5.png" target="_blank">too</a> <a href="/data/img/website/v6.png" target="_blank">many</a> <a href="/data/img/website/v7.png" target="_blank">times</a><br>
         ...But this time I have a good structure and good framework so surely it should be the last... Right?<br>
@@ -20,6 +28,21 @@
     <div class="container is-hidden answer" id="answer-data">
         This website is using <a href="https://github.com/Astylodon/Shika" target="_blank">Shika</a> for its analytics<br>
         You can see all the data collected <a href="https://astylodon.org/docs/shika/data" target="_blank">here</a>
+    </div>
+    <div class="button container question" id="credits">Who contributed to this website?</div>
+    <div class="container is-hidden answer" id="answer-credits">
+        For the list of libraries used to make this website, please check the two sections above<br/>
+        Along with these, this website also use the <a href="https://fonts.google.com/specimen/Aldrich" target="_blank">Aldrich front by MADType</a> which is under the <a href="https://openfontlicense.org/open-font-license-official-text/" target="_blank">SIL Open Font License, Version 1.1 license</a><br/>
+        <br/>
+        <ul>
+            <li>Sheeps in intro are creditted under their images</li>
+            <li>For Katsis projects, please check Katsis website for full credits list</li>
+            <li>For Astylodon, please check <a href="https://github.com/orgs/Astylodon/people" target="_blank">our GitHub</a> for developer involved
+        </ul>
+        Projects full credits are available on their own GitHub page, some images might show some copyrighted assets for demo purposes<br/>
+        Gamejams show credits in its filter sections, others people aren't shown for anonymity reason, but some gamejam contains a more complete credits section<br/>
+        Most images drawn in lore tab are made by NehNeh<br/>
+        Images from Steam replay are generated from Steam and screenshot from Mahjong Soul are taken from this game as well
     </div>
     {% if not fullSfw %}
     <div class="button container question" id="nsfw">How to toggle sensitive content?</div>
@@ -35,12 +58,6 @@
         {% endif %}
     </div>
     {% endif %}
-    <span id="lore-tab-faq">
-        <div class="button container question" id="secret">Any content hidden?</div>
-        <div class="container is-hidden answer" id="answer-secret">
-            Not anymore, but hopefully I'll find new things to hide soon
-        </div>
-    </span>
     <div class="button container question" id="other">Anything else?</div>
     <div class="container is-hidden answer has-text-centered" id="answer-other">
         <img loading="lazy" class="is-image" src="/img/potato.png"/>
@@ -53,14 +70,17 @@
         What you see at first is just the """screensaver""" but if you click the power button at the bottom right, the real project will load!<br>
         <br>
         Sketches are a collection of small coding projects I made<br>
+        Most of them are now separate modules, made to be easily taken by others projects, more information on that in the <a href="https://github.com/Xwilarg/Sketch" target="_blank">GitHub of the project</a><br/>
         Their original goal were to find a way to showcase cool things I did, trying to accentuate algorithm without relying too much on external assets (since I'm not super good at drawing and/or VFX)
         <br>
-        The buttons at the bottom of the display can be used to switch between them
+        The buttons at the bottom of the display can be used to switch between projects
     </div>
     <div class="button container question" id="more-gamejam">... gamejams</div>
     <div class="container is-hidden answer" id="answer-more-gamejam">
         Gamejams are events where you need to make a game given a duration and a set of constraints<br>
         Constraints are usually a theme but they can also be technical constraints (make a game for gameboy), thematic constraints (make a game given a theme) or anything else!
+        <br/>
+        Some gamejams can be directly be launched on an embedded player in this website by clicking the play button under them
     </div>
     <div class="button container question" id="more-lifeline">... lifelines</div>
     <div class="container is-hidden answer" id="answer-more-lifeline">
@@ -77,7 +97,7 @@
     </div>
     <div class="button container question" id="more-travel">... travel</div>
     <div class="container is-hidden answer" id="answer-more-travel">
-        A little map that display a bunch of location I went to<br>
+        A little map that display a bunch of location I went to, and photos I took there<br>
         Click on a pin to see the photo that was taken there!
     </div>
     <div class="button container question" id="more-outdated-projects">... outdated projects</div>
@@ -88,9 +108,5 @@
         <button class="button micropi" data-instruction="print">PRINT</button>
         <button class="button micropi" data-instruction="add">ADD</button>
         <button class="button micropi" data-instruction="remove">REMOVE</button>
-    </div>
-    <div class="button container question" id="more-lore">... ???</div>
-    <div class="container is-hidden answer" id="answer-more-lore">
-        [Placeholder text]
     </div>
 </div>
