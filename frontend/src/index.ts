@@ -17,7 +17,7 @@ import { setupNsfw } from "./nsfw";
 async function initAsync() {
     setupNsfw();
 
-    if (setupTabs()) {
+    if (!setupTabs()) {
         openTab("main");
     }
 
