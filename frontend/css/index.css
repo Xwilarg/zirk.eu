@@ -173,6 +173,10 @@ textarea {
     object-fit: cover;
 }
 
+.gamejam .grid {
+    row-gap: 5px;
+}
+
 /* Make jam filters full-width on small screens */
 @media (max-width: 1000px) {
     .jam-field {

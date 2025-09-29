@@ -86,7 +86,10 @@ foreach ($data["jams"] as $jam) {
         "eventCategory" => $jam["eventCategory"],
         "date" => $jam["date"],
         "duration" => $jam["duration"],
-        "location" => $location,
+        "location" => [
+            "country" => $location,
+            "full" => $jam["location"]
+        ],
         "engine" => $jam["engine"],
         "version" => $jam["version"],
         "theme" => count($jam["theme"]) > 0 ? $jam["theme"][0] : null,
