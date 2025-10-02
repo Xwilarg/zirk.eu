@@ -35,7 +35,7 @@
                         <p>{% if jam.theme and not jam.nsfw %}<span class="material-symbols-outlined" title="Theme">feedback</span> {{ jam.theme }}{% else %}&nbsp;{% endif %}</p>
                         <p><span class="material-symbols-outlined" title="Location">globe</span> {{ jam.location.full }}</p>
                         <p><span class="material-symbols-outlined" title="Duration">timer</span> {{jam.duration|round(0, 'floor')}} hour{% if jam.duration > 1 %}s{% endif %}</p>
-                        <p><span class="material-symbols-outlined" title="Engine">settings</span> {{ jam.engine }} {{ jam.version }}</p>
+                        <p><span class="material-symbols-outlined" title="Engine">settings</span> {{ jam.engine }}</p>
                         <p><span class="material-symbols-outlined" title="Date">calendar_today</span> {{jam.date}}</p>
                         <p><span class="material-symbols-outlined" title="Rank">leaderboard</span> {% if jam.score != 1 %}{{ jam.overall }} / {{ jam.entriesTotal }} <small>({{ (jam.score * 100) | number_format(1) }}%</small>){% else %}&nbsp;{% endif %}</p>
                     </div>

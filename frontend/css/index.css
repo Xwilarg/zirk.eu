@@ -177,6 +177,11 @@ textarea {
     row-gap: 5px;
 }
 
+.gamejam .grid p, .gamejam .grid .material-symbols-outlined {
+    vertical-align: middle;
+    line-height: 31px;
+}
+
 /* Make jam filters full-width on small screens */
 @media (max-width: 1000px) {
     .jam-field {
