@@ -11,14 +11,14 @@ function clearAll() {
 }
 
 export function setupLore() {
-    document.getElementById("lore-rhefir")!.addEventListener("click", _ => {
+    /*document.getElementById("lore-rhefir")!.addEventListener("click", _ => {
         clearAll();
         document.getElementById("answer-lore-rhefir")!.classList.remove("is-hidden");
     });
     document.getElementById("lore-nehneh")!.addEventListener("click", _ => {
         clearAll();
         document.getElementById("answer-lore-nehneh")!.classList.remove("is-hidden");
-    });
+    });*/
     for (let btn of document.querySelectorAll(".btn-lore"))
     {
         btn.addEventListener("click", _ => {
@@ -46,8 +46,8 @@ export function setupLore() {
         document.getElementById("lore-see-all").classList.add("is-hidden");
     });
 
-    renderNetwork();
-    renderTimeline();
+    //renderNetwork();
+    //renderTimeline();
 }
 
 function renderTimeline() {
