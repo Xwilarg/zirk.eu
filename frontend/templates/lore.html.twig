@@ -1,35 +1,13 @@
 <div class="container">
-    <div class="is-flex is-justify-content-space-evenly">
-        <button class="button" id="lore-rhefir">Rhefir</button>
-        <button class="button" id="lore-nehneh">Neh</button>
-        <a class="button" target="_blank" href="https://minipi.zirk.eu/">Minipi</a>
-    </div>
     <div class="container">
-        Welcome in my amazing lore tab, where I do my little creative things, sometimes with the help of friends<br/>
-        "So what are you going to do with that", you might ask<br/>
-        Well, nothing! But it sure is fun to create
-    </div>
-    <hr/>
-    <div class="container" id="answer-lore-rhefir">
-        <h2 class="subtitle">Basic concepts</h2>
+        <h2 class="title">Rhefir</h2>
         <p>
-            {{ lore.basics.description | join("<br/>") | raw }}
+            Rhefir is a world primarily created by a god named "Rhe"<br/>
+            <br/>
+            Our stories maybe are what we call the "lower-world", a group of floating islands where half-beasts species lives<br/>
+            Technological progress is led by magic, like in military with the use of bolt-rifle infused with spells, or in various others areas such as people using fire stones to heat themselves or redox stones to fasten agriculture processes
         </p>
-        <div class="is-flex is-flex-wrap-wrap" id="lore-basics-flex">
-            {% for e in lore.basics.data %}
-            <div class="card lore-card-basics">
-                <header class="card-header">
-                    <p class="card-header-title">{{ e.name }}</p>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                    {{ e.description | join("<br/>") | raw }}
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <h2 class="subtitle">Advanced concepts</h2>
+        <h3 class="subtitle">World concepts</h3>
         <p>
             {{ lore.world.description | join("<br/>") | raw }}
         </p>
@@ -59,35 +37,12 @@
                 </span>
             </div>
         </div>
-        <!--<h2 class="subtitle">Timeline</h2>
-        <p>
-            {{ lore.timeline.json.description | join("<br/>") | raw }}
-        </p>
-        <div id="lore-timeline">
-        </div>
-        <script type="application/json" id="lore-timeline-json">
-            {{ lore.timeline | replace({'<': '&lt;' }) | raw }}
-        </script>-->
-        <h2 class="subtitle">Species</h2>
-        <p>
-            {{ lore.species.json.description | join("<br/>") | raw }}
-        </p>
-        <div class="lore-display" id="lore-species">
-            <div id="lore-species-network"></div>
-            <textarea class="textarea" id="lore-species-text" rows="20" readonly>
-            </textarea>
-        </div>
-        <script type="application/json" id="lore-species-json">
-            {{ lore.species.raw | replace({'<': '&lt;' }) | raw }}
-        </script>
     </div>
-    <div class="container is-hidden" id="answer-lore-nehneh">
-        <!--<div class="is-flex is-justify-content-center is-flex-wrap-wrap">
-            <iframe src="https://lore.katsis.net/embed.php?c=Wargo&s={% if nsfw %}0{% else %}1{% endif %}" scrolling="no"></iframe>
-            <iframe src="https://lore.katsis.net/embed.php?c=Yräthea&s={% if nsfw %}0{% else %}1{% endif %}" scrolling="no"></iframe>
-            <iframe src="https://lore.katsis.net/embed.php?c=Calindra&s={% if nsfw %}0{% else %}1{% endif %}" scrolling="no"></iframe>
-            <iframe src="https://lore.katsis.net/embed.php?c=Kaelith&s={% if nsfw %}0{% else %}1{% endif %}" scrolling="no"></iframe>
-            <iframe src="https://lore.katsis.net/embed.php?c=Nephira&s={% if nsfw %}0{% else %}1{% endif %}" scrolling="no"></iframe>
-        </div>-->
+    <div class="container">
+        <h2 class="title">Minipi</h2>
+        <p>
+            Minipi are small robot-shaped being belonging to Katsis lore
+        </p>
+        <a class="button" target="_blank" href="https://minipi.zirk.eu/">See more</a>
     </div>
 </div>
