@@ -32,7 +32,7 @@
                 <p class="title is-4">{% if not jam.nsfw or nsfw %}{{jam.event}}{% if jam.eventCategory %} ({{ jam.eventCategory }}){% endif %}{% else %}&nbsp;{% endif %}</p>
                 <div class="fixed-grid">
                     <div class="grid">
-                        <p>{% if jam.theme and not jam.nsfw %}<span class="material-symbols-outlined" title="Theme">feedback</span> {{ jam.theme }}{% else %}&nbsp;{% endif %}</p>
+                        <p>{% if jam.theme and (not jam.nsfw or nsfw) %}<span class="material-symbols-outlined" title="Theme">feedback</span> {{ jam.theme }}{% else %}&nbsp;{% endif %}</p>
                         <p><span class="material-symbols-outlined" title="Location">globe</span> {{ jam.location.full }}</p>
                         <p><span class="material-symbols-outlined" title="Duration">timer</span> {{jam.duration|round(0, 'floor')}} hour{% if jam.duration > 1 %}s{% endif %}</p>
                         <p><span class="material-symbols-outlined" title="Engine">settings</span> {{ jam.engine }}</p>
