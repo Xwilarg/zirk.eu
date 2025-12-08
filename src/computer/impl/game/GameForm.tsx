@@ -1,15 +1,30 @@
-export default function useGameForm() {
-    function loadProjectInternal(resFolder: string, filename: string, version: string, defaultSketchOverride: boolean)
+import { createElement, useEffect, useRef, type RefObject } from "react";
+
+export default function useGameForm(canvasRef: RefObject<HTMLCanvasElement | null>, resFolder: string, filename: string, version: string) {
+    let sketchInstance = useRef<any>(null);
+    useEffect(() => {
+        if (sketchInstance.current) sketchInstance.current!.Quit().then(() => {
+            loadProjectInternal(resFolder, filename, version);
+        });
+        else loadProjectInternal(resFolder, filename, version);
+    }, []);
+
+    
+
+    function loadProjectInternal(resFolder: string, filename: string, version: string)
     {
-        document.getElementById("unity-loading")!.classList.remove("is-hidden");
+        const loading = document.createElement("div");
+        loading.style = "position: absolute; top: 10px; left: 10px;";
+        const text = document.createTextNode("Loading...");
+        loading.appendChild(text);
 
-        const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
-        resizeUnityCanvas();
+        canvasRef.current!.parentElement!.appendChild(loading);
+        //document.getElementById("unity-loading")!.classList.remove("is-hidden");
+        //resizeUnityCanvas();
 
-        let buildUrl = defaultSketchOverride ? `${resFolder}Build/` : resFolder;
+        let buildUrl = /*defaultSketchOverride ? `${resFolder}Build/` : */resFolder;
         let assetsUrl = `${resFolder}StreamingAssets/`;
         let loaderUrl = `${buildUrl}${filename}.loader.js`;
-
 
         let config;
         
@@ -40,47 +55,31 @@ export default function useGameForm() {
         const script = document.createElement("script");
         script.src = loaderUrl;
         script.onload = () => {
-            console.log(`Canvas dimensions: ${canvas.width} x ${canvas.height}`);
+            console.log(`Canvas dimensions: ${canvasRef.current!.width} x ${canvasRef.current!.height}`);
             // @ts-ignore
-            createUnityInstance(canvas, config, (_) => {
+            createUnityInstance(canvasRef.current!, config, (_) => {
             }).then((unityInstance: any) => {
+                loading.remove();
                 sketchInstance = unityInstance;
-                document.getElementById("unity-loading")!.classList.add("is-hidden");
-                document.getElementById("screen-on")!.classList.remove("is-hidden");
             }).catch((message: string) => {
                 alert(message);
             });
         };
 
-        loadedScript = document.body.appendChild(script);
+        document.body.appendChild(script);
 
-        if (defaultSketchOverride) {
+        /*if (defaultSketchOverride) {
             pinSketch();
             setFullscreen();
-        }
-        for (let sketchBtn of document.querySelectorAll(".sketch-button"))
+        }*/
+        /*for (let sketchBtn of document.querySelectorAll(".sketch-button"))
         {
             if (defaultSketchOverride) sketchBtn.classList.add("is-hidden");
             else sketchBtn.classList.remove("is-hidden");
-        }
+        }*/
     }
 
     function unityShowBanner(msg: string, type: string) {
-        const warningBanner = document.querySelector("#unity-warning") as HTMLElement;
-        function updateBannerVisibility() {
-            warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.setAttribute("style", "background: red; padding: 10px;");
-        else {
-            if (type == 'warning') div.setAttribute("style", "background: yellow; padding: 10px;");
-            setTimeout(function () {
-                warningBanner.removeChild(div);
-                updateBannerVisibility();
-            }, 5000);
-        }
-        updateBannerVisibility();
+        alert(`${type}: ${msg}`);
     }
 }

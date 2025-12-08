@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import useScreenSaver from "./impl/ScreenSaver";
+import useGameForm from "./impl/game/GameForm";
 
 export default function SketchForm() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    useScreenSaver(canvasRef);
+    //useScreenSaver(canvasRef);
+    useGameForm(canvasRef, "sketch/", "Sketch", "6000.2.12f1")
 
     return <>
-        <div className="container">
+        <div className="container" id="screen-container">
             <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
         <div className="container is-flex">
