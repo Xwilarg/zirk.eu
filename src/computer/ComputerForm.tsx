@@ -8,7 +8,8 @@ export default function SketchForm() {
     const [sketchButtons, setSketchData] = useState<ButtonInfo[]>(sketchData)
 
     //useScreenSaver(canvasRef);
-    useGameForm(canvasRef, "sketch/", "Sketch", "6000.2.12f1")
+    let sketchInstance = useGameForm(canvasRef, "sketch/", "Sketch", "6000.2.12f1");
+    console.log(sketchInstance);
 
     return <>
         <div className="container" id="screen-container">
@@ -19,7 +20,7 @@ export default function SketchForm() {
             <button><span className="material-symbols-outlined">eject</span></button>
             {
                 sketchButtons.map(x =>
-                    <button key={x.name}>{x.name}</button>
+                    <button key={x.name} onClick={() => { sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene) }}>{x.name}</button>
                 )
             }
         </div>

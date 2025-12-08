@@ -7,14 +7,17 @@ export interface ButtonInfo
     scene: string;
 }
 
-export default function useGameForm(canvasRef: RefObject<HTMLCanvasElement | null>, resFolder: string, filename: string, version: string) {
+export default function useGameForm(canvasRef: RefObject<HTMLCanvasElement | null>, resFolder: string, filename: string, version: string) : RefObject<any> {
     let sketchInstance = useRef<any>(null);
+
     useEffect(() => {
         if (sketchInstance.current) sketchInstance.current!.Quit().then(() => {
             loadProjectInternal(resFolder, filename, version);
         });
         else loadProjectInternal(resFolder, filename, version);
     }, []);
+
+    return sketchInstance;
 
     function loadProjectInternal(resFolder: string, filename: string, version: string)
     {
@@ -65,7 +68,7 @@ export default function useGameForm(canvasRef: RefObject<HTMLCanvasElement | nul
             createUnityInstance(canvasRef.current!, config, (_) => {
             }).then((unityInstance: any) => {
                 loading.remove();
-                sketchInstance = unityInstance;
+                sketchInstance.current = unityInstance;
             }).catch((message: string) => {
                 alert(message);
             });
