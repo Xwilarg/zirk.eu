@@ -1,4 +1,11 @@
-import { createElement, useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, type RefObject } from "react";
+
+export interface ButtonInfo
+{
+    name: string;
+    type: string;
+    scene: string;
+}
 
 export default function useGameForm(canvasRef: RefObject<HTMLCanvasElement | null>, resFolder: string, filename: string, version: string) {
     let sketchInstance = useRef<any>(null);
@@ -8,8 +15,6 @@ export default function useGameForm(canvasRef: RefObject<HTMLCanvasElement | nul
         });
         else loadProjectInternal(resFolder, filename, version);
     }, []);
-
-    
 
     function loadProjectInternal(resFolder: string, filename: string, version: string)
     {
