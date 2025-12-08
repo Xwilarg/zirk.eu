@@ -24,9 +24,31 @@ html {
     border: var(--border);
     border-radius: var(--border-radius);
     padding: 5px;
+    margin-bottom: 15px;
 }
 @media (max-width: 1000px) {
     .container {
         width: 98%;
     }
+}
+
+.is-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    background-color: transparent;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    color: var(--primary-light);
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Screen */
+#screensaver-canvas {
+    height: 500px;
+    width: 100%;
 }
