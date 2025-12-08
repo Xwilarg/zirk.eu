@@ -12,6 +12,8 @@ export default function ScreenSaverForm() {
 
         document.addEventListener("mousemove", sc.handleMouse.bind(sc));
         window.requestAnimationFrame(updateLoop);
+
+        window.addEventListener("resize", sc.updateBounds.bind(sc));
     }, []);
 
     function updateLoop() {

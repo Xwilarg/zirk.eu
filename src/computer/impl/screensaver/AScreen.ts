@@ -12,8 +12,7 @@ export abstract class AScreen
         this.mouseY = null;
 
         this.canvas = canvas;
-        this.canvas.width = this.canvas.offsetWidth;
-        this.canvas.height = this.canvas.offsetHeight;
+        this.updateBounds();
 
         this.refTime = 0;
 
@@ -31,6 +30,11 @@ export abstract class AScreen
             this.mouseX = null;
             this.mouseY = null;
         }
+    }
+
+    updateBounds() {
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
     }
     
     updateCanvas() {
