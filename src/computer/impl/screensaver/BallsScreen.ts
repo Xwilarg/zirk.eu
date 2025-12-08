@@ -63,8 +63,8 @@ export class BallsScreen extends AScreen {
     intervalBallSpawn: number;
     mouseSize: number;
 
-    constructor(canvas: HTMLCanvasElement, screenWidth: number) {
-        super(canvas, screenWidth);
+    constructor(canvas: HTMLCanvasElement) {
+        super(canvas);
 
         this.squares = [];
         this.mouseSize = 10;

@@ -7,14 +7,13 @@ export abstract class AScreen
     mouseY: number | null = null;
     refTime: number;
 
-    constructor(canvas: HTMLCanvasElement, screenWidth: number) {
+    constructor(canvas: HTMLCanvasElement) {
         this.mouseX = null;
         this.mouseY = null;
 
         this.canvas = canvas;
-        const targetWidth = screenWidth;
-        this.canvas.width = targetWidth === 0 ? 500 : targetWidth;
-        this.canvas.height = 450;
+        this.canvas.width = this.canvas.offsetWidth;
+        this.canvas.height = this.canvas.offsetHeight;
 
         this.refTime = 0;
 

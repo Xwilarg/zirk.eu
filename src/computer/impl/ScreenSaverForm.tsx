@@ -7,7 +7,7 @@ export default function ScreenSaverForm() {
     const screenSaverRef = useRef<AScreen | null>(null);
     
     useEffect(() => {
-        const sc = new BallsScreen(canvasRef.current!, 0);
+        const sc = new BallsScreen(canvasRef.current!);
         screenSaverRef.current = sc;
 
         document.addEventListener("mousemove", sc.handleMouse.bind(sc));
@@ -19,9 +19,8 @@ export default function ScreenSaverForm() {
         window.requestAnimationFrame(updateLoop);
     }
 
-    console.log("refresh")
-
     return <canvas ref={canvasRef} style={{
-        height: 500
+        height: "500px",
+        width: "100%"
     }}></canvas>
 }
