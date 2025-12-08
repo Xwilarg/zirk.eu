@@ -1,13 +1,18 @@
-import ScreenSaverForm from "./impl/ScreenSaverForm";
+import { useRef } from "react";
+import useScreenSaver from "./impl/ScreenSaver";
 
 export default function SketchForm() {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    useScreenSaver(canvasRef);
+
     return <>
         <div className="container">
-            <ScreenSaverForm/>
+            <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
         <div className="container is-flex">
             <button><span className="material-symbols-outlined">power_settings_new</span></button>
             <button><span className="material-symbols-outlined">eject</span></button>
         </div>
+        <div className="container is-flex"></div>
     </>
 }

@@ -48,7 +48,7 @@ button {
 }
 
 /* Screen */
-#screensaver-canvas {
+#screen-canvas {
     height: 500px;
     width: 100%;
 }
