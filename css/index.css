@@ -1,0 +1,32 @@
+/* Variable declaration */
+:root {
+    --primary-light: #ccc;
+
+    --border: 1px solid var(--primary-light);
+    --border-radius: 10px;
+}
+
+/* Background & font */
+html {
+    background: #020024;
+    background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(7, 16, 18, 1) 100%);
+    
+    font-family: "Quantico", sans-serif;
+    color: var(--primary-light);
+}
+
+/* Generic components */
+.container {
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: 5px;
+}
+@media (max-width: 1000px) {
+    .container {
+        width: 98%;
+    }
+}
