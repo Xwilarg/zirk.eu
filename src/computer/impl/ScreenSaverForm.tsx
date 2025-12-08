@@ -1,22 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { AScreen } from "./screensaver/AScreen";
 import { BallsScreen } from "./screensaver/BallsScreen";
 
 export default function ScreenSaverForm() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [screenSaver, setScreenSaver] = useState<AScreen | null>(null);
+    const screenSaverRef = useRef<AScreen | null>(null);
     
     useEffect(() => {
         const sc = new BallsScreen(canvasRef.current!, 0);
-        setScreenSaver(sc);
+        screenSaverRef.current = sc;
 
         document.addEventListener("mousemove", sc.handleMouse.bind(sc));
         window.requestAnimationFrame(updateLoop);
     }, []);
 
     function updateLoop() {
-        console.log(screenSaver)
-        screenSaver?.updateCanvas();
+        screenSaverRef.current?.updateCanvas();
         window.requestAnimationFrame(updateLoop);
     }
 
