@@ -32,6 +32,16 @@ html {
     }
 }
 
+a {
+    color: rgb(212, 117, 117);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+}
+a:hover {
+    color: rgb(117, 166, 212);
+    text-decoration: none;
+}
+
 .is-flex {
     display: flex;
     flex-wrap: wrap;
@@ -45,6 +55,11 @@ button {
     color: var(--primary-light);
     padding: 10px;
     cursor: pointer;
+    font-family: "Quantico", sans-serif;
+}
+button:disabled {
+    cursor: not-allowed;
+    background-color: #282730;
 }
 
 /* Screen */
