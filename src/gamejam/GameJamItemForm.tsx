@@ -4,11 +4,12 @@ import { isNsfw } from "../utils";
 
 interface GameJamItemFormProps
 {
-    item: GameJamItem
+    item: GameJamItem,
+    showComputer: (defaultResFolder: string, defaultFilename: string, defaultUnityVersion: string) => void
 }
 
 const GameJamItemForm = forwardRef((
-    { item }: GameJamItemFormProps,
+    { item, showComputer }: GameJamItemFormProps,
     _
 ) => {
     let format = item.format ?? "jpg";
@@ -22,7 +23,11 @@ const GameJamItemForm = forwardRef((
         </div>
         {
             item.sketch !== null && !hideNsfw ?
-            <button className="button-icon"><span className="material-symbols-outlined">play_arrow</span></button>
+            <button className="button-icon" onClick={
+                _ => {
+                    showComputer(item.sketch!.folder, `Build/${item.sketch!.filename}`, item.version);
+                }
+            }><span className="material-symbols-outlined">play_arrow</span></button>
             : <></>
         }
         {

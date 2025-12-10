@@ -1,16 +1,27 @@
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import { loadSketch, type ButtonInfo } from "./impl/game/GameForm";
 import sketchData from "../../data/json/sketch.json"
 import type { AScreen } from "./impl/screensaver/AScreen";
 import loadScreenSaver from "./impl/ScreenSaver";
 
-export default function SketchForm() {
+export interface SketchFormProps
+{
+    isOn: boolean,
+    defaultResFolder: string,
+    defaultFilename: string,
+    defaultUnityVersion: string
+}
+
+const SketchForm = forwardRef((
+    { isOn, defaultResFolder, defaultFilename, defaultUnityVersion }: SketchFormProps,
+    _
+) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const screenSaverRef = useRef<AScreen | null>(null);
     const screenSaverDtorRef = useRef<() => void | null>(null);
     let sketchInstance = useRef<any>(null);
     const [sketchButtons, setSketchData] = useState<ButtonInfo[]>(sketchData);
-    let [showScreenSaver, setShowScreenSaver] = useState<boolean>(true);
+    let [showScreenSaver, setShowScreenSaver] = useState<boolean>(!isOn);
 
     useEffect(() => {
         let canvasParent = canvasRef.current!.parentElement;
@@ -18,13 +29,12 @@ export default function SketchForm() {
         canvasRef.current = document.createElement("canvas");
         canvasRef.current.id = "screen-canvas";
         canvasParent!.appendChild(canvasRef.current);
-
         if (showScreenSaver) {
             screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
         } else {
-            screenSaverDtorRef.current!();
+            screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-            loadSketch(canvasRef, sketchInstance, "sketch/", "Sketch", "6000.2.12f1");
+            loadSketch(canvasRef, sketchInstance, defaultResFolder, defaultFilename, defaultUnityVersion);
         }
 
         return () => {
@@ -53,4 +63,5 @@ export default function SketchForm() {
         </div>
         <div className="container is-flex"></div>
     </>
-}
+});
+export default SketchForm;

@@ -1,6 +1,6 @@
 import { Link } from "react-router"
 import "../css/index.css"
-import SketchForm from "./computer/ComputerForm"
+import SketchForm from "./computer/SketchForm"
 import NavigationForm from "./NavigationForm"
 import { useState } from "react";
 import sheepData from "../data/json/sheep.json"
@@ -46,6 +46,6 @@ export default function MainForm() {
                 : <></>
             }
         </div>
-        <SketchForm />
+        <SketchForm isOn={false} defaultResFolder="sketch/" defaultFilename="Sketch" defaultUnityVersion="6000.2.12f1" />
     </> 
 }
