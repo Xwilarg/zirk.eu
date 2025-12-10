@@ -27,7 +27,7 @@ export default function MainForm() {
             On the meantime, I hope you enjoy your stay here :)<br/>
             <br/>
             If you scrolled up here, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?<br/>
-            Draw a beautiful sheep and send it to me at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>
+            Send me your best drawn sheep at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>
             {
                 showSheep ?
                 <>
