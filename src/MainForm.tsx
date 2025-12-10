@@ -7,6 +7,7 @@ import sheepData from "../data/json/sheep.json"
 
 interface SheepInfo
 {
+    name: string,
     image: string
 }
 
@@ -25,19 +26,23 @@ export default function MainForm() {
             And speaking of this website, ta-da here you are, it's still a big work in progress but hopefully it should come closer to an aesthetic I like<br/>
             On the meantime, I hope you enjoy your stay here :)<br/>
             <br/>
-            If you scrolled up here, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?
-            <br/>
+            If you scrolled up here, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?<br/>
+            Draw a beautiful sheep and send it to me at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>
             {
                 showSheep ?
-                <div className="is-flex">
-                    {
-                        sheep.map(x => 
-                            <div className="sheep-img">
-                                <img src={`/data/img/sheep/${x.image}`} />
-                            </div>
-                        )
-                    }
-                </div>
+                <>
+                    <br/>
+                    <div className="is-flex">
+                        {
+                            sheep.map(x => 
+                                <div className="sheep-img" key={x.name}>
+                                    <p>{x.name}</p>
+                                    <img src={`/data/img/sheep/${x.image}`} />
+                                </div>
+                            )
+                        }
+                    </div>
+                </>
                 : <></>
             }
         </div>
