@@ -15,7 +15,12 @@ html {
     color: var(--primary-light);
 }
 
-/* Generic components */
+/* Container components */
+.fullscreen {
+    display: block;
+    width: 2000px;
+    margin: 0 auto;
+}
 .container {
     display: block;
     width: 1000px;
@@ -26,12 +31,32 @@ html {
     padding: 5px;
     margin-bottom: 15px;
 }
+@media (max-width: 2000px) {
+    .fullscreen {
+        width: 98%;
+    }
+}
 @media (max-width: 1000px) {
     .container {
         width: 98%;
     }
 }
 
+.box {
+    width: 300px;
+    height: 300px;
+}
+
+.is-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.flex-center-hor {
+    justify-content: center;
+}
+
+/* Others generic components */
 a {
     color: rgb(212, 117, 117);
     text-decoration: underline;
@@ -42,10 +67,8 @@ a:hover {
     text-decoration: none;
 }
 
-.is-flex {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+img {
+    border-radius: var(--border-radius);
 }
 
 button {
@@ -57,9 +80,25 @@ button {
     cursor: pointer;
     font-family: "Quantico", sans-serif;
 }
+button:hover {
+    background-color: #28273057;
+}
 button:disabled {
     cursor: not-allowed;
     background-color: #282730;
+}
+.button-icon {
+    width: 46px;
+    height: 46px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Image effects */
+.blur {
+    filter: blur(10px);
 }
 
 /* Screen */
@@ -70,4 +109,15 @@ button:disabled {
 
 #screen-container {
     position: relative;
+}
+
+/* Gamejam */
+.gamejam-img {
+    height: 200px;
+}
+.gamejam-img img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
 }

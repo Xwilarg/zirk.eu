@@ -37,12 +37,12 @@ export default function SketchForm() {
             <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
         <div className="container is-flex">
-            <button onClick={ _ => setShowScreenSaver(x => !x) }><span className="material-symbols-outlined">power_settings_new</span></button>
-            <button disabled={true}><span className="material-symbols-outlined">eject</span></button>
+            <button className="button-icon" onClick={ _ => setShowScreenSaver(x => !x) }><span className="material-symbols-outlined">power_settings_new</span></button>
+            <button className="button-icon" disabled={true}><span className="material-symbols-outlined">eject</span></button>
             {
                 showScreenSaver ? <></> :
                 sketchButtons.map(x =>
-                    <button key={x.name} onClick={() => { sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene) }}>
+                    <button className={x.type === "icon" ? "button-icon" : ""} key={x.name} onClick={() => { sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene) }}>
                         {
                             x.type === "icon" ? <span className="material-symbols-outlined">{x.name}</span>
                             : x.name
