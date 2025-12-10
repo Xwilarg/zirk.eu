@@ -1,6 +1,5 @@
 import { forwardRef, useEffect, useRef, useState } from "react";
 import { loadSketch, type ButtonInfo } from "./impl/game/GameForm";
-import sketchData from "../../data/json/sketch.json"
 import type { AScreen } from "./impl/screensaver/AScreen";
 import loadScreenSaver from "./impl/ScreenSaver";
 
@@ -9,18 +8,19 @@ export interface SketchFormProps
     isOn: boolean,
     defaultResFolder: string,
     defaultFilename: string,
-    defaultUnityVersion: string
+    defaultUnityVersion: string,
+    buttons: ButtonInfo[]
 }
 
 const SketchForm = forwardRef((
-    { isOn, defaultResFolder, defaultFilename, defaultUnityVersion }: SketchFormProps,
+    { isOn, defaultResFolder, defaultFilename, defaultUnityVersion, buttons }: SketchFormProps,
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const screenSaverRef = useRef<AScreen | null>(null);
     const screenSaverDtorRef = useRef<() => void | null>(null);
     let sketchInstance = useRef<any>(null);
-    const [sketchButtons, setSketchButtons] = useState<ButtonInfo[]>(sketchData);
+    const [sketchButtons, setSketchButtons] = useState<ButtonInfo[]>(buttons);
     let [showScreenSaver, setShowScreenSaver] = useState<boolean>(!isOn);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ const SketchForm = forwardRef((
         return () => {
             screenSaverDtorRef.current?.();
         };
-    }, [ showScreenSaver ])
+    }, [ showScreenSaver, defaultResFolder ])
 
     return <>
         <div className="container" id="screen-container">

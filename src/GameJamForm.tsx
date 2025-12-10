@@ -43,6 +43,7 @@ export default function GameJamForm() {
                 defaultResFolder={computerProps.defaultResFolder}
                 defaultFilename={computerProps.defaultFilename}
                 defaultUnityVersion={computerProps.defaultUnityVersion}
+                buttons={computerProps.buttons}
             />
             : <></>
         }
@@ -55,7 +56,8 @@ export default function GameJamForm() {
                             isOn: true,
                             defaultResFolder: defaultResFolder,
                             defaultFilename: defaultFilename,
-                            defaultUnityVersion: defaultUnityVersion
+                            defaultUnityVersion: defaultUnityVersion,
+                            buttons: []
                         })
                     }} />)
             }
