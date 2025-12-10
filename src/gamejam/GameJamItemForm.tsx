@@ -21,22 +21,24 @@ const GameJamItemForm = forwardRef((
         <div className="gamejam-img is-flex flex-center-hor">
             <img className={hideNsfw ? "blur" : ""} src={`/data/img/gamejam/${item.name}.${format}`}/>
         </div>
-        {
-            item.sketch !== null && !hideNsfw ?
-            <button className="button-icon" onClick={
-                _ => {
-                    showComputer(item.sketch!.folder, `Build/${item.sketch!.filename}`, item.version);
-                }
-            }><span className="material-symbols-outlined">play_arrow</span></button>
-            : <></>
-        }
-        {
-            item.website !== null && !hideNsfw ?
-            <a href={item.website}>
-                <button className="button-icon"><span className="material-symbols-outlined">language</span></button>
-            </a>
-            : <></>
-        }
+        <div className="is-flex">
+            {
+                item.sketch !== null && !hideNsfw ?
+                <button className="button-icon" onClick={
+                    _ => {
+                        showComputer(item.sketch!.folder, `Build/${item.sketch!.filename}`, item.version);
+                    }
+                }><span className="material-symbols-outlined">play_arrow</span></button>
+                : <></>
+            }
+            {
+                item.website !== null && !hideNsfw ?
+                <a href={item.website}>
+                    <button className="button-icon"><span className="material-symbols-outlined">language</span></button>
+                </a>
+                : <></>
+            }
+        </div>
     </div>
 });
 

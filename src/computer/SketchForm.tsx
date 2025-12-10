@@ -20,7 +20,7 @@ const SketchForm = forwardRef((
     const screenSaverRef = useRef<AScreen | null>(null);
     const screenSaverDtorRef = useRef<() => void | null>(null);
     let sketchInstance = useRef<any>(null);
-    const [sketchButtons, setSketchData] = useState<ButtonInfo[]>(sketchData);
+    const [sketchButtons, setSketchButtons] = useState<ButtonInfo[]>(sketchData);
     let [showScreenSaver, setShowScreenSaver] = useState<boolean>(!isOn);
 
     useEffect(() => {
