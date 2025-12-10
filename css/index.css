@@ -1,6 +1,7 @@
 /* Variable declaration */
 :root {
     --primary-light: #ccc;
+    --primary-background: #020024;
 
     --border: 1px solid var(--primary-light);
     --border-radius: 10px;
@@ -8,7 +9,7 @@
 
 /* Background & font */
 html {
-    background: #020024;
+    background: var(--primary-background);
     background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(7, 16, 18, 1) 100%);
     
     font-family: "Quantico", sans-serif;
@@ -61,6 +62,7 @@ a {
     color: rgb(212, 117, 117);
     text-decoration: underline;
     text-decoration-style: dotted;
+    cursor: pointer;
 }
 a:hover {
     color: rgb(117, 166, 212);
@@ -116,6 +118,35 @@ button:disabled {
     height: 200px;
 }
 .gamejam-img img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+/* Intro */
+#intro {
+    height: 185px;
+    overflow-y: auto;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-background) var(--primary-light);
+}
+
+#intro.enlarged {
+    height: 500px;
+}
+
+.katsis-highlight {
+    color: #fa8fb3;
+}
+
+.sheep-img {
+    height: 500px;
+    width: 500px;
+}
+.sheep-img img {
     max-width: 100%;
     max-height: 100%;
     width: auto;
