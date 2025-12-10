@@ -21,6 +21,11 @@ const GameJamItemForm = forwardRef((
             <img className={hideNsfw ? "blur" : ""} src={`/data/img/gamejam/${item.name}.${format}`}/>
         </div>
         {
+            item.sketch !== null && !hideNsfw ?
+            <button className="button-icon"><span className="material-symbols-outlined">play_arrow</span></button>
+            : <></>
+        }
+        {
             item.website !== null && !hideNsfw ?
             <a href={item.website}>
                 <button className="button-icon"><span className="material-symbols-outlined">language</span></button>

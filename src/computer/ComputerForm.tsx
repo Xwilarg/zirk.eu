@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { loadDefaultSketch, type ButtonInfo } from "./impl/game/GameForm";
+import { loadSketch, type ButtonInfo } from "./impl/game/GameForm";
 import sketchData from "../../data/json/sketch.json"
 import type { AScreen } from "./impl/screensaver/AScreen";
 import loadScreenSaver from "./impl/ScreenSaver";
@@ -24,7 +24,7 @@ export default function SketchForm() {
         } else {
             screenSaverDtorRef.current!();
             screenSaverDtorRef.current = null;
-            loadDefaultSketch(canvasRef, sketchInstance);
+            loadSketch(canvasRef, sketchInstance, "sketch/", "Sketch", "6000.2.12f1");
         }
 
         return () => {

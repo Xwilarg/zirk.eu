@@ -131,7 +131,7 @@ button:disabled {
     border-radius: var(--border-radius) 0 0 var(--border-radius);
 
     scrollbar-width: thin;
-    scrollbar-color: var(--primary-background) var(--primary-light);
+    scrollbar-color: var(--primary-light) transparent;
 }
 
 #intro.enlarged {

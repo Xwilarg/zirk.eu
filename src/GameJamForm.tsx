@@ -16,7 +16,14 @@ export interface GameJamItem
     format?: string,
     nsfw: boolean,
     theme: string[],
-    website: string | null
+    website: string | null,
+    sketch: GamejamSketch | null
+}
+
+export interface GamejamSketch
+{
+    folder: string,
+    filename: string
 }
 
 export default function GameJamForm() {

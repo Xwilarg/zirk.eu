@@ -7,11 +7,13 @@ export interface ButtonInfo
     scene: string;
 }
 
-export function loadDefaultSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>) {
+export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>,
+    resFolder: string, filename: string, version: string
+) {
     if (sketchInstance.current) sketchInstance.current!.Quit().then(() => {
-        loadProjectInternal(canvasRef, sketchInstance, "sketch/", "Sketch", "6000.2.12f1");
+        loadProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
     });
-    else loadProjectInternal(canvasRef, sketchInstance, "sketch/", "Sketch", "6000.2.12f1");
+    else loadProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
 }
 
 function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, version: string)
