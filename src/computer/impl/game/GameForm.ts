@@ -7,33 +7,35 @@ export interface ButtonInfo
     scene: string;
 }
 
-export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>,
+export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>,
     resFolder: string, filename: string, engine: string, version: string
 ) {
-    loadProjectInternal(canvasRef, sketchInstance, resFolder, filename, engine, version);
+    loadProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, engine, version);
 }
 
-function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, engine: string, version: string)
+function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string)
 {
     if (engine === "GB Studio")
     {
-        loadGBStudioProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
+        loadGBStudioProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version);
     }
     else
     {
-        loadUnityProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
+        loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version);
     }
 }
 
-function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, version: string)
+function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string)
 {
     const script1 = document.createElement("script");
+    loadedScripts.current!.push(script1);
     script1.src = `${resFolder}binjgb.js`;
     script1.onload = () => {
         fetch(`${resFolder}js/script.js`)
             .then(resp => resp.text())
             .then(text => {
                 const script2 = document.createElement("script");
+                loadedScripts.current!.push(script2);
                 script2.textContent = text.replace('const ROM_FILENAME = "rom/game.gb";', `const ROM_FILENAME = "${resFolder}rom/game.gb";`);
                 script2.textContent += "const customControls = {}";
                 document.body.appendChild(script2);
@@ -42,7 +44,7 @@ function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | nu
     document.body.appendChild(script1);
 }
 
-function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, version: string)
+function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string)
 {
     const loading = document.createElement("div");
     loading.style = "position: absolute; top: 10px; left: 10px;";
@@ -82,6 +84,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     }
 
     const script = document.createElement("script");
+    loadedScripts.current!.push(script);
     script.src = loaderUrl;
     script.onload = () => {
         console.log(`Canvas dimensions: ${canvasRef.current!.width} x ${canvasRef.current!.height}`);

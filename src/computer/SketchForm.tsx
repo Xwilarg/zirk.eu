@@ -23,6 +23,7 @@ const SketchForm = forwardRef((
     let sketchInstance = useRef<any>(null);
     const [sketchButtons, setSketchButtons] = useState<ButtonInfo[]>(buttons);
     let [showScreenSaver, setShowScreenSaver] = useState<boolean>(!isOn);
+    let loadedScripts = useRef<HTMLScriptElement[]>([]);
 
     useEffect(() => {
         let canvasParent = canvasRef.current!.parentElement;
@@ -35,12 +36,14 @@ const SketchForm = forwardRef((
         } else {
             screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-            loadSketch(canvasRef, sketchInstance, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
+            loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
         }
 
         return () => {
             screenSaverDtorRef.current?.();
             sketchInstance.current?.Quit();
+
+            for (let s of loadedScripts.current!) s.remove();
 
             // Context imported by GB Studio
             try
