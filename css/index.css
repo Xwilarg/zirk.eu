@@ -124,6 +124,10 @@ button:disabled {
     height: auto;
 }
 
+.gamejam-name {
+    height: 25px;
+}
+
 /* Intro */
 #intro {
     height: 185px;

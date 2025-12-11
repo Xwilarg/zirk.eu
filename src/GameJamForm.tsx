@@ -20,7 +20,8 @@ export interface GameJamItem
     nsfw: boolean,
     theme: string[],
     website: string | null,
-    sketch: GamejamSketch | null
+    sketch: GamejamSketch | null,
+    rating: GamejamRating | null
 }
 
 export interface GamejamSketch
@@ -29,11 +30,57 @@ export interface GamejamSketch
     filename: string
 }
 
+export interface GamejamRating
+{
+    entries: number | null,
+    entriesRated: number | null,
+    scores?: { [id: string]: GamejamScore | undefined } | null;
+}
+
+export interface GamejamScore
+{
+    rank: number | null
+}
+
+type SortMode = "Date" | "Score";
+
+function getOverallScore(item: GameJamItem): number | null {
+    if (!item.rating || !item.rating.scores) return null;
+
+    const entries = item.rating.entriesRated ?? item.rating.entries;
+    if (!entries) return null;
+    if ("Overall" in item.rating.scores)
+    {
+        const o = item.rating.scores["Overall"];
+        if (!o || !o.rank) return null;
+        return item.rating.scores["Overall"]!.rank! / entries;
+    }
+    return null;
+}
+
+export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode): GameJamItem[]
+{
+    let nsfwStatus = isNsfw();
+    return items.filter(x => nsfwStatus !== "FullSFW" || !x.nsfw).sort((a, b) => {
+        if (sortMode === "Score")
+        {
+            const sa = getOverallScore(a);
+            const sb = getOverallScore(b)
+
+            if (sa === null) return 1;
+            if (sb === null) return -1;
+
+            return sa - sb;
+        }
+        return 0;
+    });
+}
+
 export default function GameJamForm() {
     const [jamData, setJamData] = useState<GameJamInfo>(gamejamData);
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
+    const [sortMode, setSortMode] = useState<SortMode>("Date");
 
-    let nsfwStatus = isNsfw();
     return <>
         <NavigationForm />
         {
@@ -47,10 +94,18 @@ export default function GameJamForm() {
             />
             : <></>
         }
+        <div className="container">
+            <label htmlFor="sort-mode">Sort mode</label>
+            <select id="sort-mode" value={sortMode} onChange={e => setSortMode(e.target.value as SortMode)}>
+                <option value="Date">Date</option>
+                <option value="Score">Score</option>
+            </select>
+        </div>
         <div className="fullscreen is-flex">
             {
-                jamData.jams
-                    .filter(x => nsfwStatus !== "FullSFW" || !x.nsfw)
+                getSortedGamejams(
+                    jamData.jams, sortMode
+                )
                     .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={(defaultResFolder: string, defaultFilename: string, defaultUnityVersion: string) => {
                         setComputerProps({
                             isOn: true,

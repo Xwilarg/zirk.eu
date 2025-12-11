@@ -40,7 +40,15 @@ const SketchForm = forwardRef((
         return () => {
             screenSaverDtorRef.current?.();
         };
-    }, [ showScreenSaver, defaultResFolder ])
+    }, [ showScreenSaver, defaultResFolder ]);
+
+    useEffect(() => {
+        setShowScreenSaver(!isOn);
+    }, [ isOn ]);
+
+    useEffect(() => {
+        setSketchButtons(buttons);
+    }, [ buttons ]);
 
     return <>
         <div className="container" id="screen-container">
@@ -61,7 +69,6 @@ const SketchForm = forwardRef((
                 )
             }
         </div>
-        <div className="container is-flex"></div>
     </>
 });
 export default SketchForm;
