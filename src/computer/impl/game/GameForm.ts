@@ -15,17 +15,29 @@ export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketc
 
 function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string)
 {
-    if (engine === "GB Studio")
+    const loading = document.createElement("div");
+    loading.style = "position: absolute; top: 10px; left: 10px;";
+    const text = document.createTextNode("Loading...");
+    loading.appendChild(text);
+
+    try
     {
-        loadGBStudioProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version);
+        if (engine === "GB Studio")
+        {
+            loadGBStudioProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
+        }
+        else
+        {
+            loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
+        }
     }
-    else
+    catch (e)
     {
-        loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version);
+        loading.textContent = `Failed to load: ${e}`;
     }
 }
 
-function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string)
+function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
 {
     const script1 = document.createElement("script");
     loadedScripts.current!.push(script1);
@@ -38,19 +50,19 @@ function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | nu
                 loadedScripts.current!.push(script2);
                 script2.textContent = text.replace('const ROM_FILENAME = "rom/game.gb";', `const ROM_FILENAME = "${resFolder}rom/game.gb";`);
                 script2.textContent += "const customControls = {}";
+                script2.onload = () => {
+                    loading.remove();
+                };
+                script2.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
                 document.body.appendChild(script2);
             });
     };
+    script1.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
     document.body.appendChild(script1);
 }
 
-function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string)
+function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
 {
-    const loading = document.createElement("div");
-    loading.style = "position: absolute; top: 10px; left: 10px;";
-    const text = document.createTextNode("Loading...");
-    loading.appendChild(text);
-
     canvasRef.current!.parentElement!.appendChild(loading);
 
     let buildUrl = resFolder;
@@ -94,9 +106,10 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
             loading.remove();
             sketchInstance.current = unityInstance;
         }).catch((message: string) => {
-            text.textContent = `Failed to load: ${message}`
+            loading.textContent = `Failed to load: ${message}`
         });
     };
+    script.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
 
     document.body.appendChild(script);
 }

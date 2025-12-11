@@ -15,6 +15,7 @@ export interface GameJamItem
 {
     name: string,
     fullName: string,
+    duration: number,
     engine: string,
     version: string,
     format?: string,

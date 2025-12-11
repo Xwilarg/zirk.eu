@@ -37,7 +37,7 @@ export default function MainForm() {
             imageUrl: "/img/sketch.png",
             color: "green"
         },
-        ...getSortedGamejams(gamejamData.jams, "Score").slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
+        ...getSortedGamejams(gamejamData.jams, "Score").filter(x => x.duration >= 24).slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
             props: {
                 isOn: true,
                 defaultResFolder: x.sketch!.folder,
