@@ -103,6 +103,7 @@ button:disabled {
 /* Image effects */
 .blur {
     filter: blur(10px);
+    pointer-events: none;
 }
 
 /* Screen */

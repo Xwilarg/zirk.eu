@@ -33,7 +33,7 @@ export default function MainForm() {
                 defaultUnityVersion: "6000.2.12f1",
                 buttons: sketchData
             },
-            imageUrl: "",
+            imageUrl: "/img/sketch.png",
             color: "green"
         },
         ...getSortedGamejams(gamejamData.jams, "Score").slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
@@ -63,7 +63,7 @@ export default function MainForm() {
             if (i === computerPropsIndex) continue;
 
             data.push(
-                <CartridgeForm onClick={() => {
+                <CartridgeForm key={defaultCartridges[i].imageUrl} onClick={() => {
                     setComputerPropsIndex(i);
                     setIsUsingDefaultCartridge(false);
                 }} imageUrl={defaultCartridges[i].imageUrl} color={defaultCartridges[i].color} />
