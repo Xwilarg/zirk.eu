@@ -110,6 +110,10 @@ button:disabled {
 #screen-canvas {
     height: 500px;
     width: 100%;
+
+    /* GB Studio */
+    object-fit: contain;
+    image-rendering: pixelated;
 }
 
 #screen-container {

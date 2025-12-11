@@ -8,15 +8,41 @@ export interface ButtonInfo
 }
 
 export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>,
-    resFolder: string, filename: string, version: string
+    resFolder: string, filename: string, engine: string, version: string
 ) {
-    if (sketchInstance.current) sketchInstance.current!.Quit().then(() => {
-        loadProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
-    });
-    else loadProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
+    loadProjectInternal(canvasRef, sketchInstance, resFolder, filename, engine, version);
 }
 
-function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, version: string)
+function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, engine: string, version: string)
+{
+    if (engine === "GB Studio")
+    {
+        loadGBStudioProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
+    }
+    else
+    {
+        loadUnityProjectInternal(canvasRef, sketchInstance, resFolder, filename, version);
+    }
+}
+
+function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, version: string)
+{
+    const script1 = document.createElement("script");
+    script1.src = `${resFolder}binjgb.js`;
+    script1.onload = () => {
+        fetch(`${resFolder}js/script.js`)
+            .then(resp => resp.text())
+            .then(text => {
+                const script2 = document.createElement("script");
+                script2.textContent = text.replace('const ROM_FILENAME = "rom/game.gb";', `const ROM_FILENAME = "${resFolder}rom/game.gb";`);
+                script2.textContent += "const customControls = {}";
+                document.body.appendChild(script2);
+            });
+    };
+    document.body.appendChild(script1);
+}
+
+function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, resFolder: string, filename: string, version: string)
 {
     const loading = document.createElement("div");
     loading.style = "position: absolute; top: 10px; left: 10px;";
@@ -30,7 +56,7 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
     let loaderUrl = `${buildUrl}${filename}.loader.js`;
 
     let config;
-        
+
     if (version === "2021.1.4f1") {
         config = {
             dataUrl: `${buildUrl}${filename}.data`,

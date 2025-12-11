@@ -15,6 +15,7 @@ export interface GameJamItem
 {
     name: string,
     fullName: string,
+    engine: string,
     version: string,
     format?: string,
     nsfw: boolean,
@@ -27,7 +28,7 @@ export interface GameJamItem
 export interface GamejamSketch
 {
     folder: string,
-    filename: string
+    filename: string | null
 }
 
 export interface GamejamRating
@@ -89,6 +90,7 @@ export default function GameJamForm() {
                 isOn={computerProps.isOn}
                 defaultResFolder={computerProps.defaultResFolder}
                 defaultFilename={computerProps.defaultFilename}
+                defaultEngine={computerProps.defaultEngine}
                 defaultUnityVersion={computerProps.defaultUnityVersion}
                 buttons={computerProps.buttons}
             />
@@ -106,11 +108,12 @@ export default function GameJamForm() {
                 getSortedGamejams(
                     jamData.jams, sortMode
                 )
-                    .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={(defaultResFolder: string, defaultFilename: string, defaultUnityVersion: string) => {
+                    .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={(defaultResFolder: string, defaultFilename: string, defaultEngine: string, defaultUnityVersion: string) => {
                         setComputerProps({
                             isOn: true,
                             defaultResFolder: defaultResFolder,
                             defaultFilename: defaultFilename,
+                            defaultEngine: defaultEngine,
                             defaultUnityVersion: defaultUnityVersion,
                             buttons: []
                         })

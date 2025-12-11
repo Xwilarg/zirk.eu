@@ -8,12 +8,13 @@ export interface SketchFormProps
     isOn: boolean,
     defaultResFolder: string,
     defaultFilename: string,
+    defaultEngine: string,
     defaultUnityVersion: string,
     buttons: ButtonInfo[]
 }
 
 const SketchForm = forwardRef((
-    { isOn, defaultResFolder, defaultFilename, defaultUnityVersion, buttons }: SketchFormProps,
+    { isOn, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion, buttons }: SketchFormProps,
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -34,11 +35,19 @@ const SketchForm = forwardRef((
         } else {
             screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-            loadSketch(canvasRef, sketchInstance, defaultResFolder, defaultFilename, defaultUnityVersion);
+            loadSketch(canvasRef, sketchInstance, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
         }
 
         return () => {
             screenSaverDtorRef.current?.();
+            sketchInstance.current?.Quit();
+
+            // Context imported by GB Studio
+            try
+            {
+                // @ts-ignore
+                Emulator.stop();
+            } catch { }
         };
     }, [ showScreenSaver, defaultResFolder ]);
 
@@ -68,6 +77,15 @@ const SketchForm = forwardRef((
                     </button>
                 )
             }
+        </div>
+        { /* For GB Studio */ }
+        <div>
+            <div id="controller"></div>
+            <div id="controller_dpad"></div>
+            <div id="controller_select"></div>
+            <div id="controller_start"></div>
+            <div id="controller_b"></div>
+            <div id="controller_a"></div>
         </div>
     </>
 });

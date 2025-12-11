@@ -30,6 +30,7 @@ export default function MainForm() {
                 isOn: true,
                 defaultResFolder: "sketch/",
                 defaultFilename: "Sketch",
+                defaultEngine: "Unity",
                 defaultUnityVersion: "6000.2.12f1",
                 buttons: sketchData
             },
@@ -41,6 +42,7 @@ export default function MainForm() {
                 isOn: true,
                 defaultResFolder: x.sketch!.folder,
                 defaultFilename: `Build/${x.sketch!.filename}`,
+                defaultEngine: x.engine,
                 defaultUnityVersion: x.version,
                 buttons: []
             },
@@ -108,6 +110,7 @@ export default function MainForm() {
             isOn={isUsingDefaultCartridge ? false : defaultCartridges[computerPropsIndex].props.isOn}
             defaultResFolder={defaultCartridges[computerPropsIndex].props.defaultResFolder}
             defaultFilename={defaultCartridges[computerPropsIndex].props.defaultFilename}
+            defaultEngine={defaultCartridges[computerPropsIndex].props.defaultEngine}
             defaultUnityVersion={defaultCartridges[computerPropsIndex].props.defaultUnityVersion}
             buttons={defaultCartridges[computerPropsIndex].props.buttons}
         />
