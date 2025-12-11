@@ -25,7 +25,7 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
 
     canvasRef.current!.parentElement!.appendChild(loading);
 
-    let buildUrl = /*defaultSketchOverride ? `${resFolder}Build/` : */resFolder;
+    let buildUrl = resFolder;
     let assetsUrl = `${resFolder}StreamingAssets/`;
     let loaderUrl = `${buildUrl}${filename}.loader.js`;
 

@@ -51,10 +51,10 @@ const SketchForm = forwardRef((
     }, [ buttons ]);
 
     return <>
-        <div className="container" id="screen-container">
+        <div className="container box" id="screen-container">
             <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
-        <div className="container is-flex">
+        <div className="container box is-flex">
             <button className="button-icon" onClick={ _ => setShowScreenSaver(x => !x) }><span className="material-symbols-outlined">power_settings_new</span></button>
             <button className="button-icon" disabled={true}><span className="material-symbols-outlined">eject</span></button>
             {

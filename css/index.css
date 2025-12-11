@@ -27,10 +27,12 @@ html {
     width: 1000px;
     margin: 0 auto;
 
-    border: var(--border);
-    border-radius: var(--border-radius);
     padding: 5px;
     margin-bottom: 15px;
+}
+.box {
+    border: var(--border);
+    border-radius: var(--border-radius);
 }
 @media (max-width: 2000px) {
     .fullscreen {
@@ -43,7 +45,7 @@ html {
     }
 }
 
-.box {
+.card {
     width: 300px;
     height: 300px;
 }

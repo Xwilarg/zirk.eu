@@ -16,7 +16,7 @@ const GameJamItemForm = forwardRef((
     let nsfwStatus = isNsfw();
     let hideNsfw = item.nsfw && nsfwStatus !== "NSFW";
 
-    return <div className="box">
+    return <div className="card">
         <p className={"text-center gamejam-name" + (hideNsfw ? " blur" : "")}>{item.fullName}</p>
         <div className="gamejam-img is-flex flex-center-hor">
             <img className={hideNsfw ? "blur" : ""} src={`/data/img/gamejam/${item.name}.${format}`}/>

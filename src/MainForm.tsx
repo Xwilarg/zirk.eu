@@ -1,5 +1,4 @@
 import { Link } from "react-router"
-import "../css/index.css"
 import SketchForm, { type SketchFormProps } from "./computer/SketchForm"
 import NavigationForm from "./NavigationForm"
 import { type ReactElement, useEffect, useState } from "react";
@@ -76,7 +75,7 @@ export default function MainForm() {
 
     return <>
         <NavigationForm />
-        <div className={showSheep ? "container enlarged" : "container"} id="intro">
+        <div className={showSheep ? "container box enlarged" : "container box"} id="intro">
             Welcome on my website, I am Zirk, a game and software developer<br/>
             <br/>
             I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to="/gamejam">participating at gamejams</Link><br/>
@@ -112,7 +111,7 @@ export default function MainForm() {
             defaultUnityVersion={defaultCartridges[computerPropsIndex].props.defaultUnityVersion}
             buttons={defaultCartridges[computerPropsIndex].props.buttons}
         />
-        <div className="container is-flex">
+        <div className="container box is-flex">
             { cartridges }
         </div>
     </> 

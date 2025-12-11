@@ -94,7 +94,7 @@ export default function GameJamForm() {
             />
             : <></>
         }
-        <div className="container">
+        <div className="container box">
             <label htmlFor="sort-mode">Sort mode</label>
             <select id="sort-mode" value={sortMode} onChange={e => setSortMode(e.target.value as SortMode)}>
                 <option value="Date">Date</option>
