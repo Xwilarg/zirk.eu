@@ -7,7 +7,7 @@ import sketchData from "../data/json/sketch.json"
 import gamejamData from "../data/json/gamejam.json"
 import { getSortedGamejams } from "./GameJamForm";
 import CartridgeForm from "./computer/CartridgeForm";
-import { isNsfw } from "./utils";
+import { isNsfw, randInt } from "./utils";
 
 interface SheepInfo
 {
@@ -21,6 +21,14 @@ interface CartridgeData
     imageUrl: string,
     color: string
 }
+
+const quotes = [
+    "Now with 20% more minipis!",
+    "Still awaiting Indra new website",
+    "Fighting to get a better UX than Fractal since 2023 (I'm not winning)",
+    "Red and green gives yellow",
+    "<a href='/#/secret/quote' class='ignore'>Of course you can't click this quote!</a>"
+]
 
 export default function MainForm() {
     let nsfwStatus = isNsfw();
@@ -56,6 +64,7 @@ export default function MainForm() {
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
     const [computerPropsIndex, setComputerPropsIndex] = useState<number>(0);
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
+    let randomQuote = randInt(quotes.length);
 
     useEffect(() => {
         let data: ReactElement[] = [];
@@ -76,35 +85,40 @@ export default function MainForm() {
     }, [ computerPropsIndex ])
 
     return <>
-        <NavigationForm />
-        <div className={showSheep ? "container box enlarged" : "container box"} id="intro">
-            Welcome on my website, I am Zirk, a game and software developer<br/>
-            <br/>
-            I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to="/gamejam">participating at gamejams</Link><br/>
-            I like lot of others little hobbies that I might hide around on this website at a future date<br/>
-            <br/>
-            And speaking of this website, ta-da here you are, it's still a big work in progress but hopefully it should come closer to an aesthetic I like<br/>
-            On the meantime, I hope you enjoy your stay here :)<br/>
-            <br/>
-            If you scrolled down there, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?<br/>
-            Send me your best drawn sheep at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>
-            {
-                showSheep ?
-                <>
-                    <br/>
-                    <div className="is-flex">
-                        {
-                            sheep.map(x => 
-                                <div className="sheep-img" key={x.name}>
-                                    <p>{x.name}</p>
-                                    <img src={`/data/img/sheep/${x.image}`} />
-                                </div>
-                            )
-                        }
-                    </div>
-                </>
-                : <></>
-            }
+        <div id="intro-top" className="container box">
+            <p id="intro-quote" dangerouslySetInnerHTML={{ __html: quotes[randomQuote] }}></p>
+            <div className={showSheep ? "enlarged" : ""} id="intro">
+                Welcome on my website, I am Zirk, a game and software developer<br/>
+                <br/>
+                I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to="/gamejam">participating at gamejams</Link><br/>
+                I like lot of others little hobbies that I might hide around on this website at a future date<br/>
+                <br/>
+                And speaking of this website, ta-da here you are, it's still a big work in progress but hopefully it should come closer to an aesthetic I like<br/>
+                On the meantime, I hope you enjoy your stay here :)<br/>
+                <br/>
+                If you scrolled down there, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?<br/>
+                Send me your best drawn sheep at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>
+                {
+                    showSheep ?
+                    <>
+                        <br/>
+                        <div className="is-flex">
+                            {
+                                sheep.map(x =>
+                                    <div className="sheep-img" key={x.name}>
+                                        <p>{x.name}</p>
+                                        <img src={`/data/img/sheep/${x.image}`} />
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </>
+                    : <></>
+                }
+            </div>
+        </div>
+        <div className="container box">
+            <NavigationForm />
         </div>
         <SketchForm
             isOn={isUsingDefaultCartridge ? false : defaultCartridges[computerPropsIndex].props.isOn}

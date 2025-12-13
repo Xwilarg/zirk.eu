@@ -60,15 +60,20 @@ html {
 }
 
 /* Others generic components */
-a {
+a:not(.ignore) {
     color: rgb(212, 117, 117);
     text-decoration: underline;
     text-decoration-style: dotted;
     cursor: pointer;
 }
-a:hover {
+a:hover:not(.ignore) {
     color: rgb(117, 166, 212);
     text-decoration: none;
+}
+a.ignore {
+    text-decoration: none;
+    color: var(--primary-light);
+    cursor: default;
 }
 
 img {
@@ -136,11 +141,25 @@ button:disabled {
 }
 
 /* Intro */
+#intro-top {
+    margin-top: 30px;
+    position: relative;
+}
+
+#intro-quote {
+    position: absolute;
+    top: -45px;
+    right: 5px;
+    width: 250px;
+
+    font-size: 13px;
+}
+
 #intro {
     height: 185px;
-    overflow-y: auto;
     border-radius: var(--border-radius) 0 0 var(--border-radius);
 
+    overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-light) transparent;
 }
@@ -173,4 +192,11 @@ button:disabled {
     background-color: #cccccccc;
     border-radius: var(--border-radius);
     padding: 0 5px;
+}
+
+/* Secrets */
+.secret-quote {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 100px;
 }

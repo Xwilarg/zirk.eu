@@ -5,6 +5,7 @@ import { HashRouter, Route, Routes, useLocation, useNavigate } from 'react-route
 import GameJamForm from './GameJamForm'
 import { useEffect } from 'react'
 import InfoForm from './InfoForm'
+import SecretQuoteForm from './SecretQuoteForm'
 
 function RedirectCompat()
 {
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/info' element={<InfoForm />} />
+            <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
     </HashRouter>
 )
