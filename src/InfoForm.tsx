@@ -10,7 +10,7 @@ interface Question
 export default function InfoForm() {
     const [questions, setQuestions] = useState<Question[]>([
         {
-            question: "How was this website made?",
+            question: "Technical specifications",
             answer:
                 "This website is made with <a href='https://react.dev/' target='_blank'>react</a>, " +
                 "<a href='https://vite.dev/' target='_blank'>vite</a> and " +
@@ -35,13 +35,13 @@ export default function InfoForm() {
 
         },
         {
-            question: "What information does this website collect?",
+            question: "Information collected",
             answer:
                 "This website is using <a href='https://github.com/Astylodon/Shika' target='_blank'>Shika</a> for its analytics\n" +
                 "You can see all the data collected <a href='https://astylodon.org/docs/shika/data' target='_blank'>here</a>"
         },
         {
-            question: "How to toggle mature content?",
+            question: "Toggle mature content",
             answer:
                 "Planning to do that better but for now click <a href='/?s=0'> here</a>"
         },
@@ -51,7 +51,7 @@ export default function InfoForm() {
                 "<ul>" +
                 "<li>Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>" +
                 "<li>Closing a Unity game (version 2018 or under) doesn't close the context properly</li>" +
-                "<li>WebGL games made with Unreal Engine or Godot aren't supported in WebGL preview</li>" +
+                "<li>WebGL games made with Unreal Engine, Godot and specific Unity projects aren't supported in WebGL preview</li>" +
                 "</ul>"
         }
     ]);
