@@ -1,10 +1,10 @@
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
+import { getNavigation } from "./utils";
 
 export default function NavigationForm() {
-    const { search } = useLocation();
     return <nav className="is-flex">
-        <Link to={`/${search}`}>Home</Link>
-        <Link to={`/gamejam${search}`}>Gamejam</Link>
-        <Link to={`/info${search}`}>Info</Link>
+        <Link to={getNavigation("/")}>Home</Link>
+        <Link to={getNavigation("/gamejam")}>Gamejam</Link>
+        <Link to={getNavigation("/info")}>Info</Link>
     </nav>
 }

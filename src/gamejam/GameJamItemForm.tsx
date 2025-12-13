@@ -5,7 +5,7 @@ import { isNsfw } from "../utils";
 interface GameJamItemFormProps
 {
     item: GameJamItem,
-    showComputer: (defaultResFolder: string, defaultFilename: string, defaultEngine: string, defaultUnityVersion: string) => void
+    showComputer: () => void
 }
 
 const GameJamItemForm = forwardRef((
@@ -26,7 +26,12 @@ const GameJamItemForm = forwardRef((
                 item.sketch !== null && !hideNsfw ?
                 <button className="button-icon" onClick={
                     _ => {
-                        showComputer(item.sketch!.folder, `Build/${item.sketch!.filename}`, item.engine, item.version);
+                        showComputer();
+                        window.scrollTo({
+                            top: 0,
+                            left: 0,
+                            behavior: "smooth"
+                        })
                     }
                 }><span className="material-symbols-outlined">play_arrow</span></button>
                 : <></>

@@ -7,7 +7,7 @@ import sketchData from "../data/json/sketch.json"
 import gamejamData from "../data/json/gamejam.json"
 import { getSortedGamejams } from "./GameJamForm";
 import CartridgeForm from "./computer/CartridgeForm";
-import { isNsfw, randInt } from "./utils";
+import { getNavigation, isNsfw, randInt } from "./utils";
 
 interface SheepInfo
 {
@@ -66,8 +66,6 @@ export default function MainForm() {
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     let randomQuote = randInt(quotes.length);
 
-    const { search } = useLocation();
-
     useEffect(() => {
         let data: ReactElement[] = [];
 
@@ -92,7 +90,7 @@ export default function MainForm() {
             <div className={showSheep ? "enlarged" : ""} id="intro">
                 Welcome on my website, I am Zirk, a game and software developer<br/>
                 <br/>
-                I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={`/gamejam${search}`}>participating at gamejams</Link><br/>
+                I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigation("/gamejam")}>participating at gamejams</Link><br/>
                 I like lot of others little hobbies that I might hide around on this website at a future date<br/>
                 <br/>
                 And speaking of this website, ta-da here you are, it's still a big work in progress but hopefully it should come closer to an aesthetic I like<br/>

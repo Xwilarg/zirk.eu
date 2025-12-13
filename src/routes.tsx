@@ -6,15 +6,16 @@ import GameJamForm from './GameJamForm'
 import { useEffect } from 'react'
 import InfoForm from './InfoForm'
 import SecretQuoteForm from './SecretQuoteForm'
+import { getNavigation } from './utils'
 
 function RedirectCompat()
 {
-    const { hash, search } = useLocation()
+    const { hash } = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
         if (hash === '#gamejam') {
-            navigate(`/gamejam${search}`, { replace: true })
+            navigate(getNavigation("/gamejam"), { replace: true })
         }
     }, [hash, navigate])
 

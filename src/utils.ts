@@ -12,4 +12,13 @@ export function isNsfw(): NsfwStatus {
     if (s === "2") return "FullSFW"
     return "SFW"
 }
+
+export function getNavigation(url: string) {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    searchParams.delete("game");
+
+    return `${url}?${searchParams}`;
+}
+
 export type NsfwStatus = "NSFW" | "SFW" | "FullSFW";

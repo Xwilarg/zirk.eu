@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import gamejamData from "../data/json/gamejam.json"
 import GameJamItemForm from "./gamejam/GameJamItemForm";
 import { isNsfw } from "./utils";
 import NavigationForm from "./NavigationForm";
 import type { SketchFormProps } from "./computer/SketchForm";
 import SketchForm from "./computer/SketchForm";
+import { useLocation, useSearchParams } from "react-router";
 
 interface GameJamInfo
 {
@@ -83,6 +84,26 @@ export default function GameJamForm() {
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
     const [sortMode, setSortMode] = useState<SortMode>("Date");
 
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    useEffect(() => {
+        const game = searchParams.get("game")?.toUpperCase();
+
+        if (game) {
+            let target = jamData.jams.find(x => x.name.toUpperCase() === game);
+            if (target && target.sketch) {
+                setComputerProps({
+                    isOn: true,
+                    defaultResFolder: target.sketch.folder,
+                    defaultFilename: `Build/${target.sketch.filename}`,
+                    defaultEngine: target.engine,
+                    defaultUnityVersion: target.version,
+                    buttons: []
+                });
+            }
+        }
+    }, [searchParams])
+
     return <>
         <NavigationForm />
         {
@@ -109,15 +130,11 @@ export default function GameJamForm() {
                 getSortedGamejams(
                     jamData.jams, sortMode
                 )
-                    .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={(defaultResFolder: string, defaultFilename: string, defaultEngine: string, defaultUnityVersion: string) => {
-                        setComputerProps({
-                            isOn: true,
-                            defaultResFolder: defaultResFolder,
-                            defaultFilename: defaultFilename,
-                            defaultEngine: defaultEngine,
-                            defaultUnityVersion: defaultUnityVersion,
-                            buttons: []
-                        })
+                    .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={() => {
+                        setSearchParams(sp => {
+                            sp.set("game", x.name);
+                            return sp;
+                        });
                     }} />)
             }
         </div>
