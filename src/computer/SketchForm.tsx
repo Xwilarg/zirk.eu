@@ -37,7 +37,7 @@ const SketchForm = forwardRef((
         } else {
             screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-        loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
+            loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
         }
 
         return () => {
@@ -90,9 +90,12 @@ const SketchForm = forwardRef((
             {
                 showScreenSaver ? <></> :
                 sketchButtons.map(x =>
-                    <button className={x.type === "icon" ? "button-icon" : ""} key={x.name} onClick={() => { sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene) }}>
+                    <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} onClick={() => {
+                            if (x.type === "ChangeScene") sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene);
+                            else alert(x.scene); 
+                        }}>
                         {
-                            x.type === "icon" ? <span className="material-symbols-outlined">{x.name}</span>
+                            x.iconType === "icon" ? <span className="material-symbols-outlined">{x.name}</span>
                             : x.name
                         }
                     </button>

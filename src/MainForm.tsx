@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router"
+import { Link } from "react-router"
 import SketchForm, { type SketchFormProps } from "./computer/SketchForm"
 import NavigationForm from "./NavigationForm"
 import { type ReactElement, useEffect, useState } from "react";
@@ -40,7 +40,12 @@ export default function MainForm() {
                 defaultFilename: "Sketch",
                 defaultEngine: "Unity",
                 defaultUnityVersion: "6000.2.12f1",
-                buttons: sketchData
+                buttons: sketchData.map(x => ({
+                    name: x.name,
+                    iconType: x.type,
+                    scene: x.scene,
+                    type: "ChangeScene"
+                }))
             },
             imageUrl: "/img/sketch.png",
             color: "green"
@@ -52,7 +57,12 @@ export default function MainForm() {
                 defaultFilename: `Build/${x.sketch!.filename}`,
                 defaultEngine: x.engine,
                 defaultUnityVersion: x.version,
-                buttons: []
+                buttons: [{
+                    name: "help",
+                    type: "GiveInfo" as const,
+                    scene: `Controls:\n${x.controls.join("\n")}`,
+                    iconType: "icon"
+                }]
             },
             imageUrl: `/data/img/gamejam/${x.name}.${x.format ?? "jpg"}`,
             color: "blue"

@@ -5,7 +5,7 @@ import { isNsfw } from "./utils";
 import NavigationForm from "./NavigationForm";
 import type { SketchFormProps } from "./computer/SketchForm";
 import SketchForm from "./computer/SketchForm";
-import { useLocation, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 interface GameJamInfo
 {
@@ -24,7 +24,8 @@ export interface GameJamItem
     theme: string[],
     website: string | null,
     sketch: GamejamSketch | null,
-    rating: GamejamRating | null
+    rating: GamejamRating | null,
+    controls: string[]
 }
 
 export interface GamejamSketch
@@ -98,7 +99,12 @@ export default function GameJamForm() {
                     defaultFilename: `Build/${target.sketch.filename}`,
                     defaultEngine: target.engine,
                     defaultUnityVersion: target.version,
-                    buttons: []
+                    buttons: [{
+                        name: "help",
+                        type: "GiveInfo" as const,
+                        scene: `Controls:\n${target.controls.join("\n")}`,
+                        iconType: "icon"
+                    }]
                 });
             }
         }
