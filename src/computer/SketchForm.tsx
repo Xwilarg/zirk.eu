@@ -18,7 +18,7 @@ const SketchForm = forwardRef((
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
-    const canvasRefUnity2018 = useRef<HTMLDivElement | null>(null);
+    const canvasRefUnity2019 = useRef<HTMLDivElement | null>(null);
     const screenSaverRef = useRef<AScreen | null>(null);
     const screenSaverDtorRef = useRef<() => void | null>(null);
     let sketchInstance = useRef<any>(null);
@@ -37,7 +37,7 @@ const SketchForm = forwardRef((
         } else {
             screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-            loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
+        loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
         }
 
         return () => {
@@ -48,7 +48,7 @@ const SketchForm = forwardRef((
                     if (sketchInstance.current.Quit) {
                         sketchInstance.current.Quit();
                     } else {
-                        alert("Unity ≤2018 requires page reload to clear context...");
+                        alert("Unity ≤2019 requires page reload to clear context...");
                         window.location.reload();
                     }
                 }
@@ -81,7 +81,7 @@ const SketchForm = forwardRef((
 
     return <>
         <div className="container box" id="screen-container">
-            <div ref={canvasRefUnity2018} id="screen-canvas-unity-2018"></div>
+            <div ref={canvasRefUnity2019} id="screen-canvas-unity-2019"></div>
             <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
         <div className="container box is-flex">

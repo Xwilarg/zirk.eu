@@ -49,8 +49,9 @@ export default function InfoForm() {
             question: "Known bugs",
             answer:
                 "<ul>" +
-                "<li> Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>" +
-                "<li> Closing a Unity game (version 2018 or under) doesn't close the context properly</li>" +
+                "<li>Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>" +
+                "<li>Closing a Unity game (version 2018 or under) doesn't close the context properly</li>" +
+                "<li>WebGL games made with Unreal Engine or Godot aren't supported in WebGL preview</li>" +
                 "</ul>"
         }
     ]);

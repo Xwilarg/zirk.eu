@@ -72,7 +72,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     let config;
 
     const versionNumber = parseInt(version.split('.')[0]);
-    if (versionNumber <= 2018) {
+    if (versionNumber <= 2019) {
         config = null;
         loaderUrl = `${buildUrl}Build/UnityLoader.js`;
     } else if (version === "2021.1.4f1") {
@@ -104,12 +104,12 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     script.src = loaderUrl;
     script.onload = () => {
         console.log(`Canvas dimensions: ${canvasRef.current!.width} x ${canvasRef.current!.height}`);
-        if (versionNumber <= 2018) {
+        if (versionNumber <= 2019) {
             canvasRef.current!.classList.add("hidden");
             loading.remove();
             // @ts-ignore
             sketchInstance.current = UnityLoader.instantiate(
-                "screen-canvas-unity-2018",
+                "screen-canvas-unity-2019",
                `${buildUrl}${filename}.json`
             );
         }
