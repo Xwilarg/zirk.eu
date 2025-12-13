@@ -56,7 +56,8 @@ const SketchForm = forwardRef((
                     if (sketchInstance.current.Quit) {
                         sketchInstance.current.Quit();
                     } else {
-                        canvasRefUnity2018.current!.innerHTML = "";
+                        alert("Unity ≤2018 requires page reload to clear context...");
+                        window.location.reload();
                     }
                 }
                 catch

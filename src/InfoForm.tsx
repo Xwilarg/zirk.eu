@@ -50,6 +50,7 @@ export default function InfoForm() {
             answer:
                 "<ul>" +
                 "<li> Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>" +
+                "<li> Closing a Unity game (version 2018 or under) doesn't close the context properly</li>" +
                 "</ul>"
         }
     ]);
