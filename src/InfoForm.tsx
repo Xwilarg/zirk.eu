@@ -53,6 +53,15 @@ export default function InfoForm() {
                 "<li>Closing a Unity game (version 2018 or under) doesn't close the context properly</li>" +
                 "<li>WebGL games made with Unreal Engine, Godot and specific Unity projects aren't supported in WebGL preview</li>" +
                 "</ul>"
+        },
+        {
+            question: "Steam replay",
+            answer:
+                "<div class='fullscreen is-flex flex-center-hor' id='steam-replay'>" +
+                "<img src='/data/img/steam/2024.png' />" +
+                "<img src='/data/img/steam/2023.png' />" +
+                "<img src='/data/img/steam/2022.png' />" +
+                "</div>"
         }
     ]);
     const [questionsElements, setQuestionsElements] = useState<ReactElement[]>([]);
