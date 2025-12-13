@@ -60,6 +60,10 @@ html {
 }
 
 /* Others generic components */
+.hidden {
+    display: none;
+}
+
 a:not(.ignore) {
     color: rgb(212, 117, 117);
     text-decoration: underline;

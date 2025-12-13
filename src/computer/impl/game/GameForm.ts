@@ -71,7 +71,10 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
 
     let config;
 
-    if (version === "2021.1.4f1") {
+    if (version.startsWith("2018")) {
+        config = null;
+        loaderUrl = `${buildUrl}Build/UnityLoader.js`;
+    } else if (version === "2021.1.4f1") {
         config = {
             dataUrl: `${buildUrl}${filename}.data`,
             frameworkUrl: `${buildUrl}${filename}.framework.js`,
@@ -100,14 +103,28 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     script.src = loaderUrl;
     script.onload = () => {
         console.log(`Canvas dimensions: ${canvasRef.current!.width} x ${canvasRef.current!.height}`);
-        // @ts-ignore
-        createUnityInstance(canvasRef.current!, config, (_) => {
-        }).then((unityInstance: any) => {
+        if (version.startsWith("2018")) {
+            canvasRef.current!.classList.add("hidden");
             loading.remove();
-            sketchInstance.current = unityInstance;
-        }).catch((message: string) => {
-            loading.textContent = `Failed to load: ${message}`
-        });
+            // @ts-ignore
+            sketchInstance.current = UnityLoader.instantiate(
+                "screen-canvas-unity-2018",
+               `${buildUrl}${filename}.json`
+            );
+        }
+        else
+        {
+            canvasRef.current!.classList.remove("hidden");
+            // @ts-ignore
+            createUnityInstance(canvasRef.current!, config, (progress) => {
+                loading.textContent = `Loading... ${Math.trunc(parseFloat(progress) * 100)}%`
+            }).then((unityInstance: any) => {
+                loading.remove();
+                sketchInstance.current = unityInstance;
+            }).catch((message: string) => {
+                loading.textContent = `Failed to load: ${message}`
+            });
+        }
     };
     script.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
 

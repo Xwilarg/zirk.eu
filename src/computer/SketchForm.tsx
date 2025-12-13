@@ -18,6 +18,7 @@ const SketchForm = forwardRef((
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const canvasRefUnity2018 = useRef<HTMLDivElement | null>(null);
     const screenSaverRef = useRef<AScreen | null>(null);
     const screenSaverDtorRef = useRef<() => void | null>(null);
     let sketchInstance = useRef<any>(null);
@@ -36,12 +37,35 @@ const SketchForm = forwardRef((
         } else {
             screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-            loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
+            try
+            {
+                loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
+            }
+            catch
+            {
+                alert("Something went wrong when leaving game, reloading the page to clear context...");
+                window.location.reload();
+            }
         }
 
         return () => {
             screenSaverDtorRef.current?.();
-            sketchInstance.current?.Quit();
+            if (sketchInstance.current !== null) {
+                try
+                {
+                    if (sketchInstance.current.Quit) {
+                        sketchInstance.current.Quit();
+                    } else {
+                        canvasRefUnity2018.current!.innerHTML = "";
+                    }
+                }
+                catch
+                {
+                    alert("Something went wrong when leaving game, reloading the page to clear context...");
+                    window.location.reload();
+                }
+                sketchInstance.current = null;
+            }
 
             for (let s of loadedScripts.current!) s.remove();
 
@@ -64,6 +88,7 @@ const SketchForm = forwardRef((
 
     return <>
         <div className="container box" id="screen-container">
+            <div ref={canvasRefUnity2018} id="screen-canvas-unity-2018"></div>
             <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
         <div className="container box is-flex">

@@ -39,6 +39,18 @@ export default function InfoForm() {
             answer:
                 "This website is using <a href='https://github.com/Astylodon/Shika' target='_blank'>Shika</a> for its analytics\n" +
                 "You can see all the data collected <a href='https://astylodon.org/docs/shika/data' target='_blank'>here</a>"
+        },
+        {
+            question: "How to toggle mature content?",
+            answer:
+                "Planning to do that better but for now click <a href='/?=0'> here</a>"
+        },
+        {
+            question: "Known bugs",
+            answer:
+                "<ul>" +
+                "<li> Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>" +
+                "</ul>"
         }
     ]);
     const [questionsElements, setQuestionsElements] = useState<ReactElement[]>([]);
