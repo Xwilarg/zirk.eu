@@ -71,7 +71,8 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
 
     let config;
 
-    if (version.startsWith("2018")) {
+    const versionNumber = parseInt(version.split('.')[0]);
+    if (versionNumber <= 2018) {
         config = null;
         loaderUrl = `${buildUrl}Build/UnityLoader.js`;
     } else if (version === "2021.1.4f1") {
@@ -103,7 +104,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     script.src = loaderUrl;
     script.onload = () => {
         console.log(`Canvas dimensions: ${canvasRef.current!.width} x ${canvasRef.current!.height}`);
-        if (version.startsWith("2018")) {
+        if (versionNumber <= 2018) {
             canvasRef.current!.classList.add("hidden");
             loading.remove();
             // @ts-ignore

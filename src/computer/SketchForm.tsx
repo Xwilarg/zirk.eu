@@ -37,15 +37,7 @@ const SketchForm = forwardRef((
         } else {
             screenSaverDtorRef.current?.();
             screenSaverDtorRef.current = null;
-            try
-            {
-                loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
-            }
-            catch
-            {
-                alert("Something went wrong when leaving game, reloading the page to clear context...");
-                window.location.reload();
-            }
+            loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
         }
 
         return () => {

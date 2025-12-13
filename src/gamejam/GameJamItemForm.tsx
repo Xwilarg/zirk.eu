@@ -38,7 +38,7 @@ const GameJamItemForm = forwardRef((
             }
             {
                 item.website !== null && !hideNsfw ?
-                <a href={item.website}>
+                <a href={item.website} target="_blank">
                     <button className="button-icon"><span className="material-symbols-outlined">language</span></button>
                 </a>
                 : <></>
