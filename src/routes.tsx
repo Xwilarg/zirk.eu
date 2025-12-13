@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import MainForm from './MainForm'
 import "../css/index.css"
-import { HashRouter, Route, Routes, useLocation, useNavigate } from 'react-router'
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router'
 import GameJamForm from './GameJamForm'
 import { useEffect } from 'react'
 import InfoForm from './InfoForm'
@@ -9,12 +9,12 @@ import SecretQuoteForm from './SecretQuoteForm'
 
 function RedirectCompat()
 {
-    const { hash } = useLocation()
+    const { hash, search } = useLocation()
     const navigate = useNavigate()
 
     useEffect(() => {
         if (hash === '#gamejam') {
-        navigate('/gamejam', { replace: true })
+            navigate(`/gamejam${search}`, { replace: true })
         }
     }, [hash, navigate])
 
@@ -22,7 +22,7 @@ function RedirectCompat()
 }
 
 createRoot(document.getElementById('root')!).render(
-    <HashRouter>
+    <BrowserRouter>
         <RedirectCompat />
         <Routes>
             <Route path='/' element={<MainForm/>} />
@@ -30,5 +30,5 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/info' element={<InfoForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
-    </HashRouter>
+    </BrowserRouter>
 )

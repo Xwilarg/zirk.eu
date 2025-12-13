@@ -43,7 +43,7 @@ export default function InfoForm() {
         {
             question: "How to toggle mature content?",
             answer:
-                "Planning to do that better but for now click <a href='/?=0'> here</a>"
+                "Planning to do that better but for now click <a href='/?s=0'> here</a>"
         },
         {
             question: "Known bugs",

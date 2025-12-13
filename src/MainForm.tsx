@@ -1,4 +1,4 @@
-import { Link } from "react-router"
+import { Link, useLocation } from "react-router"
 import SketchForm, { type SketchFormProps } from "./computer/SketchForm"
 import NavigationForm from "./NavigationForm"
 import { type ReactElement, useEffect, useState } from "react";
@@ -27,7 +27,7 @@ const quotes = [
     "Still awaiting Indra new website",
     "Fighting to get a better UX than Fractal since 2023 (I'm not winning)",
     "Red and green gives yellow",
-    "<a href='/#/secret/quote' class='ignore'>Of course you can't click this quote!</a>"
+    "<a href='/secret/quote' class='ignore'>Of course you can't click this quote!</a>"
 ]
 
 export default function MainForm() {
@@ -66,6 +66,8 @@ export default function MainForm() {
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     let randomQuote = randInt(quotes.length);
 
+    const { search } = useLocation();
+
     useEffect(() => {
         let data: ReactElement[] = [];
 
@@ -90,7 +92,7 @@ export default function MainForm() {
             <div className={showSheep ? "enlarged" : ""} id="intro">
                 Welcome on my website, I am Zirk, a game and software developer<br/>
                 <br/>
-                I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to="/gamejam">participating at gamejams</Link><br/>
+                I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={`/gamejam${search}`}>participating at gamejams</Link><br/>
                 I like lot of others little hobbies that I might hide around on this website at a future date<br/>
                 <br/>
                 And speaking of this website, ta-da here you are, it's still a big work in progress but hopefully it should come closer to an aesthetic I like<br/>
