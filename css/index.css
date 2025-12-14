@@ -203,6 +203,11 @@ button:disabled {
     width: 475px;
     height: auto;
 }
+@media (max-width: 475px) {
+    #steam-replay img {
+        width: 100%;
+    }
+}
 
 /* Secrets */
 .secret-quote {
