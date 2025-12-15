@@ -27,7 +27,8 @@ const quotes = [
     "Still awaiting Indra new website",
     "Fighting to get a better UX than Fractal since 2023 (I'm not winning)",
     "Red and green gives yellow",
-    "<a href='/secret/quote' class='ignore'>Of course you can't click this quote!</a>"
+    "<a href='/secret/quote' class='ignore'>Of course you can't click this quote!</a>",
+    "あ い う え お"
 ]
 
 export default function MainForm() {

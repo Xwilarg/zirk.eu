@@ -26,6 +26,7 @@ export interface GameJamItem
     sketch: GamejamSketch | null,
     rating: GamejamRating | null,
     controls: string[],
+    location: string,
     imagePosOverrides?: string,
     gifPosOverrides?: string
 }

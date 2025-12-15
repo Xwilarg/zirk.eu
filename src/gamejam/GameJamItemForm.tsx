@@ -34,7 +34,7 @@ const GameJamItemForm = forwardRef((
                 onMouseLeave={_ => setPreviewGif(false) }
             />
         </div>
-        <div className="is-flex">
+        <div className="gamejam-buttons is-flex">
             {
                 item.sketch !== null && !hideNsfw ?
                 <button className="button-icon" onClick={
@@ -56,6 +56,28 @@ const GameJamItemForm = forwardRef((
                 </a>
                 : <></>
             }
+        </div>
+        <div className="gamejam-content flex-columns">
+            <div className="gamejam-col is-flex">
+                {
+                    hideNsfw ? <div className="gamejam-item"></div>
+                    : <div className="gamejam-item is-flex">
+                        <span className="material-symbols-outlined" title="Theme">feedback</span>
+                        <p>{ item.theme }</p>
+                    </div>
+                }
+                <div className="gamejam-item is-flex">
+                    <span className="material-symbols-outlined" title="Theme">globe</span>
+                    <p>{ item.location.split(',')[0] }</p>
+                </div>
+                <div className="gamejam-item is-flex">
+                    <span className="material-symbols-outlined" title="Theme">timer</span>
+                    <p>{ item.duration } hour{ item.duration > 1 ? "s" : "" }</p>
+                </div>
+            </div>
+            <div className="gamejam-col is-flex">
+
+            </div>
         </div>
     </div>
 });
