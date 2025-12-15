@@ -25,12 +25,11 @@ const GameJamItemForm = forwardRef((
     else if (comp === "left") pos = "left";
     else if (comp === "right") pos = "right";
 
-    console.log(`/data/img/gamejam/${item.name}.${format}`)
     return <div className="card">
         <p className={"text-center gamejam-name"}>{hideNsfw ? "" : item.fullName}</p>
         <div className={"gamejam-img is-flex flex-center-hor " + pos}>
             <img className={hideNsfw ? "blur" : ""} src={`/data/img/gamejam/${item.name}.${format}`}
-                onMouseEnter={_ => { if (!hideNsfw) setPreviewGif(true); console.log("test") }}
+                onMouseEnter={_ => { if (!hideNsfw) setPreviewGif(true); }}
                 onMouseLeave={_ => setPreviewGif(false) }
             />
         </div>

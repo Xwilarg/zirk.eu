@@ -177,7 +177,10 @@ button:disabled {
 }
 
 .gamejam-item > span {
-    width: 50px;
+    width: 24px;
+}
+.gamejam-item > p {
+    width: 100%;
 }
 
 /* Intro */
