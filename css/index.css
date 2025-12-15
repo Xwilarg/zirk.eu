@@ -46,8 +46,8 @@ html {
 }
 
 .card {
-    width: 300px;
-    height: 300px;
+    width: calc(630px / 2);
+    height: calc(500px / 2 + 100px);
 }
 
 .is-flex {
@@ -111,7 +111,7 @@ button:disabled {
 
 /* Image effects */
 .blur {
-    filter: blur(10px);
+    filter: blur(20px);
     pointer-events: none;
 }
 
@@ -131,14 +131,22 @@ button:disabled {
 
 /* Gamejam */
 .gamejam-img {
-    height: 200px;
+    height: calc(100% - 100px);
+    overflow: hidden;
+    border-radius: var(--border-radius);
 }
 .gamejam-img img {
-    max-width: 100%;
+    min-width: 100%;
     max-height: 100%;
     width: auto;
     height: auto;
+    object-position: center;
+    object-fit: cover;
 }
+.gamejam-img.top img { object-position: top; }
+.gamejam-img.bottom img { object-position: bottom; }
+.gamejam-img.left img { object-position: left; }
+.gamejam-img.right img { object-position: right; }
 
 .gamejam-name {
     height: 25px;

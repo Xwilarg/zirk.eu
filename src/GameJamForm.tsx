@@ -25,7 +25,9 @@ export interface GameJamItem
     website: string | null,
     sketch: GamejamSketch | null,
     rating: GamejamRating | null,
-    controls: string[]
+    controls: string[],
+    imagePosOverrides?: string,
+    gifPosOverrides?: string
 }
 
 export interface GamejamSketch
@@ -131,7 +133,7 @@ export default function GameJamForm() {
                 <option value="Score">Score</option>
             </select>
         </div>
-        <div className="fullscreen is-flex">
+        <div className="fullscreen is-flex flex-center-hor">
             {
                 getSortedGamejams(
                     jamData.jams, sortMode
