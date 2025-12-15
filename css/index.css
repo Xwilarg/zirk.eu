@@ -59,7 +59,7 @@ html {
 }
 .flex-columns {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 /* Others generic components */
@@ -163,11 +163,13 @@ button:disabled {
 
 .gamejam-content {
     height: 150px;
+    width: calc(630px / 2);
 }
 
 .gamejam-col {
     width: calc(630px / 4);
     flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 .gamejam-item {
@@ -180,7 +182,9 @@ button:disabled {
     width: 24px;
 }
 .gamejam-item > p {
-    width: 100%;
+    width: 130px;
+    margin: 0;
+    overflow-y: hidden;
 }
 
 /* Intro */

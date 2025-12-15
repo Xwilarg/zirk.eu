@@ -1,5 +1,5 @@
 import { forwardRef, useState } from "react";
-import type { GameJamItem } from "../GameJamForm";
+import { getOverallScore, type GameJamItem } from "../GameJamForm";
 import { isNsfw } from "../utils";
 
 interface GameJamItemFormProps
@@ -24,6 +24,8 @@ const GameJamItemForm = forwardRef((
     else if (comp === "down") pos = "bottom";
     else if (comp === "left") pos = "left";
     else if (comp === "right") pos = "right";
+
+    let score = getOverallScore(item);
 
     return <div className="card">
         <p className={"text-center gamejam-name"}>{hideNsfw ? "" : item.fullName}</p>
@@ -55,27 +57,48 @@ const GameJamItemForm = forwardRef((
                 </a>
                 : <></>
             }
+            {
+                item.github !== null && !hideNsfw ?
+                <a href={item.github} target="_blank">
+                    <button className="button-icon"><span className="material-symbols-outlined">code</span></button>
+                </a>
+                : <></>
+            }
         </div>
         <div className="gamejam-content flex-columns">
             <div className="gamejam-col is-flex">
-                {
-                    hideNsfw ? <div className="gamejam-item"></div>
-                    : <div className="gamejam-item is-flex">
-                        <span className="material-symbols-outlined" title="Theme">feedback</span>
-                        <p>{ item.theme }</p>
-                    </div>
-                }
                 <div className="gamejam-item is-flex">
-                    <span className="material-symbols-outlined" title="Theme">globe</span>
-                    <p>{ item.location.split(',')[0] }</p>
+                    <span className="material-symbols-outlined">globe</span>
+                    <p>{ item.location.split(',').at(-1) }</p>
                 </div>
                 <div className="gamejam-item is-flex">
-                    <span className="material-symbols-outlined" title="Theme">timer</span>
+                    <span className="material-symbols-outlined">timer</span>
                     <p>{ item.duration } hour{ item.duration > 1 ? "s" : "" }</p>
                 </div>
+                {
+                    hideNsfw || item.theme.length === 0 ? <div className="gamejam-item"></div>
+                    : <div className="gamejam-item is-flex">
+                        <span className="material-symbols-outlined">feedback</span>
+                        <p dangerouslySetInnerHTML={{ __html: item.theme.join("<br/>") }}></p>
+                    </div>
+                }
             </div>
             <div className="gamejam-col is-flex">
-
+                <div className="gamejam-item is-flex">
+                    <span className="material-symbols-outlined">settings</span>
+                    <p>{ item.engine }</p>
+                </div>
+                <div className="gamejam-item is-flex">
+                    <span className="material-symbols-outlined">calendar_today</span>
+                    <p>{ item.date }</p>
+                </div>
+                {
+                    !score || (item.rating!.entriesRated && item.rating!.entriesRated <= 1) ? <div className="gamejam-item"></div>
+                    : <div className="gamejam-item is-flex">
+                        <span className="material-symbols-outlined">leaderboard</span>
+                        <p>{ (score * 100).toFixed(1) }%</p>
+                    </div>
+                }
             </div>
         </div>
     </div>

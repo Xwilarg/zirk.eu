@@ -26,7 +26,9 @@ export interface GameJamItem
     sketch: GamejamSketch | null,
     rating: GamejamRating | null,
     controls: string[],
+    date: string,
     location: string,
+    github: string | null,
     imagePosOverrides?: string,
     gifPosOverrides?: string
 }
@@ -51,7 +53,7 @@ export interface GamejamScore
 
 type SortMode = "Date" | "Score";
 
-function getOverallScore(item: GameJamItem): number | null {
+export function getOverallScore(item: GameJamItem): number | null {
     if (!item.rating || !item.rating.scores) return null;
 
     const entries = item.rating.entriesRated ?? item.rating.entries;
