@@ -58,6 +58,7 @@ export default function InfoForm() {
             question: "Steam replay",
             answer:
                 "<div class='container is-flex flex-center-hor' id='steam-replay'>" +
+                "<img src='/data/img/steam/2025.png' />" +
                 "<img src='/data/img/steam/2024.png' />" +
                 "<img src='/data/img/steam/2023.png' />" +
                 "<img src='/data/img/steam/2022.png' />" +
