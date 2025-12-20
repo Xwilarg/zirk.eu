@@ -29,6 +29,7 @@ export interface GameJamItem
     date: string,
     location: string,
     github: string | null,
+    event: string,
     imagePosOverrides?: string,
     gifPosOverrides?: string
 }

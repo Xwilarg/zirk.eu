@@ -65,6 +65,9 @@ const GameJamItemForm = forwardRef((
                 : <></>
             }
         </div>
+        <p className="gamejam-event text-center">
+            { item.event }
+        </p>
         <div className="gamejam-content flex-columns">
             <div className="gamejam-col is-flex">
                 <div className="gamejam-item is-flex">
@@ -75,13 +78,10 @@ const GameJamItemForm = forwardRef((
                     <span className="material-symbols-outlined">timer</span>
                     <p>{ item.duration } hour{ item.duration > 1 ? "s" : "" }</p>
                 </div>
-                {
-                    hideNsfw || item.theme.length === 0 ? <div className="gamejam-item"></div>
-                    : <div className="gamejam-item is-flex">
-                        <span className="material-symbols-outlined">feedback</span>
-                        <p dangerouslySetInnerHTML={{ __html: item.theme.join("<br/>") }}></p>
-                    </div>
-                }
+                <div className="gamejam-item is-flex">
+                    <span className="material-symbols-outlined">feedback</span>
+                    <p dangerouslySetInnerHTML={{ __html: item.theme.join("<br/>") }}></p>
+                </div>
             </div>
             <div className="gamejam-col is-flex">
                 <div className="gamejam-item is-flex">
