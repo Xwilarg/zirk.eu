@@ -8,6 +8,7 @@ import gamejamData from "../data/json/gamejam.json"
 import { getSortedGamejams } from "./GameJamForm";
 import CartridgeForm, { type CartridgeType } from "./computer/CartridgeForm";
 import { getNavigation, isNsfw, randInt } from "./utils";
+import type { ButtonInfo } from "./computer/impl/game/GameForm";
 
 interface SheepInfo
 {
@@ -37,10 +38,12 @@ export default function MainForm() {
         {
             props: {
                 isOn: true,
-                defaultResFolder: "sketch/",
-                defaultFilename: "Sketch",
-                defaultEngine: "Unity",
-                defaultUnityVersion: "6000.2.12f1",
+                loadedGame: {
+                    defaultResFolder: "sketch/",
+                    defaultFilename: "Sketch",
+                    defaultEngine: "Unity",
+                    defaultUnityVersion: "6000.2.12f1"
+                },
                 buttons: sketchData.map(x => ({
                     name: x.name,
                     iconType: x.type,
@@ -54,10 +57,12 @@ export default function MainForm() {
         ...getSortedGamejams(gamejamData.jams, "Score").filter(x => x.duration >= 24).slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
             props: {
                 isOn: true,
-                defaultResFolder: x.sketch!.folder,
-                defaultFilename: `Build/${x.sketch!.filename}`,
-                defaultEngine: x.engine,
-                defaultUnityVersion: x.version,
+                loadedGame: {
+                    defaultResFolder: x.sketch!.folder,
+                    defaultFilename: `Build/${x.sketch!.filename}`,
+                    defaultEngine: x.engine,
+                    defaultUnityVersion: x.version
+                },
                 buttons: [{
                     name: "help",
                     type: "GiveInfo" as const,
@@ -70,12 +75,22 @@ export default function MainForm() {
         }))
     ])
 
-    let [isUsingDefaultCartridge, setIsUsingDefaultCartridge] = useState<boolean>(true);
+    let [isOn, setIsOn] = useState<boolean>(false);
     let [showSheep, setShowSheep] = useState<boolean>(false);
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
     const [computerPropsIndex, setComputerPropsIndex] = useState<number>(0);
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     let randomQuote = randInt(quotes.length);
+
+    const buttons: Array<ButtonInfo> = [{
+        name: "power_settings_new",
+        type: "Custom",
+        scene: () => {
+            setIsOn(x => !x)
+        },
+        iconType: "icon"
+
+    }]
 
     useEffect(() => {
         let data: ReactElement[] = [];
@@ -87,7 +102,7 @@ export default function MainForm() {
             data.push(
                 <CartridgeForm key={defaultCartridges[i].imageUrl} onClick={() => {
                     setComputerPropsIndex(i);
-                    setIsUsingDefaultCartridge(false);
+                    setIsOn(true);
                 }} imageUrl={defaultCartridges[i].imageUrl} type={defaultCartridges[i].type} />
             );
         }
@@ -132,12 +147,9 @@ export default function MainForm() {
             <NavigationForm />
         </div>
         <SketchForm
-            isOn={isUsingDefaultCartridge ? false : defaultCartridges[computerPropsIndex].props.isOn}
-            defaultResFolder={defaultCartridges[computerPropsIndex].props.defaultResFolder}
-            defaultFilename={defaultCartridges[computerPropsIndex].props.defaultFilename}
-            defaultEngine={defaultCartridges[computerPropsIndex].props.defaultEngine}
-            defaultUnityVersion={defaultCartridges[computerPropsIndex].props.defaultUnityVersion}
-            buttons={defaultCartridges[computerPropsIndex].props.buttons}
+            isOn={isOn}
+            loadedGame={defaultCartridges[computerPropsIndex].props.loadedGame}
+            buttons={isOn ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
         />
         <div className="container box is-flex">
             { cartridges }

@@ -101,11 +101,20 @@ export default function GameJamForm() {
             if (target && target.sketch) {
                 setComputerProps({
                     isOn: true,
-                    defaultResFolder: target.sketch.folder,
-                    defaultFilename: `Build/${target.sketch.filename}`,
-                    defaultEngine: target.engine,
-                    defaultUnityVersion: target.version,
-                    buttons: [{
+                    loadedGame: {
+                        defaultResFolder: target.sketch.folder,
+                        defaultFilename: `Build/${target.sketch.filename}`,
+                        defaultEngine: target.engine,
+                        defaultUnityVersion: target.version
+                    },
+                    buttons: [ {
+                        name: "power_settings_new",
+                        type: "Custom",
+                        scene: () => {
+                            setComputerProps(null);
+                        },
+                        iconType: "icon"
+                    }, {
                         name: "help",
                         type: "GiveInfo" as const,
                         scene: `Controls:\n${target.controls.join("\n")}`,
@@ -122,10 +131,7 @@ export default function GameJamForm() {
             computerProps !== null ?
             <SketchForm
                 isOn={computerProps.isOn}
-                defaultResFolder={computerProps.defaultResFolder}
-                defaultFilename={computerProps.defaultFilename}
-                defaultEngine={computerProps.defaultEngine}
-                defaultUnityVersion={computerProps.defaultUnityVersion}
+                loadedGame={computerProps.loadedGame}
                 buttons={computerProps.buttons}
             />
             : <></>

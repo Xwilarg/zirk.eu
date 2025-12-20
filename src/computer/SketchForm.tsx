@@ -3,18 +3,23 @@ import { loadSketch, type ButtonInfo } from "./impl/game/GameForm";
 import type { AScreen } from "./impl/screensaver/AScreen";
 import loadScreenSaver from "./impl/ScreenSaver";
 
-export interface SketchFormProps
+export interface LoadedGame
 {
-    isOn: boolean,
     defaultResFolder: string,
     defaultFilename: string,
     defaultEngine: string,
     defaultUnityVersion: string,
+}
+
+export interface SketchFormProps
+{
+    isOn: boolean,
+    loadedGame: LoadedGame | null,
     buttons: ButtonInfo[]
 }
 
 const SketchForm = forwardRef((
-    { isOn, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion, buttons }: SketchFormProps,
+    { isOn, loadedGame, buttons }: SketchFormProps,
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -34,10 +39,8 @@ const SketchForm = forwardRef((
         canvasParent!.appendChild(canvasRef.current);
         if (showScreenSaver) {
             screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
-        } else {
-            screenSaverDtorRef.current?.();
-            screenSaverDtorRef.current = null;
-            loadSketch(canvasRef, sketchInstance, loadedScripts, defaultResFolder, defaultFilename, defaultEngine, defaultUnityVersion);
+        } else if (loadedGame) {
+            loadSketch(canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion);
         }
 
         return () => {
@@ -69,7 +72,7 @@ const SketchForm = forwardRef((
                 Emulator.stop();
             } catch { }
         };
-    }, [ showScreenSaver, defaultResFolder ]);
+    }, [ showScreenSaver, loadedGame ]);
 
     useEffect(() => {
         setShowScreenSaver(!isOn);
@@ -81,17 +84,16 @@ const SketchForm = forwardRef((
 
     return <>
         <div className="container box" id="screen-container">
+            <div id="screen-desktop" className={(isOn && !loadedGame) ? "" : "hidden"}></div>
             <div ref={canvasRefUnity2019} id="screen-canvas-unity-2019"></div>
             <canvas ref={canvasRef} id="screen-canvas"></canvas>
         </div>
         <div className="container box is-flex">
-            <button className="button-icon" onClick={ _ => setShowScreenSaver(x => !x) }><span className="material-symbols-outlined">power_settings_new</span></button>
-            <button className="button-icon" disabled={true}><span className="material-symbols-outlined">eject</span></button>
             {
-                showScreenSaver ? <></> :
                 sketchButtons.map(x =>
                     <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} onClick={() => {
                             if (x.type === "ChangeScene") sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene);
+                            else if (x.type === "Custom") (x.scene as (() => void))();
                             else alert(x.scene); 
                         }}>
                         {

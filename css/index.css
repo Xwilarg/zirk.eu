@@ -132,6 +132,12 @@ button:disabled {
     position: relative;
 }
 
+/* Screen (desktop) */
+#screen-desktop {
+    height: 500px;
+    width: 100%;
+}
+
 /* Gamejam */
 .gamejam-img {
     height: calc(500px / 2);

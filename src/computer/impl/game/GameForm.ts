@@ -4,11 +4,11 @@ export interface ButtonInfo
 {
     name: string;
     iconType: string;
-    scene: string;
+    scene: string | (() => void);
     type: ButtonType;
 }
 
-export type ButtonType = "ChangeScene" | "GiveInfo"
+export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom"
 
 export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>,
     resFolder: string, filename: string, engine: string, version: string
