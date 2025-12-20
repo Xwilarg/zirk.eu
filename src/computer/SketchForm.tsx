@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useRef, useState } from "react";
 import { loadSketch, type ButtonInfo } from "./impl/game/GameForm";
 import type { AScreen } from "./impl/screensaver/AScreen";
 import loadScreenSaver from "./impl/ScreenSaver";
+import DesktopForm from "./impl/DesktopForm";
 
 export interface LoadedGame
 {
@@ -82,16 +83,26 @@ const SketchForm = forwardRef((
         setSketchButtons(buttons);
     }, [ buttons ]);
 
+    let isCanvasUsed = !isOn || loadedGame !== null;
     return <>
         <div className="container box" id="screen-container">
-            <div id="screen-desktop" className={(isOn && !loadedGame) ? "" : "hidden"}></div>
-            <div ref={canvasRefUnity2019} id="screen-canvas-unity-2019"></div>
-            <canvas ref={canvasRef} id="screen-canvas"></canvas>
+            <span className={isCanvasUsed ? "" : "hidden"}>
+                <div ref={canvasRefUnity2019} id="screen-canvas-unity-2019"></div>
+                <canvas ref={canvasRef} id="screen-canvas"></canvas>
+            </span>
+            {
+                !isCanvasUsed ?
+                    <div id="screen-desktop">
+                        <DesktopForm />
+                    </div>
+                    : <></>
+            }
+            
         </div>
         <div className="container box is-flex">
             {
                 sketchButtons.map(x =>
-                    <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} onClick={() => {
+                    <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} disabled={x.disabled} onClick={() => {
                             if (x.type === "ChangeScene") sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene);
                             else if (x.type === "Custom") (x.scene as (() => void))();
                             else alert(x.scene); 

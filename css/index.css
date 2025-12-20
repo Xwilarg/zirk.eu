@@ -9,11 +9,14 @@
 
 /* Background & font */
 html {
+    color: var(--primary-light);
+}
+
+html, input, textarea {
     background: var(--primary-background);
     background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(7, 16, 18, 1) 100%);
     
     font-family: "Quantico", sans-serif;
-    color: var(--primary-light);
 }
 
 /* Container components */
@@ -136,6 +139,40 @@ button:disabled {
 #screen-desktop {
     height: 500px;
     width: 100%;
+}
+
+#screen-desktop-display {
+    height: 420px;
+    width: calc(100% - 20px);
+    resize: none;
+    cursor: default;
+    background-color: transparent;
+    color: var(--primary-light);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    overflow-y: hidden;
+}
+
+#screen-desktop-input {
+    height: 55px;
+    display: block;
+
+    margin-top: -4px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#screen-desktop-input > input {
+    height: 46px;
+    width: calc(100% - 50px);
+    background-color: transparent;
+    color: var(--primary-light);
+    border-radius: var(--border-radius);
+
+    font-size: 20px;
+    padding-left: 10px;
 }
 
 /* Gamejam */

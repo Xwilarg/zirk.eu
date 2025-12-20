@@ -113,12 +113,14 @@ export default function GameJamForm() {
                         scene: () => {
                             setComputerProps(null);
                         },
-                        iconType: "icon"
+                        iconType: "icon",
+                        disabled: false
                     }, {
                         name: "help",
                         type: "GiveInfo" as const,
                         scene: `Controls:\n${target.controls.join("\n")}`,
-                        iconType: "icon"
+                        iconType: "icon",
+                        disabled: false
                     }]
                 });
             }

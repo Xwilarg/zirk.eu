@@ -48,7 +48,8 @@ export default function MainForm() {
                     name: x.name,
                     iconType: x.type,
                     scene: x.scene,
-                    type: "ChangeScene"
+                    type: "ChangeScene",
+                    disabled: false
                 }))
             },
             imageUrl: "/img/sketch.png",
@@ -67,11 +68,12 @@ export default function MainForm() {
                     name: "help",
                     type: "GiveInfo" as const,
                     scene: `Controls:\n${x.controls.join("\n")}`,
-                    iconType: "icon"
+                    iconType: "icon",
+                    disabled: false
                 }]
             },
             imageUrl: `/data/img/gamejam/${x.name}.${x.format ?? "jpg"}`,
-            type: "Gamejam" as const
+            type: "Gamejam" as const,
         }))
     ])
 
@@ -88,8 +90,17 @@ export default function MainForm() {
         scene: () => {
             setIsOn(x => !x)
         },
-        iconType: "icon"
-
+        iconType: "icon",
+        disabled: false
+    }, {
+        name: "eject",
+        type: "Custom",
+        scene: () => {
+            setIsOn(x =>true)
+            setComputerPropsIndex(-1)
+        },
+        iconType: "icon",
+        disabled: computerPropsIndex === -1
     }]
 
     useEffect(() => {
@@ -148,8 +159,8 @@ export default function MainForm() {
         </div>
         <SketchForm
             isOn={isOn}
-            loadedGame={defaultCartridges[computerPropsIndex].props.loadedGame}
-            buttons={isOn ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
+            loadedGame={computerPropsIndex === -1 ? null :defaultCartridges[computerPropsIndex].props.loadedGame}
+            buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
         />
         <div className="container box is-flex">
             { cartridges }

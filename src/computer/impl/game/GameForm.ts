@@ -6,6 +6,7 @@ export interface ButtonInfo
     iconType: string;
     scene: string | (() => void);
     type: ButtonType;
+    disabled: boolean;
 }
 
 export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom"
