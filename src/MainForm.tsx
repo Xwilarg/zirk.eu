@@ -6,7 +6,7 @@ import sheepData from "../data/json/sheep.json"
 import sketchData from "../data/json/sketch.json"
 import gamejamData from "../data/json/gamejam.json"
 import { getSortedGamejams } from "./GameJamForm";
-import CartridgeForm from "./computer/CartridgeForm";
+import CartridgeForm, { type CartridgeType } from "./computer/CartridgeForm";
 import { getNavigation, isNsfw, randInt } from "./utils";
 
 interface SheepInfo
@@ -19,7 +19,7 @@ interface CartridgeData
 {
     props: SketchFormProps,
     imageUrl: string,
-    color: string
+    type: CartridgeType
 }
 
 const quotes = [
@@ -28,7 +28,6 @@ const quotes = [
     "Fighting to get a better UX than Fractal since 2023 (I'm not winning)",
     "Red and green gives yellow",
     "<a href='/secret/quote' class='ignore'>Of course you can't click this quote!</a>",
-    "あ い う え お",
     "[object Object]"
 ]
 
@@ -50,7 +49,7 @@ export default function MainForm() {
                 }))
             },
             imageUrl: "/img/sketch.png",
-            color: "green"
+            type: "Sketch"
         },
         ...getSortedGamejams(gamejamData.jams, "Score").filter(x => x.duration >= 24).slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
             props: {
@@ -67,7 +66,7 @@ export default function MainForm() {
                 }]
             },
             imageUrl: `/data/img/gamejam/${x.name}.${x.format ?? "jpg"}`,
-            color: "blue"
+            type: "Gamejam" as const
         }))
     ])
 
@@ -89,7 +88,7 @@ export default function MainForm() {
                 <CartridgeForm key={defaultCartridges[i].imageUrl} onClick={() => {
                     setComputerPropsIndex(i);
                     setIsUsingDefaultCartridge(false);
-                }} imageUrl={defaultCartridges[i].imageUrl} color={defaultCartridges[i].color} />
+                }} imageUrl={defaultCartridges[i].imageUrl} type={defaultCartridges[i].type} />
             );
         }
 
