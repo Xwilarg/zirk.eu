@@ -6,6 +6,7 @@ import NavigationForm from "./NavigationForm";
 import type { SketchFormProps } from "./computer/SketchForm";
 import SketchForm from "./computer/SketchForm";
 import { useSearchParams } from "react-router";
+import type { ButtonInfo } from "./computer/impl/game/GameForm";
 
 interface GameJamInfo
 {
@@ -90,6 +91,9 @@ export default function GameJamForm() {
     const [jamData, setJamData] = useState<GameJamInfo>(gamejamData);
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
     const [sortMode, setSortMode] = useState<SortMode>("Date");
+    const [buttons, setButtons] = useState<ButtonInfo[]>([]);
+    const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+    const [shownSketch, setShownSketch] = useState<GameJamItem | null>(null);
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -99,33 +103,61 @@ export default function GameJamForm() {
         if (game) {
             let target = jamData.jams.find(x => x.name.toUpperCase() === game);
             if (target && target.sketch) {
-                setComputerProps({
-                    isOn: true,
-                    loadedGame: {
-                        defaultResFolder: target.sketch.folder,
-                        defaultFilename: `Build/${target.sketch.filename}`,
-                        defaultEngine: target.engine,
-                        defaultUnityVersion: target.version
-                    },
-                    buttons: [ {
-                        name: "power_settings_new",
-                        type: "Custom",
-                        scene: () => {
-                            setComputerProps(null);
-                        },
-                        iconType: "icon",
-                        disabled: false
-                    }, {
-                        name: "help",
-                        type: "GiveInfo" as const,
-                        scene: `Controls:\n${target.controls.join("\n")}`,
-                        iconType: "icon",
-                        disabled: false
-                    }]
-                });
+                setShownSketch(target);
+            } else {
+                setShownSketch(null);
             }
+        } else {
+            setShownSketch(null);
         }
-    }, [searchParams])
+    }, [searchParams]);
+
+    useEffect(() => {
+        if (shownSketch) {
+            setComputerProps({
+                isOn: true,
+                loadedGame: {
+                    defaultResFolder: shownSketch.sketch!.folder,
+                    defaultFilename: `Build/${shownSketch.sketch!.filename}`,
+                    defaultEngine: shownSketch.engine,
+                    defaultUnityVersion: shownSketch.version
+                },
+                buttons: [],
+                isFullscreen: false
+            });
+        } else {
+            setComputerProps(null);
+        }
+    }, [ shownSketch ]);
+
+    useEffect(() => {
+        if (shownSketch) {
+            setButtons([{
+                name: "power_settings_new",
+                type: "Custom",
+                scene: () => {
+                    setComputerProps(null);
+                    searchParams.delete("game");
+                },
+                iconType: "icon",
+                disabled: false
+            }, {
+                name: "help",
+                type: "GiveInfo" as const,
+                scene: `Controls:\n${shownSketch.controls.join("\n")}`,
+                iconType: "icon",
+                disabled: false
+            }, {
+                name: isFullscreen ? "fullscreen_exit" : "fullscreen",
+                type: "Custom",
+                scene: () => {
+                    setIsFullscreen(x => !x);
+                },
+                iconType: "icon",
+                disabled: false
+            }]);
+        }
+    }, [ shownSketch, isFullscreen ])
 
     return <>
         <NavigationForm />
@@ -134,7 +166,8 @@ export default function GameJamForm() {
             <SketchForm
                 isOn={computerProps.isOn}
                 loadedGame={computerProps.loadedGame}
-                buttons={computerProps.buttons}
+                buttons={buttons}
+                isFullscreen={isFullscreen}
             />
             : <></>
         }

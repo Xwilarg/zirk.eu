@@ -16,11 +16,12 @@ export interface SketchFormProps
 {
     isOn: boolean,
     loadedGame: LoadedGame | null,
-    buttons: ButtonInfo[]
+    buttons: ButtonInfo[],
+    isFullscreen: boolean
 }
 
 const SketchForm = forwardRef((
-    { isOn, loadedGame, buttons }: SketchFormProps,
+    { isOn, loadedGame, buttons, isFullscreen }: SketchFormProps,
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -85,7 +86,7 @@ const SketchForm = forwardRef((
 
     let isCanvasUsed = !isOn || loadedGame !== null;
     return <>
-        <div className="container box" id="screen-container">
+        <div className={isFullscreen ? "box fullscreen" : "box container"} id="screen-container">
             <span className={isCanvasUsed ? "" : "hidden"}>
                 <div ref={canvasRefUnity2019} id="screen-canvas-unity-2019"></div>
                 <canvas ref={canvasRef} id="screen-canvas"></canvas>
