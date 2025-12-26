@@ -50,7 +50,8 @@ export default function MainForm() {
                     scene: x.scene,
                     type: "ChangeScene",
                     disabled: false
-                }))
+                })),
+                isFullscreen: false
             },
             imageUrl: "/img/sketch.png",
             type: "Sketch"
@@ -70,7 +71,8 @@ export default function MainForm() {
                     scene: `Controls:\n${x.controls.join("\n")}`,
                     iconType: "icon",
                     disabled: false
-                }]
+                }],
+                isFullscreen: false
             },
             imageUrl: `/data/img/gamejam/${x.name}.${x.format ?? "jpg"}`,
             type: "Gamejam" as const,
@@ -82,6 +84,7 @@ export default function MainForm() {
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
     const [computerPropsIndex, setComputerPropsIndex] = useState<number>(0);
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
+    const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
     let randomQuote = randInt(quotes.length);
 
     const buttons: Array<ButtonInfo> = [{
@@ -101,6 +104,14 @@ export default function MainForm() {
         },
         iconType: "icon",
         disabled: computerPropsIndex === -1
+    }, {
+        name: isFullscreen ? "fullscreen_exit" : "fullscreen",
+        type: "Custom",
+        scene: () => {
+            setIsFullscreen(x => !x);
+        },
+        iconType: "icon",
+        disabled: false
     }]
 
     useEffect(() => {
@@ -161,6 +172,7 @@ export default function MainForm() {
             isOn={isOn}
             loadedGame={computerPropsIndex === -1 ? null :defaultCartridges[computerPropsIndex].props.loadedGame}
             buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
+            isFullscreen={isFullscreen}
         />
         <div className="container box is-flex">
             { cartridges }
