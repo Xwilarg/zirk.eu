@@ -6,5 +6,6 @@ export default function NavigationForm() {
         <Link to={getNavigation("/")}>Home</Link>
         <Link to={getNavigation("/gamejam")}>Gamejam</Link>
         <Link to={getNavigation("/info")}>Info</Link>
+        <Link to={getNavigation("/friends")}>Lifeline</Link>
     </nav>
 }

@@ -60,6 +60,9 @@ html, input, textarea {
 .flex-center-hor {
     justify-content: center;
 }
+.flex-center-ver {
+    align-items: center;
+}
 .flex-columns {
     display: flex;
     flex-direction: row;
@@ -311,4 +314,10 @@ button:disabled {
     text-align: center;
     font-size: 50px;
     margin-top: 100px;
+}
+
+/* Lifeline */
+.lifeline {
+    height: 50px;
+    margin: 50px;
 }
