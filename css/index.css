@@ -68,6 +68,29 @@ html, input, textarea {
     flex-direction: row;
 }
 
+/* From components */
+label {
+    margin-right: 10px;
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+  border-radius: 8px;
+}
+
+option:first-of-type {
+  border-radius: 8px 8px 0 0;
+}
+
+option:last-of-type {
+  border-radius: 0 0 8px 8px;
+}
+
+option:hover {
+  background: plum;
+}
+
 /* Others generic components */
 .hidden {
     display: none;
@@ -135,6 +158,7 @@ button:disabled {
 }
 
 #screen-container {
+    height: 500px;
     position: relative;
     height: 500px;
 }

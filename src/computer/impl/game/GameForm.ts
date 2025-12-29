@@ -17,6 +17,21 @@ export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketc
     loadProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, engine, version);
 }
 
+export function getLoaderFiles(resFolder: string, filename: string, engine: string, version: string): string[] // Used by desktop mode
+{
+    if (engine == "GB Studio")
+    {
+        return [ `${resFolder}binjgb.js`, `${resFolder}js/script.js` ];
+    }
+
+    const versionNumber = parseInt(version.split('.')[0]);
+    if (versionNumber <= 2019) {
+        return [ `${resFolder}Build/UnityLoader.js` ];
+    }
+
+    return [ `${resFolder}${filename}.loader.js` ];
+}
+
 function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string)
 {
     const loading = document.createElement("div");

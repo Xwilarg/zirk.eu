@@ -29,6 +29,7 @@ const SketchForm = forwardRef((
     const screenSaverRef = useRef<AScreen | null>(null);
     const screenSaverDtorRef = useRef<() => void | null>(null);
     let sketchInstance = useRef<any>(null);
+    let [isTrace, setIsTrace] = useState<boolean>(false); // Desktop screen
     const [sketchButtons, setSketchButtons] = useState<ButtonInfo[]>(buttons);
     let [showScreenSaver, setShowScreenSaver] = useState<boolean>(!isOn);
     let loadedScripts = useRef<HTMLScriptElement[]>([]);
@@ -41,7 +42,7 @@ const SketchForm = forwardRef((
         canvasParent!.appendChild(canvasRef.current);
         if (showScreenSaver) {
             screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
-        } else if (loadedGame) {
+        } else if (loadedGame && !isTrace) {
             loadSketch(canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion);
         }
 
@@ -74,7 +75,7 @@ const SketchForm = forwardRef((
                 Emulator.stop();
             } catch { }
         };
-    }, [ showScreenSaver, loadedGame ]);
+    }, [ showScreenSaver, loadedGame, isTrace ]);
 
     useEffect(() => {
         setShowScreenSaver(!isOn);
@@ -84,7 +85,7 @@ const SketchForm = forwardRef((
         setSketchButtons(buttons);
     }, [ buttons ]);
 
-    let isCanvasUsed = !isOn || loadedGame !== null;
+    let isCanvasUsed = !isOn || (loadedGame !== null && !isTrace);
     return <>
         <div className={isFullscreen ? "box fullscreen" : "box container"} id="screen-container">
             <span className={isCanvasUsed ? "" : "hidden"}>
@@ -94,7 +95,9 @@ const SketchForm = forwardRef((
             {
                 !isCanvasUsed ?
                     <div id="screen-desktop">
-                        <DesktopForm />
+                        <DesktopForm tracedGame={loadedGame} updateTrace={(value: boolean) => {
+                            setIsTrace(value);
+                        }} />
                     </div>
                     : <></>
             }
