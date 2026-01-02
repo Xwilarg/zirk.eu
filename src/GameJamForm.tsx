@@ -140,13 +140,15 @@ export default function GameJamForm() {
                     searchParams.delete("game");
                 },
                 iconType: "icon",
-                disabled: false
+                disabled: false,
+                gameViewOnly: true
             }, {
                 name: "help",
                 type: "GiveInfo" as const,
                 scene: `Controls:\n${shownSketch.controls.join("\n")}`,
                 iconType: "icon",
-                disabled: false
+                disabled: false,
+                gameViewOnly: true
             }, {
                 name: isFullscreen ? "fullscreen_exit" : "fullscreen",
                 type: "Custom",
@@ -154,7 +156,8 @@ export default function GameJamForm() {
                     setIsFullscreen(x => !x);
                 },
                 iconType: "icon",
-                disabled: false
+                disabled: false,
+                gameViewOnly: true
             }]);
         }
     }, [ shownSketch, isFullscreen ])

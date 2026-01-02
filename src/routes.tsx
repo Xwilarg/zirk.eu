@@ -8,6 +8,7 @@ import InfoForm from './InfoForm'
 import SecretQuoteForm from './SecretQuoteForm'
 import { getNavigation } from './utils'
 import LifelineForm from './LifelineForm'
+import KatsisForm from './KatsisForm'
 
 function RedirectCompat()
 {
@@ -31,6 +32,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/info' element={<InfoForm />} />
             <Route path='/friends' element={<LifelineForm />} />
+            <Route path='/katsis' element={<KatsisForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
     </BrowserRouter>

@@ -49,7 +49,8 @@ export default function MainForm() {
                     iconType: x.type,
                     scene: x.scene,
                     type: "ChangeScene",
-                    disabled: false
+                    disabled: false,
+                    gameViewOnly: true
                 })),
                 isFullscreen: false
             },
@@ -70,7 +71,8 @@ export default function MainForm() {
                     type: "GiveInfo" as const,
                     scene: `Controls:\n${x.controls.join("\n")}`,
                     iconType: "icon",
-                    disabled: false
+                    disabled: false,
+                    gameViewOnly: true
                 }],
                 isFullscreen: false
             },
@@ -94,7 +96,8 @@ export default function MainForm() {
             setIsOn(x => !x)
         },
         iconType: "icon",
-        disabled: false
+        disabled: false,
+        gameViewOnly: false
     }, {
         name: "eject",
         type: "Custom",
@@ -103,7 +106,8 @@ export default function MainForm() {
             setComputerPropsIndex(-1)
         },
         iconType: "icon",
-        disabled: computerPropsIndex === -1
+        disabled: computerPropsIndex === -1,
+        gameViewOnly: false
     }, {
         name: isFullscreen ? "fullscreen_exit" : "fullscreen",
         type: "Custom",
@@ -111,7 +115,8 @@ export default function MainForm() {
             setIsFullscreen(x => !x);
         },
         iconType: "icon",
-        disabled: false
+        disabled: false,
+        gameViewOnly: false
     }]
 
     useEffect(() => {
@@ -170,7 +175,7 @@ export default function MainForm() {
         </div>
         <SketchForm
             isOn={isOn}
-            loadedGame={computerPropsIndex === -1 ? null :defaultCartridges[computerPropsIndex].props.loadedGame}
+            loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}
             buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
             isFullscreen={isFullscreen}
         />

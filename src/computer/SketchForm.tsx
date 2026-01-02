@@ -105,7 +105,7 @@ const SketchForm = forwardRef((
         </div>
         <div className="container box is-flex">
             {
-                sketchButtons.map(x =>
+                sketchButtons.filter(x => !isTrace || !x.gameViewOnly).map(x =>
                     <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} disabled={x.disabled} onClick={() => {
                             if (x.type === "ChangeScene") sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene);
                             else if (x.type === "Custom") (x.scene as (() => void))();

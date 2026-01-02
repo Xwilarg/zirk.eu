@@ -5,24 +5,41 @@ import { getLoaderFiles } from "./game/GameForm";
 interface CommandInfo
 {
     name: string,
-    paramCount: number,
+    optionalParamCount: number,
+    mandatoryParamCount: number,
     help: string,
+    deepHelp: string,
     command: ((props: DesktopPropsForm, args: string[]) => string)
 }
 
 let commands: Array<CommandInfo> = [
     {
         name: "help",
-        paramCount: 0,
-        help: "Display the list of commands",
-        command: () => {
-            return commands.map(x => `${x.name}: ${x.help}`).join("\n")
+        optionalParamCount: 1,
+        mandatoryParamCount: 0,
+        help: "(command) Display the list of commands or help about a specific command",
+        deepHelp:
+            "When used with no argument, show the list of all commands available\n" +
+            "When used with another command name as argument, show deeper details on what it's for and how to use it",
+        command: (props, args) => {
+            if (args.length === 0) return commands.map(x => `${x.name}: ${x.help}`).join("\n");
+
+            const cmd = args[0];
+            const target = commands.find(x => x.name === cmd);
+            if (target) return target.deepHelp;
+            
+            return "Command name not found, type 'help' for the list of commands";
         }
     },
     {
         name: "trace",
-        paramCount: 1,
+        optionalParamCount: 1,
+        mandatoryParamCount: 1,
         help: "[0/1] trace cartridges instead of loading their content",
+        deepHelp: 
+            "Show debug information about a cartridge\n" +
+            "To enable this, set trace mode to 1 and load a cartridge\n" +
+            "This will boot the computer on trace mode instead of loading cartridge data",
         command: (props, args) => {
             const bool = args[0];
             if (bool !== "0" && bool !== "1") {
@@ -38,7 +55,7 @@ function parseCommand(props: DesktopPropsForm, cmd: string, args: string[]): str
     const target = commands.find(x => x.name === cmd);
 
     if (target) {
-        if (target.paramCount !== args.length) {
+        if (target.mandatoryParamCount !== args.length && target.optionalParamCount !== args.length) {
             return "Invalid amount of parameter, type 'help' for the list of commands";
         }
         return target.command(props, args);

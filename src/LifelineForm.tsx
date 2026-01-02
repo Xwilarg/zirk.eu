@@ -57,6 +57,7 @@ export default function LifelineForm() {
 
     return <>
         <NavigationForm />
+        <div className="container box">
         {
             lifelineData.map(x =>
                 <div className="lifeline is-flex flex-center-ver">
@@ -78,5 +79,6 @@ export default function LifelineForm() {
         {
             showUpdateButton ? <button className="button" onClick={updateDynamicLifelines}>Update</button> : <></>
         }
+        </div>
     </>
 }

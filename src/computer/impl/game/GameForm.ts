@@ -7,6 +7,7 @@ export interface ButtonInfo
     scene: string | (() => void);
     type: ButtonType;
     disabled: boolean;
+    gameViewOnly: boolean
 }
 
 export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom"
