@@ -5,12 +5,16 @@ import { Link, useSearchParams } from "react-router";
 
 interface Question
 {
+    category: CategoryType,
     question: string,
     answer: ((nsfwStatus: NsfwStatus) => ReactElement)
 }
 
+type CategoryType = "website" | "me";
+
 const nsfwQuestions = [
 {
+    category: "website" as const,
     question: "Toggle mature content",
     answer: (isNsfw: NsfwStatus) => isNsfw === "NSFW"
         ? <p>You are on the mature version of this website, click <Link to='/info?s=1'>here</Link> to switch to the all-ages version</p>
@@ -19,6 +23,7 @@ const nsfwQuestions = [
 
 const sfwQuestions = [
 {
+    category: "me" as const,
     question: "Contact me",
     answer:
         (_: NsfwStatus) => <p>
@@ -28,6 +33,7 @@ const sfwQuestions = [
             </ul>
         </p>
 }, {
+    category: "website" as const,
     question: "Technical specifications",
     answer:
         (_: NsfwStatus) => <p>
@@ -54,6 +60,7 @@ const sfwQuestions = [
         </p>
 },
 {
+    category: "website" as const,
     question: "Information collected",
     answer:
         (_: NsfwStatus) => <p>
@@ -62,6 +69,7 @@ const sfwQuestions = [
         </p>
 },
 {
+    category: "website" as const,
     question: "Known bugs",
     answer:
         (_: NsfwStatus) => <p>
@@ -74,6 +82,7 @@ const sfwQuestions = [
         </p>
 },
 {
+    category: "me" as const,
     question: "Steam replay",
     answer:
         (_: NsfwStatus) => <p className='container is-flex flex-center-hor' id='steam-replay'>
@@ -86,22 +95,28 @@ const sfwQuestions = [
 
 export default function InfoForm() {
     const [questions, setQuestions] = useState<Question[]>(isNsfw() === "FullSFW" ? sfwQuestions : [...sfwQuestions, ...nsfwQuestions]);
-    const [questionsElements, setQuestionsElements] = useState<ReactElement[]>([]);
+    const [questionsElements, setQuestionsElements] = useState<Record<CategoryType, ReactElement[]>>({
+        "website": [],
+        "me": []
+    });
     const [openedQuestion, setOpenedQuestion] = useState(-1);
     const [searchParams] = useSearchParams();
 
     const nsfwStatus = isNsfw();
     useEffect(() => {
-        let data: ReactElement[] = [];
+        let data: Record<CategoryType, ReactElement[]> = {
+            "website": [],
+            "me": []
+        };
 
         for (let i = 0; i < questions.length; i++)
         {
-            data.push(
-                <button key={questions[i].question} className="container box" onClick={_ => setOpenedQuestion(x => x === i ? -1 : i)}>{questions[i].question}</button>
+            data[questions[i].category].push(
+                <button data-category={questions[i].category} key={questions[i].question} className="container box" onClick={_ => setOpenedQuestion(x => x === i ? -1 : i)}>{questions[i].question}</button>
             );
             if (openedQuestion === i)
             {
-                data.push(
+                data[questions[i].category].push(
                     questions[i].answer(nsfwStatus)
                 );
             }
@@ -113,7 +128,12 @@ export default function InfoForm() {
     return <>
         <NavigationForm />
         <div className="container">
-            { questionsElements }
+            <h2>About this website</h2>
+            { questionsElements["website"] }
+        </div> 
+        <div className="container">
+            <h2>About me</h2>
+            { questionsElements["me"] }
         </div> 
     </>
 }
