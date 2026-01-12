@@ -32,8 +32,11 @@ html, input, textarea {
 
     padding: 5px;
     margin-bottom: 15px;
+
+    overflow: hidden;
 }
 .box {
+    position: relative;
     border: var(--border);
     border-radius: var(--border-radius);
 }
@@ -44,6 +47,9 @@ html, input, textarea {
 }
 @media (max-width: 1000px) {
     .container {
+        width: 98%;
+    }
+    #intro-top {
         width: 98%;
     }
 }
@@ -139,6 +145,19 @@ button:disabled {
 
 .text-center {
     text-align: center;
+}
+
+.mark {
+    position: absolute;
+    top: -50px;
+    right: 20px;
+
+    font-size: 50px;
+    font-weight: bold;
+
+    color: rgba(128, 128, 128, 0.1);
+
+    text-transform: uppercase;
 }
 
 /* Image effects */
@@ -270,13 +289,17 @@ button:disabled {
 
 /* Intro */
 #intro-top {
-    margin-top: 30px;
+    display: block;
+    width: 1000px;
+    margin: 0 auto;
+    height: 30px;
+
     position: relative;
 }
 
 #intro-quote {
     position: absolute;
-    top: -45px;
+    top: -12px;
     right: 5px;
     width: 250px;
 

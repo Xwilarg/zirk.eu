@@ -35,7 +35,7 @@ let commands: Array<CommandInfo> = [
         name: "trace",
         optionalParamCount: 1,
         mandatoryParamCount: 1,
-        help: "[0/1] trace cartridges instead of loading their content",
+        help: "[0/1] Trace cartridges instead of loading their content",
         deepHelp: 
             "Show debug information about a cartridge\n" +
             "To enable this, set trace mode to 1 and load a cartridge\n" +
@@ -47,6 +47,20 @@ let commands: Array<CommandInfo> = [
             }
             props.updateTrace(bool === "1");
             return `Trace status was updated to ${bool}`;
+        }
+    },
+    {
+        name: "module",
+        optionalParamCount: 1,
+        mandatoryParamCount: 1,
+        help: "[module] Toggle a module display",
+        deepHelp:
+            "Toggle which module is available on the main page" +
+            "Calling this command on an existing module will disable it, calling it again will enable it back",
+        command: (props, args) => {
+            const res = props.toggleModule("module", args[0]);
+            if (!res) return `The module ${args[0].toLowerCase()} could not be found`;
+            return `The module ${args[0].toLowerCase()} was successfully toggled`;
         }
     }
 ];
@@ -66,11 +80,12 @@ function parseCommand(props: DesktopPropsForm, cmd: string, args: string[]): str
 interface DesktopPropsForm
 {
     tracedGame: LoadedGame | null,
-    updateTrace: ((isTrace: boolean) => void)
+    updateTrace: ((isTrace: boolean) => void),
+    toggleModule: ((cmd: string, args: string) => boolean)
 }
 
 const DesktopForm = forwardRef((
-    { tracedGame, updateTrace }: DesktopPropsForm,
+    { tracedGame, updateTrace, toggleModule }: DesktopPropsForm,
     _
 ) => {
     const [text, setText] = useState<string[]>([]);
@@ -84,7 +99,7 @@ const DesktopForm = forwardRef((
             let data = [ ...x ];
             data[data.length - 1] += input;
             let args = input.trim().split(' ').map(x => x.trim().toLowerCase()).filter(x => x !== "");
-            data.push(parseCommand({ tracedGame, updateTrace }, args[0], args.slice(1)));
+            data.push(parseCommand({ tracedGame, updateTrace, toggleModule }, args[0], args.slice(1)));
             data.push("> ");
             setInput("");
 
