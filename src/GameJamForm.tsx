@@ -32,7 +32,8 @@ export interface GameJamItem
     github: string | null,
     event: string,
     imagePosOverrides?: string,
-    gifPosOverrides?: string
+    gifPosOverrides?: string,
+    postModification: string | null
 }
 
 export interface GamejamSketch
@@ -123,7 +124,8 @@ export default function GameJamForm() {
                     defaultUnityVersion: shownSketch.version
                 },
                 buttons: [],
-                isFullscreen: false
+                isFullscreen: false,
+                toggleDesktopModule: () => { return false; }
             });
         } else {
             setComputerProps(null);
@@ -145,7 +147,7 @@ export default function GameJamForm() {
             }, {
                 name: "help",
                 type: "GiveInfo" as const,
-                scene: `Controls:\n${shownSketch.controls.join("\n")}`,
+                scene: `Controls:\n${shownSketch.controls.join("\n")}` + (shownSketch.postModification ? `\n\nPost jam update:\n${shownSketch.postModification}` : ""),
                 iconType: "icon",
                 disabled: false,
                 gameViewOnly: true
@@ -171,6 +173,7 @@ export default function GameJamForm() {
                 loadedGame={computerProps.loadedGame}
                 buttons={buttons}
                 isFullscreen={isFullscreen}
+                toggleDesktopModule={computerProps.toggleDesktopModule}
             />
             : <></>
         }

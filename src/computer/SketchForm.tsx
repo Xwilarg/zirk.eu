@@ -17,11 +17,12 @@ export interface SketchFormProps
     isOn: boolean,
     loadedGame: LoadedGame | null,
     buttons: ButtonInfo[],
-    isFullscreen: boolean
+    isFullscreen: boolean,
+    toggleDesktopModule: ((cmd: string, args: string) => boolean)
 }
 
 const SketchForm = forwardRef((
-    { isOn, loadedGame, buttons, isFullscreen }: SketchFormProps,
+    { isOn, loadedGame, buttons, isFullscreen, toggleDesktopModule }: SketchFormProps,
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -97,7 +98,7 @@ const SketchForm = forwardRef((
                     <div id="screen-desktop">
                         <DesktopForm tracedGame={loadedGame} updateTrace={(value: boolean) => {
                             setIsTrace(value);
-                        }} />
+                        }} toggleModule={toggleDesktopModule} />
                     </div>
                     : <></>
             }

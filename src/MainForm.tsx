@@ -1,21 +1,15 @@
-import { Link } from "react-router"
 import SketchForm, { type SketchFormProps } from "./computer/SketchForm"
 import NavigationForm from "./NavigationForm"
 import { type ReactElement, useEffect, useState } from "react";
-import sheepData from "../data/json/sheep.json"
 import sketchData from "../data/json/sketch.json"
 import gamejamData from "../data/json/gamejam.json"
 import { getSortedGamejams } from "./GameJamForm";
 import CartridgeForm, { type CartridgeType } from "./computer/CartridgeForm";
-import { getNavigation, isNsfw, randInt } from "./utils";
+import { isNsfw, randInt } from "./utils";
 import type { ButtonInfo } from "./computer/impl/game/GameForm";
-
-interface SheepInfo
-{
-    name: string,
-    image: string
-}
-
+import IntroComponent from "./components/IntroComponent";
+import NavigationComponent from "./components/NavigationComponent";
+import LifelineComponent from "./components/LifelineComponent";
 interface CartridgeData
 {
     props: SketchFormProps,
@@ -53,7 +47,8 @@ export default function MainForm() {
                     disabled: false,
                     gameViewOnly: true
                 })),
-                isFullscreen: false
+                isFullscreen: false,
+                toggleDesktopModule: () => { return false; }
             },
             imageUrl: "/img/sketch.png",
             type: "Sketch"
@@ -75,7 +70,8 @@ export default function MainForm() {
                     disabled: false,
                     gameViewOnly: true
                 }],
-                isFullscreen: false
+                isFullscreen: false,
+                toggleDesktopModule: () => { return false; }
             },
             imageUrl: `/data/img/gamejam/${x.name}.${x.format ?? "jpg"}`,
             type: "Gamejam" as const,
@@ -83,12 +79,13 @@ export default function MainForm() {
     ])
 
     let [isOn, setIsOn] = useState<boolean>(false);
-    let [showSheep, setShowSheep] = useState<boolean>(false);
-    let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
     const [computerPropsIndex, setComputerPropsIndex] = useState<number>(0);
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
     let randomQuote = randInt(quotes.length);
+
+    const allowedModules = [ "introduction", "navigation", "cartridges", "lifeline" ]
+    const [modules, setModules] = useState<string[]>([ "introduction", "navigation", "cartridges" ]);
 
     const buttons: Array<ButtonInfo> = [{
         name: "power_settings_new",
@@ -139,49 +136,49 @@ export default function MainForm() {
     }, [ computerPropsIndex ])
 
     return <>
-        <div id="intro-top" className="container box">
+        <div id="intro-top">
             <p id="intro-quote" dangerouslySetInnerHTML={{ __html: quotes[randomQuote] }}></p>
-            <div className={showSheep ? "enlarged" : ""} id="intro">
-                Welcome on my website, I am Zirk, a game and software developer<br/>
-                <br/>
-                I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigation("/gamejam")}>participating at gamejams</Link><br/>
-                I like lot of others little hobbies that I might hide around on this website at a future date<br/>
-                <br/>
-                And speaking of this website, ta-da here you are, it's still a big work in progress but hopefully it should come closer to an aesthetic I like<br/>
-                On the meantime, I hope you enjoy your stay here :)<br/>
-                <br/>
-                If you scrolled down there, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?<br/>
-                Send me your best drawn sheep at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>
-                {
-                    showSheep ?
-                    <>
-                        <br/>
-                        <div className="is-flex">
-                            {
-                                sheep.map(x =>
-                                    <div className="sheep-img" key={x.name}>
-                                        <p>{x.name}</p>
-                                        <img src={`/data/img/sheep/${x.image}`} />
-                                    </div>
-                                )
-                            }
-                        </div>
-                    </>
-                    : <></>
-                }
-            </div>
         </div>
-        <div className="container box">
-            <NavigationForm />
-        </div>
+        {
+            modules.includes("introduction") ? <IntroComponent /> : <></>
+        }
+        {
+            modules.includes("navigation") ? <NavigationComponent /> : <></>
+        }
         <SketchForm
             isOn={isOn}
             loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}
             buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
             isFullscreen={isFullscreen}
+            toggleDesktopModule={(cmd: string, args: string) => {
+                if (cmd === "module") {
+                    const lowerArgs = args.toLowerCase();
+                    if (allowedModules.includes(lowerArgs))
+                    {
+                        setModules(x => {
+                            if (x.includes(lowerArgs)) x.splice(x.indexOf(lowerArgs), 1);
+                            else x.push(lowerArgs);
+                            return [...x];
+                        });
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }}
         />
-        <div className="container box is-flex">
-            { cartridges }
-        </div>
+        {
+            modules.includes("cartridges") ? 
+                <div className="container box">
+                    <p className="mark">Cartridges</p>
+                    <div className="is-flex">
+                        { cartridges }
+                    </div>
+                </div>
+                : <></>
+        }
+        {
+            modules.includes("lifeline") ? <LifelineComponent /> : <></>
+        }
     </> 
 }
