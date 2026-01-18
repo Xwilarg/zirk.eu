@@ -127,13 +127,16 @@ export default function InfoForm() {
 
     return <>
         <NavigationForm />
-        <div className="container">
-            <h2>About this website</h2>
-            { questionsElements["website"] }
-        </div> 
-        <div className="container">
-            <h2>About me</h2>
-            { questionsElements["me"] }
-        </div> 
+        <div className="container box">
+            <p className="mark">Information</p>
+            <div className="container">
+                <h2>About this website</h2>
+                { questionsElements["website"] }
+            </div> 
+            <div className="container">
+                <h2>About me</h2>
+                { questionsElements["me"] }
+            </div>
+        </div>
     </>
 }

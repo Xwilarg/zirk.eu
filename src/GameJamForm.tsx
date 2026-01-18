@@ -178,24 +178,27 @@ export default function GameJamForm() {
             : <></>
         }
         <div className="container box">
-            <label htmlFor="sort-mode">Sort mode</label>
-            <select id="sort-mode" value={sortMode} onChange={e => setSortMode(e.target.value as SortMode)}>
-                <option value="Date">Date</option>
-                <option value="Score">Score</option>
-            </select>
-        </div>
-        <div className="fullscreen is-flex flex-center-hor">
-            {
-                getSortedGamejams(
-                    jamData.jams, sortMode
-                )
-                    .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={() => {
-                        setSearchParams(sp => {
-                            sp.set("game", x.name);
-                            return sp;
-                        });
-                    }} />)
-            }
+            <p className="mark">Gamejam</p>
+            <div className="container">
+                <label htmlFor="sort-mode">Sort mode</label>
+                <select id="sort-mode" value={sortMode} onChange={e => setSortMode(e.target.value as SortMode)}>
+                    <option value="Date">Date</option>
+                    <option value="Score">Score</option>
+                </select>
+            </div>
+            <div className="fullscreen is-flex flex-center-hor">
+                {
+                    getSortedGamejams(
+                        jamData.jams, sortMode
+                    )
+                        .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={() => {
+                            setSearchParams(sp => {
+                                sp.set("game", x.name);
+                                return sp;
+                            });
+                        }} />)
+                }
+            </div>
         </div>
     </> 
 }
