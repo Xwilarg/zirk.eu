@@ -48,7 +48,7 @@ let commands: Array<CommandInfo> = [
             props.updateTrace(bool === "1");
             return `Trace status was updated to ${bool}`;
         }
-    },
+    }/*,
     {
         name: "module",
         optionalParamCount: 1,
@@ -62,7 +62,7 @@ let commands: Array<CommandInfo> = [
             if (!res) return `The module ${args[0].toLowerCase()} could not be found`;
             return `The module ${args[0].toLowerCase()} was successfully toggled`;
         }
-    }
+    }*/
 ];
 
 function parseCommand(props: DesktopPropsForm, cmd: string, args: string[]): string {
