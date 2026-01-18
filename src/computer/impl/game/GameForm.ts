@@ -95,7 +95,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     if (versionNumber <= 2019) {
         config = null;
         loaderUrl = `${buildUrl}Build/UnityLoader.js`;
-    } else if (version === "2021.1.4f1") {
+    } else if (version === "2021.1.4f1" || version === "6000.5.0a4") {
         config = {
             dataUrl: `${buildUrl}${filename}.data`,
             frameworkUrl: `${buildUrl}${filename}.framework.js`,
