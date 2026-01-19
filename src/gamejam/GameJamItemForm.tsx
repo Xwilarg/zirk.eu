@@ -14,7 +14,7 @@ const GameJamItemForm = forwardRef((
 ) => {
     let [previewGif, setPreviewGif] = useState<boolean>(false);
 
-    let format = previewGif ? "gif" : (item.format ?? "jpg");
+    let format = previewGif ? "webp" : (item.format ?? "jpg");
     let nsfwStatus = isNsfw();
     let hideNsfw = item.nsfw && nsfwStatus !== "NSFW";
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router"
 import { useState } from "react";
-import sheepData from "../../data/json/sheep.json"
-import { getNavigation } from "../utils";
+import sheepData from "../../../data/json/sheep.json"
+import { getNavigation } from "../../utils";
 
 interface SheepInfo
 {
@@ -9,7 +9,7 @@ interface SheepInfo
     image: string
 }
 
-export default function IntroComponent() {
+export default function MainIntroComponent() {
     let [showSheep, setShowSheep] = useState<boolean>(false);
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
 

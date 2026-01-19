@@ -1,31 +1,21 @@
 import SketchForm, { type SketchFormProps } from "./computer/SketchForm"
-import NavigationForm from "./NavigationForm"
 import { type ReactElement, useEffect, useState } from "react";
 import sketchData from "../data/json/sketch.json"
 import gamejamData from "../data/json/gamejam.json"
 import { getSortedGamejams } from "./GameJamForm";
 import CartridgeForm, { type CartridgeType } from "./computer/CartridgeForm";
-import { isNsfw, randInt } from "./utils";
+import { isNsfw } from "./utils";
 import type { ButtonInfo } from "./computer/impl/game/GameForm";
-import IntroComponent from "./components/IntroComponent";
+import MainIntroComponent from "./components/intro/MainIntroComponent";
 import NavigationComponent from "./components/NavigationComponent";
 import LifelineComponent from "./components/LifelineComponent";
+import QuoteComponent from "./components/QuoteComponent";
 interface CartridgeData
 {
     props: SketchFormProps,
     imageUrl: string,
     type: CartridgeType
 }
-
-const quotes = [
-    "Now with 20% more minipis!",
-    "Still awaiting Indra new website",
-    "Fighting to get a better UX than Fractal since 2023 (I'm not winning)",
-    "Red and green gives yellow",
-    "<a href='/secret/quote' class='ignore'>Of course you can't click this quote!</a>",
-    "[object Object]",
-    "My favorite ice creams are pistachio and rum raisin"
-]
 
 export default function MainForm() {
     let nsfwStatus = isNsfw();
@@ -82,7 +72,6 @@ export default function MainForm() {
     const [computerPropsIndex, setComputerPropsIndex] = useState<number>(0);
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-    let randomQuote = randInt(quotes.length);
 
     const allowedModules = [ "introduction", "navigation", "cartridges", "lifeline" ]
     const [modules, setModules] = useState<string[]>([ "introduction", "navigation", "cartridges" ]);
@@ -136,11 +125,9 @@ export default function MainForm() {
     }, [ computerPropsIndex ])
 
     return <>
-        <div id="intro-top">
-            <p id="intro-quote" dangerouslySetInnerHTML={{ __html: quotes[randomQuote] }}></p>
-        </div>
+        <QuoteComponent />
         {
-            modules.includes("introduction") ? <IntroComponent /> : <></>
+            modules.includes("introduction") ? <MainIntroComponent /> : <></>
         }
         {
             modules.includes("navigation") ? <NavigationComponent /> : <></>
