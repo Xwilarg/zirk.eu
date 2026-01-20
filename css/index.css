@@ -102,13 +102,13 @@ option:hover {
     display: none;
 }
 
-a:not(.ignore) {
+a:not(.ignore):not(.ignore-half) {
     color: rgb(212, 117, 117);
     text-decoration: underline;
     text-decoration-style: dotted;
     cursor: pointer;
 }
-a:hover:not(.ignore) {
+a:hover:not(.ignore):not(.ignore-half) {
     color: rgb(117, 166, 212);
     text-decoration: none;
 }
@@ -116,6 +116,12 @@ a.ignore {
     text-decoration: none;
     color: var(--primary-light);
     cursor: default;
+}
+a.ignore-half {
+    color: var(--primary-light);
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    cursor: pointer;
 }
 
 img {
