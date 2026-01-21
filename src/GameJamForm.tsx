@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import gamejamData from "../data/json/gamejam.json"
 import GameJamItemForm from "./gamejam/GameJamItemForm";
 import { isNsfw } from "./utils";
-import NavigationForm from "./NavigationForm";
 import type { SketchFormProps } from "./computer/SketchForm";
 import SketchForm from "./computer/SketchForm";
 import { useSearchParams } from "react-router";
 import type { ButtonInfo } from "./computer/impl/game/GameForm";
+import GamejamIntroComponent from "./components/intro/GamejamIntroComponent";
+import NavigationComponent from "./components/NavigationComponent";
+import QuoteComponent from "./components/QuoteComponent";
 
 interface GameJamInfo
 {
@@ -165,7 +167,9 @@ export default function GameJamForm() {
     }, [ shownSketch, isFullscreen ])
 
     return <>
-        <NavigationForm />
+        <QuoteComponent />
+        <GamejamIntroComponent />
+        <NavigationComponent />
         {
             computerProps !== null ?
             <SketchForm

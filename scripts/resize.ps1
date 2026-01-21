@@ -6,9 +6,9 @@ Push-Location -Path  ../data/img/gamejam
 magick mogrify -resize "315x250^" -path "../../../public/data/img/gamejam/" *.png;
 magick mogrify -resize "315x250^" -path "../../../public/data/img/gamejam/" *.jpg;
 Get-ChildItem -Filter *.gif | ForEach-Object {
-    gifsicle -i "$($_.Name)" --resize-height 250 --lossy=80 -O3 -o "../../../public/data/img/gamejam/$($_.Name)"
+    gifsicle -i "$($_.Name)" --resize-height 250 --lossy=80 -O3 --colors 128 -o "../../../public/data/img/gamejam/$($_.Name)"
     Push-Location "../../../public/data/img/gamejam/"
-    magick "$($_.Name)" "$($_.BaseName).webp"
+    magick "$($_.Name)" -coalesce "$($_.BaseName).webp"
     Remove-Item -path "$($_.Name)"
     Pop-Location
 }
