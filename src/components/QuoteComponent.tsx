@@ -13,7 +13,7 @@ const quotes = [
     "<a href='https://youtu.be/OtQZ_eyVhKQ target='_blank' class='ignore-half'>Click here for my favorite YouTube video</a>",
     "Welcome to the world of boxes",
     "My favorite C# operator is the null-coalescing one",
-    "Why are demisexual flag colors so dim"
+    "Why is demisexual flag colors so dim"
 ];
 
 export default function QuoteComponent() {

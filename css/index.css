@@ -34,6 +34,8 @@ body {
     margin: 0 auto;
 }
 .container {
+    background-color: #030320;
+
     display: block;
     width: 1000px;
     margin: 0 auto;
@@ -324,6 +326,7 @@ button:disabled {
     width: 320px;
 
     font-size: 13px;
+    z-index: 1;
 }
 
 #intro {
