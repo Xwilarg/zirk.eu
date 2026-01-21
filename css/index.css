@@ -8,6 +8,10 @@
 }
 
 /* Background & font */
+html, body {
+    width: 100%;
+}
+
 html {
     color: var(--primary-light);
 }
@@ -17,6 +21,10 @@ html, input, textarea {
     background: radial-gradient(circle, rgba(2, 0, 36, 1) 0%, rgba(7, 16, 18, 1) 100%);
     
     font-family: "Quantico", sans-serif;
+}
+
+body {
+    margin: 0;
 }
 
 /* Container components */
@@ -164,6 +172,7 @@ button:disabled {
     color: rgba(128, 128, 128, 0.1);
 
     text-transform: uppercase;
+    pointer-events: none;
 }
 
 /* Image effects */
@@ -301,6 +310,11 @@ button:disabled {
     height: 30px;
 
     position: relative;
+}
+@media (max-width: 1000px) {
+    #intro-top {
+        width: 98%;
+    }
 }
 
 #intro-quote {

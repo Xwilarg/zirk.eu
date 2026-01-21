@@ -190,7 +190,7 @@ export default function GameJamForm() {
                     <option value="Score">Score</option>
                 </select>
             </div>
-            <div className="fullscreen is-flex flex-center-hor">
+            <div className="is-flex flex-center-hor">
                 {
                     getSortedGamejams(
                         jamData.jams, sortMode

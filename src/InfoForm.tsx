@@ -2,6 +2,9 @@ import { useEffect, useState, type ReactElement } from "react"
 import NavigationForm from "./NavigationForm";
 import { isNsfw, type NsfwStatus } from "./utils";
 import { Link, useSearchParams } from "react-router";
+import NavigationComponent from "./components/NavigationComponent";
+import QuoteComponent from "./components/QuoteComponent";
+import InfoIntroComponent from "./components/intro/InfoIntroComponent";
 
 interface Question
 {
@@ -126,7 +129,9 @@ export default function InfoForm() {
     }, [ questions, openedQuestion, searchParams ])
 
     return <>
-        <NavigationForm />
+        <QuoteComponent />
+        <InfoIntroComponent />
+        <NavigationComponent />
         <div className="container box">
             <p className="mark">Information</p>
             <div className="container">
