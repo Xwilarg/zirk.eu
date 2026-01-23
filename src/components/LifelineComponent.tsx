@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import staticLifeline from "../../data/json/lifeline.json"
+import friendData from "../../data/json/friends.json"
+
+interface FriendData
+{
+    name: string,
+    website: string | null,
+    lifeline: string | LifelineData,
+    gamejam: string
+}
 
 interface LifelineData
 {
-    name: string
-    id: string | null
-    hash: string
+    id: string
+    hash: string | null
 }
 
 // https://stackoverflow.com/a/52171480
@@ -24,22 +31,31 @@ const cyrb53 = (str: string, seed = 0): number => {
     return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 };
 
-function getStaticLifelines(): LifelineData[] {
-    return Object.entries(staticLifeline.statics).map(x => ({
-       name: x[0],
-       id: x[1].id,
-       hash : x[1].hash
-    }));
-}
-
 export default function LifelineComponent() {
-    const [lifelineData, setLifelineData] = useState<LifelineData[]>([]);
+    const [lifelineData, setLifelineData] = useState<FriendData[]>([]);
     const [showUpdateButton, setShowUpdateButton] = useState<boolean>(true);
 
     useEffect(() => {
         fetch('/lifeline/status.php')
         .then(resp => resp.json())
-        .then(json => setLifelineData([...json, ...getStaticLifelines()]));
+        .then(json => {
+            const data: FriendData[] = [];
+
+            for (let d of friendData)
+            {
+                if (d.lifeline === "dynamic")
+                {
+                    console.log(json.find(x => x.name === d.name))
+                    d.lifeline = {
+                        id: json.find(x => x.name === d.name).id,
+                        hash: null
+                    };
+                }
+                data.push(d);
+            }
+
+            setLifelineData(data);
+        });
     }, [ ]);
 
     function updateDynamicLifelines() {
@@ -47,7 +63,7 @@ export default function LifelineComponent() {
         .then(resp => resp.json())
         .then(json => {
             for (let key of Object.keys(json)) {
-                lifelineData.find(x => x.name === key)!.id = json[key].id;
+                lifelineData.find(x => x.name === key)!.lifeline.id = json[key].id;
             }
             setLifelineData([...lifelineData]);
             setShowUpdateButton(false);
@@ -59,12 +75,12 @@ export default function LifelineComponent() {
         {
             lifelineData.map(x =>
                 <div className="lifeline is-flex flex-center-ver">
-                    {x.name}: {x.id} {x.hash ? <button className="button" onClick={_ => {
+                    {x.website ? <a href={x.website} target="_blank">{x.name}</a> : x.name}: {x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
                         const hash = prompt("Enter your hash");
                         if (hash)
                         {
-                            const finalStr = x.id!.localeCompare(hash) < 0 ? `${x.id}${hash}` : `${hash}${x.id}`;
-                            if (cyrb53(finalStr).toString() === x.hash) {
+                            const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
+                            if (cyrb53(finalStr).toString() === x.lifeline.hash) {
                                 alert("♥");
                             } else {
                                 alert("Invalid ID");

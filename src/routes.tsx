@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/info' element={<InfoForm />} />
-            <Route path='/friends' element={<LifelineForm />} />
+            <Route path='/life' element={<LifelineForm />} />
             <Route path='/katsis' element={<KatsisForm />} />
             <Route path='/ocs' element={<OCForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
