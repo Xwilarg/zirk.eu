@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-import NavigationForm from "./NavigationForm";
+import QuoteComponent from "./components/QuoteComponent";
+import NavigationComponent from "./components/NavigationComponent";
 
 interface KatsisProject
 {
@@ -17,7 +18,8 @@ export default function KatsisForm() {
     }, [ ]);
 
     return <>
-        <NavigationForm />
+        <QuoteComponent/>
+        <NavigationComponent />
         <p className="container box">
             Page creation in progress<br/>
             Is Katsis API accessible by this website yet: { katsisProjects?.isInit?.toString() }

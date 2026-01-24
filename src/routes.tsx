@@ -10,6 +10,7 @@ import { getNavigation } from './utils'
 import LifelineForm from './LifelineForm'
 import KatsisForm from './KatsisForm'
 import OCForm from './OCForm'
+import ProjectForm from './ProjectForm'
 
 function RedirectCompat()
 {
@@ -34,7 +35,8 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/info' element={<InfoForm />} />
             <Route path='/life' element={<LifelineForm />} />
             <Route path='/katsis' element={<KatsisForm />} />
-            <Route path='/ocs' element={<OCForm />} />
+            <Route path='/oc' element={<OCForm />} />
+            <Route path='/project' element={<ProjectForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
     </BrowserRouter>
