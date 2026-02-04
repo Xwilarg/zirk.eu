@@ -75,6 +75,10 @@ body {
     }
 }
 
+.big-card {
+    width: 90%;
+}
+
 .card {
     width: calc(630px / 2);
 }
@@ -256,8 +260,6 @@ button:disabled {
 
 /* Project */
 .project-img {
-    height: 500px;
-    width: 600px;
     overflow: hidden;
     border-radius: var(--border-radius);
 }

@@ -15,7 +15,7 @@ export default function ProjectForm() {
             data.push(<div className="big-card" key={p.name}>
                 <h2>{p.name}</h2>
                 <small>{p.description}</small>
-                <div className="project-img">
+                <div className="project-img is-flex flex-center-hor">
                     <img src={`/data/img/projects/${p.images[0].name}`} />
                 </div>
             </div>)
