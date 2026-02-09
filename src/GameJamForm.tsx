@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import gamejamData from "../data/json/gamejam.json"
-import GameJamItemForm from "./gamejam/GameJamItemForm";
+import GameJamItemForm from "./item/GameJamItemForm";
 import { isNsfw } from "./utils";
 import type { SketchFormProps } from "./computer/SketchForm";
 import SketchForm from "./computer/SketchForm";

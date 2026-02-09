@@ -262,6 +262,7 @@ button:disabled {
 .project-img {
     overflow: hidden;
     border-radius: var(--border-radius);
+    height: 400px;
 }
 .project-img img {
     margin-top: 10px;
@@ -270,8 +271,12 @@ button:disabled {
     max-height: 100%;
     width: auto;
     height: auto;
-    object-position: center;
-    object-fit: cover;
+}
+
+.project-buttons {
+    height: 100px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 /* Gamejam */
