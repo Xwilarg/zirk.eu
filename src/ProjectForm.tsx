@@ -18,6 +18,11 @@ export default function ProjectForm() {
                 <div className="project-img is-flex flex-center-hor">
                     <img src={`/data/img/projects/${p.images[0].name}`} />
                 </div>
+                <div className="gamejam-buttons is-flex">
+                    {
+                        
+                    }
+                </div>
             </div>)
         }
 

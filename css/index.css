@@ -76,7 +76,7 @@ body {
 }
 
 .big-card {
-    width: 90%;
+    width: calc(630px / 3 * 2);
 }
 
 .card {
