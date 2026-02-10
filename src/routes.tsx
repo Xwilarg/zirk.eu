@@ -11,6 +11,7 @@ import LifelineForm from './LifelineForm'
 import KatsisForm from './KatsisForm'
 import OCForm from './OCForm'
 import ProjectForm from './ProjectForm'
+import NotFoundForm from './NotFoundForm'
 
 function RedirectCompat()
 {
@@ -30,6 +31,7 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
         <RedirectCompat />
         <Routes>
+            <Route path='*' element={<NotFoundForm />} />
             <Route path='/' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/info' element={<InfoForm />} />

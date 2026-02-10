@@ -99,7 +99,7 @@ body {
     flex-direction: row;
 }
 
-/* From components */
+/* Form components */
 label {
     margin-right: 10px;
 }
@@ -127,13 +127,13 @@ option:hover {
     display: none;
 }
 
-a:not(.ignore):not(.ignore-half) {
+a:not(.ignore):not(.ignore-half):not(.nav-button) {
     color: rgb(212, 117, 117);
     text-decoration: underline;
     text-decoration-style: dotted;
     cursor: pointer;
 }
-a:hover:not(.ignore):not(.ignore-half) {
+a:hover:not(.ignore):not(.ignore-half):not(.nav-button) {
     color: rgb(117, 166, 212);
     text-decoration: none;
 }
@@ -190,6 +190,20 @@ button:disabled {
 
     text-transform: uppercase;
     pointer-events: none;
+}
+
+/* Navigation */
+.nav-button {
+    color: var(--primary-light);
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    padding: 10px;
+}
+.nav-button:hover {
+    color: var(--primary-background);
+    background-color: var(--primary-light);
 }
 
 /* Image effects */

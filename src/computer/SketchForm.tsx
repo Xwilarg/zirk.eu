@@ -105,6 +105,7 @@ const SketchForm = forwardRef((
             
         </div>
         <div className="container box is-flex">
+            <p className="mark">Controls</p>
             {
                 sketchButtons.filter(x => !isTrace || !x.gameViewOnly).map(x =>
                     <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} disabled={x.disabled} onClick={() => {

@@ -1,28 +1,11 @@
-import { useEffect, useState } from "react"
 import QuoteComponent from "./components/QuoteComponent";
 import NavigationComponent from "./components/NavigationComponent";
-
-interface KatsisProject
-{
-    isInit: boolean
-}
+import KatsisIntroComponent from "./components/intro/KatsisIntroComponent";
 
 export default function KatsisForm() {
-    const [katsisProjects, setKatsisProjects] = useState<KatsisProject | null>(null);
-
-    useEffect(() => {
-        fetch('https://intranet.katsis.net/api/')
-        .then(resp => { if (resp.ok) return resp.json(); throw new Error(""); })
-        .then(json => setKatsisProjects(json))
-        .catch(_ => setKatsisProjects({ isInit: false }));
-    }, [ ]);
-
     return <>
         <QuoteComponent/>
+        <KatsisIntroComponent />
         <NavigationComponent />
-        <p className="container box">
-            Page creation in progress<br/>
-            Is Katsis API accessible by this website yet: { katsisProjects?.isInit?.toString() }
-        </p>
     </>
 }
