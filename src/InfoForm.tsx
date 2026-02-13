@@ -5,6 +5,7 @@ import { Link, useSearchParams } from "react-router";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 import InfoIntroComponent from "./components/intro/InfoIntroComponent";
+import InfoHobbyForm from "./InfoHobbyForm";
 
 interface Question
 {
@@ -100,7 +101,7 @@ const sfwQuestions = [
     question: "Hobbies",
     answer:
         (_: NsfwStatus) => <p>
-            There is nothing here yet but it'll come soon!
+            <InfoHobbyForm />
         </p>
 },
 {
