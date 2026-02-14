@@ -192,6 +192,20 @@ button:disabled {
     pointer-events: none;
 }
 
+.youtube-embed {
+    aspect-ratio: 16 / 9;
+    width: 800px;
+}
+@media (max-width: 800px) {
+    .youtube-embed {
+        width: 98%;
+    }
+}
+
+.fit-width {
+    width: 100%;
+}
+
 /* Navigation */
 .nav-button {
     color: var(--primary-light);

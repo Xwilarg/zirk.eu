@@ -96,14 +96,14 @@ const sfwQuestions = [
             <img src='/data/img/steam/2022.png' />
         </p>
 },
-{
+/*{
     category: "me" as const,
     question: "Hobbies",
     answer:
         (_: NsfwStatus) => <p>
             <InfoHobbyForm />
         </p>
-},
+},*/
 {
     category: "me" as const,
     question: "More about me",
