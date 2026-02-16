@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isNsfw, randInt } from "./utils";
+import { isNsfw, randInt } from "../utils";
 
 export default function InfoHobbyForm() {
     const [hobbyIndex, setHobbyIndex] = useState(1);

@@ -5,7 +5,7 @@ import { Link, useSearchParams } from "react-router";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 import InfoIntroComponent from "./components/intro/InfoIntroComponent";
-import InfoHobbyForm from "./InfoHobbyForm";
+import InfoHobbyForm from "./components/InfoHobbyForm";
 
 interface Question
 {

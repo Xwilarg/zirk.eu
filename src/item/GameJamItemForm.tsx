@@ -1,6 +1,7 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { getOverallScore, type GameJamItem } from "../GameJamForm";
 import { isNsfw } from "../utils";
+import { useLocation } from "react-router";
 
 interface GameJamItemFormProps
 {
@@ -12,6 +13,16 @@ const GameJamItemForm = forwardRef((
     { item, showComputer }: GameJamItemFormProps,
     _
 ) => {
+    const { hash } = useLocation();
+
+
+    useEffect(() => {
+        if (hash)
+        {
+            document.querySelector(hash)?.scrollIntoView();
+        }
+    }, []);
+
     let [previewGif, setPreviewGif] = useState<boolean>(false);
 
     let format = previewGif ? "webp" : (item.format ?? "jpg");
@@ -27,7 +38,7 @@ const GameJamItemForm = forwardRef((
 
     let score = getOverallScore(item);
 
-    return <div className="card">
+    return <div className={"card " + (item.name === hash.substring(1) ? "gamejam-highlight" : "")} id={item.name}>
         <p className={"text-center gamejam-name"}>{hideNsfw ? "" : item.fullName}</p>
         <div className={"gamejam-img is-flex flex-center-hor " + pos}>
             <img className={hideNsfw && item.name !== null  ? "blur" : ""} src={item.name === null ? "/img/ComingSoon.png" : `/data/img/gamejam/${item.name}.${format}`}

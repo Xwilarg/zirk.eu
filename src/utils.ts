@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router";
+import { useLocation, useSearchParams } from "react-router";
 
 export function randInt(max: number): number {
     return Math.floor(Math.random() * max);
@@ -13,12 +13,18 @@ export function isNsfw(): NsfwStatus {
     return "SFW"
 }
 
-export function getNavigation(url: string) {
+export function getNavigation(url: string, hash: string = "") {
     const [searchParams, setSearchParams] = useSearchParams();
 
     searchParams.delete("game");
 
-    return `${url}?${searchParams}`;
+    return `${url}?${searchParams}${hash}`;
+}
+
+export function getNavigationNoHook(url: string, searchParams: URLSearchParams, hash: string) {
+    searchParams.delete("game");
+
+    return `${url}?${searchParams}${hash}`;
 }
 
 export type NsfwStatus = "NSFW" | "SFW" | "FullSFW";

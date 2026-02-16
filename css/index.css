@@ -308,6 +308,11 @@ button:disabled {
 }
 
 /* Gamejam */
+.gamejam-highlight {
+    border-radius: var(--border-radius);
+    background-color: #b99d2328;
+}
+
 .gamejam-img {
     height: calc(500px / 2);
     overflow: hidden;
@@ -366,6 +371,29 @@ button:disabled {
     margin: 0;
     overflow-y: hidden;
     line-height: 20px;
+}
+
+/* Goals (named boxes) */
+.goal-box {
+    padding: 10px;
+}
+
+.goal-box h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.goal-box-image {
+    height: 200px;
+}
+
+.goal-box-image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.goal-card {
+    width: 303px;
 }
 
 /* Intro */
