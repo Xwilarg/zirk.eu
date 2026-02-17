@@ -45,9 +45,8 @@ export default function LifelineComponent() {
             {
                 if (d.lifeline === "dynamic")
                 {
-                    console.log(json.find(x => x.name === d.name))
                     d.lifeline = {
-                        id: json.find(x => x.name === d.name).id,
+                        id: json.find(x => x.name === d.name).id ?? "Broken :(",
                         hash: null
                     };
                 }
@@ -63,7 +62,7 @@ export default function LifelineComponent() {
         .then(resp => resp.json())
         .then(json => {
             for (let key of Object.keys(json)) {
-                lifelineData.find(x => x.name === key)!.lifeline.id = json[key].id;
+                lifelineData.find(x => x.name === key)!.lifeline.id = json[key].id ?? "Broken :(";
             }
             setLifelineData([...lifelineData]);
             setShowUpdateButton(false);
