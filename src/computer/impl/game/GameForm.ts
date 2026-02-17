@@ -27,7 +27,7 @@ export function getLoaderFiles(resFolder: string, filename: string, engine: stri
 
     const versionNumber = parseInt(version.split('.')[0]);
     if (versionNumber <= 2019) {
-        return [ `${resFolder}Build/UnityLoader.js` ];
+        return [ `${resFolder}UnityLoader.js` ];
     }
 
     return [ `${resFolder}${filename}.loader.js` ];
@@ -94,7 +94,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
     const versionNumber = parseInt(version.split('.')[0]);
     if (versionNumber <= 2019) {
         config = null;
-        loaderUrl = `${buildUrl}Build/UnityLoader.js`;
+        loaderUrl = `${buildUrl}UnityLoader.js`;
     } else if (version === "2021.1.4f1" || version === "6000.5.0a4") {
         config = {
             dataUrl: `${buildUrl}${filename}.data`,

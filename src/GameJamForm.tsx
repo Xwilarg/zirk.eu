@@ -104,7 +104,7 @@ export default function GameJamForm() {
         const game = searchParams.get("game")?.toUpperCase();
 
         if (game) {
-            let target = jamData.jams.find(x => x.name.toUpperCase() === game);
+            let target = jamData.jams.find(x => x.name?.toUpperCase() === game);
             if (target && target.sketch) {
                 setShownSketch(target);
             } else {
@@ -121,7 +121,7 @@ export default function GameJamForm() {
                 isOn: true,
                 loadedGame: {
                     defaultResFolder: shownSketch.sketch!.folder,
-                    defaultFilename: `Build/${shownSketch.sketch!.filename}`,
+                    defaultFilename: shownSketch.sketch!.filename!,
                     defaultEngine: shownSketch.engine,
                     defaultUnityVersion: shownSketch.version
                 },
