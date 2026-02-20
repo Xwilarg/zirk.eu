@@ -7,7 +7,8 @@ export default function NavigationForm() {
         <Link className="nav-button" to={getNavigation("/gamejam")}>Gamejam</Link>
         <Link className="nav-button" to={getNavigation("/project")}>Project</Link>
         <Link className="nav-button" to={getNavigation("/katsis")}>Katsis</Link>
-        <Link className="nav-button" to={getNavigation("/info")}>Info</Link>
         <Link className="nav-button" to={getNavigation("/life")}>Lifeline</Link>
+        <Link className="nav-button" to={getNavigation("/box")}>Boxes</Link>
+        <Link className="nav-button" to={getNavigation("/info")}>Info</Link>
     </nav>
 }

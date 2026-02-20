@@ -2,7 +2,7 @@ export default function BoxIntroComponent() {
     return <div className="container box">
         <p className="mark">Introduction</p>
         <div id="intro">
-            Welcome at the boxes!<br/>
+            Welcome to the boxes!<br/>
             Those represents differents objectives I'm trying to achieve<br/>
             Boxes that are empty means they weren't reached yet, but hopefully it'll come with time<br/>
             <br/>

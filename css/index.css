@@ -440,7 +440,7 @@ button:disabled {
 
 .sheep-img {
     height: 500px;
-    width: 500px;
+    width: 303px;
     position: relative;
 }
 .sheep-img img {
@@ -452,12 +452,17 @@ button:disabled {
 .sheep-img p {
     position: absolute;
     top: -5px;
-    left: 10px;
+    right: 10px;
     z-index: 1;
     color: var(--primary-background);
     background-color: #cccccccc;
     border-radius: var(--border-radius);
     padding: 0 5px;
+
+    cursor: pointer;
+}
+.sheep-img p:hover {
+    background-color: #cccccc8f;
 }
 
 /* Info */

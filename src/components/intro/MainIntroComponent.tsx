@@ -3,10 +3,17 @@ import { useState } from "react";
 import sheepData from "../../../data/json/sheep.json"
 import { getNavigation } from "../../utils";
 
+interface SheepLinkInfo
+{
+    name: string
+    value: string
+}
+
 interface SheepInfo
 {
-    name: string,
+    name: string
     image: string
+    link: SheepLinkInfo
 }
 
 export default function MainIntroComponent() {
@@ -33,7 +40,11 @@ export default function MainIntroComponent() {
                         {
                             sheep.map(x =>
                                 <div className="sheep-img" key={x.name}>
-                                    <p>{x.name}</p>
+                                    {
+                                        x.link.value.startsWith("https://")
+                                        ? <a className="ignore" target="_blank" href={x.link.value}><p>{x.name}</p></a>
+                                        : <p onClick={() => { alert(`${x.link.name}: ${x.link.value}`); }}>{x.name}</p>
+                                    }
                                     <img src={`/data/img/sheep/${x.image}`} />
                                 </div>
                             )
