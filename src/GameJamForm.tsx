@@ -136,17 +136,23 @@ export default function GameJamForm() {
 
     useEffect(() => {
         if (shownSketch) {
-            setButtons([{
-                name: "power_settings_new",
-                type: "Custom",
-                scene: () => {
-                    setComputerProps(null);
-                    searchParams.delete("game");
-                },
-                iconType: "icon",
-                disabled: false,
-                gameViewOnly: true
-            }, {
+            let buttons: Array<ButtonInfo> = []
+
+            if (searchParams.get("embed") !== "1") {
+                    buttons.push({
+                    name: "power_settings_new",
+                    type: "Custom",
+                    scene: () => {
+                        setComputerProps(null);
+                        searchParams.delete("game");
+                    },
+                    iconType: "icon",
+                    disabled: false,
+                    gameViewOnly: true
+                });
+            }
+
+            buttons = buttons.concat([{
                 name: "help",
                 type: "GiveInfo" as const,
                 scene: `Controls:\n${shownSketch.controls.join("\n")}` + (shownSketch.postModification ? `\n\nPost jam update:\n${shownSketch.postModification}` : ""),
@@ -163,8 +169,22 @@ export default function GameJamForm() {
                 disabled: false,
                 gameViewOnly: true
             }]);
+            setButtons(buttons);
         }
     }, [ shownSketch, isFullscreen ])
+
+    console.log(searchParams.get("embed"));
+    if (searchParams.get("embed") === "1") {
+        return computerProps !== null ?
+            <SketchForm
+                isOn={computerProps.isOn}
+                loadedGame={computerProps.loadedGame}
+                buttons={buttons}
+                isFullscreen={isFullscreen}
+                toggleDesktopModule={computerProps.toggleDesktopModule}
+            />
+            : <></>
+    }
 
     return <>
         <QuoteComponent />

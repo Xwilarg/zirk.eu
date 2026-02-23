@@ -237,9 +237,8 @@ button:disabled {
 }
 
 #screen-container {
-    height: 500px;
+    height: 562px;
     position: relative;
-    height: 500px;
 }
 
 #screen-container.fullscreen {
@@ -248,7 +247,7 @@ button:disabled {
 
 /* Screen (desktop) */
 #screen-desktop {
-    height: 500px;
+    height: 562px;
     width: 100%;
 }
 
