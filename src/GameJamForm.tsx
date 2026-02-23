@@ -186,6 +186,7 @@ export default function GameJamForm() {
             : <></>
     }
 
+    console.log(sortMode);
     return <>
         <QuoteComponent />
         <GamejamIntroComponent />
@@ -205,10 +206,10 @@ export default function GameJamForm() {
             <p className="mark">Gamejam</p>
             <div className="container">
                 <label htmlFor="sort-mode">Sort mode</label>
-                <select id="sort-mode" value={sortMode} onChange={e => setSortMode(e.target.value as SortMode)}>
-                    <option value="Date">Date</option>
-                    <option value="Score">Score</option>
-                </select>
+                <span id="sort-mode" className="button-group">
+                    <button className="button-icon" disabled={sortMode === "Date"} onClick={_ => setSortMode("Date")}><span className="material-symbols-outlined">calendar_today</span></button>
+                    <button className="button-icon" disabled={sortMode === "Score"} onClick={_ => setSortMode("Score")}><span className="material-symbols-outlined">leaderboard</span></button>
+                </span>
             </div>
             <div className="is-flex flex-center-hor">
                 {
