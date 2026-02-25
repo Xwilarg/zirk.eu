@@ -93,6 +93,13 @@ export default function BoxForm() {
                     </span>
                 </div>
                 <div className="goal-card box goal-box">
+                    <h4>Liechtenstein</h4>
+                    <span className="is-flex flex-center-hor">
+                        <div className="goal-box-image">
+                        </div>
+                    </span>
+                </div>
+                <div className="goal-card box goal-box">
                     <h4>Costa Rica</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
@@ -108,13 +115,6 @@ export default function BoxForm() {
                 </div>
                 <div className="goal-card box goal-box">
                     <h4>Antartica</h4>
-                    <span className="is-flex flex-center-hor">
-                        <div className="goal-box-image">
-                        </div>
-                    </span>
-                </div>
-                <div className="goal-card box goal-box">
-                    <h4>Liechtenstein</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
                         </div>
