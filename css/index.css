@@ -434,6 +434,17 @@ button:disabled {
     z-index: 1;
 }
 
+.svg-quote-icon {
+  display: inline-block;
+  height: 13px;
+  vertical-align: -2px;
+}
+
+.svg-quote-icon > object{
+  height: 100%;
+  display: block;
+}
+
 #intro {
     height: 185px;
     border-radius: var(--border-radius) 0 0 var(--border-radius);
