@@ -107,7 +107,7 @@ export default function BoxForm() {
                     </span>
                 </div>
                 <div className="goal-card box goal-box">
-                    <h4>Scotland</h4>
+                    <h4>Antartica</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
                         </div>
