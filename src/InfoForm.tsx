@@ -5,7 +5,6 @@ import { Link, useSearchParams } from "react-router";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 import InfoIntroComponent from "./components/intro/InfoIntroComponent";
-import InfoHobbyForm from "./components/InfoHobbyForm";
 
 interface Question
 {
@@ -41,10 +40,20 @@ const sfwQuestions = [
     question: "Technical specifications",
     answer:
         (_: NsfwStatus) => <p>
-            This website is made with <a href='https://react.dev/' target='_blank'>react</a>,&nbsp;
+            This website is made with <a href='https://react.dev/' target='_blank'>react</a> (with <a href="https://react.dev/reference/react-dom" target="_blank">react-dom</a> and <a href="https://reactrouter.com/" target="_blank">react-router</a>),&nbsp;
             <a href='https://vite.dev/' target='_blank'>vite</a> and&nbsp;
             <a href='https://www.typescriptlang.org/' target='_blank'>typescript</a><br/>
-            For the CSS, not library is used, everything is typed with my little hands<br/>
+            For the CSS, everything is made with my little hands<br/>
+            <br/>
+            Source code is available on <a href='https://github.com/Xwilarg/zirk.eu' target='_blank'>GitHub</a><br/>
+            You can also check the source code for the <a href='https://github.com/Xwilarg/zirk.eu-v8' target='_blank'>V8</a>,
+            the <a href='https://github.com/Xwilarg/zirk.eu-v7' target='_blank'>V6/V7</a>,
+            the <a href='https://github.com/Xwilarg/zirk.eu-v5' target='_blank'>V5</a> and
+            the <a href='https://github.com/Xwilarg/zirk.eu-old' target='_blank'>older versions</a><br/>
+            <br/>
+            Apart from all of that, this website also uses <a href="https://fonts.google.com/specimen/Quantico" target="_blank">Quantico</a> for its font&nbsp;
+            and <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a> for all the icons around and uh, with also <a href="https://commons.wikimedia.org/wiki/File:Japanese_Hiragana_kyokashotai_WU.svg#Licensing">a single image</a> being taken from Wikipedia (to which I changed the fill color)<br/>
+            Images from project tab might also show copyrighted for demo purposes, as well as some games in the boxes one<br/>
             <br/>
             <a href='/data/img/website/v1.png' target='_blank'>This</a>&nbsp;
             <a href='/data/img/website/v2.png' target='_blank'>website</a>&nbsp;
@@ -54,13 +63,7 @@ const sfwQuestions = [
             <a href='/data/img/website/v6.png' target='_blank'>too</a>&nbsp;
             <a href='/data/img/website/v7.png' target='_blank'>many</a>&nbsp;
             <a href='/data/img/website/v8.png' target='_blank'>times</a><br/>
-            But this time for once I am pretty happy of its architecture so hopefully it'll last!<br/>
-            <br/>
-            Source code is available on <a href='https://github.com/Xwilarg/zirk.eu' target='_blank'>GitHub</a><br/>
-            You can also check the source code for the <a href='https://github.com/Xwilarg/zirk.eu-v8' target='_blank'>V8</a>,
-            the <a href='https://github.com/Xwilarg/zirk.eu-v7' target='_blank'>V6/V7</a>,
-            the <a href='https://github.com/Xwilarg/zirk.eu-v5' target='_blank'>V5</a> and
-            the <a href='https://github.com/Xwilarg/zirk.eu-old' target='_blank'>older versions</a>
+            But this time for once I am pretty happy of its architecture (and look) so hopefully it'll last!<br/>
         </p>
 },
 {
