@@ -3,7 +3,7 @@ export default function InfoIntroComponent() {
         <p className="mark">Introduction</p>
         <div id="intro">
             Anything else you want to know?<br/>
-            This is the right place
+            You can find here more information about either this website or me 
         </div>
     </div>
 }

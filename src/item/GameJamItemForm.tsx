@@ -9,6 +9,16 @@ interface GameJamItemFormProps
     showComputer: () => void
 }
 
+function prettifyDuration(h: number): string {
+    h = Math.floor(h);
+    const d = Math.floor(h / 24);
+
+    if (h === 1) return "1 hour";
+    if (d < 7) return `${h} hours`;
+    return `${d} days`;
+
+}
+
 const GameJamItemForm = forwardRef((
     { item, showComputer }: GameJamItemFormProps,
     _
@@ -87,7 +97,7 @@ const GameJamItemForm = forwardRef((
                 </div>
                 <div className="gamejam-item is-flex">
                     <span className="material-symbols-outlined">timer</span>
-                    <p>{ item.duration } hour{ item.duration > 1 ? "s" : "" }</p>
+                    <p>{ prettifyDuration(item.duration) }</p>
                 </div>
                 <div className="gamejam-item is-flex">
                     <span className="material-symbols-outlined">feedback</span>

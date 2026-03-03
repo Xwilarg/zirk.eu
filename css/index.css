@@ -102,6 +102,7 @@ body {
 /* Form components */
 label {
     margin-right: 10px;
+    margin-left: 10px;
 }
 
 select,
@@ -165,9 +166,12 @@ button {
 button:hover {
     background-color: #28273057;
 }
+button.active {
+    background-color: #4d4c55;
+}
 button:disabled {
     cursor: not-allowed;
-    background-color: #282730;
+    background-color: #4d4c55;
 }
 .button-icon {
     width: 46px;
