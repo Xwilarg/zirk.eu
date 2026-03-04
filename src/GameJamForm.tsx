@@ -203,6 +203,24 @@ export default function GameJamForm() {
                 iconType: "icon",
                 disabled: false,
                 gameViewOnly: true
+            }, {
+                name: "share",
+                type: "Custom",
+                scene: () => {
+                    const shareUrl = new URL(window.location.href);
+                    shareUrl.searchParams.set("embed", "1");
+                    if (navigator.share)
+                    {
+                        navigator.share({url: shareUrl.href});
+                    }
+                    else
+                    {
+                        window.prompt("Copy to share", shareUrl.href)
+                    }
+                },
+                iconType: "icon",
+                disabled: false,
+                gameViewOnly: true
             }]);
             setButtons(buttons);
         }

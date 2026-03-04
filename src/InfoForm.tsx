@@ -82,10 +82,11 @@ const sfwQuestions = [
         (_: NsfwStatus) => <p>
             <ul>
                 <li>Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>
-                <li>Closing a Unity game (version 2018 or under) or GB Studio doesn't close the context properly</li>
-                <li>WebGL games made with Unreal Engine, Godot and Scratch aren't supported in WebGL preview</li>
+                <li>Closing a Unity game (version 2018 or under), Unreal Engine or GB Studio doesn't close the context properly</li>
+                <li>WebGL games made with Godot and Scratch aren't supported in WebGL preview</li>
                 <li>Kupala night and R.R.R. are missing webgl builds</li>
-                <li>Closing a Untiy game mid-loading will break the context</li>
+                <li>Closing a Unity game mid-loading will break the context</li>
+                <li>Unreal Engine canvas aren't sized properly</li>
             </ul>
         </p>
 },

@@ -67,7 +67,6 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
 
 function loadUnrealEngineProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
 {
-
     const script1 = document.createElement("script");
     loadedScripts.current!.push(script1);
     script1.src = `https://code.jquery.com/jquery-2.1.3.min.js`;

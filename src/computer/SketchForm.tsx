@@ -24,11 +24,11 @@ export interface SketchFormProps
 async function cleanDb() {
     const databases = await indexedDB.databases();
     await Promise.all(
-        databases.map(db => new Promise<void>((resolve, reject) => {
+        databases.map(db => new Promise<void>((resolve, _) => {
             const request = indexedDB.deleteDatabase(db.name!);
             request.onsuccess = () => resolve();
-            request.onerror = () => reject(request.error);
-            request.onblocked = () => reject(new Error(`Can't delete: ${db.name}`));
+            request.onerror = () => { console.error(request.error); resolve(); }
+            request.onblocked = () => { console.error(`Can't delete: ${db.name}`); resolve() }
         }))
     );
 }
