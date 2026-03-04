@@ -76,8 +76,13 @@ export function getOverallScore(item: GameJamItem): number | null {
     return null;
 }
 
-export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[]): GameJamItem[]
+export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null): GameJamItem[]
 {
+    if (!jamSFW) {
+        const nsfwStatus = isNsfw();
+        if (nsfwStatus === "FullSFW") jamSFW = [ "SFW" ];
+        else jamSFW = [ "SFW", "NSFW" ];
+    }
     return items
     .filter(x => (!x.nsfw && jamSFW.includes("SFW")) || (x.nsfw && jamSFW.includes("NSFW")))
     .filter(x => !teamSize || (x.team.length === 1 && teamSize.includes("Solo")) || (x.team.length > 1 && teamSize.includes("Group")))
