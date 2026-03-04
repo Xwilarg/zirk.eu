@@ -304,6 +304,10 @@ button:disabled {
 }
 
 /* Project */
+.project-name {
+    height: 35px;
+}
+
 .project-img {
     overflow: hidden;
     border-radius: var(--border-radius);

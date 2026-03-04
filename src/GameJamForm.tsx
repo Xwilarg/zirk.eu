@@ -262,6 +262,7 @@ export default function GameJamForm() {
                     <button title="Score" className="button-icon" disabled={sortMode === "Score"} onClick={_ => setSortMode("Score")}><span className="material-symbols-outlined">leaderboard</span></button>
                     <button title="Duration" className="button-icon" disabled={sortMode === "Duration"} onClick={_ => setSortMode("Duration")}><span className="material-symbols-outlined">timer</span></button>
                 </span>
+                <br/>
                 <label htmlFor="team-size">Team size</label>
                 <span id="team-size" className="button-group">
                     <button title="Solo" className={"button-icon " + (teamSize.includes("Solo") ? "active" : "")} onClick={_ => setTeamSize(toggleArrayElement(teamSize, "Solo"))}><span className="material-symbols-outlined">person</span></button>
@@ -269,6 +270,7 @@ export default function GameJamForm() {
                 </span>
                 <label htmlFor="team-size">Duration</label>
                 <span id="team-size" className="button-group">
+                    <button title="1 hour" className={"button-icon " + (duration.includes("1H") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1H"))}>1H</button>
                     <button title="≤1 day" className={"button-icon " + (duration.includes("1D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1D"))}>1D</button>
                     <button title="≤3 days" className={"button-icon " + (duration.includes("3D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "3D"))}>3D</button>
                     <button title="≤9 days" className={"button-icon " + (duration.includes("9D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "9D"))}>9D</button>

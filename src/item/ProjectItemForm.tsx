@@ -13,7 +13,7 @@ const ProjectItemForm = forwardRef((
     const nsfwStatus = isNsfw();
 
     return <div className="big-card" key={p.name}>
-        <h2>{p.name}</h2>
+        <h2 className="project-name">{(p.nsfw && (nsfwStatus === "SFW" || nsfwStatus === "FullSFW")) ? "" : p.name}</h2>
         <small>{p.description}</small>
         <div className="project-img">
             {

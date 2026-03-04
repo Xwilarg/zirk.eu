@@ -41,7 +41,7 @@ export default function KatsisForm() {
                 if (nsfwStatus === "NSFW")
                 {
                     data.push(<div className="card" key={p.name}>
-                        <h2>{p.name}</h2>
+                        <h2 className="project-name">{p.name}</h2>
                         <a target="_blank" href={`https://katsis.net/g/${p.thumbnail.split('/')[0]}`}>
                             <div className="project-img">
                                 <img src={`https://cdn.katsis.net/${p.thumbnail}`} />
@@ -52,7 +52,7 @@ export default function KatsisForm() {
                 else
                 {
                     data.push(<div className="card" key={p.name}>
-                        <h2>{p.name}</h2>
+                        <h2 className="project-name"></h2>
                         <div className="project-img">
                             <img className="blur" src={`https://cdn.katsis.net/${p.thumbnail}`} />
                         </div>
