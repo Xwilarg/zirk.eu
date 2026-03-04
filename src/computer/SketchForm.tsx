@@ -21,6 +21,18 @@ export interface SketchFormProps
     toggleDesktopModule: ((cmd: string, args: string) => boolean)
 }
 
+async function cleanDb() {
+    const databases = await indexedDB.databases();
+    await Promise.all(
+        databases.map(db => new Promise<void>((resolve, reject) => {
+            const request = indexedDB.deleteDatabase(db.name!);
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+            request.onblocked = () => reject(new Error(`Can't delete: ${db.name}`));
+        }))
+    );
+}
+
 const SketchForm = forwardRef((
     { isOn, loadedGame, buttons, isFullscreen, toggleDesktopModule }: SketchFormProps,
     _
@@ -39,7 +51,7 @@ const SketchForm = forwardRef((
         let canvasParent = canvasRef.current!.parentElement;
         canvasRef.current!.remove();
         canvasRef.current = document.createElement("canvas");
-        canvasRef.current.id = "screen-canvas";
+        canvasRef.current.id = "canvas";
         canvasParent!.appendChild(canvasRef.current);
         if (showScreenSaver) {
             screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
@@ -65,6 +77,8 @@ const SketchForm = forwardRef((
                     window.location.reload();
                 }
                 sketchInstance.current = null;
+
+                cleanDb();
             }
 
             for (let s of loadedScripts.current!) s.remove();
@@ -89,9 +103,9 @@ const SketchForm = forwardRef((
     let isCanvasUsed = !isOn || (loadedGame !== null && !isTrace);
     return <>
         <div className={isFullscreen ? "box fullscreen" : "box container"} id="screen-container">
-            <span className={isCanvasUsed ? "" : "hidden"}>
-                <div ref={canvasRefUnity2019} id="screen-canvas-unity-2019"></div>
-                <canvas ref={canvasRef} id="screen-canvas"></canvas>
+            <span className={isCanvasUsed ? "" : "hidden"} id="mainarea">
+                <div ref={canvasRefUnity2019} id="canvas-unity-2019"></div>
+                <canvas ref={canvasRef} id="canvas"></canvas>
             </span>
             {
                 !isCanvasUsed ?
@@ -129,6 +143,10 @@ const SketchForm = forwardRef((
             <div id="controller_start"></div>
             <div id="controller_b"></div>
             <div id="controller_a"></div>
+        </div>
+        { /* For Unreal Engine */ }
+        <div>
+			<div id="fullscreen_request"></div>
         </div>
     </>
 });

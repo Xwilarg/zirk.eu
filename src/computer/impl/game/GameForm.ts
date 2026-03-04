@@ -25,6 +25,10 @@ export function getLoaderFiles(resFolder: string, filename: string, engine: stri
         return [ `${resFolder}binjgb.js`, `${resFolder}js/script.js` ];
     }
 
+    if (engine == "Unreal Engine") {
+        return [ `${resFolder}${filename}.UE4.js` ];
+    }
+
     const versionNumber = parseInt(version.split('.')[0]);
     if (versionNumber <= 2019) {
         return [ `${resFolder}UnityLoader.js` ];
@@ -46,6 +50,10 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
         {
             loadGBStudioProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
         }
+        else if (engine === "Unreal Engine")
+        {
+            loadUnrealEngineProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
+        }
         else
         {
             loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
@@ -55,6 +63,32 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
     {
         loading.textContent = `Failed to load: ${e}`;
     }
+}
+
+function loadUnrealEngineProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
+{
+
+    const script1 = document.createElement("script");
+    loadedScripts.current!.push(script1);
+    script1.src = `https://code.jquery.com/jquery-2.1.3.min.js`;
+    script1.onload = () => {
+        const script2 = document.createElement("script");
+        loadedScripts.current!.push(script2);
+        script2.src = `https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js`;
+        script2.onload = () => {
+            const script3 = document.createElement("script");
+            loadedScripts.current!.push(script3);
+            script3.src = `${resFolder}${filename}.UE4.js`;
+            script3.onload = () => {
+            };
+            script3.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
+            document.body.appendChild(script3);
+        };
+        script2.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
+        document.body.appendChild(script2);
+    };
+    script1.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
+    document.body.appendChild(script1);
 }
 
 function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
@@ -129,7 +163,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
             loading.remove();
             // @ts-ignore
             sketchInstance.current = UnityLoader.instantiate(
-                "screen-canvas-unity-2019",
+                "canvas-unity-2019",
                `${buildUrl}${filename}.json`
             );
         }

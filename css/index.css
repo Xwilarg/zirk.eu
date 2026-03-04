@@ -245,7 +245,7 @@ button:disabled {
 }
 
 /* Screen */
-#screen-canvas {
+#screen-container #canvas {
     height: 100%;
     width: 100%;
 

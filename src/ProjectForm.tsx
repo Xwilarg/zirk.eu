@@ -5,19 +5,21 @@ import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 import ProjectIntroComponent from "./components/intro/ProjectIntroComponent";
 import ProjectItemForm from "./item/ProjectItemForm";
-import { randInt } from "./utils";
+import { isNsfw, randInt } from "./utils";
 
 export default function ProjectForm() {
     const [projectHtml, setProjectHtml] = useState<ReactElement[]>([]);
     const [oldProjectHtml, setOldProjectHtml] = useState<ReactElement[]>([]);
     const [refresh, setRefresh] = useState<number>(0);
 
+    let nsfwStatus = isNsfw();
+
     useEffect(() => {
         let data: ReactElement[] = [];
 
         for (let p of projectData)
         {
-            data.push(<ProjectItemForm key={p.name} p={p} />)
+            if (nsfwStatus !== "FullSFW" || !p.nsfw) data.push(<ProjectItemForm key={p.name} p={p} />)
         }
 
         setProjectHtml(data);

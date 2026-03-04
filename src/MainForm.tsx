@@ -48,7 +48,7 @@ export default function MainForm() {
                 isOn: true,
                 loadedGame: {
                     defaultResFolder: x.sketch!.folder,
-                    defaultFilename: `Build/${x.sketch!.filename}`,
+                    defaultFilename: x.sketch!.filename as string,
                     defaultEngine: x.engine,
                     defaultUnityVersion: x.version
                 },
