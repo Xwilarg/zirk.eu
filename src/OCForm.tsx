@@ -40,6 +40,10 @@ export default function OCForm() {
                 }
             }
 
+            let genderIcon: string;
+            if (value.gender === "Male") genderIcon = "male";
+            else if (value.gender === "Female") genderIcon = "female";
+            else genderIcon = "transgender";
             data.push(<div className="card" key={key}>
                 <h3>{key}</h3>
                 <small>{info?.title}</small>
@@ -63,8 +67,8 @@ export default function OCForm() {
                     </div>
                     <div className="oc-col is-flex">
                         <div className="oc-item is-flex">
-                            <span className="material-symbols-outlined">{value.gender === "m" ? "male" : "female"}</span>
-                            <p>{value.gender === "m" ? "Male" : "Female"}</p>
+                            <span className="material-symbols-outlined">{ genderIcon }</span>
+                            <p>{ value.gender }</p>
                         </div>
                     </div>
                 </div>
