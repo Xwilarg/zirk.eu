@@ -410,10 +410,15 @@ button:disabled {
 }
 
 .oc-description {
-    height: 100px;
+    height: 220px;
 }
 
-.project-subimg {
+.oc-content {
+    margin-top: 16px;
+}
+
+
+.oc-subimg {
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
@@ -421,13 +426,25 @@ button:disabled {
 
     gap: 5px;
 }
-.project-subimg img {
+.oc-subimg img {
     max-width: 100px;
     max-height: 100%;
     width: auto;
     height: auto;
 
     cursor: pointer;
+}
+
+.oc-col {
+    width: 150px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.oc-item {
+    height: 40px;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Goals (named boxes) */

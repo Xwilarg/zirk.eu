@@ -42,15 +42,33 @@ export default function OCForm() {
 
             data.push(<div className="card" key={key}>
                 <h3>{key}</h3>
-                <div className="project-img">
-                    <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === info.artist)[0][1]}><p className="attribution">Art by {info.artist}</p></a>
-                    <img src={`/data/img/${info.images[0].link}`} />
-                </div>
-                <div className="project-subimg">
+                <small>{info?.title}</small>
+                {
+                    info ?
+                        <div className="project-img">
+                            <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === info.artist)[0][1]}><p className="attribution">Art by {info.artist}</p></a>
+                            <img src={`/data/img/${info.images[0].link}`} />
+                        </div>
+                    : <></>
+                }
+                <div className="oc-subimg">
                     { imgs }
                 </div>
-                <p className="oc-description" dangerouslySetInnerHTML={{ __html: value.description.join("<br/>") }}>
-                </p>
+                <div className="oc-content flex-columns">
+                    <div className="oc-col is-flex">
+                        <div className="oc-item is-flex">
+                            <span className="material-symbols-outlined">globe</span>
+                            <p>{value.location}</p>
+                        </div>
+                    </div>
+                    <div className="oc-col is-flex">
+                        <div className="oc-item is-flex">
+                            <span className="material-symbols-outlined">{value.gender === "m" ? "male" : "female"}</span>
+                            <p>{value.gender === "m" ? "Male" : "Female"}</p>
+                        </div>
+                    </div>
+                </div>
+                <p className="oc-description" dangerouslySetInnerHTML={{ __html: value.description.join("<br/>") }}></p>
             </div>)
         }
 
