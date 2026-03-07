@@ -309,6 +309,7 @@ button:disabled {
 }
 
 .project-img {
+    position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
     height: 400px;
@@ -392,6 +393,41 @@ button:disabled {
     margin: 0;
     overflow-y: hidden;
     line-height: 20px;
+}
+
+/* OCS */
+.attribution {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    z-index: 1;
+    color: var(--primary-background);
+    background-color: #cccccccc;
+    border-radius: var(--border-radius);
+    padding: 0 5px;
+
+    cursor: pointer;
+}
+
+.oc-description {
+    height: 100px;
+}
+
+.project-subimg {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    height: 100px;
+
+    gap: 5px;
+}
+.project-subimg img {
+    max-width: 100px;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+
+    cursor: pointer;
 }
 
 /* Goals (named boxes) */
