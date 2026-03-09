@@ -19,7 +19,7 @@ const ProjectItemForm = forwardRef((
             {
                 p.images ?
                     <img className={p.nsfw && (nsfwStatus === "SFW" || nsfwStatus === "FullSFW") ? "blur" : ""} src={`/data/img/projects/${p.images[0].name}`} /> :
-                    <img className={p.nsfw && nsfwStatus === "SFW" ? "blur" : ""} src={`/data/old/projects-old/${p.image.name}.png`} />
+                    <img className={p.nsfw && nsfwStatus === "SFW" ? "blur" : ""} src={`/data/img/projects-old/${p.image.name}.png`} />
             }
         </div>
         <div className="project-buttons is-flex">
