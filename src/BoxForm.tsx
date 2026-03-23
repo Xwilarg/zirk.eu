@@ -81,7 +81,7 @@ export default function BoxForm() {
                     <h4>Japan</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
-                            <img src="/data/img/boxes/Tokyo.jpg" />
+                            <img src="/data/img/boxes/Japan.jpg" />
                         </div>
                     </span>
                 </div>

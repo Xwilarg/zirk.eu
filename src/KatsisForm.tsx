@@ -42,20 +42,24 @@ export default function KatsisForm() {
                 {
                     data.push(<div className="card" key={p.name}>
                         <h2 className="project-name">{p.name}</h2>
-                        <a target="_blank" href={`https://katsis.net/g/${p.thumbnail.split('/')[0]}`}>
-                            <div className="project-img">
-                                <img src={`https://cdn.katsis.net/${p.thumbnail}`} />
-                            </div>
-                        </a>
+                        <span className="is-flex flex-center-hor">
+                            <a target="_blank" href={`https://katsis.net/g/${p.thumbnail.split('/')[0]}`}>
+                                <div className="project-img is-flex flex-center-hor">
+                                    <img src={`https://cdn.katsis.net/${p.thumbnail}`} />
+                                </div>
+                            </a>
+                        </span>
                     </div>);
                 }
                 else
                 {
                     data.push(<div className="card" key={p.name}>
                         <h2 className="project-name"></h2>
-                        <div className="project-img">
-                            <img className="blur" src={`https://cdn.katsis.net/${p.thumbnail}`} />
-                        </div>
+                        <span className="is-flex flex-center-hor">
+                            <div className="project-img is-flex flex-center-hor">
+                                <img className="blur" src={`https://cdn.katsis.net/${p.thumbnail}`} />
+                            </div>
+                        </span>
                     </div>);
                 }
             }

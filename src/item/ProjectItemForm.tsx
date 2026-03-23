@@ -15,13 +15,15 @@ const ProjectItemForm = forwardRef((
     return <div className="big-card" key={p.name}>
         <h2 className="project-name">{(p.nsfw && (nsfwStatus === "SFW" || nsfwStatus === "FullSFW")) ? "" : p.name}</h2>
         <small>{p.description}</small>
-        <div className="project-img">
-            {
-                p.images ?
-                    <img className={p.nsfw && (nsfwStatus === "SFW" || nsfwStatus === "FullSFW") ? "blur" : ""} src={`/data/img/projects/${p.images[0].name}`} /> :
-                    <img className={p.nsfw && nsfwStatus === "SFW" ? "blur" : ""} src={`/data/img/projects-old/${p.image.name}.png`} />
-            }
-        </div>
+        <span className="is-flex flex-center-hor">
+            <div className="project-img">
+                {
+                    p.images ?
+                        <img className={p.nsfw && (nsfwStatus === "SFW" || nsfwStatus === "FullSFW") ? "blur" : ""} src={`/data/img/projects/${p.images[0].name}`} /> :
+                        <img className={p.nsfw && nsfwStatus === "SFW" ? "blur" : ""} src={`/data/img/projects-old/${p.image.name}.png`} />
+                }
+            </div>
+        </span>
         <div className="project-buttons is-flex">
             {
                 p.nsfw && nsfwStatus === "SFW" ? <></> :

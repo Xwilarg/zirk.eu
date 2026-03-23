@@ -309,6 +309,7 @@ button:disabled {
 }
 
 .project-img {
+    display: block;
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
