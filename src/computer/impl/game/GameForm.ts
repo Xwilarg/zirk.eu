@@ -10,7 +10,7 @@ export interface ButtonInfo
     gameViewOnly: boolean
 }
 
-export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom"
+export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom" | "Fullscreen"
 
 export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>,
     resFolder: string, filename: string, engine: string, version: string

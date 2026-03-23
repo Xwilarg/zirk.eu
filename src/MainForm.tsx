@@ -74,7 +74,6 @@ export default function MainForm() {
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
     const allowedModules = [ "introduction", "navigation", "cartridges", "lifeline" ]
-    const [modules, setModules] = useState<string[]>([ "introduction", "navigation", "cartridges" ]);
 
     const buttons: Array<ButtonInfo> = [{
         name: "power_settings_new",
@@ -89,21 +88,28 @@ export default function MainForm() {
         name: "eject",
         type: "Custom",
         scene: () => {
-            setIsOn(x =>true)
+            setIsOn(x => true)
             setComputerPropsIndex(-1)
         },
         iconType: "icon",
         disabled: computerPropsIndex === -1,
         gameViewOnly: false
     }, {
-        name: isFullscreen ? "fullscreen_exit" : "fullscreen",
+        name: isFullscreen ? "collapse_content" : "expand_content",
         type: "Custom",
         scene: () => {
             setIsFullscreen(x => !x);
         },
         iconType: "icon",
         disabled: false,
-        gameViewOnly: false
+        gameViewOnly: true
+    }, {
+        name: "fullscreen",
+        type: "Fullscreen",
+        scene: () => {},
+        iconType: "icon",
+        disabled: !isOn || computerPropsIndex === -1,
+        gameViewOnly: true
     }]
 
     useEffect(() => {
@@ -126,12 +132,8 @@ export default function MainForm() {
 
     return <>
         <QuoteComponent />
-        {
-            modules.includes("introduction") ? <MainIntroComponent /> : <></>
-        }
-        {
-            modules.includes("navigation") ? <NavigationComponent /> : <></>
-        }
+        <MainIntroComponent />
+        <NavigationComponent />
         <SketchForm
             isOn={isOn}
             loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}
@@ -154,18 +156,11 @@ export default function MainForm() {
                 return false;
             }}
         />
-        {
-            modules.includes("cartridges") ? 
-                <div className="container box">
-                    <p className="mark">Cartridges</p>
-                    <div className="is-flex">
-                        { cartridges }
-                    </div>
-                </div>
-                : <></>
-        }
-        {
-            modules.includes("lifeline") ? <LifelineComponent /> : <></>
-        }
+        <div className="container box">
+            <p className="mark">Cartridges</p>
+            <div className="is-flex">
+                { cartridges }
+            </div>
+        </div>
     </> 
 }

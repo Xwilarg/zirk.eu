@@ -125,6 +125,17 @@ const SketchForm = forwardRef((
                     <button className={x.iconType === "icon" ? "button-icon" : ""} key={x.name} disabled={x.disabled} onClick={() => {
                             if (x.type === "ChangeScene") sketchInstance.current!.SendMessage('LevelLoader', 'LoadScene', x.scene);
                             else if (x.type === "Custom") (x.scene as (() => void))();
+                            else if (x.type === "Fullscreen")
+                            {
+                                if (sketchInstance.current !== null)
+                                {
+                                    if (sketchInstance.current.SetFullscreen)
+                                    {
+                                        sketchInstance.current.SetFullscreen(1);
+                                    }
+                                    else alert("Fullscreen isn't available for this engine")
+                                }
+                            }
                             else alert(x.scene); 
                         }}>
                         {

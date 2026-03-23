@@ -195,11 +195,18 @@ export default function GameJamForm() {
                 disabled: false,
                 gameViewOnly: true
             }, {
-                name: isFullscreen ? "fullscreen_exit" : "fullscreen",
+                name: isFullscreen ? "collapse_content" : "expand_content",
                 type: "Custom",
                 scene: () => {
                     setIsFullscreen(x => !x);
                 },
+                iconType: "icon",
+                disabled: false,
+                gameViewOnly: true
+            }, {
+                name: "fullscreen",
+                type: "Fullscreen",
+                scene: () => {},
                 iconType: "icon",
                 disabled: false,
                 gameViewOnly: true
