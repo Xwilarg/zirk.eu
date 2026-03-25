@@ -48,6 +48,10 @@ const SketchForm = forwardRef((
     let loadedScripts = useRef<HTMLScriptElement[]>([]);
 
     useEffect(() => {
+        cleanDb();
+    }, []);
+
+    useEffect(() => {
         let canvasParent = canvasRef.current!.parentElement;
         canvasRef.current!.remove();
         canvasRef.current = document.createElement("canvas");
@@ -77,8 +81,6 @@ const SketchForm = forwardRef((
                     window.location.reload();
                 }
                 sketchInstance.current = null;
-
-                cleanDb();
             }
 
             for (let s of loadedScripts.current!) s.remove();

@@ -83,10 +83,11 @@ const sfwQuestions = [
             <ul>
                 <li>Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>
                 <li>Closing a Unity game (version 2018 or under), Unreal Engine or GB Studio doesn't close the context properly</li>
-                <li>WebGL games made with Godot and Scratch aren't supported in WebGL preview</li>
-                <li>Kupala night and R.R.R. are missing webgl builds</li>
                 <li>Closing a Unity game mid-loading will break the context</li>
+                <li>Loading many Unity games in a row might corrupt the loaded games (due to indexed db not being cleared)</li>
+                <li>WebGL games made with Godot and Scratch aren't supported in WebGL preview</li>
                 <li>Unreal Engine canvas aren't sized properly</li>
+                <li>Kupala night and R.R.R. are missing webgl builds</li>
             </ul>
         </p>
 },
