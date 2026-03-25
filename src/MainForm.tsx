@@ -52,9 +52,7 @@ export default function MainForm() {
                 },
                 buttons: [],
                 isFullscreen: false,
-                onLoad: (unityInstance) => {
-                    unityInstance!      .current!.SendMessage('NsfwStatus', 'SetNsfw', isNsfw() === "NSFW");
-                },
+                onLoad: null,
             },
             imageUrl: "/img/gameName.png",
             type: "Project"
@@ -144,7 +142,11 @@ export default function MainForm() {
         }
 
         setCartridges(data);
-    }, [ computerPropsIndex ])
+    }, [ computerPropsIndex ]);
+
+    useEffect(() => {
+        window.isNsfw = nsfwStatus === "NSFW";
+    }, []);
 
     return <>
         <QuoteComponent />
