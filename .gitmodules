@@ -7,3 +7,6 @@
 [submodule "gamejam"]
 	path = gamejam
 	url = https://github.com/Xwilarg/zirk.eu-gamejam
+[submodule "public/projects"]
+	path = public/projects
+	url = https://github.com/Xwilarg/zirk.eu-projects

@@ -81,11 +81,10 @@ interface DesktopPropsForm
 {
     tracedGame: LoadedGame | null,
     updateTrace: ((isTrace: boolean) => void),
-    toggleModule: ((cmd: string, args: string) => boolean)
 }
 
 const DesktopForm = forwardRef((
-    { tracedGame, updateTrace, toggleModule }: DesktopPropsForm,
+    { tracedGame, updateTrace }: DesktopPropsForm,
     _
 ) => {
     const [text, setText] = useState<string[]>([]);
@@ -99,7 +98,7 @@ const DesktopForm = forwardRef((
             let data = [ ...x ];
             data[data.length - 1] += input;
             let args = input.trim().split(' ').map(x => x.trim().toLowerCase()).filter(x => x !== "");
-            data.push(parseCommand({ tracedGame, updateTrace, toggleModule }, args[0], args.slice(1)));
+            data.push(parseCommand({ tracedGame, updateTrace }, args[0], args.slice(1)));
             data.push("> ");
             setInput("");
 
@@ -151,7 +150,7 @@ const DesktopForm = forwardRef((
     }, [ text ]);
 
     return <>
-        <textarea ref={textAreaRef} id="screen-desktop-display" readOnly={true} value={text.join("\n")}>
+        <textarea ref={textAreaRef} id="screen-desktop-display" className="readonly" readOnly={true} value={text.join("\n")}>
         </textarea>
         <span id="screen-desktop-input">
             <input type="text" disabled={!canInput}

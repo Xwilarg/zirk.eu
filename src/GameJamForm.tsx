@@ -162,7 +162,7 @@ export default function GameJamForm() {
                 },
                 buttons: [],
                 isFullscreen: false,
-                toggleDesktopModule: () => { return false; }
+                onLoad: null
             });
         } else {
             setComputerProps(null);
@@ -240,7 +240,7 @@ export default function GameJamForm() {
                 loadedGame={computerProps.loadedGame}
                 buttons={buttons}
                 isFullscreen={isFullscreen}
-                toggleDesktopModule={computerProps.toggleDesktopModule}
+                onLoad={null}
             />
             : <></>
     }
@@ -256,7 +256,7 @@ export default function GameJamForm() {
                 loadedGame={computerProps.loadedGame}
                 buttons={buttons}
                 isFullscreen={isFullscreen}
-                toggleDesktopModule={computerProps.toggleDesktopModule}
+                onLoad={null}
             />
             : <></>
         }

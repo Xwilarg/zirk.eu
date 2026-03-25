@@ -75,6 +75,19 @@ body {
     }
 }
 
+textarea {
+    width: calc(100% - 20px);
+    color: var(--primary-light);
+    padding: 10px;
+    border-radius: var(--border-radius);
+}
+
+textarea.readonly {
+    resize: none;
+    cursor: default;
+    background-color: transparent;
+}
+
 .big-card {
     width: calc(630px / 3 * 2);
 }
@@ -177,6 +190,21 @@ button:disabled {
     width: 46px;
     height: 46px;
 }
+.button-icon-label {
+    height: 46px;
+    width: 175px;
+    position: relative;
+}
+.button-icon-label .material-symbols-outlined {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.button-icon-label .label {
+    position: absolute;
+    left: 45px;
+    top: 13px;
+}
 
 .button-group button {
     border-radius: 0;
@@ -271,13 +299,6 @@ button:disabled {
 
 #screen-desktop-display {
     height: 420px;
-    width: calc(100% - 20px);
-    resize: none;
-    cursor: default;
-    background-color: transparent;
-    color: var(--primary-light);
-    padding: 10px;
-    border-radius: var(--border-radius);
     overflow-y: hidden;
 }
 
@@ -394,6 +415,13 @@ button:disabled {
     margin: 0;
     overflow-y: hidden;
     line-height: 20px;
+}
+
+/* Lore */
+#lore-display {
+    height: 400px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) transparent;
 }
 
 /* OCS */

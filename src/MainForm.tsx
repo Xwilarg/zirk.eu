@@ -8,7 +8,6 @@ import { isNsfw } from "./utils";
 import type { ButtonInfo } from "./computer/impl/game/GameForm";
 import MainIntroComponent from "./components/intro/MainIntroComponent";
 import NavigationComponent from "./components/NavigationComponent";
-import LifelineComponent from "./components/LifelineComponent";
 import QuoteComponent from "./components/QuoteComponent";
 interface CartridgeData
 {
@@ -24,7 +23,7 @@ export default function MainForm() {
             props: {
                 isOn: true,
                 loadedGame: {
-                    defaultResFolder: "sketch/",
+                    defaultResFolder: "projects/sketch/",
                     defaultFilename: "Sketch",
                     defaultEngine: "Unity",
                     defaultUnityVersion: "6000.2.12f1"
@@ -38,10 +37,27 @@ export default function MainForm() {
                     gameViewOnly: true
                 })),
                 isFullscreen: false,
-                toggleDesktopModule: () => { return false; }
+                onLoad: null,
             },
             imageUrl: "/img/sketch.png",
             type: "Sketch"
+        },{
+            props: {
+                isOn: true,
+                loadedGame: {
+                    defaultResFolder: "projects/gameName/",
+                    defaultFilename: "GameNameWebGL",
+                    defaultEngine: "Unity",
+                    defaultUnityVersion: "6000.3.10f1"
+                },
+                buttons: [],
+                isFullscreen: false,
+                onLoad: (unityInstance) => {
+                    unityInstance!      .current!.SendMessage('NsfwStatus', 'SetNsfw', isNsfw() === "NSFW");
+                },
+            },
+            imageUrl: "/img/gameName.png",
+            type: "Project"
         },
         ...getSortedGamejams(gamejamData.jams, "Score").filter(x => x.duration >= 24).slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
             props: {
@@ -61,7 +77,7 @@ export default function MainForm() {
                     gameViewOnly: true
                 }],
                 isFullscreen: false,
-                toggleDesktopModule: () => { return false; }
+                onLoad: null,
             },
             imageUrl: `/data/img/gamejam/${x.name}.${x.format ?? "jpg"}`,
             type: "Gamejam" as const,
@@ -139,22 +155,7 @@ export default function MainForm() {
             loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}
             buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
             isFullscreen={isFullscreen}
-            toggleDesktopModule={(cmd: string, args: string) => {
-                if (cmd === "module") {
-                    const lowerArgs = args.toLowerCase();
-                    if (allowedModules.includes(lowerArgs))
-                    {
-                        setModules(x => {
-                            if (x.includes(lowerArgs)) x.splice(x.indexOf(lowerArgs), 1);
-                            else x.push(lowerArgs);
-                            return [...x];
-                        });
-                        return true;
-                    }
-                    return false;
-                }
-                return false;
-            }}
+            onLoad={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.onLoad}
         />
         <div className="container box">
             <p className="mark">Cartridges</p>

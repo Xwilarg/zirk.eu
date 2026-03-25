@@ -13,6 +13,7 @@ import OCForm from './OCForm'
 import ProjectForm from './ProjectForm'
 import NotFoundForm from './NotFoundForm'
 import BoxForm from './BoxForm'
+import LoreForm from './LoreForm'
 
 function RedirectCompat()
 {
@@ -39,6 +40,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/life' element={<LifelineForm />} />
             <Route path='/katsis' element={<KatsisForm />} />
             <Route path='/oc' element={<OCForm />} />
+            <Route path='/lore' element={<LoreForm />} />
             <Route path='/project' element={<ProjectForm />} />
             <Route path='/box' element={<BoxForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />

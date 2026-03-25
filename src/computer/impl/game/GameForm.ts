@@ -13,9 +13,9 @@ export interface ButtonInfo
 export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom" | "Fullscreen"
 
 export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>,
-    resFolder: string, filename: string, engine: string, version: string
+    resFolder: string, filename: string, engine: string, version: string, onLoad: ((instance: RefObject<any> | null) => void) | null
 ) {
-    loadProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, engine, version);
+    loadProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, engine, version, onLoad);
 }
 
 export function getLoaderFiles(resFolder: string, filename: string, engine: string, version: string): string[] // Used by desktop mode
@@ -37,7 +37,7 @@ export function getLoaderFiles(resFolder: string, filename: string, engine: stri
     return [ `${resFolder}${filename}.loader.js` ];
 }
 
-function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string)
+function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string, onLoad: ((instance: RefObject<any> | null) => void) | null)
 {
     const loading = document.createElement("div");
     loading.style = "position: absolute; top: 10px; left: 10px;";
@@ -48,15 +48,15 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
     {
         if (engine === "GB Studio")
         {
-            loadGBStudioProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
+            loadGBStudioProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading, onLoad);
         }
         else if (engine === "Unreal Engine")
         {
-            loadUnrealEngineProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
+            loadUnrealEngineProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading, onLoad);
         }
         else
         {
-            loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading);
+            loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading, onLoad);
         }
     }
     catch (e)
@@ -65,7 +65,7 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
     }
 }
 
-function loadUnrealEngineProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
+function loadUnrealEngineProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement, onLoad: ((instance: RefObject<any> | null) => void) | null)
 {
     const script1 = document.createElement("script");
     loadedScripts.current!.push(script1);
@@ -79,6 +79,8 @@ function loadUnrealEngineProjectInternal(canvasRef: RefObject<HTMLCanvasElement 
             loadedScripts.current!.push(script3);
             script3.src = `${resFolder}${filename}.UE4.js`;
             script3.onload = () => {
+                loading.remove();
+                onLoad?.(null);
             };
             script3.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
             document.body.appendChild(script3);
@@ -90,7 +92,7 @@ function loadUnrealEngineProjectInternal(canvasRef: RefObject<HTMLCanvasElement 
     document.body.appendChild(script1);
 }
 
-function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
+function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement, onLoad: ((instance: RefObject<any> | null) => void) | null)
 {
     const script1 = document.createElement("script");
     loadedScripts.current!.push(script1);
@@ -105,6 +107,7 @@ function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | nu
                 script2.textContent += "const customControls = {}";
                 script2.onload = () => {
                     loading.remove();
+                    onLoad?.(null);
                 };
                 script2.onerror = (e) => { loading.textContent = `Failed to load: ${e}`; }
                 document.body.appendChild(script2);
@@ -114,7 +117,7 @@ function loadGBStudioProjectInternal(canvasRef: RefObject<HTMLCanvasElement | nu
     document.body.appendChild(script1);
 }
 
-function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement)
+function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, version: string, loading: HTMLDivElement, onLoad: ((instance: RefObject<any> | null) => void) | null)
 {
     canvasRef.current!.parentElement!.appendChild(loading);
 
@@ -175,6 +178,7 @@ function loadUnityProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>
             }).then((unityInstance: any) => {
                 loading.remove();
                 sketchInstance.current = unityInstance;
+                onLoad?.(sketchInstance);
             }).catch((message: string) => {
                 loading.textContent = `Failed to load: ${message}`
             });

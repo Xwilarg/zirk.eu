@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState, type RefObject } from "react";
 import { loadSketch, type ButtonInfo } from "./impl/game/GameForm";
 import type { AScreen } from "./impl/screensaver/AScreen";
 import loadScreenSaver from "./impl/ScreenSaver";
@@ -18,7 +18,7 @@ export interface SketchFormProps
     loadedGame: LoadedGame | null,
     buttons: ButtonInfo[],
     isFullscreen: boolean,
-    toggleDesktopModule: ((cmd: string, args: string) => boolean)
+    onLoad: ((instance: RefObject<any> | null) => void) | null
 }
 
 async function cleanDb() {
@@ -34,7 +34,7 @@ async function cleanDb() {
 }
 
 const SketchForm = forwardRef((
-    { isOn, loadedGame, buttons, isFullscreen, toggleDesktopModule }: SketchFormProps,
+    { isOn, loadedGame, buttons, isFullscreen, onLoad }: SketchFormProps,
     _
 ) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -56,7 +56,7 @@ const SketchForm = forwardRef((
         if (showScreenSaver) {
             screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
         } else if (loadedGame && !isTrace) {
-            loadSketch(canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion);
+            loadSketch(canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion, onLoad);
         }
 
         return () => {
@@ -112,7 +112,7 @@ const SketchForm = forwardRef((
                     <div id="screen-desktop">
                         <DesktopForm tracedGame={loadedGame} updateTrace={(value: boolean) => {
                             setIsTrace(value);
-                        }} toggleModule={toggleDesktopModule} />
+                        }} />
                     </div>
                     : <></>
             }
