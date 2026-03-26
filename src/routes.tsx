@@ -14,6 +14,7 @@ import ProjectForm from './ProjectForm'
 import NotFoundForm from './NotFoundForm'
 import BoxForm from './BoxForm'
 import LoreForm from './LoreForm'
+import StoryForm from './StoryForm'
 
 function RedirectCompat()
 {
@@ -43,6 +44,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/lore' element={<LoreForm />} />
             <Route path='/project' element={<ProjectForm />} />
             <Route path='/box' element={<BoxForm />} />
+            <Route path='/story' element={<StoryForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
     </BrowserRouter>
