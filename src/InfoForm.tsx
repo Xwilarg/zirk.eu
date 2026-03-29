@@ -1,5 +1,4 @@
 import { useEffect, useState, type ReactElement } from "react"
-import NavigationForm from "./NavigationForm";
 import { isNsfw, type NsfwStatus } from "./utils";
 import { Link, useSearchParams } from "react-router";
 import NavigationComponent from "./components/NavigationComponent";
@@ -117,13 +116,12 @@ const sfwQuestions = [
         (p: NsfwStatus) => <span>
             <p>
                 <h3>History</h3>
-                I was bornt a bit before 2000 in Essone, France and during my school years quickly became interested with video game development<br/>
-                <br/>
-                I first picked C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/old/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
+                I was bornt a bit before 2000 in Essone, France and during my school years quickly became interested first with video games, my earliers consoles being a PlayStation 1 and a GameBoy Advance<br/>
+                Following that, I then became interested by game development (helped by <a href="https://en.wikipedia.org/wiki/WarioWare_D.I.Y." target="_blank">Wario Ware D.I.Y.</a>), first picking C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/old/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
                 <br/>
                 Once I joined high-school, I went into scientific section and took <abbr title="Informatic and Digital Sciences">ISN</abbr> as specialization to produce <a href="/data/old/projects-old/ProjetISNProcessing.png" target="_blank">an unnamed video game project</a> in Java for my bachelor<br/>
                 <br/>
-                I wasn't especially studious and spent <small>way too much</small> time, playing (mainly) Team Fortress 2, but hey, I won <a href="https://steamcommunity.com/id/xwilarg/inventory#440_2_3691674641" target="_blank">TF2Connexion division 4 as a sub-scout</a> so yay :D<br/>
+                I wasn't especially studious and spent <small>way too much</small> time, playing (mainly) Team Fortress 2, but hey, I won <a href="https://steamcommunity.com/id/xwilarg/inventory#440_2_3691674641" target="_blank">TF2Connexion season 14 division 4 (as a sub-scout)</a> so yay :D<br/>
                 <br/>
                 Back then my main hobby outside of games had been anime and manga after someone introduced me to <a href="https://anilist.co/anime/8424/MM" target="_blank">MM!</a> which in retrospective was decent but not amazing, but the opening and ending were very catchy<br/>
                 I don't watch much of them anymore these days but this led me to my interest in Japan in general, being the music, the food, the arcade games, and eventually the language itself (which I am still slowly learning)<br/>
