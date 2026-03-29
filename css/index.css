@@ -298,7 +298,7 @@ button:disabled {
 }
 
 #screen-desktop-display {
-    height: 420px;
+    height: calc(100% - 80px);
     overflow-y: hidden;
 }
 
@@ -335,6 +335,7 @@ button:disabled {
     overflow: hidden;
     border-radius: var(--border-radius);
     height: 400px;
+    text-align: center;
 }
 .project-img img {
     margin-top: 10px;
@@ -450,9 +451,9 @@ button:disabled {
 }
 
 .oc-content {
+    height: 90px;
     margin-top: 16px;
 }
-
 
 .oc-subimg {
     position: relative;
@@ -460,9 +461,16 @@ button:disabled {
     border-radius: var(--border-radius);
     height: 100px;
 
-    gap: 5px;
+    overflow-x: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) transparent;
+    flex-wrap: nowrap;
 }
-.oc-subimg img {
+.oc-subimg-container {
+    display: block;
+    height: 100%;
+}
+.oc-subimg-container img {
     max-width: 100px;
     max-height: 100%;
     width: auto;

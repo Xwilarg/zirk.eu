@@ -48,21 +48,7 @@ let commands: Array<CommandInfo> = [
             props.updateTrace(bool === "1");
             return `Trace status was updated to ${bool}`;
         }
-    }/*,
-    {
-        name: "module",
-        optionalParamCount: 1,
-        mandatoryParamCount: 1,
-        help: "[module] Toggle a module display",
-        deepHelp:
-            "Toggle which module is available on the main page" +
-            "Calling this command on an existing module will disable it, calling it again will enable it back",
-        command: (props, args) => {
-            const res = props.toggleModule("module", args[0]);
-            if (!res) return `The module ${args[0].toLowerCase()} could not be found`;
-            return `The module ${args[0].toLowerCase()} was successfully toggled`;
-        }
-    }*/
+    }
 ];
 
 function parseCommand(props: DesktopPropsForm, cmd: string, args: string[]): string {
