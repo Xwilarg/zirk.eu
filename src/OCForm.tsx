@@ -56,7 +56,7 @@ export default function OCForm() {
                     info ?
                         <>
                             <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === info.artist)[0][1]}><p className="attribution">Art by {info.artist}</p></a>
-                            <img src={`/data/img/${info.images[0].link}`} />
+                            <img className={info.type === "pixel" ? "pixel" : ""} src={`/data/img/${info.images[0].link}`} />
                         </>
                     : <></>
                 }
