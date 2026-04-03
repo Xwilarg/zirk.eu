@@ -13,16 +13,8 @@ export function isNsfw(): NsfwStatus {
     return "SFW"
 }
 
-export function getNavigation(url: string, hash: string = "") {
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    searchParams.delete("game");
-
-    return `${url}?${searchParams}${hash}`;
-}
-
-export function getNavigationNoHook(url: string, searchParams: URLSearchParams, hash: string) {
-    searchParams.delete("game");
+export function getNavigationNoHook(url: string, searchParams: URLSearchParams, hash: string = "", deleteGameParam: boolean = true): string {
+    if (deleteGameParam) searchParams.delete("game");
 
     return `${url}?${searchParams}${hash}`;
 }

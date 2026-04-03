@@ -2,7 +2,7 @@ import { Link, useLocation, useSearchParams } from "react-router";
 import BoxIntroComponent from "./components/intro/BoxIntroComponent";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
-import { getNavigation, getNavigationNoHook } from "./utils";
+import { getNavigationNoHook } from "./utils";
 import friendData from "../data/json/friends.json"
 import { useEffect, useState, type ReactElement } from "react";
 
@@ -127,7 +127,7 @@ export default function BoxForm() {
                     <h4>Without engine</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
-                            <Link to={getNavigation("/gamejam", "#QuantumRanger")}><img src="/data/img/gamejam/QuantumRanger.jpg" /></Link>
+                            <Link to={getNavigationNoHook("/gamejam", searchParams, "#QuantumRanger")}><img src="/data/img/gamejam/QuantumRanger.jpg" /></Link>
                         </div>
                     </span>
                 </div>
@@ -149,7 +149,7 @@ export default function BoxForm() {
                     <h4>In Japan</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
-                            <Link to={getNavigation("/gamejam", "#RRR")}><img src="/data/img/gamejam/RRR.jpg" /></Link>
+                            <Link to={getNavigationNoHook("/gamejam", searchParams, "#RRR")}><img src="/data/img/gamejam/RRR.jpg" /></Link>
                         </div>
                     </span>
                 </div>

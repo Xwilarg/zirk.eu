@@ -12,7 +12,8 @@ interface KatsisProject
 interface KatsisProjectProject
 {
     name: string
-    thumbnail: string
+    thumbnailSmall: string
+    urlFragment: string
 }
 
 export default function KatsisForm() {
@@ -43,9 +44,9 @@ export default function KatsisForm() {
                     data.push(<div className="card" key={p.name}>
                         <h2 className="project-name">{p.name}</h2>
                         <span className="is-flex flex-center-hor">
-                            <a target="_blank" href={`https://katsis.net/g/${p.thumbnail.split('/')[0]}`}>
+                            <a target="_blank" href={`https://katsis.net/g/${p.urlFragment}`}>
                                 <div className="project-img is-flex flex-center-hor">
-                                    <img src={`https://cdn.katsis.net/${p.thumbnail}`} />
+                                    <img src={`https://cdn.katsis.net/${p.thumbnailSmall}`} />
                                 </div>
                             </a>
                         </span>
@@ -57,7 +58,7 @@ export default function KatsisForm() {
                         <h2 className="project-name"></h2>
                         <span className="is-flex flex-center-hor">
                             <div className="project-img is-flex flex-center-hor">
-                                <img className="blur" src={`https://cdn.katsis.net/${p.thumbnail}`} />
+                                <img className="blur" src={`https://cdn.katsis.net/${p.thumbnailSmall}`} />
                             </div>
                         </span>
                     </div>);

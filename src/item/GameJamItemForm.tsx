@@ -16,7 +16,6 @@ function prettifyDuration(h: number): string {
     if (h === 1) return "1 hour";
     if (d < 7) return `${h} hours`;
     return `${d} days`;
-
 }
 
 const GameJamItemForm = forwardRef((
@@ -25,6 +24,7 @@ const GameJamItemForm = forwardRef((
 ) => {
     const { hash } = useLocation();
 
+    window.indexedDB.open = (_name: string, _version: string | undefined) => { console.warn("DB access to page refused ")};
 
     useEffect(() => {
         if (hash)

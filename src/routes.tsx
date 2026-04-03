@@ -1,12 +1,12 @@
 import { createRoot } from 'react-dom/client'
 import MainForm from './MainForm'
 import "../css/index.css"
-import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router'
+import { BrowserRouter, Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router'
 import GameJamForm from './GameJamForm'
 import { useEffect } from 'react'
 import InfoForm from './InfoForm'
 import SecretQuoteForm from './SecretQuoteForm'
-import { getNavigation } from './utils'
+import { getNavigationNoHook } from './utils'
 import LifelineForm from './LifelineForm'
 import KatsisForm from './KatsisForm'
 import OCForm from './OCForm'
@@ -20,10 +20,11 @@ function RedirectCompat()
 {
     const { hash } = useLocation()
     const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         if (hash === '#gamejam') {
-            navigate(getNavigation("/gamejam"), { replace: true })
+            navigate(getNavigationNoHook("/gamejam", searchParams), { replace: true })
         }
     }, [hash, navigate])
 

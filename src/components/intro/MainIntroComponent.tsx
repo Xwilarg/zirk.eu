@@ -1,7 +1,7 @@
-import { Link } from "react-router"
+import { Link, useSearchParams } from "react-router"
 import { useState } from "react";
 import sheepData from "../../../data/json/sheep.json"
-import { getNavigation } from "../../utils";
+import { getNavigationNoHook } from "../../utils";
 
 interface SheepLinkInfo
 {
@@ -19,13 +19,14 @@ interface SheepInfo
 export default function MainIntroComponent() {
     let [showSheep, setShowSheep] = useState<boolean>(false);
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
+    const [searchParams, setSearchParams] = useSearchParams();
 
     return <div className="container box">
         <p className="mark">Introduction</p>
         <div className={showSheep ? "enlarged" : ""} id="intro">
             Welcome on my website, I am Zirk, a game and software developer<br/>
             <br/>
-            I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigation("/gamejam")}>participating at gamejams</Link><br/>
+            I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigationNoHook("/gamejam", searchParams)}>participating at gamejams</Link><br/>
             Outside of programming, I have a decent amount of hobbies that I'm too shy to throw straight from this introduction, but feel free to look around if you're interested in that point!<br/>
             <br/>
             But one of them is making this website! It's still a big work in progress but there are already plenty to look around so I hope you enjoy your stay here :)<br/>
