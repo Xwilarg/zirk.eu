@@ -136,7 +136,7 @@ export default function GameJamForm() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        const game = searchParams.get("game")?.toUpperCase();
+        const game = searchParams.get("share")?.toUpperCase();
 
         if (game) {
             let target = jamData.jams.find(x => x.name?.toUpperCase() === game);
@@ -179,7 +179,11 @@ export default function GameJamForm() {
                     type: "Custom",
                     scene: () => {
                         setComputerProps(null);
-                        searchParams.delete("game");
+                        setSearchParams(sp => {
+                            sp.delete("share")
+                            return sp;
+                        });
+                        searchParams.delete("share");
                     },
                     iconType: "icon",
                     disabled: false,
@@ -303,7 +307,7 @@ export default function GameJamForm() {
                     )
                         .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={() => {
                             setSearchParams(sp => {
-                                sp.set("game", x.name);
+                                sp.set("share", x.name);
                                 return sp;
                             });
                         }} />)

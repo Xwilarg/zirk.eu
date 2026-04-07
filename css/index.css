@@ -429,6 +429,8 @@ button:disabled {
     height: 1500px;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-light) transparent;
+
+    margin-top: 5px;
 }
 
 /* Lore */

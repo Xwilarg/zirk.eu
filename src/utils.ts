@@ -14,7 +14,7 @@ export function isNsfw(): NsfwStatus {
 }
 
 export function getNavigationNoHook(url: string, searchParams: URLSearchParams, hash: string = "", deleteGameParam: boolean = true): string {
-    if (deleteGameParam) searchParams.delete("game");
+    if (deleteGameParam) searchParams.delete("share");
 
     return `${url}?${searchParams}${hash}`;
 }
