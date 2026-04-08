@@ -249,6 +249,7 @@ export default function GameJamForm() {
             : <></>
     }
 
+    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw);
     return <>
         <QuoteComponent />
         <GamejamIntroComponent />
@@ -300,11 +301,10 @@ export default function GameJamForm() {
                     </>
                 }
             </div>
+            <h3 className="text-center">{jams.length} entrie{jams.length > 1 ? "s" : ""}</h3>
             <div className="is-flex flex-center-hor">
                 {
-                    getSortedGamejams(
-                        jamData.jams, sortMode, teamSize, duration, sfw
-                    )
+                    jams
                         .map(x => <GameJamItemForm key={x.fullName} item={x} showComputer={() => {
                             setSearchParams(sp => {
                                 sp.set("share", x.name);
