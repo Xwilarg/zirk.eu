@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 import InfoIntroComponent from "./components/intro/InfoIntroComponent";
+import LifelineComponent from "./components/LifelineComponent";
 
 interface Question
 {
@@ -100,6 +101,12 @@ const sfwQuestions = [
             <img src='/data/img/steam/2023.png' />
             <img src='/data/img/steam/2022.png' />
         </p>
+},
+{
+    category: "me" as const,
+    question: "Lifeline",
+    answer:
+        (_: NsfwStatus) => <LifelineComponent />
 },
 /*{
     category: "me" as const,

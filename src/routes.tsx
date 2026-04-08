@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 import InfoForm from './InfoForm'
 import SecretQuoteForm from './SecretQuoteForm'
 import { getNavigationNoHook } from './utils'
-import LifelineForm from './LifelineForm'
 import KatsisForm from './KatsisForm'
 import OCForm from './OCForm'
 import ProjectForm from './ProjectForm'
@@ -39,7 +38,6 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/info' element={<InfoForm />} />
-            <Route path='/life' element={<LifelineForm />} />
             <Route path='/katsis' element={<KatsisForm />} />
             <Route path='/oc' element={<OCForm />} />
             <Route path='/lore' element={<LoreForm />} />

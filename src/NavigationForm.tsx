@@ -10,7 +10,6 @@ export default function NavigationForm() {
         <Link className="nav-button" to={getNavigationNoHook("/gamejam", searchParams)}>Gamejam</Link>
         <Link className="nav-button" to={getNavigationNoHook("/project", searchParams)}>Project</Link>
         { nsfwStatus == "FullSFW" ? <></> : <Link className="nav-button" to={getNavigationNoHook("/katsis", searchParams)}>Katsis</Link> }
-        <Link className="nav-button" to={getNavigationNoHook("/life", searchParams)}>Lifeline</Link>
         <Link className="nav-button" to={getNavigationNoHook("/box", searchParams)}>Boxes</Link>
         <Link className="nav-button" to={getNavigationNoHook("/info", searchParams)}>Info</Link>
     </nav>

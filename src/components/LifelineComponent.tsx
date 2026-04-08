@@ -69,8 +69,7 @@ export default function LifelineComponent() {
         });
     }
 
-    return <div className="container box">
-        <p className="mark">Lifeline</p>
+    return <p>
         {
             lifelineData.map(x =>
                 <div className="lifeline is-flex flex-center-ver">
@@ -92,5 +91,5 @@ export default function LifelineComponent() {
         {
             showUpdateButton ? <button className="button" onClick={updateDynamicLifelines}>Update</button> : <></>
         }
-    </div>
+    </p>
 }
