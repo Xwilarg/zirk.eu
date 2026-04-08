@@ -440,6 +440,13 @@ button:disabled {
     scrollbar-color: var(--primary-light) transparent;
 }
 
+#lore-symbols {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 /* OCS */
 .attribution {
     position: absolute;

@@ -39,7 +39,7 @@ export default function LoreForm() {
         }
         else
         {
-            setDisplay(bubbleInfo.name + (bubbleInfo.coauthors.length === 0 ? "" : ` (co-authored with ${bubbleInfo.coauthors.join(", ")})`) + `\n\n${bubbleInfo.description}`);
+            setDisplay(bubbleInfo.name + (bubbleInfo.coauthors.length === 0 ? "" : ` (co-authored with ${bubbleInfo.coauthors.join(", ")})`) + `\n\n${bubbleInfo.description.join("\n")}`);
             data.push(<div key="back">
                 {
                     <button className="button-icon-label" onClick={() => {
@@ -86,6 +86,13 @@ export default function LoreForm() {
             <div className="is-flex flex-center-hor">
                 { loreHtml }
             </div>
+            {
+                bubble
+                ? <div id="lore-symbols">
+                    { Object.values(loreData.categories).map(x => <div><span className="material-symbols-outlined">{x.icon}</span>: {x.description}</div>) }
+                </div>
+                : <></>
+            }
         </div>
     </>
 }
