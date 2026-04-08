@@ -61,6 +61,7 @@ type SortMode = "Date" | "Score" | "Duration";
 type TeamSize = "Solo" | "Group";
 type JamDuration = "1H" | "1D" | "3D" | "9D" | "1M" | "More";
 type JamSFW = "SFW" | "NSFW"
+type Engine = "Unity" | "Godot" | "Unreal Engine" | "Scratch" | "GB Studio" | "DirectX"
 
 export function getOverallScore(item: GameJamItem): number | null {
     if (!item.rating || !item.rating.scores) return null;
@@ -76,7 +77,7 @@ export function getOverallScore(item: GameJamItem): number | null {
     return null;
 }
 
-export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null): GameJamItem[]
+export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null, engines: Engine[] | null): GameJamItem[]
 {
     if (!jamSFW) {
         const nsfwStatus = isNsfw();
@@ -85,6 +86,7 @@ export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, team
     }
     return items
     .filter(x => (!x.nsfw && jamSFW.includes("SFW")) || (x.nsfw && jamSFW.includes("NSFW")))
+    .filter(x => !engines || engines.includes(x.engine))
     .filter(x => !teamSize || (x.team.length === 1 && teamSize.includes("Solo")) || (x.team.length > 1 && teamSize.includes("Group")))
     .filter(x => !jamDuration ||
         (x.duration <= 1 && jamDuration.includes("1H")) ||
@@ -129,6 +131,7 @@ export default function GameJamForm() {
     const [teamSize, setTeamSize] = useState<TeamSize[]>(["Solo", "Group"]);
     const [duration, setDuration] = useState<JamDuration[]>(["1D", "3D", "9D", "1M", "More"]);
     const [sfw, setSFW] = useState<JamSFW[]>(() => nsfwStatus === "FullSFW" ? [ "SFW" ] : [ "SFW", "NSFW" ]);
+    const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX"]);
     const [buttons, setButtons] = useState<ButtonInfo[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
     const [shownSketch, setShownSketch] = useState<GameJamItem | null>(null);
@@ -249,7 +252,7 @@ export default function GameJamForm() {
             : <></>
     }
 
-    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw);
+    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw, engines);
     return <>
         <QuoteComponent />
         <GamejamIntroComponent />
@@ -287,13 +290,22 @@ export default function GameJamForm() {
                     <button title="≤3 days" className={"button-icon " + (duration.includes("3D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "3D"))}>3D</button>
                     <button title="≤9 days" className={"button-icon " + (duration.includes("9D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "9D"))}>9D</button>
                     <button title="≤1 month" className={"button-icon " + (duration.includes("1M") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1M"))}>1M</button>
-                    <button title=">1 month" className={"button-icon " + (duration.includes("More") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "More"))}>More</button>
+                    <button title=">1 month" className={"button-icon " + (duration.includes("More") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "More"))}>M+</button>
+                </span>
+                <label htmlFor="engines">Engine</label>
+                <span id="engines" className="button-group">
+                    <button title="Unity" className={"button-icon " + (engines.includes("Unity") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Unity"))}>UN</button>
+                    <button title="Unreal Engine" className={"button-icon " + (engines.includes("Unreal Engine") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Unreal Engine"))}>UE</button>
+                    <button title="Godot" className={"button-icon " + (engines.includes("Godot") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Godot"))}>GD</button>
+                    <button title="Scratch" className={"button-icon " + (engines.includes("Scratch") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Scratch"))}>SC</button>
+                    <button title="GB Studio" className={"button-icon " + (engines.includes("GB Studio") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "GB Studio"))}>GB</button>
+                    <button title="DirectX" className={"button-icon " + (engines.includes("DirectX") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "DirectX"))}>DX</button>
                 </span>
                 {
                     nsfwStatus === "FullSFW" ?
                     <></> :
                     <>
-                        <label htmlFor="team-size">Content warnings</label>
+                        <label htmlFor="team-size">Content&nbsp;warnings</label>
                         <span id="team-size" className="button-group">
                             <button title="All-age" className={"button-icon " + (sfw.includes("SFW") ? "active" : "")} onClick={_ => setSFW(toggleArrayElement(sfw, "SFW"))}><span className="material-symbols-outlined">no_adult_content</span></button>
                             <button title="Adult content" className={"button-icon " + (sfw.includes("NSFW") ? "active" : "")} onClick={_ => setSFW(toggleArrayElement(sfw, "NSFW"))}><span className="material-symbols-outlined">18_up_rating</span></button>
@@ -301,7 +313,7 @@ export default function GameJamForm() {
                     </>
                 }
             </div>
-            <h3 className="text-center">{jams.length} entrie{jams.length > 1 ? "s" : ""}</h3>
+            <h3 className="text-center">{jams.length} entr{jams.length > 1 ? "ies" : "y"}</h3>
             <div className="is-flex flex-center-hor">
                 {
                     jams
