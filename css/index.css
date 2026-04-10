@@ -429,6 +429,7 @@ button:disabled {
     height: 1500px;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-light) transparent;
+    line-height: 22px;
 
     margin-top: 5px;
 }
@@ -438,6 +439,7 @@ button:disabled {
     height: 400px;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-light) transparent;
+    line-height: 22px;
 }
 
 #lore-symbols {
