@@ -21,18 +21,6 @@ export interface SketchFormProps
     onLoad: ((instance: RefObject<any> | null) => void) | null
 }
 
-async function cleanDb() {
-    const databases = await indexedDB.databases();
-    await Promise.all(
-        databases.map(db => new Promise<void>((resolve, _) => {
-            const request = indexedDB.deleteDatabase(db.name!);
-            request.onsuccess = () => resolve();
-            request.onerror = () => { console.error(request.error); resolve(); }
-            request.onblocked = () => { console.error(`Can't delete: ${db.name}`); resolve() }
-        }))
-    );
-}
-
 const SketchForm = forwardRef((
     { isOn, loadedGame, buttons, isFullscreen, onLoad }: SketchFormProps,
     _
@@ -48,7 +36,7 @@ const SketchForm = forwardRef((
     let loadedScripts = useRef<HTMLScriptElement[]>([]);
 
     useEffect(() => {
-        cleanDb();
+        window.indexedDB.open = (_name: string, _version: string | undefined) => { console.warn("DB access to page refused")};
     }, []);
 
     useEffect(() => {

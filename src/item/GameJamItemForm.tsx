@@ -24,8 +24,6 @@ const GameJamItemForm = forwardRef((
 ) => {
     const { hash } = useLocation();
 
-    window.indexedDB.open = (_name: string, _version: string | undefined) => { console.warn("DB access to page refused ")};
-
     useEffect(() => {
         if (hash)
         {
@@ -76,6 +74,15 @@ const GameJamItemForm = forwardRef((
                 <a href={item.website} target="_blank">
                     <button className="button-icon"><span className="material-symbols-outlined">language</span></button>
                 </a>
+                : <></>
+            }
+            {
+                !hideNsfw ?
+                <button className="button-icon" onClick={
+                    _ => {
+                        alert(`Help:\n${item.help.join("\n")}\n\nControls:\n${item.controls.join("\n")}` + (item.postModification ? `\n\nPost jam update:\n${item.postModification}` : ""));
+                    }
+                }><span className="material-symbols-outlined">help</span></button>
                 : <></>
             }
             {

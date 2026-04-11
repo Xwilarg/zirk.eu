@@ -28,6 +28,7 @@ export interface GameJamItem
     website: string | null,
     sketch: GamejamSketch | null,
     rating: GamejamRating | null,
+    help: string[],
     controls: string[],
     date: string,
     location: string,
@@ -197,7 +198,7 @@ export default function GameJamForm() {
             buttons = buttons.concat([{
                 name: "help",
                 type: "GiveInfo" as const,
-                scene: `Controls:\n${shownSketch.controls.join("\n")}` + (shownSketch.postModification ? `\n\nPost jam update:\n${shownSketch.postModification}` : ""),
+                scene: `Help:\n${shownSketch.help.join("\n")}\n\nControls:\n${shownSketch.controls.join("\n")}` + (shownSketch.postModification ? `\n\nPost jam update:\n${shownSketch.postModification}` : ""),
                 iconType: "icon",
                 disabled: false,
                 gameViewOnly: true

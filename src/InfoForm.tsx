@@ -88,6 +88,8 @@ const sfwQuestions = [
                 <li>WebGL games made with Godot and Scratch aren't supported in WebGL preview</li>
                 <li>Unreal Engine canvas aren't sized properly</li>
                 <li>Kupala night and R.R.R. are missing webgl builds</li>
+                <li>Putting old games to wide screen doesn't resize height</li>
+                <li>Dungeon Master crash trying to access indexeddb</li>
             </ul>
         </p>
 },
