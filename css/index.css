@@ -359,6 +359,22 @@ button:disabled {
 }
 
 /* Gamejam */
+.jam-filter {
+    display: block;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.jam-filter label {
+    position: absolute;
+    top: 10px;
+}
+
+.jam-filter > .button-group {
+    margin-left: 150px;
+    display: block;
+}
+
 .gamejam-highlight {
     border-radius: var(--border-radius);
     background-color: #b99d2328;

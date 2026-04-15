@@ -138,6 +138,7 @@ const SketchForm = forwardRef((
         </div>
         { /* For GB Studio */ }
         <div>
+            <div id="customControls"></div>
             <div id="controller"></div>
             <div id="controller_dpad"></div>
             <div id="controller_select"></div>

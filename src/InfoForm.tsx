@@ -80,16 +80,28 @@ const sfwQuestions = [
     question: "Known bugs",
     answer:
         (_: NsfwStatus) => <p>
+            <h3>Unity</h3>
             <ul>
-                <li>Loading a GD Studio game, loading another one then loading the 1st one again throw an error and fail to load it</li>
-                <li>Closing a Unity game (version 2018 or under), Unreal Engine or GB Studio doesn't close the context properly</li>
                 <li>Closing a Unity game mid-loading will break the context</li>
-                <li>Loading many Unity games in a row might corrupt the loaded games (due to indexed db not being cleared)</li>
-                <li>WebGL games made with Godot and Scratch aren't supported in WebGL preview</li>
-                <li>Unreal Engine canvas aren't sized properly</li>
                 <li>Kupala night and R.R.R. are missing webgl builds</li>
-                <li>Putting old games to wide screen doesn't resize height</li>
-                <li>Dungeon Master crash trying to access indexeddb</li>
+                <li>Old projects don't resize properly on wide mode</li>
+                <li>Dungeon Master crash trying to access indexedb</li>
+            </ul>
+            <h3>Unreal Engine</h3>
+            <ul>
+                <li>Projects don't resize on wide mode</li>
+            </ul>
+            <h3>GB Studio</h3>
+            <ul>
+                <li>Loading a GB Studio game after another made with the same engine throw an error and fail to load it</li>
+            </ul>
+            <h3>Scratch</h3>
+            <ul>
+                <li>Not supported in WebGL preview</li>
+            </ul>
+            <h3>Godot</h3>
+            <ul>
+                <li>Not supported in WebGL preview</li>
             </ul>
         </p>
 },

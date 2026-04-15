@@ -63,6 +63,7 @@ type TeamSize = "Solo" | "Group";
 type JamDuration = "1H" | "1D" | "3D" | "9D" | "1M" | "More";
 type JamSFW = "SFW" | "NSFW"
 type Engine = "Unity" | "Godot" | "Unreal Engine" | "Scratch" | "GB Studio" | "DirectX"
+type Country = "Online" | "Canada" | "United Kingdom" | "Sweden" | "France" | "Japan" | "Denmark"
 
 export function getOverallScore(item: GameJamItem): number | null {
     if (!item.rating || !item.rating.scores) return null;
@@ -78,7 +79,7 @@ export function getOverallScore(item: GameJamItem): number | null {
     return null;
 }
 
-export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null, engines: Engine[] | null): GameJamItem[]
+export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null, engines: Engine[] | null, countries: Country[] | null): GameJamItem[]
 {
     if (!jamSFW) {
         const nsfwStatus = isNsfw();
@@ -87,7 +88,8 @@ export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, team
     }
     return items
     .filter(x => (!x.nsfw && jamSFW.includes("SFW")) || (x.nsfw && jamSFW.includes("NSFW")))
-    .filter(x => !engines || engines.includes(x.engine))
+    .filter(x => !engines || engines.includes(x.engine as Engine))
+    .filter(x => !countries || countries.includes(x.location.split(", ").at(-1) as Country))
     .filter(x => !teamSize || (x.team.length === 1 && teamSize.includes("Solo")) || (x.team.length > 1 && teamSize.includes("Group")))
     .filter(x => !jamDuration ||
         (x.duration <= 1 && jamDuration.includes("1H")) ||
@@ -128,11 +130,15 @@ export default function GameJamForm() {
 
     const [jamData, setJamData] = useState<GameJamInfo>(gamejamData);
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
+
+    const [showFilters, setShowFilters] = useState<bool>(false);
     const [sortMode, setSortMode] = useState<SortMode>("Date");
     const [teamSize, setTeamSize] = useState<TeamSize[]>(["Solo", "Group"]);
     const [duration, setDuration] = useState<JamDuration[]>(["1D", "3D", "9D", "1M", "More"]);
     const [sfw, setSFW] = useState<JamSFW[]>(() => nsfwStatus === "FullSFW" ? [ "SFW" ] : [ "SFW", "NSFW" ]);
     const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX"]);
+    const [countries, setCountries] = useState<Country[]>(["Online", "Canada", "United Kingdom", "Sweden", "France", "Japan", "Denmark"])
+
     const [buttons, setButtons] = useState<ButtonInfo[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
     const [shownSketch, setShownSketch] = useState<GameJamItem | null>(null);
@@ -253,7 +259,7 @@ export default function GameJamForm() {
             : <></>
     }
 
-    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw, engines);
+    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw, engines, countries);
     return <>
         <QuoteComponent />
         <GamejamIntroComponent />
@@ -272,47 +278,75 @@ export default function GameJamForm() {
         <div className="container box">
             <p className="mark">Gamejam</p>
             <div className="container">
-                <label htmlFor="sort-mode">Sort mode</label>
-                <span id="sort-mode" className="button-group">
-                    <button title="Date" className="button-icon" disabled={sortMode === "Date"} onClick={_ => setSortMode("Date")}><span className="material-symbols-outlined">calendar_today</span></button>
-                    <button title="Score" className="button-icon" disabled={sortMode === "Score"} onClick={_ => setSortMode("Score")}><span className="material-symbols-outlined">leaderboard</span></button>
-                    <button title="Duration" className="button-icon" disabled={sortMode === "Duration"} onClick={_ => setSortMode("Duration")}><span className="material-symbols-outlined">timer</span></button>
-                </span>
-                <br/>
-                <label htmlFor="team-size">Team size</label>
-                <span id="team-size" className="button-group">
-                    <button title="Solo" className={"button-icon " + (teamSize.includes("Solo") ? "active" : "")} onClick={_ => setTeamSize(toggleArrayElement(teamSize, "Solo"))}><span className="material-symbols-outlined">person</span></button>
-                    <button title="Group" className={"button-icon " + (teamSize.includes("Group") ? "active" : "")} onClick={_ => setTeamSize(toggleArrayElement(teamSize, "Group"))}><span className="material-symbols-outlined">groups</span></button>
-                </span>
-                <label htmlFor="team-size">Duration</label>
-                <span id="team-size" className="button-group">
-                    <button title="1 hour" className={"button-icon " + (duration.includes("1H") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1H"))}>1H</button>
-                    <button title="≤1 day" className={"button-icon " + (duration.includes("1D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1D"))}>1D</button>
-                    <button title="≤3 days" className={"button-icon " + (duration.includes("3D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "3D"))}>3D</button>
-                    <button title="≤9 days" className={"button-icon " + (duration.includes("9D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "9D"))}>9D</button>
-                    <button title="≤1 month" className={"button-icon " + (duration.includes("1M") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1M"))}>1M</button>
-                    <button title=">1 month" className={"button-icon " + (duration.includes("More") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "More"))}>M+</button>
-                </span>
-                <label htmlFor="engines">Engine</label>
-                <span id="engines" className="button-group">
-                    <button title="Unity" className={"button-icon " + (engines.includes("Unity") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Unity"))}>UN</button>
-                    <button title="Unreal Engine" className={"button-icon " + (engines.includes("Unreal Engine") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Unreal Engine"))}>UE</button>
-                    <button title="Godot" className={"button-icon " + (engines.includes("Godot") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Godot"))}>GD</button>
-                    <button title="Scratch" className={"button-icon " + (engines.includes("Scratch") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Scratch"))}>SC</button>
-                    <button title="GB Studio" className={"button-icon " + (engines.includes("GB Studio") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "GB Studio"))}>GB</button>
-                    <button title="DirectX" className={"button-icon " + (engines.includes("DirectX") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "DirectX"))}>DX</button>
-                </span>
                 {
-                    nsfwStatus === "FullSFW" ?
-                    <></> :
+                    showFilters ?
                     <>
-                        <label htmlFor="team-size">Content&nbsp;warnings</label>
-                        <span id="team-size" className="button-group">
-                            <button title="All-age" className={"button-icon " + (sfw.includes("SFW") ? "active" : "")} onClick={_ => setSFW(toggleArrayElement(sfw, "SFW"))}><span className="material-symbols-outlined">no_adult_content</span></button>
-                            <button title="Adult content" className={"button-icon " + (sfw.includes("NSFW") ? "active" : "")} onClick={_ => setSFW(toggleArrayElement(sfw, "NSFW"))}><span className="material-symbols-outlined">18_up_rating</span></button>
+                        <span className="jam-filter">
+                        <label htmlFor="sort-mode">Sort mode</label>
+                        <span id="sort-mode" className="button-group">
+                            <button title="Date" className="button-icon" disabled={sortMode === "Date"} onClick={_ => setSortMode("Date")}><span className="material-symbols-outlined">calendar_today</span></button>
+                            <button title="Score" className="button-icon" disabled={sortMode === "Score"} onClick={_ => setSortMode("Score")}><span className="material-symbols-outlined">leaderboard</span></button>
+                            <button title="Duration" className="button-icon" disabled={sortMode === "Duration"} onClick={_ => setSortMode("Duration")}><span className="material-symbols-outlined">timer</span></button>
                         </span>
+                    </span>
+                    <span className="jam-filter">
+                        <label htmlFor="team-size">Team size</label>
+                        <span id="team-size" className="button-group">
+                            <button title="Solo" className={"button-icon " + (teamSize.includes("Solo") ? "active" : "")} onClick={_ => setTeamSize(toggleArrayElement(teamSize, "Solo"))}><span className="material-symbols-outlined">person</span></button>
+                            <button title="Group" className={"button-icon " + (teamSize.includes("Group") ? "active" : "")} onClick={_ => setTeamSize(toggleArrayElement(teamSize, "Group"))}><span className="material-symbols-outlined">groups</span></button>
+                        </span>
+                    </span>
+                    <span className="jam-filter">
+                        <label htmlFor="team-size">Duration</label>
+                        <span id="team-size" className="button-group">
+                            <button title="1 hour" className={"button-icon " + (duration.includes("1H") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1H"))}>1H</button>
+                            <button title="≤1 day" className={"button-icon " + (duration.includes("1D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1D"))}>1D</button>
+                            <button title="≤3 days" className={"button-icon " + (duration.includes("3D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "3D"))}>3D</button>
+                            <button title="≤9 days" className={"button-icon " + (duration.includes("9D") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "9D"))}>9D</button>
+                            <button title="≤1 month" className={"button-icon " + (duration.includes("1M") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "1M"))}>1M</button>
+                            <button title=">1 month" className={"button-icon " + (duration.includes("More") ? "active" : "")} onClick={_ => setDuration(toggleArrayElement(duration, "More"))}>M+</button>
+                        </span>
+                    </span>
+                    <span className="jam-filter">
+                        <label htmlFor="engines">Engines</label>
+                        <span id="engines" className="button-group">
+                            <button title="Unity" className={"button-icon " + (engines.includes("Unity") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Unity"))}>UN</button>
+                            <button title="Unreal Engine" className={"button-icon " + (engines.includes("Unreal Engine") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Unreal Engine"))}>UE</button>
+                            <button title="Godot" className={"button-icon " + (engines.includes("Godot") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Godot"))}>GD</button>
+                            <button title="Scratch" className={"button-icon " + (engines.includes("Scratch") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Scratch"))}>SC</button>
+                            <button title="GB Studio" className={"button-icon " + (engines.includes("GB Studio") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "GB Studio"))}>GB</button>
+                            <button title="DirectX" className={"button-icon " + (engines.includes("DirectX") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "DirectX"))}>DX</button>
+                        </span>
+                    </span>
+                    <span className="jam-filter">
+                        <label htmlFor="engines">Countries</label>
+                        <span id="engines" className="button-group">
+                            <button title="Online" className={"button-icon " + (countries.includes("Online") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "Online"))}>WEB</button>
+                            <button title="France" className={"button-icon " + (countries.includes("France") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "France"))}>FR</button>
+                            <button title="Denmark" className={"button-icon " + (countries.includes("Denmark") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "Denmark"))}>DK</button>
+                            <button title="United Kingdom" className={"button-icon " + (countries.includes("United Kingdom") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "United Kingdom"))}>GB</button>
+                            <button title="Canada" className={"button-icon " + (countries.includes("Canada") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "Canada"))}>CA</button>
+                            <button title="Sweden" className={"button-icon " + (countries.includes("Sweden") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "Sweden"))}>SE</button>
+                            <button title="Japan" className={"button-icon " + (countries.includes("Japan") ? "active" : "")} onClick={_ => setCountries(toggleArrayElement(countries, "Japan"))}>JP</button>
+                        </span>
+                    </span>
+                    {
+                        nsfwStatus === "FullSFW" ?
+                        <></> :
+                        <span className="jam-filter">
+                            <label htmlFor="team-size">Content&nbsp;warnings</label>
+                            <span id="team-size" className="button-group">
+                                <button title="All-age" className={"button-icon " + (sfw.includes("SFW") ? "active" : "")} onClick={_ => setSFW(toggleArrayElement(sfw, "SFW"))}><span className="material-symbols-outlined">no_adult_content</span></button>
+                                <button title="Adult content" className={"button-icon " + (sfw.includes("NSFW") ? "active" : "")} onClick={_ => setSFW(toggleArrayElement(sfw, "NSFW"))}><span className="material-symbols-outlined">18_up_rating</span></button>
+                            </span>
+                        </span>
+                    }
+                    </>
+                    : <>
+                        <button onClick={() => setShowFilters((x: boolean) => !x)}>Show filters</button>
                     </>
                 }
+                
             </div>
             <h3 className="text-center">{jams.length} entr{jams.length > 1 ? "ies" : "y"}</h3>
             <div className="is-flex flex-center-hor">
