@@ -138,7 +138,7 @@ const sfwQuestions = [
             <p>
                 <h3>History</h3>
                 I was bornt a bit before 2000 in Essone, France and during my school years quickly became interested first with video games, my earliers consoles being a PlayStation 1 and a GameBoy Advance<br/>
-                Following that, I then became interested by game development (helped by <a href="https://en.wikipedia.org/wiki/WarioWare_D.I.Y." target="_blank">Wario Ware D.I.Y.</a>), first picking C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/old/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
+                Following that, I then became interested by game development, first picking C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/old/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
                 <br/>
                 Once I joined high-school, I went into scientific section and took <abbr title="Informatic and Digital Sciences">ISN</abbr> as specialization to produce <a href="/data/old/projects-old/ProjetISNProcessing.png" target="_blank">an unnamed video game project</a> in Java for my bachelor<br/>
                 <br/>
