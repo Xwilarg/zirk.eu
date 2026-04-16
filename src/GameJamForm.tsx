@@ -26,6 +26,7 @@ export interface GameJamItem
     nsfw: boolean,
     theme: string[],
     website: string | null,
+    gameplay: string[],
     sketch: GamejamSketch | null,
     rating: GamejamRating | null,
     help: string[],
@@ -131,7 +132,7 @@ export default function GameJamForm() {
     const [jamData, setJamData] = useState<GameJamInfo>(gamejamData);
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
 
-    const [showFilters, setShowFilters] = useState<bool>(false);
+    const [showFilters, setShowFilters] = useState<boolean>(false);
     const [sortMode, setSortMode] = useState<SortMode>("Date");
     const [teamSize, setTeamSize] = useState<TeamSize[]>(["Solo", "Group"]);
     const [duration, setDuration] = useState<JamDuration[]>(["1D", "3D", "9D", "1M", "More"]);

@@ -77,6 +77,13 @@ const GameJamItemForm = forwardRef((
                 : <></>
             }
             {
+                item.gameplay.length > 0 ?
+                <a href={`https://youtu.be/${item.gameplay[0]}`} target="_blank">
+                    <button className="button-icon"><span className="material-symbols-outlined">video_template</span></button>
+                </a>
+                : <></>
+            }
+            {
                 !hideNsfw ?
                 <button className="button-icon" onClick={
                     _ => {
