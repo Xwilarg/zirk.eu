@@ -33,6 +33,8 @@ export default function KatsisForm() {
     }, [ ]);
 
     useEffect(() => {
+        if (nsfwStatus === "FullSFW") return;
+
         let data: ReactElement[] = [];
 
         if (katsisProject)
@@ -45,8 +47,12 @@ export default function KatsisForm() {
                         <h2 className="project-name">{p.name}</h2>
                         <span className="is-flex flex-center-hor">
                             <a target="_blank" href={`https://katsis.net/g/${p.urlFragment}`}>
-                                <div className="project-img is-flex flex-center-hor">
-                                    <img src={`https://cdn.katsis.net/${p.thumbnailSmall}`} />
+                                <div className="katsis-bg" style={{
+                                    backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall}')`
+                                }}>
+                                    <div className="katsis-img is-flex flex-center-hor">
+                                        <img src={`https://cdn.katsis.net/${p.thumbnailSmall}`} />
+                                    </div>
                                 </div>
                             </a>
                         </span>
@@ -57,9 +63,12 @@ export default function KatsisForm() {
                     data.push(<div className="card" key={p.name}>
                         <h2 className="project-name"></h2>
                         <span className="is-flex flex-center-hor">
-                            <div className="project-img is-flex flex-center-hor">
-                                <img className="blur" src={`https://cdn.katsis.net/${p.thumbnailSmall}`} />
-                            </div>
+                            <div className="katsis-bg-sfw" style={{
+                                    backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall}')`
+                                }}>
+                                    <div className="katsis-img-sfw">
+                                    </div>
+                                </div>
                         </span>
                     </div>);
                 }
