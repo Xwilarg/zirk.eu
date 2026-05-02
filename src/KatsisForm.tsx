@@ -26,7 +26,7 @@ export default function KatsisForm() {
         fetch('https://intranet.katsis.net/api/user/public/1')
         .then(resp => { if (resp.ok) return resp.json(); throw new Error(""); })
         .then(json => {
-            json.games.reverse();
+            json.games;
             setKatsisProject(json);
         })
         .catch(_ => {});
