@@ -94,6 +94,7 @@ export default function StoryForm() {
         <StoryIntroComponent />
         <NavigationComponent />
         <div className="container box">
+            <p className="mark">Story</p>
             <div className="is-flex flex-center-hor">
                 { storyHtml }
             </div>

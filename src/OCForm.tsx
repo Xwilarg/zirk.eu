@@ -100,6 +100,7 @@ export default function OCForm() {
         <OCIntroComponent />
         <NavigationComponent />
         <div className="container box is-flex">
+            <p className="mark">Character</p>
             { ocsHtml }
         </div>
     </>
