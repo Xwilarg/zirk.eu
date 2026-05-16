@@ -28,7 +28,7 @@ const ProjectItemForm = forwardRef((
             {
                 p.nsfw && nsfwStatus === "SFW" ? <></> :
                 p.links.map((l: any) => {
-                    return <a href={l.content} target="_blank">
+                    return <a key={l.content} href={l.content} target="_blank">
                         <button className="button">
                             { l.name }
                         </button>
