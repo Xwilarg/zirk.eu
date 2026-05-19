@@ -51,6 +51,7 @@ body {
     width: 1000px;
     margin: 0 auto;
 
+    box-sizing: border-box;
     padding: 5px;
     margin-bottom: 15px;
 
