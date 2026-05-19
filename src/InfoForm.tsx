@@ -52,7 +52,7 @@ const sfwQuestions = [
             the <a href='https://github.com/Xwilarg/zirk.eu-old' target='_blank'>older versions</a><br/>
             <br/>
             Apart from all of that, this website also uses <a href="https://fonts.google.com/specimen/Quantico" target="_blank">Quantico</a> for its font&nbsp;
-            and <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a> for all the icons around and uh, with also <a href="https://commons.wikimedia.org/wiki/File:Japanese_Hiragana_kyokashotai_WU.svg#Licensing">a single image</a> being taken from Wikipedia (to which I changed the fill color)<br/>
+            and <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a> for all the icons around and uh, also <a href="https://commons.wikimedia.org/wiki/File:Japanese_Hiragana_kyokashotai_WU.svg#Licensing">a single image</a> being taken from Wikipedia (to which I changed the fill color)<br/>
             Images from project tab might also show copyrighted for demo purposes, as well as some games in the boxes one<br/>
             <br/>
             <a href='/data/img/website/v1.png' target='_blank'>This</a>&nbsp;
@@ -137,7 +137,7 @@ const sfwQuestions = [
         (p: NsfwStatus) => <span>
             <p>
                 <h3>History</h3>
-                I was bornt a bit before 2000 in Essone, France and during my school years quickly became interested first with video games, my earliers consoles being a PlayStation 1 and a GameBoy Advance<br/>
+                I was bornt in 1998 in Essone, France and during my school years quickly became interested first with video games, my earliers consoles being a PlayStation 1 and a GameBoy Advance<br/>
                 Following that, I then became interested by game development, first picking C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/old/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
                 <br/>
                 Once I joined high-school, I went into scientific section and took <abbr title="Informatic and Digital Sciences">ISN</abbr> as specialization to produce <a href="/data/old/projects-old/ProjetISNProcessing.png" target="_blank">an unnamed video game project</a> in Java for my bachelor<br/>
@@ -147,7 +147,7 @@ const sfwQuestions = [
                 Back then my main hobby outside of games had been anime and manga after someone introduced me to <a href="https://anilist.co/anime/8424/MM" target="_blank">MM!</a> which in retrospective was decent but not amazing, but the opening and ending were very catchy<br/>
                 I don't watch much of them anymore these days but this led me to my interest in Japan in general, being the music, the food, the arcade games, and eventually the language itself (which I am still slowly learning)<br/>
                 <br/>
-                I then continued my higher education, learning more programming languages around the way and in my first year doing my <a href="https://web.archive.org/web/20210227130840/http://ludumdare.com/compo/ludum-dare-37/?action=preview&uid=123799" target="_blank">first gamejam</a><br/>
+                I then continued my higher education, deepening my programming knowledge around the way and in my first year doing my <a href="https://web.archive.org/web/20210227130840/http://ludumdare.com/compo/ludum-dare-37/?action=preview&uid=123799" target="_blank">first gamejam</a><br/>
                 During my first internship I also started my first big project, <a href="https://sanara.zirk.eu/" target="_blank">Sanara</a>, a Discord bot that I still <small>slightly</small> maintains today<br/>
                 Out of weird trivia, during one of my internship at the french ground forces, I also got baptized by the <a href="/data/img/about/forgeron.png" target="_blank">saint brotherhood of blacksmiths</a> <small>I know if sounds like some weird cult thing but it's not</small><br/>
                 <br/>
@@ -163,23 +163,23 @@ const sfwQuestions = [
                 <h3>Today</h3>
                 My main occupation today is first <span className="katsis-highlight">Katsis</span>, outside of that I still love programming, jumping on a lot of gamejams <small>(sorry Fractal)</small> and maintaining projects, either alone or as part of <a href="https://astylodon.org/" target="_blank">Astylodon</a><br/>
                 <br/>
-                There are however still plenty of things I still like to do outside of programming, overall my personality is very squared, I like well defined rules and love learning about things that follow them (stuff like trains, geopolitical entities, particle physics, etc...)<br/>
+                There are however still plenty of things I still like to do outside of programming, overall my personality is very squared, I like well defined rules and love learning about things that follow them (stuff like transportation networks, geopolitical entities, particle physics, etc...)<br/>
                 I also love new experiences like new foodstuff, places, etc... and overall negative experiences don't really affect much<br/>
                 Along with that I'm also trying to learn more creative skills like drawing and writing, and also learning new languages (mainly Japanese for now but hoping to extends that to Spanish and mandarin Chinese someday)<br/>
                 <br/>
                 I'm quite introverted and suck at fueling conversations so if things feels a bit awkward please note that it's not necessarly that I dislike you or so, and overall I'm quite open to criticism so if something is wrong don't hesitate to come <small>politely</small> tell me<br/>
-                There are probably more I can say about my personality but it feels a bit embarassing to yap too much about myself here so boom end of intro
+                There are still probably a lot to say about me so don't hesitate to come speak to me, and to tell me about yourself too :)
             </p>
             {
                 p == "NSFW" ?
                 <p>
                     <h3>Sexuality</h3>
-                    Wow you turned the NSFW modeof this website on so I guess I should expend on this part a bit<br/>
-                    About my sexuality I am <a href="https://en.pronouns.page/terminology?filter=demisexual" target="_blank">demisexual</a> (<small>and very submissive</small>)<br/>
+                    Wow you turned the NSFW mode of this website on so I guess I should expend on this part a bit<br/>
+                    About my sexuality I am <a href="https://en.pronouns.page/terminology?filter=demisexual" target="_blank">demisexual</a><br/>
                     <br/>
                     As mentionned above, my main occupation is working as part of <span className="katsis-highlight">Katsis</span>, I love NSFW content being expressed through a story and characters surrounded by goals, things they like, etc... <small>and then being fucked</small><br/>
                     <br/>
-                    My main fetichisms are monsters, futanari, hyper and inflation, and I love seeing them on females and males equally <small>(Fractal we need more male characters being fucked within <span className="katsis-highlight">Katsis</span>)</small>
+                    My main fetichisms are monsters, futanari, hyper and inflation, which I love seeing them on females and males equally and overall I aim for <span className="katsis-highlight">Katsis</span> to become a place with a variety of content so anyone can find things that they like
                 </p>
                 : <></>
             }

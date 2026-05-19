@@ -14,6 +14,7 @@ import NotFoundForm from './NotFoundForm'
 import BoxForm from './BoxForm'
 import LoreForm from './LoreForm'
 import StoryForm from './StoryForm'
+import SheepForm from './SheepForm'
 
 function RedirectCompat()
 {
@@ -44,6 +45,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/project' element={<ProjectForm />} />
             <Route path='/box' element={<BoxForm />} />
             <Route path='/story' element={<StoryForm />} />
+            <Route path='/sheep' element={<SheepForm />} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
     </BrowserRouter>

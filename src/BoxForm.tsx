@@ -25,7 +25,7 @@ export default function BoxForm() {
         {
             data.push(<>
                 <h3 id={p.name}>{p.name}</h3>
-                <span className="is-flex">
+                <span className="is-flex flex-center-hor">
                     <div className="goal-card box goal-box">
                         <h4>Presential gamejam</h4>
                         <span className="is-flex flex-center-hor">
@@ -76,7 +76,7 @@ export default function BoxForm() {
         <div className="container box">
             <p className="mark">Boxes</p>
             <h3>Travel</h3>
-            <span className="is-flex">
+            <span className="is-flex flex-center-hor">
                 <div className="goal-card box goal-box">
                     <h4>Japan</h4>
                     <span className="is-flex flex-center-hor">
@@ -122,7 +122,7 @@ export default function BoxForm() {
                 </div>
             </span>
             <h3>Gamejams</h3>
-            <span className="is-flex">
+            <span className="is-flex flex-center-hor">
                 <div className="goal-card box goal-box">
                     <h4>Without engine</h4>
                     <span className="is-flex flex-center-hor">
@@ -169,7 +169,7 @@ export default function BoxForm() {
                 </div>
             </span>
             <h3>Katsis</h3>
-            <span className="is-flex">
+            <span className="is-flex flex-center-hor">
                 <div className="goal-card box goal-box">
                     <h4>Make a game on Steam</h4>
                     <span className="is-flex flex-center-hor">

@@ -351,7 +351,6 @@ button:disabled {
     height: 100%;
 }
 
-
 .katsis-img {
     display: flex;
 
@@ -374,6 +373,30 @@ button:disabled {
 
     min-width: 100%;
     object-fit: contain;
+}
+
+/* Sheep */
+.psheep-img {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    height: 400px;
+    text-align: center;
+}
+.psheep-img img {
+    margin-top: 10px;
+
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+
+    min-width: 100%;
+    object-fit: contain;
+}
+.fi {
+    margin-left: 10px;
 }
 
 /* Project */

@@ -81,6 +81,7 @@ export default function LoreForm() {
         <LoreIntroComponent />
         <NavigationComponent />
         <div className="container box">
+            <p className="mark">Lore</p>
             <textarea readOnly={true} className="readonly" id="lore-display" value={display}>
             </textarea>
             <div className="is-flex flex-center-hor">
