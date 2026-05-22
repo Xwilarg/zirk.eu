@@ -9,6 +9,7 @@ import { isNsfw, randInt } from "./utils";
 
 export default function ProjectForm() {
     const [projectHtml, setProjectHtml] = useState<ReactElement[]>([]);
+    const [showOldProjects, setShowOldProjects] = useState(false);
     const [oldProjectHtml, setOldProjectHtml] = useState<ReactElement[]>([]);
     const [refresh, setRefresh] = useState<number>(0);
 
@@ -48,14 +49,20 @@ export default function ProjectForm() {
         <NavigationComponent />
         <div className="container box">
             <p className="mark">Projects</p>
-            <div className="is-flex flex-center-hor">
+            <div className="is-flex flex-center-hor" id="project-list">
                 { projectHtml }
             </div>
-            <h3>Old projects</h3>
-            <button className="button" onClick={_ => setRefresh(x => x + 1)}>Refresh</button>
-            <div className="is-flex flex-center-hor">
-                { oldProjectHtml }
-            </div>
+            <button className="container box" onClick={_ => setShowOldProjects(x => !x)} id="project-btn-old">See old projects</button>
+            {
+                showOldProjects ?
+                <>
+                    <button className="button" onClick={_ => setRefresh(x => x + 1)}>Refresh</button>
+                    <div className="is-flex flex-center-hor">
+                        { oldProjectHtml }
+                    </div>
+                </>
+                : <></>
+            }
         </div>
     </>
 }

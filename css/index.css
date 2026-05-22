@@ -403,6 +403,10 @@ button:disabled {
     height: 35px;
 }
 
+.project-description {
+    height: 40px;
+}
+
 .project-img {
     display: block;
     position: relative;
@@ -414,19 +418,25 @@ button:disabled {
 .project-img img {
     margin-top: 10px;
 
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
 
-    min-width: 100%;
     object-fit: contain;
+}
+
+#project-list img {
+    object-fit: cover;
+    object-position: left top;
 }
 
 .project-buttons {
     height: 100px;
-    margin-top: 2px;
+    margin-top: 10px;
     margin-bottom: 2px;
+}
+
+#project-btn-old {
+    margin-top: 20px;
 }
 
 /* Gamejam */
@@ -480,7 +490,7 @@ button:disabled {
 
 .gamejam-buttons {
     height: 50px;
-    margin-top: 2px;
+    margin-top: 10px;
     margin-bottom: 2px;
 }
 
