@@ -6,12 +6,14 @@ import QuoteComponent from "./components/QuoteComponent";
 import ProjectIntroComponent from "./components/intro/ProjectIntroComponent";
 import ProjectItemForm from "./item/ProjectItemForm";
 import { isNsfw, randInt } from "./utils";
+import ImageModalForm from "./modal/ImageModalForm";
 
 export default function ProjectForm() {
     const [projectHtml, setProjectHtml] = useState<ReactElement[]>([]);
     const [showOldProjects, setShowOldProjects] = useState(false);
     const [oldProjectHtml, setOldProjectHtml] = useState<ReactElement[]>([]);
     const [refresh, setRefresh] = useState<number>(0);
+    const [preview, setPreview] = useState<string | null>(null);
 
     let nsfwStatus = isNsfw();
 
@@ -20,7 +22,7 @@ export default function ProjectForm() {
 
         for (let p of projectData)
         {
-            if (nsfwStatus !== "FullSFW" || !p.nsfw) data.push(<ProjectItemForm key={p.name} p={p} />)
+            if (nsfwStatus !== "FullSFW" || !p.nsfw) data.push(<ProjectItemForm key={p.name} p={p} setPreview={setPreview} />)
         }
 
         setProjectHtml(data);
@@ -36,12 +38,13 @@ export default function ProjectForm() {
             {
                 i--;
             } else {
-                data.push(<ProjectItemForm key={elem.name} p={elem} />)
+                data.push(<ProjectItemForm key={elem.name} p={elem} setPreview={setPreview} />)
             }
         }
 
         setOldProjectHtml(data);
     }, [ refresh ]);
+
 
     return <>
         <QuoteComponent/>
@@ -64,5 +67,10 @@ export default function ProjectForm() {
                 : <></>
             }
         </div>
+        {
+            preview !== null ?
+            <ImageModalForm image={preview} unsetImage={setPreview} />
+            : <></>
+        }
     </>
 }
