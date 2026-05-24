@@ -279,6 +279,11 @@ button:disabled {
         height: 100%;
     }
 }
+.modal-scroll {
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) transparent;
+}
 .clickable {
     cursor: pointer;
 }

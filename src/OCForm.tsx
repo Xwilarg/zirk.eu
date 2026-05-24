@@ -4,10 +4,12 @@ import QuoteComponent from "./components/QuoteComponent";
 import ocsData from "../data/json/ocs.json";
 import { useEffect, useState, type ReactElement } from "react";
 import { isNsfw } from "./utils";
+import ImageGroupModalForm from "./modal/ImageGroupModalForm";
 
 export default function OCForm() {
     const [ocsHtml, setOcsHtml] = useState<ReactElement[]>([]);
     const [imageIndexes, setImageIndexes] = useState<{ [name: string]: number }>({});
+    const [preview, setPreview] = useState<string[] | null>(null);
 
     const nsfwStatus = isNsfw();
     
@@ -26,17 +28,18 @@ export default function OCForm() {
 
                 if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
 
+                const smallImage = info ? `/data/img/ocs/${value.folder}/${arts[i].images.find(x => x.default)!.link}` : null;
                 if (nsfwStatus === "SFW" && isImgNsfw)
                 {
                     imgs.push(
                         <div className="oc-subimg-container">
-                            <img key={`${key}-${i}`} src={`/data/img/${arts[i].images[0].link}`} className="blur" />
+                            <img key={`${key}-${i}`} src={smallImage!} className="blur" />
                         </div>
                     );
                 } else {
                     imgs.push(
                         <div className="oc-subimg-container">
-                            <img key={`${key}-${i}`} src={`/data/img/${arts[i].images[0].link}`} onClick={() => {
+                            <img key={`${key}-${i}`} src={smallImage!} onClick={() => {
                                 setImageIndexes(x => ({ ...x, [key]: i }));
                             }} />
                         </div>
@@ -48,6 +51,9 @@ export default function OCForm() {
             if (value.gender === "Male") genderIcon = "male";
             else if (value.gender === "Female") genderIcon = "female";
             else genderIcon = "transgender";
+
+            const image = info ? `/data/img/ocs/${value.folder}/${info.images.find(x => x.default)!.link}` : null;
+
             data.push(<div className="card" key={key}>
                 <h3>{key}</h3>
                 <small>{info?.title}</small>
@@ -56,7 +62,9 @@ export default function OCForm() {
                     info ?
                         <>
                             <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === info.artist)[0][1]}><p className="attribution">Art by {info.artist}</p></a>
-                            <img className={info.type === "pixel" ? "pixel" : ""} src={`/data/img/${info.images[0].link}`} />
+                            <img className={info.type === "pixel" ? "pixel clickable" : "clickable"} src={image!}
+                                onClick={e => setPreview(info.images.map(image => `/data/img/ocs/${value.folder}/${image.link}`))}
+                            />
                         </>
                     : <></>
                 }
@@ -103,5 +111,10 @@ export default function OCForm() {
             <p className="mark">Character</p>
             { ocsHtml }
         </div>
+        {
+            preview !== null ?
+            <ImageGroupModalForm images={preview} unsetImage={setPreview} />
+            : <></>
+        }
     </>
 }
