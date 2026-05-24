@@ -24,7 +24,7 @@ export default function OCForm() {
             let imgs: ReactElement[] = [];
             for (let i = 0; i < arts.length; i++)
             {
-                const isImgNsfw = arts[i].images[0].nsfw;
+                const isImgNsfw = arts[i].images.find(x => x.default)!.nsfw;
 
                 if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
 
@@ -34,6 +34,14 @@ export default function OCForm() {
                     imgs.push(
                         <div className="oc-subimg-container">
                             <img key={`${key}-${i}`} src={smallImage!} className="blur" />
+                        </div>
+                    );
+                } else if (smallImage?.endsWith("mp4")) {
+                    imgs.push(
+                        <div className="oc-subimg-container">
+                            <video key={`${key}-${i}`} src={smallImage!} onClick={() => {
+                                setImageIndexes(x => ({ ...x, [key]: i }));
+                            }} />
                         </div>
                     );
                 } else {
@@ -62,9 +70,13 @@ export default function OCForm() {
                     info ?
                         <>
                             <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === info.artist)[0][1]}><p className="attribution">Art by {info.artist}</p></a>
-                            <img className={info.type === "pixel" ? "pixel clickable" : "clickable"} src={image!}
-                                onClick={e => setPreview(info.images.map(image => `/data/img/ocs/${value.folder}/${image.link}`))}
-                            />
+                            {
+                                image!.endsWith("mp4") ?
+                                <video src={image!} autoPlay loop muted></video>
+                                : <img className={info.type === "pixel" ? "pixel clickable" : "clickable"} src={image!}
+                                    onClick={e => setPreview(info.images.filter(x => nsfwStatus === "NSFW" || !x.nsfw).map(image => `/data/img/ocs/${value.folder}/${image.link}`))}
+                                />
+                            }
                         </>
                     : <></>
                 }

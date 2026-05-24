@@ -448,7 +448,7 @@ button:disabled {
     height: 400px;
     text-align: center;
 }
-.project-img img {
+.project-img img, .project-img video {
     margin-top: 10px;
 
     width: 100%;
@@ -617,7 +617,7 @@ button:disabled {
     display: block;
     height: 100%;
 }
-.oc-subimg-container img {
+.oc-subimg-container img, .oc-subimg-container video {
     max-width: 100px;
     max-height: 100%;
     width: auto;
@@ -658,7 +658,7 @@ button:disabled {
 }
 
 .goal-card {
-    width: 303px;
+    width: 300px;
 }
 
 /* Intro */
