@@ -59,6 +59,10 @@ export default function StoryForm() {
             }
 
             let display = targetedStory.name;
+            if (targetedStory.finished)
+            {
+                display += ` (Finished)`;
+            }
             if (targetedStory.cw.length > 0)
             {
                 display += `\nContent warnings: ${targetedStory.cw.join(", ")}`;

@@ -32,22 +32,22 @@ export default function OCForm() {
                 if (nsfwStatus === "SFW" && isImgNsfw)
                 {
                     imgs.push(
-                        <div className="oc-subimg-container">
-                            <img key={`${key}-${i}`} src={smallImage!} className="blur" />
+                        <div className="oc-subimg-container" key={`${key}-${i}`}>
+                            <img src={smallImage!} className="blur" />
                         </div>
                     );
                 } else if (smallImage?.endsWith("mp4")) {
                     imgs.push(
-                        <div className="oc-subimg-container">
-                            <video key={`${key}-${i}`} src={smallImage!} onClick={() => {
+                        <div className="oc-subimg-container" key={`${key}-${i}`}>
+                            <video src={smallImage!} onClick={() => {
                                 setImageIndexes(x => ({ ...x, [key]: i }));
                             }} />
                         </div>
                     );
                 } else {
                     imgs.push(
-                        <div className="oc-subimg-container">
-                            <img key={`${key}-${i}`} src={smallImage!} onClick={() => {
+                        <div className="oc-subimg-container" key={`${key}-${i}`}>
+                            <img src={smallImage!} onClick={() => {
                                 setImageIndexes(x => ({ ...x, [key]: i }));
                             }} />
                         </div>
