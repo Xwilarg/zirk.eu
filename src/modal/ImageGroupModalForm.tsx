@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 interface ImageGroupModalFormProps {
     images: string[] | null;
-    unsetImage: React.Dispatch<React.SetStateAction<string | null>>
+    unsetImage: React.Dispatch<React.SetStateAction<string[] | null>>
 }
 
 export default function ImageGroupModalForm({ images, unsetImage }: ImageGroupModalFormProps) {

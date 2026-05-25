@@ -593,6 +593,10 @@ button:disabled {
     cursor: pointer;
 }
 
+.oc-focus {
+    width: 100%;
+}
+
 .oc-description {
     height: 220px;
 }
