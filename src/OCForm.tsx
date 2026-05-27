@@ -74,7 +74,7 @@ export default function OCForm() {
 
             data.push(<div className={keyFilter ? "card oc-focus" : "card"} key={key}>
                 <div>
-                    <h3>{key}</h3>
+                    <h3>{key} { value.coauthors.length > 0 ? `(with ${value.coauthors.join()})` : "" }</h3>
                     <small>{info?.title}</small>
                     <div className="project-img">
                     {

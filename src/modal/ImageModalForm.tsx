@@ -7,7 +7,7 @@ interface ImageModalFormProps {
 
 export default function ImageModalForm({ image, unsetImage }: ImageModalFormProps) {
     useEffect(() => {
-        window.addEventListener("mousedown", () => unsetImage(null))
+        window.addEventListener("mousedown", (e) => { if (e.button === 0) unsetImage(null) })
         window.addEventListener("scroll", () => unsetImage(null))
     }, []);
 

@@ -7,7 +7,7 @@ interface ImageGroupModalFormProps {
 
 export default function ImageGroupModalForm({ images, unsetImage }: ImageGroupModalFormProps) {
     useEffect(() => {
-        window.addEventListener("mousedown", () => unsetImage(null))
+        window.addEventListener("mousedown", (e) => { if (e.button === 0) unsetImage(null) })
     }, []);
 
     if (!images) {
