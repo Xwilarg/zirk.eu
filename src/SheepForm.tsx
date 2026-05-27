@@ -5,9 +5,10 @@ import plushiesData from "../data/json/plushies.json";
 import { useEffect, useState, type ReactElement } from "react";
 
 export default function SheepForm() {
-    const [sheepHtml, setSheepHtml] = useState<ReactElement[]>([]);
+    const [sheepGroup1Html, setSheepGroup1Html] = useState<ReactElement[]>([]);
+    const [sheepGroup2Html, setSheepGroup2Html] = useState<ReactElement[]>([]);
 
-    const countries = {
+    const countries: { [id: string] : string; } = {
         "United Kingdom": "gb",
         "France": "fr",
         "Italy": "it",
@@ -17,12 +18,15 @@ export default function SheepForm() {
         "Netherlands": "nl",
         "Germany": "de",
         "Indonesia": "id",
-        "Japan": "jp"
+        "Japan": "jp",
+        "United States": "us",
+        "Ireland": "ie"
     }
 
-    useEffect(() => {
+    function getSheepData(group: number): Array<ReactElement> 
+    {
         let data: Array<ReactElement> = [];
-        for (const p of plushiesData)
+        for (const p of plushiesData.filter(x => x.group === group))
         {
             data.push(
             <div className="cardcard" key={p.name}>
@@ -41,16 +45,28 @@ export default function SheepForm() {
             </div>
             );
         }
-        setSheepHtml(data);
-    });
+        return data;
+    }
+
+    useEffect(() => {
+        setSheepGroup1Html(getSheepData(1));
+        setSheepGroup2Html(getSheepData(2));
+    }, []);
     
     return <>
         <QuoteComponent/>
         <SheepIntroComponent />
         <NavigationComponent />
-        <div className="container box is-flex">
+        <div className="container box">
             <p className="mark">Sheep</p>
-            { sheepHtml }
+            <h2>Group 1</h2>
+            <div className="is-flex">
+                { sheepGroup1Html }
+            </div>
+            <h2>Group 2</h2>
+            <div className="is-flex">
+                { sheepGroup2Html }
+            </div>
         </div>
     </>
 }
