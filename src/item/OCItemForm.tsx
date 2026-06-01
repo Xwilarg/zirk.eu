@@ -102,9 +102,9 @@ const OCItemForm = forwardRef((
 
     let targetDesc: string[] = [];
     if (desc === "Description") targetDesc = info.description;
-    else if (desc === "History") targetDesc = info.history;
-    else if (desc === "Personality") targetDesc = info.personality;
-    else if (desc === "Sexuality") targetDesc = info.sexuality;
+    else if (desc === "History") targetDesc = info.history ?? [];
+    else if (desc === "Personality") targetDesc = info.personality ?? [];
+    else if (desc === "Sexuality") targetDesc = info.sexuality ?? [];
 
     return (
         <div className={keyFilter ? "card oc-focus oc-card" : "card oc-card"}>
