@@ -115,7 +115,10 @@ const OCItemForm = forwardRef((
             {
                 imgInfo ?
                     <>
-                        <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === imgInfo.artist)[0][1]!}><p className="attribution">Art by {imgInfo.artist}</p></a>
+                        <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === imgInfo.artist)[0][1]!}>
+                            <p className="attribution">Art by {imgInfo.artist}</p>
+                        </a>
+                        <span className="material-symbols-outlined oc-full-hint">open_in_full</span>
                         {
                             image!.endsWith("mp4") ?
                             <video src={image!} autoPlay loop muted></video>

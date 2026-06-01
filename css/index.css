@@ -593,6 +593,12 @@ button:disabled {
     cursor: pointer;
 }
 
+.oc-full-hint {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
 @media (max-width: 750px) {
     .oc-card {
         width: 100%;
