@@ -3,16 +3,13 @@ import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 import ocsData from "../data/json/ocs.json";
 import { useEffect, useState, type ReactElement } from "react";
-import { isNsfw } from "./utils";
 import ImageGroupModalForm from "./modal/ImageGroupModalForm";
 import { useSearchParams } from "react-router";
+import OCItemForm from "./item/OCItemForm";
 
 export default function OCForm() {
     const [ocsHtml, setOcsHtml] = useState<ReactElement[]>([]);
-    const [imageIndexes, setImageIndexes] = useState<{ [name: string]: number }>({});
     const [preview, setPreview] = useState<string[] | null>(null);
-
-    const nsfwStatus = isNsfw();
 
     const [searchParams, setSearchParams] = useSearchParams();
     
@@ -29,103 +26,12 @@ export default function OCForm() {
             if (keyFilter && key !== keyFilter) continue;
 
             const arts = ocsData.data.filter(x => x.character === key).sort((a, b) => new Date(b.date ?? "1970-01-01").getTime() - new Date(a.date ?? "1970-01-01").getTime());
-            const info = imageIndexes[key] !== undefined ? arts[imageIndexes[key]] : arts.filter(x => x.default)[0];
 
-            let imgs: ReactElement[] = [];
-            for (let i = 0; i < arts.length; i++)
-            {
-                const isImgNsfw = arts[i].images.find(x => x.default)!.nsfw;
-
-                if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
-
-                const smallImage = info ? `/data/img/ocs/${value.folder}/${arts[i].images.find(x => x.default)!.link}` : null;
-                if (nsfwStatus === "SFW" && isImgNsfw)
-                {
-                    imgs.push(
-                        <div className="oc-subimg-container" key={`${key}-${i}`}>
-                            <img src={smallImage!} className="blur" />
-                        </div>
-                    );
-                } else if (smallImage?.endsWith("mp4")) {
-                    imgs.push(
-                        <div className="oc-subimg-container" key={`${key}-${i}`}>
-                            <video src={smallImage!} onClick={() => {
-                                setImageIndexes(x => ({ ...x, [key]: i }));
-                            }} />
-                        </div>
-                    );
-                } else {
-                    imgs.push(
-                        <div className="oc-subimg-container" key={`${key}-${i}`}>
-                            <img src={smallImage!} onClick={() => {
-                                setImageIndexes(x => ({ ...x, [key]: i }));
-                            }} />
-                        </div>
-                    );
-                }
-            }
-
-            let genderIcon: string;
-            if (value.gender === "Male") genderIcon = "male";
-            else if (value.gender === "Female") genderIcon = "female";
-            else genderIcon = "transgender";
-
-            const image = info ? `/data/img/ocs/${value.folder}/${info.images.find(x => x.default)!.link}` : null;
-
-            data.push(<div className={keyFilter ? "card oc-focus" : "card"} key={key}>
-                <div>
-                    <h3>{key} { value.coauthors.length > 0 ? `(with ${value.coauthors.join()})` : "" }</h3>
-                    <small>{info?.title}</small>
-                    <div className="project-img">
-                    {
-                        info ?
-                            <>
-                                <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === info.artist)[0][1]}><p className="attribution">Art by {info.artist}</p></a>
-                                {
-                                    image!.endsWith("mp4") ?
-                                    <video src={image!} autoPlay loop muted></video>
-                                    : <img className={info.type === "pixel" ? "pixel clickable" : "clickable"} src={image!}
-                                        onClick={e => setPreview(info.images.filter(x => nsfwStatus === "NSFW" || !x.nsfw).map(image => `/data/img/ocs/${value.folder}/${image.link}`))}
-                                    />
-                                }
-                            </>
-                        : <></>
-                    }
-                    </div>
-                    <div className="oc-subimg is-flex">
-                        { imgs }
-                    </div>
-                    <div className="oc-content is-flex flex-columns">
-                        <div className="oc-col is-flex">
-                            <div className="oc-item is-flex">
-                                <span className="material-symbols-outlined">globe</span>
-                                <p>{value.location}</p>
-                            </div>
-                        </div>
-                        <div className="oc-col is-flex">
-                            <div className="oc-item is-flex">
-                                <span className="material-symbols-outlined">{ genderIcon }</span>
-                                <p>{ value.gender }</p>
-                            </div>
-                        </div>
-                        {
-                            value.power ?
-                            <div className="oc-col is-flex">
-                                <div className="oc-item is-flex">
-                                    <span className="material-symbols-outlined">visibility</span>
-                                    <p>{ value.power }</p>
-                                </div>
-                            </div>
-                            : <></>
-                        }
-                    </div>
-                </div>
-                <p className="oc-description" dangerouslySetInnerHTML={{ __html: value.description.join("<br/>") }}></p>
-            </div>)
+            data.push(<OCItemForm key={key} name={key} info={value} arts={arts} keyFilter={keyFilter} setPreview={setPreview} ocsData={ocsData} />);
         }
 
         setOcsHtml(data);
-    }, [ imageIndexes ]);
+    }, []);
 
     return <>
         <QuoteComponent/>

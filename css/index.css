@@ -593,6 +593,11 @@ button:disabled {
     cursor: pointer;
 }
 
+@media (max-width: 750px) {
+    .oc-card {
+        width: 100%;
+    }
+}
 .oc-focus {
     width: 100%;
 }
@@ -602,8 +607,9 @@ button:disabled {
 }
 
 .oc-content {
-    height: 90px;
+    height: 135px;
     margin-top: 16px;
+    margin-bottom: 10px;
 }
 
 .oc-subimg {
@@ -611,6 +617,7 @@ button:disabled {
     overflow: hidden;
     border-radius: var(--border-radius);
     height: 300px;
+    margin-top: 5px;
 
     overflow-y: scroll;
     scrollbar-width: thin;
@@ -638,9 +645,18 @@ button:disabled {
 }
 
 .oc-item {
-    height: 40px;
+    height: 30px;
     flex-direction: column;
     justify-content: center;
+}
+
+.oc-buttons {
+    height: 80px;
+    gap: 0;
+}
+
+.oc-buttons > button {
+    width: 50%;
 }
 
 /* Goals (named boxes) */

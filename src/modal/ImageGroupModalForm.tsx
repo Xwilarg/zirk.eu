@@ -16,7 +16,7 @@ export default function ImageGroupModalForm({ images, unsetImage }: ImageGroupMo
 
     return (
         <div className='box modal is-flex flex-center-hor modal-scroll'>
-            {images.map(image => <img src={image} />)}
+            {images.map(image => <img key={image} src={image} />)}
         </div>
     )
 }
