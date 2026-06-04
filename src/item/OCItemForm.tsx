@@ -65,7 +65,9 @@ const OCItemForm = forwardRef((
 
         if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
 
-        const smallImage = info ? `/data/img/ocs/${info.folder}/${arts[i].images.find(x => x.default)!.link}` : null;
+        const link = info ? `${arts[i].images.find(x => x.default)!.link}` : null;
+        const isVideo = link?.endsWith("mp4");
+        const smallImage = info ? `/data/${isVideo ? "img" : "previews"}/ocs/${info.folder}/${link}` : null;
         if (nsfwStatus === "SFW" && isImgNsfw)
         {
             imgs.push(
@@ -73,7 +75,7 @@ const OCItemForm = forwardRef((
                     <img src={smallImage!} className="blur" />
                 </div>
             );
-        } else if (smallImage?.endsWith("mp4")) {
+        } else if (isVideo) {
             imgs.push(
                 <div className="oc-subimg-container" key={`${name}-${i}`}>
                     <video src={smallImage!} onClick={() => {
@@ -97,7 +99,7 @@ const OCItemForm = forwardRef((
     else if (info.gender === "Female") genderIcon = "female";
     else genderIcon = "transgender";
 
-    const image = arts.length > 0 ? `/data/img/ocs/${info.folder}/${arts[index].images.find(x => x.default)!.link}` : null;
+    const image = arts.length > 0 ? `/data/previews/ocs/${info.folder}/${arts[index].images.find(x => x.default)!.link}` : null;
     const imgInfo = arts[index];
 
     let targetDesc: string[] = [];
