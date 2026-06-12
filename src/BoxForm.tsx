@@ -91,6 +91,7 @@ export default function BoxForm() {
                     <h4>Taiwan</h4>
                     <span className="is-flex flex-center-hor">
                         <div className="goal-box-image">
+                            <img src="/data/img/boxes/Taiwan.jpg" className="clickable" onClick={e => setPreview((e.target as HTMLImageElement).src)} />
                         </div>
                     </span>
                 </div>

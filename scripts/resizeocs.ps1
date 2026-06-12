@@ -6,6 +6,11 @@ Push-Location -Path  ../data/img/ocs
 
 Get-ChildItem * |
 Foreach-Object {
+    if ($($_.Name) -eq "fish")
+    {
+        return;
+    }
+
     Push-Location $($_.Name)
     New-Item -ItemType Directory -Force -Path ../../../../public/data/previews/ocs/$($_.Name)
 

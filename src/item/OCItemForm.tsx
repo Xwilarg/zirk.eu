@@ -151,7 +151,7 @@ const OCItemForm = forwardRef((
                 <div className="oc-col is-flex">
                     <div className="oc-item is-flex">
                         <span className="material-symbols-outlined">height</span>
-                        <p>{ info.height / 100 }m</p>
+                        <p>{ (info.height / 100).toFixed(2) }m</p>
                     </div>
                 </div>
                 <div className="oc-col is-flex">
