@@ -41,12 +41,12 @@ export default function BoxForm() {
                         </span>
                     </div>
                     <div className="goal-card box goal-box">
-                        <h4>Travel</h4>
+                        <h4>Boardgame</h4>
                         <span className="is-flex flex-center-hor">
                             <div className="goal-box-image">
                                 {
-                                    p.boxes.travel
-                                    ? <img src={`/data/img/boxes/${p.boxes.travel}`} />
+                                    p.boxes.boardgame
+                                    ? <img src={`/data/img/boxes/${p.boxes.boardgame}`} />
                                     : <></>
                                 }
                             </div>
