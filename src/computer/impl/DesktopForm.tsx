@@ -95,31 +95,42 @@ const DesktopForm = forwardRef((
     useEffect(() => {
         if (tracedGame) {
             setCanInput(false);
+            const isIFrame = typeof tracedGame === "string";
             let text = [
                 "Game cartridge found, trace mode is set to 1 (use trace 0 to unset)",
-                `Engine: ${tracedGame.defaultEngine} ${tracedGame.defaultUnityVersion}`
+                `Engine: ${isIFrame ? "Unknown": `${tracedGame.defaultEngine} ${tracedGame.defaultUnityVersion}`}`
             ];
-            let data = getLoaderFiles(tracedGame.defaultResFolder, tracedGame.defaultFilename, tracedGame.defaultEngine, tracedGame.defaultUnityVersion);
-            let pendingData = data.length;
-            let ok = 0;
+            if (isIFrame)
+            {
+                text.push(`Impossible to validate loader`);
+                text.push("> ");
+                setCanInput(true);
+                setText(text);
+            }
+            else
+            {
+                let data =  getLoaderFiles(tracedGame.defaultResFolder, tracedGame.defaultFilename, tracedGame.defaultEngine, tracedGame.defaultUnityVersion);
+                let pendingData = data.length;
+                let ok = 0;
 
-            for (let e of data) {
-                fetch(e, {
-                    method: 'HEAD'
-                })
-                .then(x => {
-                    pendingData--;
-                    if (x.ok) {
-                        ok++;
-                    }
+                for (let e of data) {
+                    fetch(e, {
+                        method: 'HEAD'
+                    })
+                    .then(x => {
+                        pendingData--;
+                        if (x.ok) {
+                            ok++;
+                        }
 
-                    if (pendingData === 0) {
-                        text.push(`Loader validated: ${ok} / ${data.length}`);
-                        text.push("> ");
-                        setCanInput(true);
-                        setText(text);
-                    }
-                });
+                        if (pendingData === 0) {
+                            text.push(`Loader validated: ${ok} / ${data.length}`);
+                            text.push("> ");
+                            setCanInput(true);
+                            setText(text);
+                        }
+                    });
+                }
             }
         } else {
             setText([
