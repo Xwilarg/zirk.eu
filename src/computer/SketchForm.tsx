@@ -15,7 +15,7 @@ export interface LoadedGame
 export interface SketchFormProps
 {
     isOn: boolean,
-    loadedGame: LoadedGame | null,
+    loadedGame: LoadedGame | string | null,
     buttons: ButtonInfo[],
     isFullscreen: boolean,
     onLoad: ((instance: RefObject<any> | null) => void) | null
@@ -47,7 +47,7 @@ const SketchForm = forwardRef((
         canvasParent!.appendChild(canvasRef.current);
         if (showScreenSaver) {
             screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
-        } else if (loadedGame && !isTrace) {
+        } else if (loadedGame && !isTrace && typeof loadedGame !== "string") {
             loadSketch(canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion, onLoad);
         }
 
@@ -96,6 +96,11 @@ const SketchForm = forwardRef((
             <span className={isCanvasUsed ? "" : "hidden"} id="mainarea">
                 <div ref={canvasRefUnity2019} id="canvas-unity-2019"></div>
                 <canvas ref={canvasRef} id="canvas"></canvas>
+                {
+                    isCanvasUsed && typeof loadedGame === "string"
+                    ? <div id="iframe-container"><iframe allowFullScreen={true} src={loadedGame}></iframe></div>
+                    : <></>
+                }
             </span>
             {
                 !isCanvasUsed ?

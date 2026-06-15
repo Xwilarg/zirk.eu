@@ -11,6 +11,7 @@ import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
 interface CartridgeData
 {
+    name: string,
     props: SketchFormProps,
     imageUrl: string,
     type: CartridgeType
@@ -20,6 +21,7 @@ export default function MainForm() {
     let nsfwStatus = isNsfw();
     let [defaultCartridges, setDefaultCartridges] = useState<CartridgeData[]>([
         {
+            name: "Sketch",
             props: {
                 isOn: true,
                 loadedGame: {
@@ -42,6 +44,7 @@ export default function MainForm() {
             imageUrl: "/img/sketch.png",
             type: "Sketch"
         },{
+            name: "gameName",
             props: {
                 isOn: true,
                 loadedGame: {
@@ -58,6 +61,7 @@ export default function MainForm() {
             type: "Project"
         },
         ...getSortedGamejams(gamejamData.jams, "Score").filter(x => x.duration >= 24).slice(0, 5).filter(x => x.sketch !== null && (!x.nsfw || nsfwStatus === "NSFW")).map(x => ({
+            name: x.fullName,
             props: {
                 isOn: true,
                 loadedGame: {
@@ -86,8 +90,6 @@ export default function MainForm() {
     const [computerPropsIndex, setComputerPropsIndex] = useState<number>(0);
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-
-    const allowedModules = [ "introduction", "navigation", "cartridges", "lifeline" ]
 
     const buttons: Array<ButtonInfo> = [{
         name: "power_settings_new",
@@ -134,7 +136,7 @@ export default function MainForm() {
             if (i === computerPropsIndex) continue;
 
             data.push(
-                <CartridgeForm key={defaultCartridges[i].imageUrl} onClick={() => {
+                <CartridgeForm key={defaultCartridges[i].name} name={defaultCartridges[i].name} onClick={() => {
                     setComputerPropsIndex(i);
                     setIsOn(true);
                 }} imageUrl={defaultCartridges[i].imageUrl} type={defaultCartridges[i].type} />
@@ -142,11 +144,35 @@ export default function MainForm() {
         }
 
         setCartridges(data);
-    }, [ computerPropsIndex ]);
+    }, [ computerPropsIndex, defaultCartridges ]);
 
     useEffect(() => {
         window.isNsfw = nsfwStatus === "NSFW";
     }, []);
+
+    useEffect(() => {
+        if (nsfwStatus !== "NSFW") return;
+
+        fetch('https://intranet.katsis.net/api/user/public/1')
+        .then(resp => { if (resp.ok) return resp.json(); throw new Error(""); })
+        .then(json => {
+            setDefaultCartridges([...defaultCartridges, ...json.games.filter(x => x.webGL && !defaultCartridges.some(d => d.name === x.name)).slice(0, 5).map(x => {
+                return {
+                    name: x.name,
+                    props: {
+                        isOn: true,
+                        loadedGame: `https://cdn.katsis.net/${x.webGL.index}`,
+                        buttons: [],
+                        isFullscreen: false,
+                        onLoad: null,
+                    },
+                    imageUrl: `https://cdn.katsis.net/${x.thumbnailSmall}`,
+                    type: "Katsis"
+                };
+            })])
+        })
+        .catch(_ => {});
+    }, [ ]);
 
     return <>
         <QuoteComponent />
