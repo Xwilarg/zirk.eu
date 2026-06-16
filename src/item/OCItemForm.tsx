@@ -53,7 +53,7 @@ const OCItemForm = forwardRef((
     { info, arts, name, keyFilter, setPreview, ocsData }: OCItemFormProps,
     _
 ) => {
-    const [index, setIndex] = useState(arts.indexOf(arts.filter(x => x.default)[0]));
+    const [index, setIndex] = useState(arts.indexOf(arts.filter(x => x.default && x.character === name)[0]));
     const [desc, setDesc] = useState<DescriptionType>("Description");
 
     const nsfwStatus = isNsfw();
@@ -67,7 +67,7 @@ const OCItemForm = forwardRef((
 
         const link = info ? `${arts[i].images.find(x => x.default)!.link}` : null;
         const isVideo = link?.endsWith("mp4");
-        const smallImage = info ? `/data/${isVideo ? "img" : "previews"}/ocs/${info.folder}/${link}` : null;
+        const smallImage = info ? `/data/${isVideo ? "img" : "previews"}/ocs/${arts[i].folder}/${link}` : null;
         if (nsfwStatus === "SFW" && isImgNsfw)
         {
             imgs.push(
@@ -99,7 +99,7 @@ const OCItemForm = forwardRef((
     else if (info.gender === "Female") genderIcon = "female";
     else genderIcon = "transgender";
 
-    const image = arts.length > 0 ? `/data/previews/ocs/${info.folder}/${arts[index].images.find(x => x.default)!.link}` : null;
+    const image = arts.length > 0 ? `/data/previews/ocs/${arts[index].folder}/${arts[index].images.find(x => x.default)!.link}` : null;
     const imgInfo = arts[index];
 
     let targetDesc: string[] = [];
@@ -107,6 +107,11 @@ const OCItemForm = forwardRef((
     else if (desc === "History") targetDesc = info.history ?? [];
     else if (desc === "Personality") targetDesc = info.personality ?? [];
     else if (desc === "Sexuality") targetDesc = info.sexuality ?? [];
+
+    function clickImage()
+    {
+        setPreview(imgInfo.images.filter(x => nsfwStatus === "NSFW" || !x.nsfw).map(x => `/data/img/ocs/${arts[index].folder}/${x.link}`))
+    }
 
     return (
         <div className={keyFilter ? "card oc-focus oc-card" : "card oc-card"}>
@@ -120,12 +125,12 @@ const OCItemForm = forwardRef((
                         <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === imgInfo.artist)[0][1]!}>
                             <p className="attribution">Art by {imgInfo.artist}</p>
                         </a>
-                        <span className="material-symbols-outlined oc-full-hint">open_in_full</span>
+                        <span className="material-symbols-outlined oc-full-hint" onClick={clickImage}>open_in_full</span>
                         {
                             image!.endsWith("mp4") ?
                             <video src={image!} autoPlay loop muted></video>
                             : <img className={imgInfo.type === "pixel" ? "pixel clickable" : "clickable"} src={image!}
-                                onClick={e => setPreview(imgInfo.images.filter(x => nsfwStatus === "NSFW" || !x.nsfw).map(x => `/data/img/ocs/${info.folder}/${x.link}`))}
+                                onClick={clickImage}
                             />
                         }
                     </>

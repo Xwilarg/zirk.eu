@@ -25,7 +25,11 @@ export default function OCForm() {
         {
             if (keyFilter && key !== keyFilter) continue;
 
-            const arts = ocsData.data.filter(x => x.character === key).sort((a, b) => new Date(b.date ?? "1970-01-01").getTime() - new Date(a.date ?? "1970-01-01").getTime());
+            const arts = ocsData.data.filter(x => x.character === key || x.with.includes(key)).sort((a, b) => new Date(b.date ?? "1970-01-01").getTime() - new Date(a.date ?? "1970-01-01").getTime());
+            for (let a of arts)
+            {
+                a.folder = Object.entries(ocsData.characters).find(([key, value]) => key === a.character)![1].folder
+            }
 
             data.push(<OCItemForm key={key} name={key} info={value} arts={arts} keyFilter={keyFilter} setPreview={setPreview} ocsData={ocsData} />);
         }
