@@ -811,3 +811,24 @@ button:disabled {
     height: 50px;
     margin: 50px;
 }
+
+/* Fractal */
+#fractal-table, #fractal-table th, #fractal-table td {
+    border: var(--border);
+    border-collapse: collapse;
+}
+
+#fractal-table th, #fractal-table td {
+    padding: 10px;
+    height: 100px;
+    width: 100px;
+}
+
+#fractal-table img {
+    max-width: 100%;
+    max-height: 100%;
+
+    display: block;
+    width: auto;
+    height: auto;
+}
