@@ -110,10 +110,10 @@ const sfwQuestions = [
     question: "Steam replay",
     answer:
         (_: NsfwStatus) => <p className='is-flex flex-center-hor' id='steam-replay'>
-            <img src='/data/img/steam/2025.png' />
-            <img src='/data/img/steam/2024.png' />
-            <img src='/data/img/steam/2023.png' />
-            <img src='/data/img/steam/2022.png' />
+            <a href="https://store.steampowered.com/yearinreview/76561198039345808/2025" target="_blank"><img src='/data/img/steam/2025.png' /></a>
+            <a href="https://store.steampowered.com/yearinreview/76561198039345808/2024" target="_blank"><img src='/data/img/steam/2024.png' /></a>
+            <a href="https://store.steampowered.com/yearinreview/76561198039345808/2023" target="_blank"><img src='/data/img/steam/2023.png' /></a>
+            <a href="https://store.steampowered.com/yearinreview/76561198039345808/2022" target="_blank"><img src='/data/img/steam/2022.png' /></a>
         </p>
 },
 {
