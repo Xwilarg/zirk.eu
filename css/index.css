@@ -677,12 +677,11 @@ button:disabled {
 }
 
 .oc-buttons {
-    height: 80px;
-    gap: 0;
+    gap: 1px;
 }
 
 .oc-buttons > button {
-    width: 50%;
+    width: calc(25% - 2px);
 }
 
 /* Goals (named boxes) */

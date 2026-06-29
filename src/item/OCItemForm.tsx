@@ -184,12 +184,12 @@ const OCItemForm = forwardRef((
             </div>
         </div>
         <div className="is-flex oc-buttons">
-            <button onClick={() => setDesc("Description")} disabled={desc === "Description"}>Description</button>
-            <button onClick={() => setDesc("History")} disabled={desc === "History"}>History</button>
-            <button onClick={() => setDesc("Personality")} disabled={desc === "Personality"}>Personality</button>
+            <button className="button-icon" title="Description" onClick={() => setDesc("Description")} disabled={desc === "Description"}><span className="material-symbols-outlined">info</span></button>
+            <button className="button-icon" title="History" onClick={() => setDesc("History")} disabled={desc === "History"}><span className="material-symbols-outlined">calendar_today</span></button>
+            <button className="button-icon" title="Personality" onClick={() => setDesc("Personality")} disabled={desc === "Personality"}><span className="material-symbols-outlined">person</span></button>
             {
                 nsfwStatus === "NSFW"
-                ? <button onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality"}>Sexuality</button>
+                ? <button className="button-icon" title="Sexuality" onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality"}><span className="material-symbols-outlined">explicit</span></button>
                 : <></>
             }
         </div>
