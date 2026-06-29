@@ -510,6 +510,8 @@ button:disabled {
 }
 
 .gamejam-highlight {
+    box-sizing: border-box;
+    padding: 10px;
     border-radius: var(--border-radius);
     background-color: #b99d2328;
 }
@@ -629,7 +631,10 @@ button:disabled {
 }
 
 .oc-description {
-    height: 220px;
+    box-sizing: border-box;
+    height: 300px;
+    margin: 0;
+    padding-top: 10px;
 }
 
 .oc-content {
@@ -639,22 +644,30 @@ button:disabled {
 }
 
 .oc-subimg {
+    box-sizing: border-box;
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
     height: 300px;
-    margin-top: 5px;
+    padding-top: 5px;
 
     overflow-y: scroll;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-light) transparent;
     align-content: flex-start;
 }
-.oc-subimg-container {
+
+.oc-character-list .oc-subimg-container {
     display: block;
     height: 100px;
     width: 95px;
 }
+.oc-media .oc-subimg-container {
+    display: block;
+    height: 150px;
+    width: 142px;
+}
+
 .oc-subimg-container img, .oc-subimg-container video {
     max-width: 100%;
     max-height: 100%;
@@ -681,7 +694,7 @@ button:disabled {
 }
 
 .oc-buttons > button {
-    width: calc(25% - 2px);
+    width: calc(100/6 - 2px);
 }
 
 /* Goals (named boxes) */

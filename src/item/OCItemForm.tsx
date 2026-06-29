@@ -1,5 +1,6 @@
 import { forwardRef, useState, type ReactElement } from "react";
-import { isNsfw } from "../utils";
+import { getNavigationNoHook, isNsfw } from "../utils";
+import { Link, useNavigate, useSearchParams } from "react-router";
 
 interface OCItemFormProps
 {
@@ -45,54 +46,36 @@ interface OCInfo
     species: string
     orientation: string
     power: string
+
+    media: OCMediaInfo[]
 }
 
-type DescriptionType = "Description" | "History" | "Personality" | "Sexuality";
+interface OCMediaInfo
+{
+    name: string
+    image: string
+    nsfw: boolean
+    click: OCMediaClickInfo
+}
+
+interface OCMediaClickInfo
+{
+    type: string
+    data: string
+}
+
+type DescriptionType = "Image" | "Media" | "Description" | "History" | "Personality" | "Sexuality";
 
 const OCItemForm = forwardRef((
     { info, arts, name, keyFilter, setPreview, ocsData }: OCItemFormProps,
     _
 ) => {
     const [index, setIndex] = useState(arts.indexOf(arts.filter(x => x.default && x.character === name)[0]));
-    const [desc, setDesc] = useState<DescriptionType>("Description");
+    const [desc, setDesc] = useState<DescriptionType>("Image");
 
     const nsfwStatus = isNsfw();
-
-    let imgs: ReactElement[] = [];
-    for (let i = 0; i < arts.length; i++)
-    {
-        const isImgNsfw = arts[i].images.find(x => x.default)!.nsfw;
-
-        if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
-
-        const link = info ? `${arts[i].images.find(x => x.default)!.link}` : null;
-        const isVideo = link?.endsWith("mp4");
-        const smallImage = info ? `/data/${isVideo ? "img" : "previews"}/ocs/${arts[i].folder}/${link}` : null;
-        if (nsfwStatus === "SFW" && isImgNsfw)
-        {
-            imgs.push(
-                <div className="oc-subimg-container" key={`${name}-${i}`}>
-                    <img src={smallImage!} className="blur" />
-                </div>
-            );
-        } else if (isVideo) {
-            imgs.push(
-                <div className="oc-subimg-container" key={`${name}-${i}`}>
-                    <video src={smallImage!} onClick={() => {
-                        setIndex(i);
-                    }} />
-                </div>
-            );
-        } else {
-            imgs.push(
-                <div className="oc-subimg-container" key={`${name}-${i}`}>
-                    <img src={smallImage!} onClick={() => {
-                        setIndex(i);
-                    }} />
-                </div>
-            );
-        }
-    }
+    const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams();
 
     let genderIcon: string;
     if (info.gender === "Male") genderIcon = "male";
@@ -102,11 +85,80 @@ const OCItemForm = forwardRef((
     const image = arts.length > 0 ? `/data/previews/ocs/${arts[index].folder}/${arts[index].images.find(x => x.default)!.link}` : null;
     const imgInfo = arts[index];
 
-    let targetDesc: string[] = [];
-    if (desc === "Description") targetDesc = info.description;
-    else if (desc === "History") targetDesc = info.history ?? [];
-    else if (desc === "Personality") targetDesc = info.personality ?? [];
-    else if (desc === "Sexuality") targetDesc = info.sexuality ?? [];
+    let mainDisplay: ReactElement;
+    if (desc === "Image") {
+        let imgs: ReactElement[] = [];
+        for (let i = 0; i < arts.length; i++)
+        {
+            const isImgNsfw = arts[i].images.find(x => x.default)!.nsfw;
+
+            if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
+
+            const link = info ? `${arts[i].images.find(x => x.default)!.link}` : null;
+            const isVideo = link?.endsWith("mp4");
+            const smallImage = info ? `/data/${isVideo ? "img" : "previews"}/ocs/${arts[i].folder}/${link}` : null;
+            if (nsfwStatus === "SFW" && isImgNsfw)
+            {
+                imgs.push(
+                    <div className="oc-subimg-container" key={`${name}-${i}`}>
+                        <img src={smallImage!} className="blur" />
+                    </div>
+                );
+            } else if (isVideo) {
+                imgs.push(
+                    <div className="oc-subimg-container" key={`${name}-${i}`}>
+                        <video src={smallImage!} onClick={() => {
+                            setIndex(i);
+                        }} />
+                    </div>
+                );
+            } else {
+                imgs.push(
+                    <div className="oc-subimg-container" key={`${name}-${i}`}>
+                        <img src={smallImage!} onClick={() => {
+                            setIndex(i);
+                        }} />
+                    </div>
+                );
+            }
+        }
+
+        mainDisplay = <div className="oc-subimg oc-character-list is-flex">{ imgs }</div>;
+    } else if (desc === "Media") {
+        let imgs: ReactElement[] = [];
+        for (let m of info.media.reverse())
+        {
+            if (nsfwStatus === "FullSFW" && m.nsfw) continue;
+
+            if (nsfwStatus === "SFW" && m.nsfw)
+            {
+                imgs.push(
+                    <div className="oc-subimg-container" key={`${name}-media-${m.name}`}>
+                        <img src={m.image} className="blur" />
+                    </div>
+                );
+            } else {
+                imgs.push(
+                    <Link target="_blank" to={m.click.type === "link" ? m.click.data : getNavigationNoHook("/gamejam", searchParams, `#${m.click.data}`)}>
+                        <div className="oc-subimg-container" key={`${name}-media-${m.name}`}>
+                            <img src={m.image} />
+                        </div>
+                    </Link>
+                );
+            }
+        }
+
+        mainDisplay = <div className="oc-subimg oc-media is-flex">{ imgs }</div>;
+    } else {
+        let targetDesc: string[] = [];
+        if (desc === "Description") targetDesc = info.description;
+        else if (desc === "History") targetDesc = info.history ?? [];
+        else if (desc === "Personality") targetDesc = info.personality ?? [];
+        else if (desc === "Sexuality") targetDesc = info.sexuality ?? [];
+
+        mainDisplay = <p className="oc-description" dangerouslySetInnerHTML={{ __html: targetDesc.join("<br/><br/>") }}></p>;
+    }
+
 
     function clickImage()
     {
@@ -137,9 +189,7 @@ const OCItemForm = forwardRef((
                 : <></>
             }
             </div>
-            <div className="oc-subimg is-flex">
-                { imgs }
-            </div>
+            { mainDisplay }
             <div className="oc-content is-flex flex-columns">
                 <div className="oc-col is-flex">
                     <div className="oc-item is-flex">
@@ -184,6 +234,8 @@ const OCItemForm = forwardRef((
             </div>
         </div>
         <div className="is-flex oc-buttons">
+            <button className="button-icon" title="Images" onClick={() => setDesc("Image")} disabled={desc === "Image"}><span className="material-symbols-outlined">image</span></button>
+            <button className="button-icon" title="Media" onClick={() => setDesc("Media")} disabled={desc === "Media"}><span className="material-symbols-outlined">joystick</span></button>
             <button className="button-icon" title="Description" onClick={() => setDesc("Description")} disabled={desc === "Description"}><span className="material-symbols-outlined">info</span></button>
             <button className="button-icon" title="History" onClick={() => setDesc("History")} disabled={desc === "History"}><span className="material-symbols-outlined">calendar_today</span></button>
             <button className="button-icon" title="Personality" onClick={() => setDesc("Personality")} disabled={desc === "Personality"}><span className="material-symbols-outlined">person</span></button>
@@ -193,7 +245,6 @@ const OCItemForm = forwardRef((
                 : <></>
             }
         </div>
-        <p className="oc-description" dangerouslySetInnerHTML={{ __html: targetDesc.join("<br/>") }}></p>
     </div>)
 });
 
