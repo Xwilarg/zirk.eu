@@ -189,7 +189,6 @@ const OCItemForm = forwardRef((
                 : <></>
             }
             </div>
-            { mainDisplay }
             <div className="oc-content is-flex flex-columns">
                 <div className="oc-col is-flex">
                     <div className="oc-item is-flex">
@@ -232,18 +231,19 @@ const OCItemForm = forwardRef((
                     : <></>
                 }
             </div>
-        </div>
-        <div className="is-flex oc-buttons">
-            <button className="button-icon" title="Images" onClick={() => setDesc("Image")} disabled={desc === "Image"}><span className="material-symbols-outlined">image</span></button>
-            <button className="button-icon" title="Media" onClick={() => setDesc("Media")} disabled={desc === "Media"}><span className="material-symbols-outlined">joystick</span></button>
-            <button className="button-icon" title="Description" onClick={() => setDesc("Description")} disabled={desc === "Description"}><span className="material-symbols-outlined">info</span></button>
-            <button className="button-icon" title="History" onClick={() => setDesc("History")} disabled={desc === "History"}><span className="material-symbols-outlined">calendar_today</span></button>
-            <button className="button-icon" title="Personality" onClick={() => setDesc("Personality")} disabled={desc === "Personality"}><span className="material-symbols-outlined">person</span></button>
-            {
-                nsfwStatus === "NSFW"
-                ? <button className="button-icon" title="Sexuality" onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality"}><span className="material-symbols-outlined">explicit</span></button>
-                : <></>
-            }
+            <div className="is-flex oc-buttons">
+                <button className="button-icon" title="Images" onClick={() => setDesc("Image")} disabled={desc === "Image"}><span className="material-symbols-outlined">image</span></button>
+                <button className="button-icon" title="Media" onClick={() => setDesc("Media")} disabled={desc === "Media" || info.media.length === 0}><span className="material-symbols-outlined">joystick</span></button>
+                <button className="button-icon" title="Description" onClick={() => setDesc("Description")} disabled={desc === "Description"}><span className="material-symbols-outlined">info</span></button>
+                <button className="button-icon" title="History" onClick={() => setDesc("History")} disabled={desc === "History" || !info.history}><span className="material-symbols-outlined">calendar_today</span></button>
+                <button className="button-icon" title="Personality" onClick={() => setDesc("Personality")} disabled={desc === "Personality" || !info.personality}><span className="material-symbols-outlined">person</span></button>
+                {
+                    nsfwStatus === "NSFW"
+                    ? <button className="button-icon" title="Sexuality" onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality"}><span className="material-symbols-outlined">explicit</span></button>
+                    : <></>
+                }
+            </div>
+            { mainDisplay }
         </div>
     </div>)
 });
