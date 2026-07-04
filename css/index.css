@@ -859,3 +859,37 @@ button:disabled {
 #recap {
     padding: 0;
 }
+
+.recap-img {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    height: 400px;
+    text-align: center;
+}
+.recap-img img {
+    margin-top: 10px;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.recap-list .recap-img {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    height: 100px;
+    text-align: center;
+}
+.recap-list .recap-img img {
+    margin-top: 10px;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}

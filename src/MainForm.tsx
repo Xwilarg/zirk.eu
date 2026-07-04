@@ -9,6 +9,7 @@ import type { ButtonInfo } from "./computer/impl/game/GameForm";
 import MainIntroComponent from "./components/intro/MainIntroComponent";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
+import RecapComponent from "./components/RecapComponent";
 interface CartridgeData
 {
     name: string,
@@ -182,20 +183,8 @@ export default function MainForm() {
         <NavigationComponent />
         <div className="container" id="recap">
             <div className="is-flex flex-center-hor">
-                <div className="recap-card box">
-                    <p className="mark">Gamejam</p>
-                    <h2>Gamejam</h2>
-                    <div className="project-img">
-                        <img className="clickable" src={`/data/img/recap/GraphysCrypt.png`} onClick={() => setPreview(`/data/img/recap/GraphysCrypt.png`)} /> :
-                    </div>
-                </div>
-                <div className="recap-card box">
-                    <p className="mark">Projects</p>
-                    <h2>Project</h2>
-                    <div className="project-img">
-                        <img className="clickable" src={`/data/img/projects/Sanara-01.png`} onClick={() => setPreview(`/data/img/projects/Sanara-01.png`)} /> :
-                    </div>
-                </div>
+                <RecapComponent name="Gamejam" setPreview={setPreview} images={[ `/data/img/recap/GraphysCrypt.png` ]} />
+                <RecapComponent name="Projects" setPreview={setPreview} images={[ `/data/img/projects/Sanara-01.png` ]} />
             </div>
         </div>
         <SketchForm
