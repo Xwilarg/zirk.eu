@@ -180,16 +180,17 @@ export default function MainForm() {
         <QuoteComponent />
         <MainIntroComponent preview={preview} setPreview={setPreview} />
         <NavigationComponent />
-        <div className="container box">
-            <p className="mark">Recapitulatif</p>
+        <div className="container" id="recap">
             <div className="is-flex flex-center-hor">
-                <div className="big-card">
+                <div className="recap-card box">
+                    <p className="mark">Gamejam</p>
                     <h2>Gamejam</h2>
                     <div className="project-img">
                         <img className="clickable" src={`/data/img/recap/GraphysCrypt.png`} onClick={() => setPreview(`/data/img/recap/GraphysCrypt.png`)} /> :
                     </div>
                 </div>
-                <div className="big-card">
+                <div className="recap-card box">
+                    <p className="mark">Projects</p>
                     <h2>Project</h2>
                     <div className="project-img">
                         <img className="clickable" src={`/data/img/projects/Sanara-01.png`} onClick={() => setPreview(`/data/img/projects/Sanara-01.png`)} /> :
