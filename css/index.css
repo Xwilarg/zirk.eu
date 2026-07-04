@@ -865,7 +865,7 @@ button:disabled {
     position: relative;
     overflow: hidden;
     border-radius: var(--border-radius);
-    height: 400px;
+    height: 350px;
     text-align: center;
 }
 .recap-img img {
@@ -883,6 +883,7 @@ button:disabled {
     overflow: hidden;
     border-radius: var(--border-radius);
     height: 100px;
+    width: 100px;
     text-align: center;
 }
 .recap-list .recap-img img {

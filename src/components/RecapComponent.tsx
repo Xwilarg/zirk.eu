@@ -16,18 +16,17 @@ export default function RecapComponent({ name, setPreview, images }: RecapCompon
     {
         data.push(
             <div className="recap-img">
-                <img key={i} src={images[i]} onClick={() => setIndex(i)} />
+                <img className="clickable" key={i} src={images[i]} onClick={() => setIndex(i)} />
             </div>
         )
     }
 
     return <div className="recap-card box">
         <p className="mark">{ name }</p>
-        <h2>{ name }</h2>
         <div className="recap-img">
             <img className="clickable" src={images[index]} onClick={() => setPreview(images[index])} />
         </div>
-        <div className="recap-list">
+        <div className="recap-list is-flex flex-center-hor">
             { data }
         </div>
     </div>

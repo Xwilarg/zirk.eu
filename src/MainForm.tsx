@@ -183,8 +183,22 @@ export default function MainForm() {
         <NavigationComponent />
         <div className="container" id="recap">
             <div className="is-flex flex-center-hor">
-                <RecapComponent name="Gamejam" setPreview={setPreview} images={[ `/data/img/recap/GraphysCrypt.png` ]} />
-                <RecapComponent name="Projects" setPreview={setPreview} images={[ `/data/img/projects/Sanara-01.png` ]} />
+                <RecapComponent name="Gamejam" setPreview={setPreview} images={[
+                    `/data/img/recap/Gamejam-01.png`,
+                    `/data/img/recap/Gamejam-02.png`,
+                    `/data/img/recap/Gamejam-03.png`
+                ]} />
+                <RecapComponent name="Projects" setPreview={setPreview} images={[
+                    `/data/img/projects/Intranet-01.png`,
+                    `/data/img/projects/GameGuesser-01.png`,
+                    `/data/img/projects/Shika-01.png`
+                ]} />
+                <RecapComponent name="Katsis" setPreview={setPreview} images={[
+                    `/data/img/recap/Katsis-01.png`,
+                    `/data/img/recap/Katsis-02.png`,
+                    `/data/img/recap/Katsis-03.png`
+                ]} />
+                <RecapComponent name="Placeholder" setPreview={setPreview} images={[]} />
             </div>
         </div>
         <SketchForm
