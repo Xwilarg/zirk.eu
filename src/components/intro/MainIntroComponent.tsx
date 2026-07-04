@@ -2,6 +2,7 @@ import { Link, useSearchParams } from "react-router"
 import { useState } from "react";
 import sheepData from "../../../data/json/sheep.json"
 import { getNavigationNoHook } from "../../utils";
+import ImageModalForm from "../../modal/ImageModalForm";
 
 interface SheepLinkInfo
 {
@@ -20,6 +21,7 @@ export default function MainIntroComponent() {
     let [showSheep, setShowSheep] = useState<boolean>(false);
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [preview, setPreview] = useState<string | null>(null);
 
     return <div className="container box">
         <p className="mark">Introduction</p>
@@ -46,7 +48,7 @@ export default function MainIntroComponent() {
                                         ? <a className="ignore" target="_blank" href={x.link.value}><p>{x.name}</p></a>
                                         : <p onClick={() => { alert(`${x.link.name}: ${x.link.value}`); }}>{x.name}</p>
                                     }
-                                    <img src={`/data/img/sheep/${x.image}`} />
+                                    <img src={`/data/img/sheep/${x.image}`} onClick={() => setPreview(`/data/img/sheep/${x.image}`)} />
                                 </div>
                             )
                         }
@@ -55,5 +57,10 @@ export default function MainIntroComponent() {
                 : <></>
             }
         </div>
+        {
+            preview !== null ?
+            <ImageModalForm image={preview} unsetImage={setPreview} />
+            : <></>
+        }
     </div>
 }

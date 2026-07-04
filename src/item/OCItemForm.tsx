@@ -239,7 +239,7 @@ const OCItemForm = forwardRef((
                 <button className="button-icon" title="Personality" onClick={() => setDesc("Personality")} disabled={desc === "Personality" || !info.personality}><span className="material-symbols-outlined">person</span></button>
                 {
                     nsfwStatus === "NSFW"
-                    ? <button className="button-icon" title="Sexuality" onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality"}><span className="material-symbols-outlined">explicit</span></button>
+                    ? <button className="button-icon" title="Sexuality" onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality" || !info.sexuality}><span className="material-symbols-outlined">explicit</span></button>
                     : <></>
                 }
             </div>
