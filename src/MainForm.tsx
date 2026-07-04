@@ -91,6 +91,8 @@ export default function MainForm() {
     const [cartridges, setCartridges] = useState<ReactElement[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
+    const [preview, setPreview] = useState<string | null>(null);
+
     const buttons: Array<ButtonInfo> = [{
         name: "power_settings_new",
         type: "Custom",
@@ -176,8 +178,25 @@ export default function MainForm() {
 
     return <>
         <QuoteComponent />
-        <MainIntroComponent />
+        <MainIntroComponent preview={preview} setPreview={setPreview} />
         <NavigationComponent />
+        <div className="container box">
+            <p className="mark">Recapitulatif</p>
+            <div className="is-flex flex-center-hor">
+                <div className="big-card">
+                    <h2>Gamejam</h2>
+                    <div className="project-img">
+                        <img className="clickable" src={`/data/img/recap/GraphysCrypt.png`} onClick={() => setPreview(`/data/img/recap/GraphysCrypt.png`)} /> :
+                    </div>
+                </div>
+                <div className="big-card">
+                    <h2>Project</h2>
+                    <div className="project-img">
+                        <img className="clickable" src={`/data/img/projects/Sanara-01.png`} onClick={() => setPreview(`/data/img/projects/Sanara-01.png`)} /> :
+                    </div>
+                </div>
+            </div>
+        </div>
         <SketchForm
             isOn={isOn}
             loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}

@@ -8,7 +8,7 @@ interface CartridgeFormProps
     type: CartridgeType
 }
 
-export type CartridgeType = "Gamejam" | "Sketch";
+export type CartridgeType = "Gamejam" | "Sketch" | "Project";
 
 const CartridgeForm = forwardRef((
     { name, onClick, imageUrl, type }: CartridgeFormProps,

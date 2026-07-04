@@ -17,11 +17,16 @@ interface SheepInfo
     link: SheepLinkInfo
 }
 
-export default function MainIntroComponent() {
+interface MainIntroComponentProps
+{
+    preview: string | null
+    setPreview: React.Dispatch<React.SetStateAction<string | null>>
+}
+
+export default function MainIntroComponent({preview, setPreview}: MainIntroComponentProps) {
     let [showSheep, setShowSheep] = useState<boolean>(false);
     let [sheep, setSheep] = useState<SheepInfo[]>(sheepData);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [preview, setPreview] = useState<string | null>(null);
 
     return <div className="container box">
         <p className="mark">Introduction</p>
