@@ -91,7 +91,7 @@ textarea.readonly {
 .recap-card {
     box-sizing: border-box;
     padding: 5px;
-    width: calc(100% / 2 - 10px);
+    width: calc(100% / 2 - 5px);
 }
 @media (max-width: 1000px) {
     .recap-card {
