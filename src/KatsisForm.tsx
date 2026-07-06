@@ -15,9 +15,14 @@ interface KatsisProject
 interface KatsisProjectProject
 {
     name: string
-    thumbnailSmall: string
+    thumbnailSmall: KatsisProjectProjectImage
     urlFragment: string
     webGL: KatsisProjectProjectWebgl
+}
+
+interface KatsisProjectProjectImage
+{
+    filename: string
 }
 
 interface KatsisProjectProjectWebgl
@@ -92,10 +97,10 @@ export default function KatsisForm() {
                         <h2 className="project-name">{p.name}</h2>
                         <span className="is-flex flex-center-hor">
                             <div className="katsis-bg" style={{
-                                backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall}')`
+                                backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall.filename}')`
                             }}>
                                 <div className="katsis-img is-flex flex-center-hor">
-                                    <img src={`https://cdn.katsis.net/${p.thumbnailSmall}`} />
+                                    <img src={`https://cdn.katsis.net/${p.thumbnailSmall.filename}`} />
                                 </div>
                             </div>
                         </span>
@@ -131,7 +136,7 @@ export default function KatsisForm() {
                         <h2 className="project-name"></h2>
                         <span className="is-flex flex-center-hor">
                             <div className="katsis-bg-sfw" style={{
-                                    backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall}')`
+                                    backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall.filename}')`
                                 }}>
                                     <div className="katsis-img-sfw">
                                     </div>

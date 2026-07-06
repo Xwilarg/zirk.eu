@@ -169,7 +169,7 @@ export default function MainForm() {
                         isFullscreen: false,
                         onLoad: null,
                     },
-                    imageUrl: `https://cdn.katsis.net/${x.thumbnailSmall}`,
+                    imageUrl: `https://cdn.katsis.net/${x.thumbnailSmall.filename}`,
                     type: "Katsis"
                 };
             })])
@@ -183,22 +183,43 @@ export default function MainForm() {
         <NavigationComponent />
         <div className="container" id="recap">
             <div className="is-flex flex-center-hor">
-                <RecapComponent name="Gamejam" setPreview={setPreview} images={[
-                    `/data/img/recap/Gamejam-01.png`,
-                    `/data/img/recap/Gamejam-02.png`,
-                    `/data/img/recap/Gamejam-03.png`
-                ]} />
-                <RecapComponent name="Projects" setPreview={setPreview} images={[
-                    `/data/img/projects/Intranet-01.png`,
-                    `/data/img/projects/GameGuesser-01.png`,
-                    `/data/img/projects/Shika-01.png`
-                ]} />
-                <RecapComponent name="Katsis" setPreview={setPreview} images={[
-                    `/data/img/recap/Katsis-01.png`,
-                    `/data/img/recap/Katsis-02.png`,
-                    `/data/img/recap/Katsis-03.png`
-                ]} />
-                <RecapComponent name="Placeholder" setPreview={setPreview} images={[]} />
+                <RecapComponent name="Gamejam" setPreview={setPreview}
+                    images={[
+                        `/data/img/recap/Gamejam-01.png`,
+                        `/data/img/recap/Gamejam-02.png`,
+                        `/data/img/recap/Gamejam-03.png`
+                    ]}
+                    previews={[
+                        `/data/previews/recap/Gamejam-01.png`,
+                        `/data/previews/recap/Gamejam-02.png`,
+                        `/data/previews/recap/Gamejam-03.png`
+                    ]}
+                />
+                <RecapComponent name="Projects" setPreview={setPreview}
+                    images={[
+                        `/data/img/projects/Intranet-01.png`,
+                        `/data/img/projects/GameGuesser-01.png`,
+                        `/data/img/projects/Shika-01.png`
+                    ]}
+                    previews={[
+                        `/data/img/projects/Intranet-01.png`,
+                        `/data/img/projects/GameGuesser-01.png`,
+                        `/data/img/projects/Shika-01.png`
+                    ]}
+                />
+                <RecapComponent name="Katsis" setPreview={setPreview}
+                    images={[
+                        `/data/img/recap/Katsis-01.png`,
+                        `/data/img/recap/Katsis-02.png`,
+                        `/data/img/recap/Katsis-03.png`
+                    ]}
+                    previews={[
+                        `/data/previews/recap/Katsis-01.png`,
+                        `/data/previews/recap/Katsis-02.png`,
+                        `/data/previews/recap/Katsis-03.png`
+                    ]}
+                />
+                <RecapComponent name="Placeholder" setPreview={setPreview} images={[]} previews={[]} />
             </div>
         </div>
         <SketchForm
