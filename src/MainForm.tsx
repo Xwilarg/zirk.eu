@@ -184,42 +184,24 @@ export default function MainForm() {
         <div className="container" id="recap">
             <div className="is-flex flex-center-hor">
                 <RecapComponent name="Gamejam" setPreview={setPreview}
-                    images={[
-                        `/data/img/recap/Gamejam-01.png`,
-                        `/data/img/recap/Gamejam-02.png`,
-                        `/data/img/recap/Gamejam-03.png`
-                    ]}
-                    previews={[
-                        `/data/previews/recap/Gamejam-01.png`,
-                        `/data/previews/recap/Gamejam-02.png`,
-                        `/data/previews/recap/Gamejam-03.png`
-                    ]}
+                    previewFolder="/data/previews/recap/"
+                    imageFolder="/data/img/recap/"
+                    images={[ "Gamejam-01.png", "Gamejam-02.png", "Gamejam-03.png" ]}
+                    nsfwImages={[ "Gamejam-01.png", "Gamejam-02.png", "Gamejam-03-NSFW.png" ]}
                 />
                 <RecapComponent name="Projects" setPreview={setPreview}
-                    images={[
-                        `/data/img/projects/Intranet-01.png`,
-                        `/data/img/projects/GameGuesser-01.png`,
-                        `/data/img/projects/Shika-01.png`
-                    ]}
-                    previews={[
-                        `/data/img/projects/Intranet-01.png`,
-                        `/data/img/projects/GameGuesser-01.png`,
-                        `/data/img/projects/Shika-01.png`
-                    ]}
+                    previewFolder="/data/img/projects/"
+                    imageFolder="/data/img/projects/"
+                    images={[ "Intranet-01.png", "GameGuesser-01.png", "Shika-01.png" ]}
+                    nsfwImages={[ "Intranet-01.png", "GameGuesser-01.png", "Shika-01.png" ]}
                 />
                 <RecapComponent name="Katsis" setPreview={setPreview}
-                    images={[
-                        `/data/img/recap/Katsis-01.png`,
-                        `/data/img/recap/Katsis-02.png`,
-                        `/data/img/recap/Katsis-03.png`
-                    ]}
-                    previews={[
-                        `/data/previews/recap/Katsis-01.png`,
-                        `/data/previews/recap/Katsis-02.png`,
-                        `/data/previews/recap/Katsis-03.png`
-                    ]}
+                    previewFolder="/data/img/recap/"
+                    imageFolder="/data/previews/recap/"
+                    images={[ "Katsis-01.png", "Katsis-02.png", "Katsis-03.png" ]}
+                    nsfwImages={[ "Katsis-01-NSFW.png", "Katsis-02.png", "Katsis-03-NSFW.png" ]}
                 />
-                <RecapComponent name="Placeholder" setPreview={setPreview} images={[]} previews={[]} />
+                <RecapComponent name="Placeholder" setPreview={setPreview} previewFolder="" imageFolder="" images={[]} nsfwImages={[]} />
             </div>
         </div>
         <SketchForm

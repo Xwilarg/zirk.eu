@@ -62,14 +62,16 @@ export class BallsScreen extends AScreen {
     squares: Square[];
     intervalBallSpawn: number;
     mouseSize: number;
+    ballCount: number
 
     constructor(canvas: HTMLCanvasElement) {
         super(canvas);
 
         this.squares = [];
         this.mouseSize = 10;
+        this.ballCount = 20;
 
-        this.intervalBallSpawn = window.setInterval(this.spawnNewBall.bind(this), 1000);
+        this.intervalBallSpawn = window.setInterval(this.spawnNewBall.bind(this), 500);
         this.spawnNewBall();
     }
 
@@ -153,6 +155,6 @@ export class BallsScreen extends AScreen {
     spawnNewBall() {
         this.squares.push(new Square(this.canvas));
 
-        if (this.squares.length == 15) clearInterval(this.intervalBallSpawn);
+        if (this.squares.length == this.ballCount) clearInterval(this.intervalBallSpawn);
     }
 }

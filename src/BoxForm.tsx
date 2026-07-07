@@ -29,7 +29,7 @@ export default function BoxForm() {
                 <h3 id={p.name}>{p.name}</h3>
                 <span className="is-flex flex-center-hor">
                     <div className="goal-card box goal-box">
-                        <h4>Presential gamejam</h4>
+                        <h4>Gamejam</h4>
                         <span className="is-flex flex-center-hor">
                             <div className="goal-box-image">
                                 {
@@ -45,8 +45,8 @@ export default function BoxForm() {
                         <span className="is-flex flex-center-hor">
                             <div className="goal-box-image">
                                 {
-                                    p.boxes.boardgame
-                                    ? <img src={`/data/img/boxes/${p.boxes.boardgame}`} />
+                                    p.boxes.food
+                                    ? <img src={`/data/img/boxes/${p.boxes.food}`} />
                                     : <></>
                                 }
                             </div>

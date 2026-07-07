@@ -7,9 +7,13 @@ export abstract class AScreen
     mouseY: number | null = null;
     refTime: number;
 
+    clearRect: boolean
+
     constructor(canvas: HTMLCanvasElement) {
         this.mouseX = null;
         this.mouseY = null;
+
+        this.clearRect = true;
 
         this.canvas = canvas;
         this.updateBounds();
@@ -38,7 +42,9 @@ export abstract class AScreen
     }
     
     updateCanvas() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        if (this.clearRect) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
 
         this.ctx.fillStyle = "#8080801a";
         this.ctx.font = "bold 50px Quantico, sans-serif";

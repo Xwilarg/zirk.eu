@@ -2,11 +2,12 @@ import { type RefObject } from "react";
 import { AScreen } from "./screensaver/AScreen";
 import { BallsScreen } from "./screensaver/BallsScreen";
 import { ParticleOrbits } from "./screensaver/ParticleOrbit";
+import { Gradient } from "./screensaver/Gradient";
 import { randInt } from "../../utils";
 
 export default function loadScreenSaver(canvasRef: RefObject<HTMLCanvasElement | null>, screenSaverRef: RefObject<AScreen | null>): () => void
 {
-    const elems = [ParticleOrbits, BallsScreen];
+    const elems = [ParticleOrbits, BallsScreen, Gradient];
     const sc = new elems[randInt(elems.length)](canvasRef.current!);
 
     screenSaverRef.current = sc;
