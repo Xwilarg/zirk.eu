@@ -779,10 +779,6 @@ button:disabled {
     height: 500px;
 }
 
-.katsis-highlight {
-    color: #fa8fb3;
-}
-
 .sheep-img {
     height: 500px;
     width: 303px;
@@ -810,6 +806,28 @@ button:disabled {
     background-color: #cccccc8f;
 }
 
+/* Highlight */
+
+.katsis-highlight {
+    color: #fa8fb3;
+    font-weight: bold;
+}
+
+.gradient-highlight {
+  background: linear-gradient(to right, #5769d1 20%, #da5555 30%, #da5555 70%, #5769d1 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: gradient-anim 7s ease-in-out infinite alternate;
+}
+
+@keyframes gradient-anim {
+  to {
+    background-position: -1000%;
+  }
+}
+
 /* Info */
 #steam-replay img {
     width: 475px;
@@ -819,6 +837,14 @@ button:disabled {
     #steam-replay img {
         width: 100%;
     }
+}
+
+.question {
+    width: calc(100% - 20px);
+}
+
+.answer {
+    padding: 10px
 }
 
 /* Secrets */
@@ -867,6 +893,15 @@ button:disabled {
     border-radius: var(--border-radius);
     height: 350px;
     text-align: center;
+}
+.recap-img.broken {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    height: 150px;
+    text-align: center;
+    margin-top: 100px;
 }
 .recap-img img {
     margin-top: 10px;

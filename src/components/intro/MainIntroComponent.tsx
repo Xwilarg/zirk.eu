@@ -31,12 +31,12 @@ export default function MainIntroComponent({preview, setPreview}: MainIntroCompo
     return <div className="container box">
         <p className="mark">Introduction</p>
         <div className={showSheep ? "enlarged" : ""} id="intro">
-            Welcome on my website, I am Zirk, a game and software developer<br/>
+            <h3>Welcome on <span className="gradient-highlight">my amazing website</span>, I am Zirk, a game and software developer<br/></h3>
             <br/>
             I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigationNoHook("/gamejam", searchParams)}>participating at gamejams</Link><br/>
-            Outside of programming, I have a decent amount of hobbies that I'm too shy to throw straight from this introduction, but feel free to look around if you're interested in that point!<br/>
             <br/>
-            But one of them is making this website! It's still a big work in progress but there are already plenty to look around so I hope you enjoy your stay here :)<br/>
+            I overall like to work on lot of different projects, this website being on of them!<br/>
+            There are plenty to look around so I hope you enjoy your time here :)<br/>
             <br/>
             If you scrolled down there, why not contributing to my <a onClick={_ => setShowSheep(x => !x)}>sheep collection</a>?<br/>
             Send me your best drawn sheep at <a href="mailto:xwilarg@protonmail.com">xwilarg@protonmail.com</a> or on Discord (zirk)<br/>

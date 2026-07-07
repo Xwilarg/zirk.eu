@@ -205,12 +205,14 @@ export default function InfoForm() {
         for (let i = 0; i < questions.length; i++)
         {
             data[questions[i].category].push(
-                <button data-category={questions[i].category} key={questions[i].question} className="container box" onClick={_ => setOpenedQuestion(x => x === i ? -1 : i)}>{questions[i].question}</button>
+                <button data-category={questions[i].category} key={questions[i].question} className="container box question" onClick={_ => setOpenedQuestion(x => x === i ? -1 : i)}>{questions[i].question}</button>
             );
             if (openedQuestion === i)
             {
                 data[questions[i].category].push(
-                    questions[i].answer(nsfwStatus)
+                    <div className="answer">
+                        {questions[i].answer(nsfwStatus)}
+                    </div>
                 );
             }
         }
@@ -224,11 +226,11 @@ export default function InfoForm() {
         <NavigationComponent />
         <div className="container box">
             <p className="mark">Information</p>
-            <div className="container">
+            <div>
                 <h2>About this website</h2>
                 { questionsElements["website"] }
             </div> 
-            <div className="container">
+            <div>
                 <h2>About me</h2>
                 { questionsElements["me"] }
             </div>

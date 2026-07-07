@@ -181,6 +181,19 @@ export default function MainForm() {
         <QuoteComponent />
         <MainIntroComponent preview={preview} setPreview={setPreview} />
         <NavigationComponent />
+        <SketchForm
+            isOn={isOn}
+            loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}
+            buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
+            isFullscreen={isFullscreen}
+            onLoad={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.onLoad}
+        />
+        <div className="container box">
+            <p className="mark">Cartridges</p>
+            <div className="is-flex">
+                { cartridges }
+            </div>
+        </div>
         <div className="container" id="recap">
             <div className="is-flex flex-center-hor">
                 <RecapComponent name="Gamejam" setPreview={setPreview}
@@ -201,20 +214,12 @@ export default function MainForm() {
                     images={[ "Katsis-01.png", "Katsis-02.png", "Katsis-03.png" ]}
                     nsfwImages={[ "Katsis-01-NSFW.png", "Katsis-02.png", "Katsis-03-NSFW.png" ]}
                 />
-                <RecapComponent name="Placeholder" setPreview={setPreview} previewFolder="" imageFolder="" images={[]} nsfwImages={[]} />
-            </div>
-        </div>
-        <SketchForm
-            isOn={isOn}
-            loadedGame={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.loadedGame}
-            buttons={(isOn && computerPropsIndex > -1) ? [...buttons, ...defaultCartridges[computerPropsIndex].props.buttons] : buttons}
-            isFullscreen={isFullscreen}
-            onLoad={computerPropsIndex === -1 ? null : defaultCartridges[computerPropsIndex].props.onLoad}
-        />
-        <div className="container box">
-            <p className="mark">Cartridges</p>
-            <div className="is-flex">
-                { cartridges }
+                <div className="recap-card box">
+                    <p className="mark">Placeholder</p>
+                    <div className="recap-img broken">
+                        <img className="pixel" src="/img/broken.png"/>
+                    </div>
+                </div>
             </div>
         </div>
     </> 
