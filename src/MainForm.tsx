@@ -196,8 +196,8 @@ export default function MainForm() {
                     nsfwImages={[ "Intranet-01.png", "GameGuesser-01.png", "Shika-01.png" ]}
                 />
                 <RecapComponent name="Katsis" setPreview={setPreview}
-                    previewFolder="/data/img/recap/"
-                    imageFolder="/data/previews/recap/"
+                    previewFolder="/data/previews/recap/"
+                    imageFolder="/data/img/recap/"
                     images={[ "Katsis-01.png", "Katsis-02.png", "Katsis-03.png" ]}
                     nsfwImages={[ "Katsis-01-NSFW.png", "Katsis-02.png", "Katsis-03-NSFW.png" ]}
                 />
