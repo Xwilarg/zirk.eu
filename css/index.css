@@ -308,6 +308,7 @@ button:disabled {
     padding: 10px;
 
     width: 75px;
+    text-align: center;
 }
 .nav-button:hover {
     color: var(--primary-background);
