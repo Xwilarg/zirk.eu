@@ -122,14 +122,6 @@ const sfwQuestions = [
     answer:
         (_: NsfwStatus) => <LifelineComponent />
 },
-/*{
-    category: "me" as const,
-    question: "Hobbies",
-    answer:
-        (_: NsfwStatus) => <p>
-            <InfoHobbyForm />
-        </p>
-},*/
 {
     category: "me" as const,
     question: "More about me",

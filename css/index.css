@@ -720,17 +720,25 @@ button:disabled {
     margin-bottom: 5px;
 }
 
+.goal-box-mult-image {
+    width: 120px;
+}
+
 .goal-box-image {
     height: 200px;
 }
 
-.goal-box-image img {
+.goal-box-image img, .goal-box-mult-image img {
     max-height: 100%;
     max-width: 100%;
 }
 
 .goal-card {
     width: 300px;
+    height: 250px;
+}
+.goal-card > span {
+    gap: 1px;
 }
 
 /* Intro */
