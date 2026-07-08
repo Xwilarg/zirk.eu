@@ -862,6 +862,18 @@ button:disabled {
     margin: 50px;
 }
 
+@media (max-width: 650px) {
+    .lifeline {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+@media (max-width: 450px) {
+    .lifeline {
+        height: 75px;
+    }
+}
+
 /* Fractal */
 #fractal-table, #fractal-table th, #fractal-table td {
     border: var(--border);
