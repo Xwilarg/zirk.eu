@@ -41,7 +41,7 @@ export default function OCForm() {
         <QuoteComponent/>
         <OCIntroComponent />
         <NavigationComponent />
-        <div className="container box is-flex">
+        <div className="container box is-flex flex-center-hor">
             <p className="mark">Character</p>
             { ocsHtml }
         </div>

@@ -2,7 +2,7 @@ import { Link, useLocation, useSearchParams } from "react-router";
 import BoxIntroComponent from "./components/intro/BoxIntroComponent";
 import NavigationComponent from "./components/NavigationComponent";
 import QuoteComponent from "./components/QuoteComponent";
-import { getNavigationNoHook } from "./utils";
+import { getNavigationNoHook, isNsfw } from "./utils";
 import friendData from "../data/json/friends.json"
 import { useEffect, useState, type ReactElement } from "react";
 import ImageModalForm from "./modal/ImageModalForm";
@@ -12,6 +12,8 @@ export default function BoxForm() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [preview, setPreview] = useState<string | null>(null);
     const { hash } = useLocation();
+
+    const nsfwStatus = isNsfw();
 
     useEffect(() => {
         if (hash)
@@ -33,20 +35,24 @@ export default function BoxForm() {
                         <span className="is-flex flex-center-hor">
                             <div className="goal-box-image">
                                 {
-                                    p.boxes.gamejam
-                                    ? <Link to={getNavigationNoHook("/gamejam", searchParams, `#${p.boxes.gamejam.split('.')[0]}`)}><img src={`/data/img/gamejam/${p.boxes.gamejam}`} /></Link>
+                                    p.boxes.gamejam && (nsfwStatus !== "FullSFW" || !p.boxes.gamejam.nsfw)
+                                    ? (
+                                        p.boxes.gamejam.nsfw && nsfwStatus === "SFW"
+                                        ? <img className="blur" src={`/data/img/gamejam/${p.boxes.gamejam.image}`} />
+                                        : <Link to={getNavigationNoHook("/gamejam", searchParams, `#${p.boxes.gamejam.link}`)}><img src={`/data/img/gamejam/${p.boxes.gamejam.image}`} /></Link>
+                                    )
                                     : <></>
                                 }
                             </div>
                         </span>
                     </div>
                     <div className="goal-card box goal-box">
-                        <h4>Boardgame</h4>
+                        <h4>Travel</h4>
                         <span className="is-flex flex-center-hor">
                             <div className="goal-box-image">
                                 {
-                                    p.boxes.food
-                                    ? <img src={`/data/img/boxes/${p.boxes.food}`} />
+                                    p.boxes.travel
+                                    ? <img src={`/data/img/boxes/${p.boxes.travel}`} />
                                     : <></>
                                 }
                             </div>
