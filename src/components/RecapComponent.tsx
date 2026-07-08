@@ -20,7 +20,7 @@ export default function RecapComponent({ name, setPreview, previewFolder, imageF
     for (let i = 0; i < images.length; i++)
     {
         data.push(
-            <div className="recap-img">
+            <div className="recap-img" key={`${imageFolder}-${i}`}>
                 <img className="clickable" key={i} src={`${previewFolder}${nsfw ? nsfwImages[i] : images[i]}`} onClick={() => setIndex(i)} />
             </div>
         )
