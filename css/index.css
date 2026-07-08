@@ -306,6 +306,8 @@ button:disabled {
     border: var(--border);
     border-radius: var(--border-radius);
     padding: 10px;
+
+    width: 75px;
 }
 .nav-button:hover {
     color: var(--primary-background);
