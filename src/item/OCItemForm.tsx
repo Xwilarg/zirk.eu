@@ -82,7 +82,8 @@ const OCItemForm = forwardRef((
     else if (info.gender === "Female") genderIcon = "female";
     else genderIcon = "transgender";
 
-    const image = arts.length > 0 ? `/data/previews/ocs/${arts[index].folder}/${arts[index].images.find(x => x.default)!.link}` : null;
+    const defaultImage = arts.length > 0 && index != -1 ? arts[index].images.find(x => x.default) : null;
+    const image = defaultImage ? `/data/previews/ocs/${arts[index].folder}/${defaultImage.link}` : null;
     const imgInfo = arts[index];
 
     let mainDisplay: ReactElement;
