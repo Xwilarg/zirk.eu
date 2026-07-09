@@ -72,19 +72,26 @@ export default function LifelineComponent() {
     return <p>
         {
             lifelineData.map(x =>
-                <div className="lifeline is-flex flex-center-ver">
-                    {x.website ? <a href={x.website} target="_blank">{x.name}</a> : x.name}: {x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
-                        const hash = prompt("Enter your hash");
-                        if (hash)
-                        {
-                            const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
-                            if (cyrb53(finalStr).toString() === x.lifeline.hash) {
-                                alert("♥");
-                            } else {
-                                alert("Invalid ID");
+                <div className="lifeline">
+                    <div className="is-flex flex-center-ver">
+                        {x.website ? <a href={x.website} target="_blank">{x.name}</a> : x.name} {x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
+                            const hash = prompt("Enter your hash");
+                            if (hash)
+                            {
+                                const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
+                                if (cyrb53(finalStr).toString() === x.lifeline.hash) {
+                                    alert("♥");
+                                } else {
+                                    alert("Invalid ID");
+                                }
                             }
-                        }
-                    }}><span className="material-symbols-outlined">check_circle</span></button> : ""}
+                        }}><span className="material-symbols-outlined">check_circle</span></button> : ""}
+                    </div>
+                    <div>
+                        <span className={"material-symbols-outlined " + (x.boxes.gamejam ? "" : "lifeline-icon-disabled")}>code</span>
+                        <span className={"material-symbols-outlined " + (x.boxes.travel ? "" : "lifeline-icon-disabled")}>travel</span>
+                        <span className={"material-symbols-outlined " + (x.boxes.coop ? "" : "lifeline-icon-disabled")}>joystick</span>
+                    </div>
                 </div>
             )
         }

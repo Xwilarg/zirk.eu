@@ -878,8 +878,16 @@ button:disabled {
 }
 @media (max-width: 450px) {
     .lifeline {
-        height: 75px;
+        height: 100px;
     }
+
+    .lifeline .is-flex {
+        flex-direction: column;
+    }
+}
+
+.lifeline-icon-disabled {
+    color: rgb(58, 58, 58);
 }
 
 /* Fractal */
