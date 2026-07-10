@@ -54,6 +54,23 @@ export default function LifelineComponent() {
             }
 
             setLifelineData(data);
+        })
+        .catch(_ => {
+            const data: FriendData[] = [];
+
+            for (let d of friendData)
+            {
+                if (d.lifeline === "dynamic")
+                {
+                    d.lifeline = {
+                        id: "Unknown",
+                        hash: null
+                    };
+                }
+                data.push(d);
+            }
+
+            setLifelineData(data);
         });
     }, [ ]);
 
@@ -74,11 +91,12 @@ export default function LifelineComponent() {
             lifelineData.map(x =>
                 <div className="lifeline">
                     <div className="is-flex flex-center-ver">
-                        {x.website ? <a href={x.website} target="_blank">{x.name}</a> : x.name} {x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
+                        <span className="lifeline-name">{x.website ? <a href={x.website} target="_blank">{x.name}</a> : x.name}</span> {x.lifeline.hash ? "" : x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
                             const hash = prompt("Enter your hash");
                             if (hash)
                             {
                                 const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
+                                console.log(cyrb53(finalStr).toString())
                                 if (cyrb53(finalStr).toString() === x.lifeline.hash) {
                                     alert("♥");
                                 } else {

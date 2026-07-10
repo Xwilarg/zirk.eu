@@ -876,14 +876,9 @@ button:disabled {
         margin-right: 10px;
     }
 }
-@media (max-width: 450px) {
-    .lifeline {
-        height: 100px;
-    }
 
-    .lifeline .is-flex {
-        flex-direction: column;
-    }
+.lifeline-name {
+    width: 100px;
 }
 
 .lifeline-icon-disabled {
