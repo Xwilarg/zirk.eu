@@ -192,7 +192,7 @@ export default function BoxForm() {
                             <a href="https://store.steampowered.com/app/102600/" target="_blank"><img src={`/data/img/boxes/OrcsMustDie.jpg`} /></a>
                         </div>
                         <div className="goal-box-mult-image">
-                            <a href="https://store.steampowered.com/app/6220/" target="_blank"><img src={`/data/img/boxes/Flatout.jpg`} /></a>
+                            <a href="https://store.steampowered.com/app/6220/" target="_blank"><img src={`/data/img/boxes/FlatOut.jpg`} /></a>
                         </div>
                         <div className="goal-box-mult-image">
                             <a href="https://store.steampowered.com/app/889510/" target="_blank"><img src={`/data/img/boxes/SenranKaguraBurst.jpg`} /></a>
