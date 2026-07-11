@@ -135,7 +135,7 @@ const DesktopForm = forwardRef((
         } else {
             setText([
                 "Game cartridge not found. Please insert a game to retry.",
-                "> "
+                //"> "
             ]);
         }
     }, [ tracedGame ])
@@ -145,6 +145,11 @@ const DesktopForm = forwardRef((
             textAreaRef.current.scrollTop = textAreaRef.current.scrollHeight;
         }
     }, [ text ]);
+
+    return <>
+        <textarea ref={textAreaRef} id="screen-desktop-display" className="readonly" readOnly={true} value={text.join("\n")}>
+        </textarea>;
+    </>
 
     return <>
         <textarea ref={textAreaRef} id="screen-desktop-display" className="readonly" readOnly={true} value={text.join("\n")}>

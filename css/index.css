@@ -360,7 +360,7 @@ button:disabled {
 }
 
 #screen-desktop-display {
-    height: calc(100% - 80px);
+    height: 100%; /* calc(100% - 80px); */
     overflow-y: hidden;
 }
 
