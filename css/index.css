@@ -779,6 +779,7 @@ button:disabled {
 #intro {
     height: 185px;
     border-radius: var(--border-radius) 0 0 var(--border-radius);
+    padding-left: 5px;
 
     overflow-y: auto;
     scrollbar-width: thin;
