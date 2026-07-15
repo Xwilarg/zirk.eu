@@ -7,6 +7,7 @@ import { useEffect, useState, type ReactElement } from "react";
 export default function SheepForm() {
     const [sheepGroup1Html, setSheepGroup1Html] = useState<ReactElement[]>([]);
     const [sheepGroup2Html, setSheepGroup2Html] = useState<ReactElement[]>([]);
+    const [sheepGroup3Html, setSheepGroup3Html] = useState<ReactElement[]>([]);
 
     const countries: { [id: string] : string; } = {
         "United Kingdom": "gb",
@@ -51,6 +52,7 @@ export default function SheepForm() {
     useEffect(() => {
         setSheepGroup1Html(getSheepData(1));
         setSheepGroup2Html(getSheepData(2));
+        setSheepGroup3Html(getSheepData(3));
     }, []);
     
     return <>
@@ -66,6 +68,10 @@ export default function SheepForm() {
             <h2>Group 2</h2>
             <div className="is-flex">
                 { sheepGroup2Html }
+            </div>
+            <h2>Group 3</h2>
+            <div className="is-flex">
+                { sheepGroup3Html }
             </div>
         </div>
     </>
