@@ -44,6 +44,15 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
     const text = document.createTextNode("Loading...");
     loading.appendChild(text);
 
+    const originalAlert = window.alert;
+    window.alert = (msg?: any) => {
+        if (typeof msg === "string" && msg.includes("IndexedDB")) {
+            console.warn(`Supressing Unity alert: ${msg}`);
+            return;
+        }
+        originalAlert(msg);
+    };
+
     try
     {
         if (engine === "GB Studio")
