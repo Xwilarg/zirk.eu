@@ -7,11 +7,6 @@ import SketchForm, { type SketchFormProps } from "./computer/SketchForm";
 import { useSearchParams } from "react-router";
 import type { ButtonInfo } from "./computer/impl/game/GameForm";
 
-interface KatsisProject
-{
-    games: Array<KatsisProjectProject>
-}
-
 interface KatsisProjectProject
 {
     name: string
@@ -33,7 +28,7 @@ interface KatsisProjectProjectWebgl
 }
 
 export default function KatsisForm() {
-    const [katsisProject, setKatsisProject] = useState<KatsisProject | null>(null);
+    const [katsisProject, setKatsisProject] = useState<KatsisProjectProject[]>([]);
     const [katsisHtml, setKatsisHtml] = useState<ReactElement[]>([]);
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
 
@@ -46,8 +41,8 @@ export default function KatsisForm() {
     useEffect(() => {
         const game = searchParams.get("share")?.toUpperCase();
 
-        if (game && katsisProject) {
-            let target = katsisProject.games.find(x => x.name?.toUpperCase() === game);
+        if (game) {
+            let target = katsisProject.find(x => x.name?.toUpperCase() === game);
             if (target && target.webGL) {
                 setShownIFrame(target);
             } else {
@@ -73,10 +68,9 @@ export default function KatsisForm() {
     }, [ shownIFrame ]);
 
     useEffect(() => {
-        fetch('https://intranet.katsis.net/api/user/public/1')
+        fetch('https://intranet.katsis.net/api/project/public/user/1/all')
         .then(resp => { if (resp.ok) return resp.json(); throw new Error(""); })
         .then(json => {
-            json.games;
             setKatsisProject(json);
         })
         .catch(_ => {});
@@ -87,63 +81,60 @@ export default function KatsisForm() {
 
         let data: ReactElement[] = [];
 
-        if (katsisProject)
+        for (let p of katsisProject)
         {
-            for (let p of katsisProject!.games)
+            if (nsfwStatus === "NSFW")
             {
-                if (nsfwStatus === "NSFW")
-                {
-                    data.push(<div className="card" key={p.name}>
-                        <h2 className="project-name">{p.name}</h2>
-                        <span className="is-flex flex-center-hor">
-                            <div className="katsis-bg" style={{
+                data.push(<div className="card" key={p.name}>
+                    <h2 className="project-name">{p.name}</h2>
+                    <span className="is-flex flex-center-hor">
+                        <div className="katsis-bg" style={{
+                            backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall.filename}')`
+                        }}>
+                            <div className="katsis-img is-flex flex-center-hor">
+                                <img src={`https://cdn.katsis.net/${p.thumbnailSmall.filename}`} />
+                            </div>
+                        </div>
+                    </span>
+                    <div className="gamejam-buttons is-flex">
+                        {
+                            p.webGL ?
+                            <button className="button-icon" onClick={
+                                _ => {
+                                    setSearchParams(sp => {
+                                        sp.set("share", p.name);
+                                        return sp;
+                                    });
+                                    window.scrollTo({
+                                        top: 0,
+                                        left: 0,
+                                        behavior: "smooth"
+                                    })
+                                }
+                            }><span className="material-symbols-outlined">play_arrow</span></button>
+                            : <></>
+                        }
+                        {
+                            <a href={`https://katsis.net/g/${p.urlFragment}`} target="_blank">
+                                <button className="button-icon"><span className="material-symbols-outlined">language</span></button>
+                            </a>
+                        }
+                    </div>
+                </div>);
+            }
+            else
+            {
+                data.push(<div className="card" key={p.name}>
+                    <h2 className="project-name"></h2>
+                    <span className="is-flex flex-center-hor">
+                        <div className="katsis-bg-sfw" style={{
                                 backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall.filename}')`
                             }}>
-                                <div className="katsis-img is-flex flex-center-hor">
-                                    <img src={`https://cdn.katsis.net/${p.thumbnailSmall.filename}`} />
+                                <div className="katsis-img-sfw">
                                 </div>
                             </div>
-                        </span>
-                        <div className="gamejam-buttons is-flex">
-                            {
-                                p.webGL ?
-                                <button className="button-icon" onClick={
-                                    _ => {
-                                        setSearchParams(sp => {
-                                            sp.set("share", p.name);
-                                            return sp;
-                                        });
-                                        window.scrollTo({
-                                            top: 0,
-                                            left: 0,
-                                            behavior: "smooth"
-                                        })
-                                    }
-                                }><span className="material-symbols-outlined">play_arrow</span></button>
-                                : <></>
-                            }
-                            {
-                                <a href={`https://katsis.net/g/${p.urlFragment}`} target="_blank">
-                                    <button className="button-icon"><span className="material-symbols-outlined">language</span></button>
-                                </a>
-                            }
-                        </div>
-                    </div>);
-                }
-                else
-                {
-                    data.push(<div className="card" key={p.name}>
-                        <h2 className="project-name"></h2>
-                        <span className="is-flex flex-center-hor">
-                            <div className="katsis-bg-sfw" style={{
-                                    backgroundImage: `url('https://cdn.katsis.net/${p.thumbnailSmall.filename}')`
-                                }}>
-                                    <div className="katsis-img-sfw">
-                                    </div>
-                                </div>
-                        </span>
-                    </div>);
-                }
+                    </span>
+                </div>);
             }
         }
 
