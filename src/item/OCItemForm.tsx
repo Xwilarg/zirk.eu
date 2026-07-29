@@ -96,6 +96,8 @@ const OCItemForm = forwardRef((
 
             if (nsfwStatus === "FullSFW" && isImgNsfw) continue;
 
+            if (arts[i].hide === true) continue;
+
             const link = info ? `${arts[i].images.find(x => x.default)!.link}` : null;
             const isVideo = link?.endsWith("mp4");
             const smallImage = info ? `/data/${isVideo ? "img" : "previews"}/ocs/${arts[i].folder}/${link}` : null;
