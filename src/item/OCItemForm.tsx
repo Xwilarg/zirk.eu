@@ -64,7 +64,8 @@ interface OCMediaClickInfo
     data: string
 }
 
-type DescriptionType = "Image" | "Media" | "Description" | "History" | "Personality" | "Sexuality";
+type DescriptionType = "Image" | "Media" | "Info";
+type InfoDetailsType = "Description" | "History" | "Personality" | "Sexuality";
 
 const OCItemForm = forwardRef((
     { info, arts, name, keyFilter, setPreview, ocsData }: OCItemFormProps,
@@ -72,10 +73,10 @@ const OCItemForm = forwardRef((
 ) => {
     const [index, setIndex] = useState(arts.indexOf(arts.filter(x => x.default && x.character === name)[0]));
     const [desc, setDesc] = useState<DescriptionType>("Image");
+    const [details, setDetails] = useState<InfoDetailsType>("Description");
 
     const nsfwStatus = isNsfw();
-    const navigate = useNavigate()
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
 
     let genderIcon: string;
     if (info.gender === "Male") genderIcon = "male";
@@ -152,12 +153,22 @@ const OCItemForm = forwardRef((
         mainDisplay = <div className="oc-subimg oc-media is-flex">{ imgs }</div>;
     } else {
         let targetDesc: string[] = [];
-        if (desc === "Description") targetDesc = info.description;
-        else if (desc === "History") targetDesc = info.history ?? [];
-        else if (desc === "Personality") targetDesc = info.personality ?? [];
-        else if (desc === "Sexuality") targetDesc = info.sexuality ?? [];
+        if (details === "Description") targetDesc = info.description;
+        else if (details === "History") targetDesc = info.history ?? [];
+        else if (details === "Personality") targetDesc = info.personality ?? [];
+        else if (details === "Sexuality") targetDesc = info.sexuality ?? [];
 
-        mainDisplay = <p className="oc-description" dangerouslySetInnerHTML={{ __html: targetDesc.join("<br/><br/>") }}></p>;
+        mainDisplay = <div className="oc-description">
+                <button onClick={() => setDetails("Description")} disabled={details === "Description"}>About</button>
+                <button onClick={() => setDetails("History")} disabled={details === "History" || !info.history}>Story</button>
+                <button onClick={() => setDetails("Personality")} disabled={details === "Personality" || !info.personality}>Person.</button>
+                {
+                    nsfwStatus === "NSFW"
+                    ? <button onClick={() => setDetails("Sexuality")} disabled={details === "Sexuality" || !info.sexuality}>Sexuality</button>
+                    : <></>
+                }
+                <p dangerouslySetInnerHTML={{ __html: targetDesc.join("<br/><br/>") }}></p>
+        </div>
     }
 
 
@@ -178,7 +189,14 @@ const OCItemForm = forwardRef((
                         <a target="_blank" href={Object.entries(ocsData.artists).filter(([key, value]) => key === imgInfo.artist)[0][1]!}>
                             <p className="attribution">Art by {imgInfo.artist}</p>
                         </a>
-                        <span className="material-symbols-outlined oc-full-hint clickable" onClick={clickImage}>open_in_full</span>
+                        <span className="open-hint">
+                            <span className="material-symbols-outlined oc-full-hint clickable" onClick={clickImage}>open_in_full</span>
+                            {
+                                imgInfo.images.length > 1
+                                ? <span className="count-hint">+{imgInfo.images.length - 1}</span>
+                                : <></>
+                            }
+                        </span>
                         {
                             image!.endsWith("mp4") ?
                             <video src={image!} autoPlay loop muted></video>
@@ -235,14 +253,7 @@ const OCItemForm = forwardRef((
             <div className="is-flex oc-buttons">
                 <button className="button-icon" title="Images" onClick={() => setDesc("Image")} disabled={desc === "Image"}><span className="material-symbols-outlined">image</span></button>
                 <button className="button-icon" title="Media" onClick={() => setDesc("Media")} disabled={desc === "Media" || info.media.length === 0}><span className="material-symbols-outlined">joystick</span></button>
-                <button className="button-icon" title="Description" onClick={() => setDesc("Description")} disabled={desc === "Description"}><span className="material-symbols-outlined">info</span></button>
-                <button className="button-icon" title="History" onClick={() => setDesc("History")} disabled={desc === "History" || !info.history}><span className="material-symbols-outlined">calendar_today</span></button>
-                <button className="button-icon" title="Personality" onClick={() => setDesc("Personality")} disabled={desc === "Personality" || !info.personality}><span className="material-symbols-outlined">person</span></button>
-                {
-                    nsfwStatus === "NSFW"
-                    ? <button className="button-icon" title="Sexuality" onClick={() => setDesc("Sexuality")} disabled={desc === "Sexuality" || !info.sexuality}><span className="material-symbols-outlined">explicit</span></button>
-                    : <></>
-                }
+                <button className="button-icon" title="About" onClick={() => setDesc("Info")} disabled={desc === "Info"}><span className="material-symbols-outlined">info</span></button>
             </div>
             { mainDisplay }
         </div>

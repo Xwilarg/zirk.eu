@@ -490,6 +490,19 @@ button:disabled {
     object-fit: contain;
 }
 
+.project-img .open-hint {
+    border-top-left-radius: var(--border-radius);
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.596);
+
+    width: 35px;
+    height: 35px;
+}
+.project-img .open-hint .count-hint {
+    position: absolute;
+    left: 0px;
+}
+
 #project-list img {
     object-fit: cover;
     object-position: left top;
@@ -648,6 +661,9 @@ button:disabled {
     height: 300px;
     margin: 0;
     padding-top: 10px;
+}
+.oc-description button {
+    width: 25%;
 }
 
 .oc-content {
