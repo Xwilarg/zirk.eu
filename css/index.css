@@ -429,8 +429,6 @@ button:disabled {
     backdrop-filter: blur(20px);
 }
 .katsis-img img {
-    margin-top: 10px;
-
     max-width: 100%;
     max-height: 100%;
     width: auto;
