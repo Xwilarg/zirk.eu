@@ -80,7 +80,7 @@ export function getOverallScore(item: GameJamItem): number | null {
     return null;
 }
 
-export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null, engines: Engine[] | null, countries: Country[] | null): GameJamItem[]
+export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, teamSize: TeamSize[] | null, jamDuration: JamDuration[] | null, jamSFW: JamSFW[] | null, engines: Engine[] | null, countries: Country[] | null, teammates: string[] | null): GameJamItem[]
 {
     if (!jamSFW) {
         const nsfwStatus = isNsfw();
@@ -99,6 +99,9 @@ export function getSortedGamejams(items: GameJamItem[], sortMode: SortMode, team
         (x.duration > 74 && x.duration <= 240 && jamDuration.includes("9D")) ||
         (x.duration > 240 && x.duration <= 768 && jamDuration.includes("1M")) ||
         (x.duration > 768 && jamDuration.includes("More"))
+    )
+    .filter(x => !teammates ||
+        teammates.every(t => x.team.includes(t))
     )
     .sort((a, b) => {
         if (sortMode === "Score")
@@ -139,6 +142,7 @@ export default function GameJamForm() {
     const [sfw, setSFW] = useState<JamSFW[]>(() => nsfwStatus === "FullSFW" ? [ "SFW" ] : [ "SFW", "NSFW" ]);
     const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX"]);
     const [countries, setCountries] = useState<Country[]>(["Online", "Canada", "United Kingdom", "Sweden", "France", "Japan", "Denmark"])
+    const [teammates, setTeammates] = useState<string[]>([])
 
     const [buttons, setButtons] = useState<ButtonInfo[]>([]);
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
@@ -260,7 +264,7 @@ export default function GameJamForm() {
             : <></>
     }
 
-    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw, engines, countries);
+    var jams = getSortedGamejams(jamData.jams, sortMode, teamSize, duration, sfw, engines, countries, teammates);
     return <>
         <QuoteComponent />
         <GamejamIntroComponent />
@@ -342,6 +346,16 @@ export default function GameJamForm() {
                             </span>
                         </span>
                     }
+                    <span className="jam-filter">
+                        <label htmlFor="teammates">Made with</label>
+                        <span id="teammates" className="button-group">
+                            <button title="👌" className={"button-icon " + (teammates.includes("AC7EEDA7ACF39B61E8F1D02E06EF0C2A") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "AC7EEDA7ACF39B61E8F1D02E06EF0C2A"))}>👌</button>
+                            <button title="🫪" className={"button-icon " + (teammates.includes("AF3A2CED67B5CA5503341879C03519C7") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "AF3A2CED67B5CA5503341879C03519C7"))}>🫪</button>
+                            <button title="🌞" className={"button-icon " + (teammates.includes("727AE26E9F43811F390B6BDFEB4C7B66") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "727AE26E9F43811F390B6BDFEB4C7B66"))}>🌞</button>
+                            <button title="🫦" className={"button-icon " + (teammates.includes("4E2DE7AC29399B28966B83C11F79533B") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "4E2DE7AC29399B28966B83C11F79533B"))}>🫦</button>
+                            <button title="💜" className={"button-icon " + (teammates.includes("EBB7B8C7B09372F858720F944DDC04E1") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "EBB7B8C7B09372F858720F944DDC04E1"))}>💜</button>
+                        </span>
+                    </span>
                     </>
                     : <>
                         <button onClick={() => setShowFilters((x: boolean) => !x)}>Show filters</button>

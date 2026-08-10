@@ -17,6 +17,7 @@ import StoryForm from './StoryForm'
 import SheepForm from './SheepForm'
 import TtrpgForm from './TtrpgForm'
 import FractalForm from './FractalForm'
+import GameForm from './GameForm'
 
 function RedirectCompat()
 {
@@ -46,6 +47,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/lore' element={<LoreForm />} />
             <Route path='/project' element={<ProjectForm />} />
             <Route path='/box' element={<BoxForm />} />
+            <Route path='/game' element={<GameForm />} />
             <Route path='/story' element={<StoryForm />} />
             <Route path='/sheep' element={<SheepForm />} />
             <Route path='/ttrpg' element={<TtrpgForm />} />

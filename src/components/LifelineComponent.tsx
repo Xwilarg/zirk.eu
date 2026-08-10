@@ -91,7 +91,7 @@ export default function LifelineComponent() {
             lifelineData.map(x =>
                 <div className="lifeline">
                     <div className="is-flex flex-center-ver">
-                        <span className="lifeline-name">{x.website ? <a href={x.website} target="_blank">{x.name}</a> : x.name}</span> {x.lifeline.hash ? "" : x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
+                        <span className="lifeline-name">{x.name}</span> {x.lifeline.hash ? "" : x.lifeline.id} {x.lifeline.hash ? <button className="button" onClick={_ => {
                             const hash = prompt("Enter your hash");
                             if (hash)
                             {
