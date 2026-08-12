@@ -462,6 +462,23 @@ button:disabled {
     margin-left: 10px;
 }
 
+/* Game */
+.game-img {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 322px;
+    text-align: center;
+    border: none;
+}
+.game-img img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    border-radius: var(--border-radius);
+}
+
 /* Project */
 .project-name {
     height: 35px;
@@ -662,6 +679,13 @@ button:disabled {
 }
 .oc-description button {
     width: 25%;
+}
+
+.oc-description-content {
+    height: 250px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) transparent;
 }
 
 .oc-content {

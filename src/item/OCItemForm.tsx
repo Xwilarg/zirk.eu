@@ -169,7 +169,7 @@ const OCItemForm = forwardRef((
                     ? <button onClick={() => setDetails("Sexuality")} disabled={details === "Sexuality" || !info.sexuality}>Sexuality</button>
                     : <></>
                 }
-                <p dangerouslySetInnerHTML={{ __html: targetDesc.join("<br/><br/>") }}></p>
+                <p className="oc-description-content" dangerouslySetInnerHTML={{ __html: targetDesc.join("<br/><br/>") }}></p>
         </div>
     }
 
