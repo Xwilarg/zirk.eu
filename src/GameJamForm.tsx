@@ -63,7 +63,7 @@ type SortMode = "Date" | "Score" | "Duration";
 type TeamSize = "Solo" | "Group";
 type JamDuration = "1H" | "1D" | "3D" | "9D" | "1M" | "More";
 type JamSFW = "SFW" | "NSFW"
-type Engine = "Unity" | "Godot" | "Unreal Engine" | "Scratch" | "GB Studio" | "DirectX"
+type Engine = "Unity" | "Godot" | "Unreal Engine" | "Scratch" | "GB Studio" | "DirectX" | "PVSnesLib"
 type Country = "Online" | "Canada" | "United Kingdom" | "Sweden" | "France" | "Japan" | "Denmark"
 
 export function getOverallScore(item: GameJamItem): number | null {
@@ -140,7 +140,7 @@ export default function GameJamForm() {
     const [teamSize, setTeamSize] = useState<TeamSize[]>(["Solo", "Group"]);
     const [duration, setDuration] = useState<JamDuration[]>(["1D", "3D", "9D", "1M", "More"]);
     const [sfw, setSFW] = useState<JamSFW[]>(() => nsfwStatus === "FullSFW" ? [ "SFW" ] : [ "SFW", "NSFW" ]);
-    const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX"]);
+    const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX", "PVSnesLib"]);
     const [countries, setCountries] = useState<Country[]>(["Online", "Canada", "United Kingdom", "Sweden", "France", "Japan", "Denmark"])
     const [teammates, setTeammates] = useState<string[]>([])
 
@@ -321,6 +321,7 @@ export default function GameJamForm() {
                             <button title="Scratch" className={"button-icon " + (engines.includes("Scratch") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "Scratch"))}>SC</button>
                             <button title="GB Studio" className={"button-icon " + (engines.includes("GB Studio") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "GB Studio"))}>GB</button>
                             <button title="DirectX" className={"button-icon " + (engines.includes("DirectX") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "DirectX"))}>DX</button>
+                            <button title="PVSnesLib" className={"button-icon " + (engines.includes("PVSnesLib") ? "active" : "")} onClick={_ => setEngines(toggleArrayElement(engines, "PVSnesLib"))}>SN</button>
                         </span>
                     </span>
                     <span className="jam-filter">

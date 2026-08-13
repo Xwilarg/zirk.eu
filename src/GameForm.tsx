@@ -17,16 +17,24 @@ export default function GameForm() {
             <h2>Train</h2>
             <div className="is-flex">
             {
-                gameData.train.map(x => <div className="box game-img clickable" onClick={_ => setPreview(`/data/img/game/train/${x}`)}>
-                    <img src={`/data/img/game/train/${x}`} />
+                gameData.train.map(x => <div className="box game-img clickable" onClick={_ => setPreview(`/data/img/game/train/${x.image}`)}>
+                    <img src={`/data/img/game/train/${x.image}`} />
                 </div>)
             }
             </div>
             <h2>Sheep</h2>
             <div className="is-flex">
             {
-                gameData.sheep.map(x => <div className="box game-img clickable" onClick={_ => setPreview(`/data/img/game/sheep/${x}`)}>
-                    <img src={`/data/img/game/sheep/${x}`} />
+                gameData.sheep.map(x => <div className="box game-img clickable" onClick={_ => setPreview(`/data/img/game/sheep/${x.image}`)}>
+                    <img src={`/data/img/game/sheep/${x.image}`} />
+                </div>)
+            }
+            </div>
+            <h2>Dragon</h2>
+            <div className="is-flex">
+            {
+                gameData.dragon.map(x => <div className="box game-img clickable" onClick={_ => setPreview(`/data/img/game/dragon/${x.image}`)}>
+                    <img src={`/data/img/game/dragon/${x.image}`} />
                 </div>)
             }
             </div>
