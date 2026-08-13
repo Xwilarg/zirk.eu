@@ -43,12 +43,9 @@ export default function LifelineComponent() {
 
             for (let d of friendData)
             {
-                if (d.lifeline === "dynamic")
+                if (d.lifeline?.type === "dynamic")
                 {
-                    d.lifeline = {
-                        id: json.find(x => x.name === d.name).id ?? "Broken :(",
-                        hash: null
-                    };
+                    d.lifeline.id = json.find(x => x.name === d.lifeline?.name)?.id ?? "Broken :(";
                 }
                 data.push(d);
             }
@@ -60,12 +57,9 @@ export default function LifelineComponent() {
 
             for (let d of friendData)
             {
-                if (d.lifeline === "dynamic")
+                if (d.lifeline?.type === "dynamic")
                 {
-                    d.lifeline = {
-                        id: "Unknown",
-                        hash: null
-                    };
+                    d.lifeline.id = "Unknown";
                 }
                 data.push(d);
             }
@@ -79,7 +73,11 @@ export default function LifelineComponent() {
         .then(resp => resp.json())
         .then(json => {
             for (let key of Object.keys(json)) {
-                lifelineData.find(x => x.name === key)!.lifeline.id = json[key].id ?? "Broken :(";
+                const match = lifelineData.find(x => x.lifeline?.name === key);
+                
+                if (match && match?.lifeline?.type === "dynamic") {
+                    match.lifeline.id = json[key].id ?? "Broken :(";
+                }
             }
             setLifelineData([...lifelineData]);
             setShowUpdateButton(false);
@@ -96,7 +94,7 @@ export default function LifelineComponent() {
                             if (hash)
                             {
                                 const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
-                                console.log(cyrb53(finalStr).toString())
+                                //console.log(cyrb53(finalStr).toString())
                                 if (cyrb53(finalStr).toString() === x.lifeline.hash) {
                                     alert("♥");
                                 } else {
