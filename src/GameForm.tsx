@@ -30,14 +30,6 @@ export default function GameForm() {
                 </div>)
             }
             </div>
-            <h2>Dragon</h2>
-            <div className="is-flex">
-            {
-                gameData.dragon.map(x => <div className="box game-img clickable" onClick={_ => setPreview(`/data/img/game/dragon/${x.image}`)}>
-                    <img src={`/data/img/game/dragon/${x.image}`} />
-                </div>)
-            }
-            </div>
         </div>
         {
             preview !== null ?
