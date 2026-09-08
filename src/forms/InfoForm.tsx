@@ -52,7 +52,20 @@ export default function InfoForm() {
                 link: "https://github.com/Xwilarg/zirk.eu"
             }]} />
             <GenericBox name="Lifeline" nsfw={false} custom={<LifelineComponent ref={lifelineRef} />}
-            buttons={showLifelineUpdate ? [{ type: "Custom", action: () => { lifelineRef.current!.update(); setShowLifelineUpdate(false) }, color: "Default", label: "refresh", labelType: "GoogleIcon" }] : []} />
+                buttons={showLifelineUpdate ? [{
+                type: "Custom",
+                action: () => { lifelineRef.current!.update(); setShowLifelineUpdate(false) },
+                color: "Default",
+                label: "refresh",
+                labelType: "GoogleIcon" }] : []}
+            />
+            <GenericBox name="Steam Replay" nsfw={false} custom={
+                <div className="is-flex flex-center-hor">
+                    <img className="clickable card-img" src="/data/img/steam/2025.png" onClick={() => setPreview("/data/img/steam/2025.png")} />
+                    <img className="clickable card-img" src="/data/img/steam/2024.png" onClick={() => setPreview("/data/img/steam/2024.png")} />
+                    <img className="clickable card-img" src="/data/img/steam/2023.png" onClick={() => setPreview("/data/img/steam/2023.png")} />
+                </div>}
+            />
         </div>
         {
             preview !== null ?
