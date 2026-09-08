@@ -10,6 +10,6 @@ interface ProjectItemFormProps
 export default function ProjectBox({ item, setPreview }: ProjectItemFormProps)
 {
     return <GenericBox name={item.name} image={`/data/img/projects/${item.images[0].name}`} nsfw={item.nsfw} onClick={() => setPreview(`/data/img/projects/${item.images[0].name}`)}
-            buttons={item.links.slice(0, 2).map(x => ({ type: "Link", label: x.name, link: x.content, labelType: "Text", color: "Default" }))}
+            buttons={item.links.map(x => ({ type: "Link", label: x.name, link: x.content, labelType: "Text", color: "Default" }))}
         ></GenericBox>
 };
