@@ -4,12 +4,44 @@ import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import LifelineComponent from "../components/LifelineComponent";
+import { isNsfw } from "../utils";
 
 export default function InfoForm() {
     const [preview, setPreview] = useState<string | null>(null);
     const [showLifelineUpdate, setShowLifelineUpdate] = useState(true);
+    const [aboutMeTab, setAboutMeTab] = useState(0);
 
     const lifelineRef = useRef(null);
+
+    const nsfw = isNsfw();
+
+    let aboutMe = <></>;
+    if (aboutMeTab === 0) {
+        aboutMe = <>
+            <h3>History</h3>
+            I was bornt in 1998 in Essone, France and during my school years quickly became interested first with video games<br/>
+            Following that, I then became interested by game development, first picking C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/img/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
+            <br/>
+            Once I joined high-school, I went into scientific section and took <abbr title="Informatic and Digital Sciences">ISN</abbr> as specialization to produce <a href="/data/img/projects-old/ProjetISNProcessing.png" target="_blank">an unnamed video game project</a> in Java for my bachelor<br/>
+            <br/>
+            I wasn't especially studious and spent <small>way too much</small> time, playing (mainly) Team Fortress 2, but hey, I won <a href="https://steamcommunity.com/id/xwilarg/inventory#440_2_3691674641" target="_blank">TF2Connexion season 14 division 4 (as a sub-scout)</a> so yay :D<br/>
+            <br/>
+            Back then my main hobby outside of games had been anime and manga after someone introduced me to <a href="https://anilist.co/anime/8424/MM" target="_blank">MM!</a> which in retrospective was decent but not amazing, but <a href="https://www.youtube.com/watch?v=ZJgMHGRwPx0" target="_blank">the opening and ending were very catchy</a><br/>
+            I don't watch much of them anymore these days but this led me to my interest in Japan in general, being the music, the food, the arcade games, and eventually the language itself (which I am still slowly learning)<br/>
+            <br/>
+            I then continued my higher education, deepening my programming knowledge around the way and in my first year doing my <a href="https://web.archive.org/web/20210227130840/http://ludumdare.com/compo/ludum-dare-37/?action=preview&uid=123799" target="_blank">first gamejam</a><br/>
+            During my first internship I also started my first big project, <a href="https://sanara.zirk.eu/" target="_blank">Sanara</a>, a Discord bot that I still <small>slightly</small> maintains today<br/>
+            Out of weird trivia, during one of my internship at the french ground forces, I also got baptized by the <a href="/data/img/about/forgeron.png" target="_blank">saint brotherhood of blacksmiths</a> <small>I know if sounds like some weird cult thing but it's not</small><br/>
+            <br/>
+            Once out of school, I joined a few companies but never stayed too long and continued to do a looot of gamejams until that fateful moment where I participated to&nbsp;
+            {
+                nsfw == "NSFW"
+                ? <span><a href="https://itch.io/jam/lewdie-jam-2023/rate/2388230" target="_blank">the Lewdie Jam</a></span>
+                : <span>one of them</span>
+            }
+            &nbsp;which led me in co-creating <span className="katsis-highlight">Katsis</span> with Fractal<br/>
+        </>
+    }
 
     return <>
         <QuoteComponent />
@@ -54,7 +86,7 @@ export default function InfoForm() {
             <GenericBox name="Lifeline" nsfw={false} custom={<LifelineComponent ref={lifelineRef} />}
                 buttons={showLifelineUpdate ? [{
                 type: "Custom",
-                action: () => { lifelineRef.current!.update(); setShowLifelineUpdate(false) },
+                action: () => { (lifelineRef.current! as any).update(); setShowLifelineUpdate(false) },
                 color: "Default",
                 label: "refresh",
                 labelType: "GoogleIcon" }] : []}
@@ -66,6 +98,9 @@ export default function InfoForm() {
                     <img className="clickable card-img" src="/data/img/steam/2023.png" onClick={() => setPreview("/data/img/steam/2023.png")} />
                 </div>}
             />
+            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
+                { type: "Custom", action: () => { setAboutMeTab(0) }, color: "Default", label: "calendar_today", labelType: "GoogleIcon" }
+            ]} />
         </div>
         {
             preview !== null ?
