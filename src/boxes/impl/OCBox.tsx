@@ -91,7 +91,7 @@ export default function OCBox({ item, setPreview }: OCItemFormProps)
                             </div>
                         }
                         return <div className="card-img gallery-img">
-                            <img src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`}
+                            <img src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`} className={category?.type === "pixel" ? "pixel" : ""}
                             onClick={() => setPreview(x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })))} />
                         </div>
                     })

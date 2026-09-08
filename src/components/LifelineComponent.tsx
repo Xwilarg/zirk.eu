@@ -1,0 +1,125 @@
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import friendData from "../../data/json/friends.json"
+
+interface FriendData
+{
+    name: string,
+    website: string | null,
+    lifeline: string | LifelineData,
+    gamejam: string
+}
+
+interface LifelineData
+{
+    id: string
+    hash: string | null
+}
+
+// https://stackoverflow.com/a/52171480
+const cyrb53 = (str: string, seed = 0): number => {
+    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+    for(let i = 0, ch; i < str.length; i++) {
+        ch = str.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
+    h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
+    h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+
+    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+};
+
+const LifelineComponent = forwardRef((_, ref) => {
+    const [lifelineData, setLifelineData] = useState<FriendData[]>([]);
+
+    useImperativeHandle(ref, () => {
+        return {
+            update() {
+                updateDynamicLifelines()
+            }
+        };
+    }, [ lifelineData ]);
+
+    useEffect(() => {
+        fetch('/lifeline/status.php')
+        .then(resp => resp.json())
+        .then(json => {
+            const data: FriendData[] = [];
+
+            for (let d of friendData)
+            {
+                if (d.lifeline?.type === "dynamic")
+                {
+                    d.lifeline.id = json.find(x => x.name === d.lifeline?.name)?.id ?? "Broken :(";
+                }
+                data.push(d);
+            }
+
+            setLifelineData(data);
+        })
+        .catch(_ => {
+            const data: FriendData[] = [];
+
+            for (let d of friendData)
+            {
+                if (d.lifeline?.type === "dynamic")
+                {
+                    d.lifeline.id = "Unknown";
+                }
+                data.push(d);
+            }
+
+            setLifelineData(data);
+        });
+    }, [ ]);
+
+    function updateDynamicLifelines() {
+        fetch('/lifeline/send.php')
+        .then(resp => resp.json())
+        .then(json => {
+            for (let key of Object.keys(json)) {
+                const match = lifelineData.find(x => x.lifeline?.name === key);
+                
+                if (match && match?.lifeline?.type === "dynamic") {
+                    match.lifeline.id = json[key].id ?? "Broken :(";
+                }
+            }
+            setLifelineData([...lifelineData]);
+        });
+    }
+
+    return <div className="is-flex">
+        {
+            lifelineData.map(x =>
+                <div key={x.id} className="lifeline is-flex flex-center-ver">
+                    <div>
+                        <div className="lifeline-title is-flex flex-center-ver">
+                            <span className="lifeline-name">{x.name}</span> {x.lifeline.hash ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.hash ? <button className="button" onClick={_ => {
+                                const hash = prompt("Enter your hash");
+                                if (hash)
+                                {
+                                    const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
+                                    //console.log(cyrb53(finalStr).toString())
+                                    if (cyrb53(finalStr).toString() === x.lifeline.hash) {
+                                        alert("♥");
+                                    } else {
+                                        alert("Invalid ID");
+                                    }
+                                }
+                            }}><span className="material-symbols-outlined">check_circle</span></button> : ""}
+                        </div>
+                        <div>
+                            <span className={"material-symbols-outlined " + (x.boxes.gamejam ? "" : "lifeline-icon-disabled")}>code</span>
+                            <span className={"material-symbols-outlined " + (x.boxes.travel ? "" : "lifeline-icon-disabled")}>travel</span>
+                            <span className={"material-symbols-outlined " + (x.boxes.coop ? "" : "lifeline-icon-disabled")}>joystick</span>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    </div>
+});
+
+export default LifelineComponent;

@@ -40,6 +40,10 @@ body {
         background-size:calc(var(--bg-size) * 1.333) calc(var(--bg-size) * 2);
 }
 
+.hidden {
+    display: none;
+}
+
 .clickable {
     cursor: pointer;
 }
@@ -144,10 +148,11 @@ a.ignore-half {
 /* Gallery */
 .gallery-img {
     width: 30%;
-    height: 50% !important;
+    height: 100px !important;
 }
-.card-img img, .card-img video {
+.gallery-img img, .gallery-img video {
     max-width: 100%;
+    object-position: top !important;
 }
 
 /* Box */
@@ -381,4 +386,29 @@ a.ignore-half {
 }
 .sheep-img img {
     max-width: 100%;
+}
+
+/* Navigation */
+.nav-button {
+    width: 100%;
+}
+
+/* Lifeline */
+.lifeline {
+    padding: 0 5px;
+    width: 190px;
+    height: 75px;
+    border: var(--border);
+    border-radius: var(--border-radius);
+}
+.lifeline-title {
+    height: 50px;
+}
+.lifeline-hash {
+    width: 150px;
+    overflow-x: hidden;
+    text-overflow:ellipsis;
+}
+.lifeline-icon-disabled {
+    color: rgb(58, 58, 58);
 }

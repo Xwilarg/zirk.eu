@@ -1,7 +1,7 @@
-import { type ReactElement, useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import QuoteComponent from "../components/QuoteComponent";
 import { Link, useSearchParams } from "react-router";
-import { getNavigationNoHook, isNsfw, randArrayElement, randInt } from "../utils";
+import { getNavigationNoHook, isNsfw, randArrayElement } from "../utils";
 import GenericBox from "../boxes/GenericBox";
 import sheepData from "../../data/json/sheep.json"
 import ImageModalForm from "../components/modal/ImageModalForm";
@@ -52,18 +52,13 @@ export default function MainForm() {
                 </div>} />
                 : <></>
             }
-            <GenericBox name="Navigation" nsfw={false} custom={<>    
-                <Link to={getNavigationNoHook("/gamejam", searchParams)} rel="me" className="button">Gamejam</Link>
-                <Link to={getNavigationNoHook("/project", searchParams)} rel="me" className="button">Projects</Link>
-                {
-                    showMore
-                    ? <>
-                        <Link to={getNavigationNoHook("/game", searchParams)} rel="me" className="button">Games</Link>
-                        <Link to={getNavigationNoHook("/oc", searchParams)} rel="me" className="button">OCs</Link>
-                    </>
-                    : <button onClick={() => setShowMore(true)}>More</button>
-                }
-            </>} />
+            <GenericBox name="Navigation" nsfw={false} custom={<nav className="is-flex">    
+                <Link to={getNavigationNoHook("/gamejam", searchParams)} rel="me" className="button nav-button">Gamejam</Link>
+                <Link to={getNavigationNoHook("/project", searchParams)} rel="me" className="button nav-button">Projects</Link>
+                <Link to={getNavigationNoHook("/game", searchParams)} rel="me" className="button nav-button">Games</Link>
+                <Link to={getNavigationNoHook("/oc", searchParams)} rel="me" className="button nav-button">OCs</Link>
+                <Link to={getNavigationNoHook("/info", searchParams)} rel="me" className="button nav-button">Info</Link>
+            </nav>} />
             <GenericBox name="Gamejam" nsfw={false}
                 image={gamejamImage} onClick={() => setPreview(gamejamImage)}
                 buttons={[{label: "See more", type: "Link", labelType: "Text", color: "Primary", link: "/gamejam" }]}
@@ -74,6 +69,7 @@ export default function MainForm() {
             />
             <GenericBox name="Katsis" nsfw={false}
                 image={katsisImage} onClick={() => setPreview(katsisImage)}
+                buttons={nsfw === "NSFW" ? [{label: "See more", type: "Link", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
             />
         </div>
         {

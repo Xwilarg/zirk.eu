@@ -52,10 +52,14 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
     let mainContent = <></>;
     if (image)
     {
-        mainContent = 
-            <div className={"card-img is-flex flex-center-hor " + imageCssModifiers}>
-                <img className={(hideNsfw && image !== null ? "blur" : (onClick ? "clickable" : ""))} src={image === null ? "/img/ComingSoon.png" : image} />
-            </div>
+        if (hideNsfw)
+        {
+            mainContent = <div className={"card-img is-flex flex-center-hor " + imageCssModifiers}><img className="blur" src={image} /></div>
+        }
+        else
+        {
+            mainContent = <div className={"card-img is-flex flex-center-hor " + imageCssModifiers}><img className={onClick ? "clickable" : ""} src={image} /></div>
+        }
     }
     else if (text)
     {
