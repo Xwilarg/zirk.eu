@@ -17,7 +17,7 @@ export default function MainForm() {
 
     const [ gamejamImage ] = useState(`/data/img/recap/${randArrayElement(nsfw === "SFW" ? [ "Gamejam-01.png", "Gamejam-02.png", "Gamejam-03.png" ] : [ "Gamejam-01.png", "Gamejam-02.png", "Gamejam-03-NSFW.png" ])}`);
     const [ projectImage ] = useState(`/data/img/projects/${randArrayElement([ "Intranet-01.png", "GameGuesser-01.png", "Shika-01.png" ])}`);
-    const [ katsisImage ] = useState(`/data/img/recap/${randArrayElement(nsfw === "SFW" ? [ "Katsis-01.png", "Katsis-02.png", "Katsis-03.png" ] : [ "Katsis-01-NSFW.png", "Katsis-02.png", "Katsis-03-NSFW.png" ])}`);
+    const [ katsisImage ] = useState(`/data/img/recap/${randArrayElement(nsfw === "SFW" ? [ "Katsis-01.png", "Katsis-02.png", "Katsis-03.png" ] : [ "Katsis-01-NSFW.png", "Katsis-02-NSFW.png", "Katsis-03-NSFW.png" ])}`);
 
     return <div>
         <QuoteComponent />

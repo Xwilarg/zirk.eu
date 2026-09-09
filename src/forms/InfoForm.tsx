@@ -9,7 +9,7 @@ import { isNsfw } from "../utils";
 export default function InfoForm() {
     const [preview, setPreview] = useState<string | null>(null);
     const [showLifelineUpdate, setShowLifelineUpdate] = useState(true);
-    const [aboutMeTab, setAboutMeTab] = useState(0);
+    const [aboutMeTab, setAboutMeTab] = useState(1);
 
     const lifelineRef = useRef(null);
 
@@ -42,6 +42,13 @@ export default function InfoForm() {
             &nbsp;which led me in co-creating <span className="katsis-highlight">Katsis</span> with Fractal<br/>
         </>
     }
+    else if (aboutMeTab === 1) {
+        aboutMe = <>
+            <h3>Today</h3>
+            My main occupation today is first <span className="katsis-highlight">Katsis</span>, outside of that I still love programming, jumping on a lot of gamejams <small>(sorry Fractal)</small> and maintaining projects<br/>
+            <br/>
+        </>
+    }
 
     return <>
         <QuoteComponent />
@@ -49,7 +56,10 @@ export default function InfoForm() {
         <div className="is-flex flex-center-hor">
             <GenericBox name="Technical specifications" nsfw={false} custom={
                 <>
-                This website is made with <a href='https://react.dev/' target='_blank'>react</a> (with <a href="https://react.dev/reference/react-dom" target="_blank">react-dom</a> and <a href="https://reactrouter.com/" target="_blank">react-router</a>),
+                This website is using <a href='https://github.com/Astylodon/Shika' target='_blank'>Shika</a> for its analytics<br/>
+                You can see all the data collected <a href='https://astylodon.org/docs/shika/data' target='_blank'>here</a><br/>
+                <br/>
+                It is made with <a href='https://react.dev/' target='_blank'>react</a> (with <a href="https://react.dev/reference/react-dom" target="_blank">react-dom</a> and <a href="https://reactrouter.com/" target="_blank">react-router</a>),
                 &nbsp;<a href='https://vite.dev/' target='_blank'>vite</a> and <a href='https://www.typescriptlang.org/' target='_blank'>typescript</a><br/>
                 <br/>
                 Along with that, it's also using <a href="https://fonts.google.com/specimen/Quantico" target="_blank">Quantico font</a> and <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a><br/>
@@ -98,9 +108,6 @@ export default function InfoForm() {
                     <img className="clickable card-img" src="/data/img/steam/2023.png" onClick={() => setPreview("/data/img/steam/2023.png")} />
                 </div>}
             />
-            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
-                { type: "Custom", action: () => { setAboutMeTab(0) }, color: "Default", label: "calendar_today", labelType: "GoogleIcon" }
-            ]} />
         </div>
         {
             preview !== null ?
@@ -108,4 +115,9 @@ export default function InfoForm() {
             : <></>
         }
     </>
+    /*
+            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
+                { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
+                { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" }
+            ]} />*/
 }
