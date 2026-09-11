@@ -3,15 +3,16 @@ import type { OCInfo } from "../../models/OC";
 import { useState } from "react";
 import type { Button } from "../../models/Button";
 import { isNsfw } from "../../utils";
-import type { ImagePreviewInfo } from "../../components/modal/ImageGroupModalForm";
+import type { ImageGroupModalInfo } from "../../components/modal/ImageGroupModalForm";
 
 interface OCItemFormProps
 {
+    artists: { [id: string] : string; }
     item: OCInfo,
-    setPreview: (images: ImagePreviewInfo[]) => void
+    setPreview: (images: ImageGroupModalInfo) => void
 }
 
-export default function OCBox({ item, setPreview }: OCItemFormProps)
+export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
 {
     const [tabShown, setTabShown] = useState(0);
 
@@ -87,12 +88,20 @@ export default function OCBox({ item, setPreview }: OCItemFormProps)
                         if (def.link.endsWith("mp4")) {
                             return <div className="card-img gallery-img">
                                 <video src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`}
-                                onClick={() => setPreview(x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })))} />
+                                onClick={() => setPreview({
+                                    data: x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
+                                    creditName: category.artist,
+                                    creditUrl: artists[category.artist]
+                                })} />
                             </div>
                         }
                         return <div className="card-img gallery-img">
                             <img src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`} className={category?.type === "pixel" ? "pixel" : ""}
-                            onClick={() => setPreview(x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })))} />
+                            onClick={() => setPreview({
+                                data: x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
+                                creditName: category.artist,
+                                creditUrl: artists[category.artist]
+                            })} />
                         </div>
                     })
                 }
@@ -124,7 +133,12 @@ export default function OCBox({ item, setPreview }: OCItemFormProps)
     }
 
     return <GenericBox key={item.name} name={item.name} image={`/data/previews/ocs/${item.metadata.folder}/${image.link}`} nsfw={image.nsfw}
-            imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`} onClick={() => setPreview(category.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })))}
+            imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`}
+            onClick={() => setPreview({
+                data: category.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
+                creditName: category.artist,
+                creditUrl: artists[category.artist]
+            })}
             buttons={buttons}
         ></GenericBox>
 };

@@ -32,7 +32,6 @@ interface OCMediaInfo
 interface OCImageInfo
 {
     title: string
-    character: string
     with: string[]
     artist: string
     date: string | null

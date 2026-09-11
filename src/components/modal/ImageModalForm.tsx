@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { isNsfw } from "../../utils";
 
 interface ImageModalFormProps {
     image: string | null;
