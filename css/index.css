@@ -409,6 +409,15 @@ a.ignore-half {
     overflow-x: hidden;
     text-overflow:ellipsis;
 }
-.lifeline-icon-disabled {
+.lifeline-icon-0 {
     color: rgb(58, 58, 58);
+}
+.lifeline-icon-1 {
+    color: #fff;
+}
+.lifeline-icon-2 {
+    color: rgb(156, 187, 233);
+}
+.lifeline-icon-3 {
+    color: rgb(232, 233, 156);
 }

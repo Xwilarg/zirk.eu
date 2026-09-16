@@ -1,11 +1,13 @@
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
 import friendData from "../../data/json/friends.json"
+import gameData from "../../data/json/game.json"
 
 interface FriendData
 {
-    name: string,
-    website: string | null,
-    lifeline: string | LifelineData,
+    id: string
+    name: string
+    website: string | null
+    lifeline: string | LifelineData
     gamejam: string
 }
 
@@ -90,10 +92,77 @@ const LifelineComponent = forwardRef((_, ref) => {
         });
     }
 
+    function getGamejamColor(boxJson: any)
+    {
+        if (!boxJson) return 0;
+
+        if (boxJson.duo && boxJson.offline) return 3;
+        if (boxJson.duo || boxJson.offline) return 2;
+        if (boxJson.catch) return 1;
+        return 0;
+    }
+
+    function getTravelColor(boxJson: any)
+    {
+        if (!boxJson) 0;
+
+        let score = 0;
+        for (let [_, value] of Object.entries(boxJson)) {
+            if (value) score++;
+        }
+        if (score >= 6) return 3;
+        if (score >= 4) return 2;
+        if (score >= 2) return 1;
+        return 0;
+    }
+
+    function getGameColor(boxJson: any)
+    {
+        if (!boxJson) return 0;
+
+        const score =
+            (boxJson.time >= 10 ? 1 : 0) +
+            (boxJson.duo ? 1 : 0) +
+            (boxJson.full ? 1 : 0);
+        if (score === 0) return 0;
+        if (score === 1) return 1;
+        if (score === 2) return 2;
+        return 3;
+    }
+
+    function getScreenshotsColor(id: string)
+    {
+        const count = [
+            ...gameData.sheep.filter(x => x.with.includes(id)),
+            ...gameData.train.filter(x => x.with.includes(id))
+        ].length;
+        if (count === 0) return 0;
+        if (count <= 5) return 1;
+        if (count <= 10) return 2;
+        return 3;
+    }
+
+    interface LifelineBoxInfo
+    {
+        scoreJam: number
+        scoreTravel: number
+        scoreGame: number
+        scoreSC: number
+
+        html?: ReactElement
+    }
+
     return <div className="is-flex">
         {
             lifelineData.map(x =>
-                <div key={x.id} className="lifeline is-flex flex-center-ver">
+            {
+                let info: LifelineBoxInfo = {
+                    scoreJam: getGamejamColor(x.boxes.gamejam),
+                    scoreTravel: getTravelColor(x.boxes.travel),
+                    scoreGame: getGameColor(x.boxes.coop),
+                    scoreSC: getScreenshotsColor(x.id)
+                }
+                info.html = <div key={x.id} className="lifeline is-flex flex-center-ver">
                     <div>
                         <div className="lifeline-title is-flex flex-center-ver">
                             <span className="lifeline-name">{x.name}</span> {x.lifeline.hash ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.hash ? <button className="button" onClick={_ => {
@@ -111,13 +180,15 @@ const LifelineComponent = forwardRef((_, ref) => {
                             }}><span className="material-symbols-outlined">check_circle</span></button> : ""}
                         </div>
                         <div>
-                            <span className={"material-symbols-outlined " + (x.boxes.gamejam ? "" : "lifeline-icon-disabled")}>code</span>
-                            <span className={"material-symbols-outlined " + (x.boxes.travel ? "" : "lifeline-icon-disabled")}>travel</span>
-                            <span className={"material-symbols-outlined " + (x.boxes.coop ? "" : "lifeline-icon-disabled")}>joystick</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreJam}`}>code</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreJam}`}>travel</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreGame}`}>joystick</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreSC}`}>image</span>
                         </div>
                     </div>
-                </div>
-            )
+                </div>;
+                return info;
+            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreGame + b.scoreSC) - (a.scoreJam + a.scoreTravel + a.scoreGame + a.scoreSC)).map(x => x.html)
         }
     </div>
 });

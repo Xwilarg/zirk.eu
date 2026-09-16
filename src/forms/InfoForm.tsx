@@ -2,12 +2,12 @@ import { useRef, useState } from "react";
 import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
-import ImageModalForm from "../components/modal/ImageModalForm";
 import LifelineComponent from "../components/LifelineComponent";
 import { isNsfw } from "../utils";
+import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";
 
 export default function InfoForm() {
-    const [preview, setPreview] = useState<string | null>(null);
+    const [preview, setPreview] = useState<ImagePreviewInfo[] | null>(null);
     const [showLifelineUpdate, setShowLifelineUpdate] = useState(true);
     const [aboutMeTab, setAboutMeTab] = useState(1);
 
@@ -58,6 +58,24 @@ export default function InfoForm() {
         </>
     }
 
+    const replays = [
+        "/data/img/steam/2025.png",
+        "/data/img/steam/2024.png",
+        "/data/img/steam/2023.png",
+        "/data/img/steam/2022.png"
+    ];
+    const websites = [
+        '/data/img/website/v1.png',
+        '/data/img/website/v2.png',
+        '/data/img/website/v3.png',
+        '/data/img/website/v4.png',
+        '/data/img/website/v5.png',
+        '/data/img/website/v6.png',
+        '/data/img/website/v7.png',
+        '/data/img/website/v8.png',
+        '/data/img/website/v9.png',
+    ]
+
     return <>
         <QuoteComponent />
         <NavbarComponent />
@@ -67,25 +85,17 @@ export default function InfoForm() {
                 This website is using <a href='https://github.com/Astylodon/Shika' target='_blank'>Shika</a> for its analytics<br/>
                 You can see all the data collected <a href='https://astylodon.org/docs/shika/data' target='_blank'>here</a><br/>
                 <br/>
+                This website is now at its 10th iteration:<br/>
+                <div className="is-flex">
+                    { websites.map(x => <img key={x} className="clickable gallery-img" src={x} onClick={() => setPreview(websites.map(y => ({ image: y, nsfw: false })))} />) }
+                </div>
+                <small>Click to enlarge</small><br/>
+                <br/>
                 It is made with <a href='https://react.dev/' target='_blank'>react</a> (with <a href="https://react.dev/reference/react-dom" target="_blank">react-dom</a> and <a href="https://reactrouter.com/" target="_blank">react-router</a>),
                 &nbsp;<a href='https://vite.dev/' target='_blank'>vite</a> and <a href='https://www.typescriptlang.org/' target='_blank'>typescript</a><br/>
                 <br/>
                 Along with that, it's also using <a href="https://fonts.google.com/specimen/Quantico" target="_blank">Quantico font</a> and <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a><br/>
                 An <a href="https://commons.wikimedia.org/wiki/File:Japanese_Hiragana_kyokashotai_WU.svg#Licensing">image from Wikimedia</a> is also used (to which I changed the color)<br/>
-                <br/>
-                This website went through lot of iterations:<br/>
-                <div className="is-flex">
-                    <img className="gallery-img clickable" src='/data/img/website/v1.png' onClick={() => setPreview('/data/img/website/v1.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v2.png' onClick={() => setPreview('/data/img/website/v2.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v3.png' onClick={() => setPreview('/data/img/website/v3.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v4.png' onClick={() => setPreview('/data/img/website/v4.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v5.png' onClick={() => setPreview('/data/img/website/v5.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v6.png' onClick={() => setPreview('/data/img/website/v6.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v7.png' onClick={() => setPreview('/data/img/website/v7.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v8.png' onClick={() => setPreview('/data/img/website/v8.png')} />
-                    <img className="gallery-img clickable" src='/data/img/website/v9.png' onClick={() => setPreview('/data/img/website/v9.png')} />
-                </div>
-                <small>Click to enlarge</small><br/>
                 <br/>
                 Source code is available on <a href='https://github.com/Xwilarg/zirk.eu' target='_blank'>GitHub</a><br/>
                 You can also check the source code for the <a href='https://github.com/Xwilarg/zirk.eu-v9' target='_blank'>V9</a>,
@@ -111,9 +121,7 @@ export default function InfoForm() {
             />
             <GenericBox name="Steam Replay" nsfw={false} custom={
                 <div className="is-flex flex-center-hor">
-                    <img className="clickable card-img" src="/data/img/steam/2025.png" onClick={() => setPreview("/data/img/steam/2025.png")} />
-                    <img className="clickable card-img" src="/data/img/steam/2024.png" onClick={() => setPreview("/data/img/steam/2024.png")} />
-                    <img className="clickable card-img" src="/data/img/steam/2023.png" onClick={() => setPreview("/data/img/steam/2023.png")} />
+                    { replays.map(x => <img key={x} className="clickable card-img" src={x} onClick={() => setPreview(replays.map(y => ({ image: y, nsfw: false })))} />) }
                 </div>}
             />
             <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
@@ -123,7 +131,7 @@ export default function InfoForm() {
         </div>
         {
             preview !== null ?
-            <ImageModalForm image={preview} unsetImage={setPreview} />
+            <ImageGroupModalForm images={preview} unsetImage={setPreview} />
             : <></>
         }
     </>
