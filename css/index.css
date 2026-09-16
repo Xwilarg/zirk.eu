@@ -261,11 +261,6 @@ a.ignore-half {
 .jam-filter label {
     display: block;
 }
-@media (max-width: 1000px) {
-    #jam-filters {
-        flex-direction: column;
-    }
-}
 @media (max-width: 500px) {
     .jam-filter {
         width: 100%;
@@ -400,6 +395,11 @@ a.ignore-half {
     height: 75px;
     border: var(--border);
     border-radius: var(--border-radius);
+}
+@media (max-width: 455px) {
+    .lifeline {
+        width: 100%;
+    }
 }
 .lifeline-title {
     height: 50px;

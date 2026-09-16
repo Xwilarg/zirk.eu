@@ -45,8 +45,16 @@ export default function InfoForm() {
     else if (aboutMeTab === 1) {
         aboutMe = <>
             <h3>Today</h3>
-            My main occupation today is first <span className="katsis-highlight">Katsis</span>, outside of that I still love programming, jumping on a lot of gamejams <small>(sorry Fractal)</small> and maintaining projects<br/>
+            My main occupation today is first <span className="katsis-highlight">Katsis</span> where I mainly work on the infrastructure such as the intranet or the website (but still sometimes help with games too)<br/>
             <br/>
+            Gamejams stay my main hobby, especially the <a href="https://globalgamejam.org/" target="_blank">Global Game Jam</a> and the <a href="https://d2jam.com/home" target="_blank">Down2Jam</a> (now that the Ludum Dare is dead), and well, of course without forgetting {nsfw === "NSFW" ? <a href="https://katsis.net/jam">Katsis's one</a> : <span><span className="katsis-highlight">Katsis</span>'s one</span>} too!<br/>
+            <br/>
+            Outside of that, I have lot of various hobbies, playing games is the main ones, but a non exaustive list contains traveling, doing speedruns, playing mahjong, train museums, coding various projects...<br/>
+            <br/>
+            To end up a bit about myself <small>(now that you had to scroll down)</small> I love new experiences (especially food related ones), I like happy things and my favorite type of humor is absurd one<br/>
+            My tastes in games is quite varried but my favorite genres are FPS, rogue likes, turned based RPG and base-builders, my tastes in music a bit less as I mostly listen to songs that are quite fast<br/>
+            <br/>
+            I'm quite on the introvert side and as you can see all around, love boxing things, and think this sentence doesn't need to be fi
         </>
     }
 
@@ -65,7 +73,7 @@ export default function InfoForm() {
                 Along with that, it's also using <a href="https://fonts.google.com/specimen/Quantico" target="_blank">Quantico font</a> and <a href="https://fonts.google.com/icons" target="_blank">Material Icons</a><br/>
                 An <a href="https://commons.wikimedia.org/wiki/File:Japanese_Hiragana_kyokashotai_WU.svg#Licensing">image from Wikimedia</a> is also used (to which I changed the color)<br/>
                 <br/>
-                This website went through loot of iterations:<br/>
+                This website went through lot of iterations:<br/>
                 <div className="is-flex">
                     <img className="gallery-img clickable" src='/data/img/website/v1.png' onClick={() => setPreview('/data/img/website/v1.png')} />
                     <img className="gallery-img clickable" src='/data/img/website/v2.png' onClick={() => setPreview('/data/img/website/v2.png')} />
@@ -108,6 +116,10 @@ export default function InfoForm() {
                     <img className="clickable card-img" src="/data/img/steam/2023.png" onClick={() => setPreview("/data/img/steam/2023.png")} />
                 </div>}
             />
+            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
+                { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
+                { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" }
+            ]} />
         </div>
         {
             preview !== null ?
@@ -115,9 +127,4 @@ export default function InfoForm() {
             : <></>
         }
     </>
-    /*
-            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
-                { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
-                { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" }
-            ]} />*/
 }

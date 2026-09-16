@@ -4,8 +4,10 @@ import { Link, useSearchParams } from "react-router";
 import { getNavigationNoHook, isNsfw, randArrayElement } from "../utils";
 import GenericBox from "../boxes/GenericBox";
 import sheepData from "../../data/json/sheep.json"
+import newsData from "../../data/json/news.json"
 import ImageModalForm from "../components/modal/ImageModalForm";
 import SketchForm from "../computer/SketchForm";
+import NewsBox from "../boxes/impl/NewsBox";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
@@ -71,6 +73,14 @@ export default function MainForm() {
                 image={katsisImage} onClick={() => setPreview(katsisImage)}
                 buttons={nsfw === "NSFW" ? [{label: "See more", type: "Link", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
             />
+        </div>
+        <div className="is-flex flex-center-hor">
+            <h2>News</h2>
+        </div>
+        <div className="is-flex flex-center-hor">
+            {
+                newsData.map(x => <NewsBox item={x} />)
+            }
         </div>
         {
             preview !== null ?
