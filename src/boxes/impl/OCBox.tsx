@@ -90,8 +90,8 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                                 <video src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`}
                                 onClick={() => setPreview({
                                     data: x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
-                                    creditName: category.artist,
-                                    creditUrl: artists[category.artist]
+                                    creditName: x.artist,
+                                    creditUrl: artists[x.artist]
                                 })} />
                             </div>
                         }
@@ -99,8 +99,8 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                             <img src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`} className={category?.type === "pixel" ? "pixel" : ""}
                             onClick={() => setPreview({
                                 data: x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
-                                creditName: category.artist,
-                                creditUrl: artists[category.artist]
+                                creditName: x.artist,
+                                creditUrl: artists[x.artist]
                             })} />
                         </div>
                     })
