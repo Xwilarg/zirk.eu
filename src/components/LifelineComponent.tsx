@@ -181,7 +181,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                         </div>
                         <div>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreJam}`}>code</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreJam}`}>travel</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreTravel}`}>travel</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreGame}`}>joystick</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreSC}`}>image</span>
                         </div>
