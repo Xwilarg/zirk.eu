@@ -23,9 +23,6 @@ export default function OCform() {
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
-            <h2>OCs</h2>
-        </div>
-        <div className="is-flex flex-center-hor">
             {
                 characters.sort(x => x.images.length).map(x => <OCBox item={x} setPreview={setPreview} artists={artists} />)
             }

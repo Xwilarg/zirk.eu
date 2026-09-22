@@ -13,7 +13,6 @@ export default function ProjectForm() {
         <>
             <QuoteComponent />
             <NavbarComponent />
-            <h3 className="text-center">Projects</h3>
             <div className="is-flex flex-center-hor">
                 {
                     projectData
