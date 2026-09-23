@@ -19,7 +19,7 @@ function prettifyDuration(h: number): string {
     return `${d} days`;
 }
 
-function getOverallScore(item: GameJamItem): number | null {
+export function getOverallScore(item: GameJamItem): number | null {
     if (!item.rating || !item.rating.scores) return null;
 
     const entries = item.rating.entriesRated ?? item.rating.entries;
@@ -33,6 +33,16 @@ function getOverallScore(item: GameJamItem): number | null {
     return null;
 }
 
+export function getCssModifier(item: GameJamItem, previewGif: boolean): string {
+    let pos = "";
+    let comp = previewGif ? item.gifPosOverrides : item.imagePosOverrides;
+    if (comp === "up") return "top";
+    if (comp === "down") return "bottom";
+    if (comp === "left") return "left";
+    if (comp === "right") return "right";
+    return "";
+}
+
 export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
 {
     const [previewGif, setPreviewGif] = useState(false);
@@ -42,12 +52,7 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
     let nsfwStatus = isNsfw();
     let hideNsfw = item.nsfw && nsfwStatus !== "NSFW";
 
-    let pos = "";
-    let comp = previewGif ? item.gifPosOverrides : item.imagePosOverrides;
-    if (comp === "up") pos = "top";
-    else if (comp === "down") pos = "bottom";
-    else if (comp === "left") pos = "left";
-    else if (comp === "right") pos = "right";
+    let pos = getCssModifier(item, previewGif)
 
     let score = getOverallScore(item);
 
