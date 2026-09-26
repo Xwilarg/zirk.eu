@@ -6,7 +6,7 @@ export interface NewsItem
     text: string[]
     links: NewsLink[]
     nsfw: boolean
-    css: string
+    css?: string
 }
 
 export interface NewsLink

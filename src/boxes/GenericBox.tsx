@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type { Button } from "../models/Button";
-import { isNsfw } from "../utils";
-import { Link } from "react-router";
+import { getNavigationNoHook, isNsfw } from "../utils";
+import { Link, useSearchParams } from "react-router";
 import type { IconInfo } from "../models/IconInfo";
 
 interface GenericBoxProps
@@ -28,6 +28,8 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
     let nsfwStatus = isNsfw();
     let hideNsfw = nsfw && nsfwStatus !== "NSFW";
 
+    const [ searchParams ] = useSearchParams();
+
     let btnHtml: ReactElement[] = [];
     if (buttons)
     {
@@ -38,9 +40,13 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
             else if (b.labelType === "LocalIcon") label = <img width={24} height={24} src={`/img/icon/${b.label}`} />
             else label = <>{b.label}</>;
 
-            if (b.type === "Link")
+            if (b.type === "LinkExternal")
             {
                 btnHtml.push(<Link key={`btn-${b.label}`} to={b.link!} target="_blank" className={`button ${b.color === "Primary" ? "primary" : ""}`}>{label}</Link>)
+            }
+            else if (b.type === "LinkInternal")
+            {
+                btnHtml.push(<Link key={`btn-${b.label}`} to={getNavigationNoHook(b.link!, searchParams)} target="_blank" className={`button ${b.color === "Primary" ? "primary" : ""}`}>{label}</Link>)
             }
             else if (b.type === "Custom")
             {

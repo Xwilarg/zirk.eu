@@ -12,6 +12,7 @@ import gamejamData from "../../data/json/gamejam.json"
 import projectData from "../../data/json/projects.json"
 import type { GameJamItem } from "../models/Gamejam";
 import { getCssModifier, getOverallScore } from "../boxes/impl/GameJamBox";
+import { NavigationLinks } from "../components/NavbarComponent";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
@@ -87,12 +88,10 @@ export default function MainForm() {
                 </div>} />
                 : <></>
             }
-            <GenericBox name="Navigation" nsfw={false} custom={<nav className="is-flex">    
-                <Link to={getNavigationNoHook("/gamejam", searchParams)} rel="me" className="button nav-button">Gamejam</Link>
-                <Link to={getNavigationNoHook("/project", searchParams)} rel="me" className="button nav-button">Projects</Link>
-                <Link to={getNavigationNoHook("/game", searchParams)} rel="me" className="button nav-button">Games</Link>
-                <Link to={getNavigationNoHook("/oc", searchParams)} rel="me" className="button nav-button">OCs</Link>
-                <Link to={getNavigationNoHook("/info", searchParams)} rel="me" className="button nav-button">Info</Link>
+            <GenericBox name="Navigation" nsfw={false} custom={<nav className="is-flex">
+                {
+                    NavigationLinks.map(x => <Link to={getNavigationNoHook(x.to, searchParams)} rel="me" className="button nav-button">{x.label}</Link>)
+                }
             </nav>} />
             <GenericBox name="Gamejam" nsfw={false}
                 custom={<>
@@ -116,11 +115,11 @@ export default function MainForm() {
                         </tbody>
                     </table>
                 </>}
-                buttons={[{label: "See more", type: "Link", labelType: "Text", color: "Primary", link: "/gamejam" }]}
+                buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
             <GenericBox name="Projects" nsfw={false}
                 image={`/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={() => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
-                buttons={[{label: "See more", type: "Link", labelType: "Text", color: "Primary", link: "/project" }]}
+                buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
             <GenericBox name="Katsis" nsfw={false}
                 custom={<div>
@@ -135,7 +134,7 @@ export default function MainForm() {
                         : <div className="text-center"><br/><br/>Loading...</div>
                     }
                     </div>}
-                buttons={nsfw === "NSFW" ? [{label: "See more", type: "Link", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
+                buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
             />
         </div>
         <div className="is-flex flex-center-hor">

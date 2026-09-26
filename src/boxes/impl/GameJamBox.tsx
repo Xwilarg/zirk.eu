@@ -75,7 +75,7 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
                 color: "Default",
                 label: "language",
                 labelType: "GoogleIcon",
-                type: "Link",
+                type: "LinkExternal",
                 link: item.website
             })
         }
@@ -85,7 +85,7 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
                 color: "Default",
                 label: "github.svg",
                 labelType: "LocalIcon",
-                type: "Link",
+                type: "LinkExternal",
                 link: item.github
             })
         }

@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import MainForm from './forms/MainForm'
+// @ts-ignore
 import "../css/index.css"
 import { BrowserRouter, Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useEffect } from 'react'
@@ -10,6 +11,8 @@ import GameForm from './forms/GameForm.tsx'
 import ProjectForm from './forms/ProjectForm.tsx'
 import OCform from './forms/OCForm.tsx'
 import InfoForm from './forms/InfoForm.tsx'
+import TitleForm from './forms/TitleForm.tsx'
+import NotFoundForm from './forms/NotFound.tsx'
 
 function RedirectCompat()
 {
@@ -30,7 +33,10 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
         <RedirectCompat />
         <Routes>
-            <Route path='/' element={<MainForm/>} />
+            <Route path='*' element={<NotFoundForm />} />
+
+            <Route path='/' element={<TitleForm/>} />
+            <Route path='/main' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/game' element={<GameForm/>} />
             <Route path='/project' element={<ProjectForm/>} />

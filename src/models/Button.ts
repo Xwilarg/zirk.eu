@@ -1,4 +1,4 @@
-type ButtonType = "Link" | "Custom"
+type ButtonType = "LinkExternal" | "LinkInternal" | "Custom"
 type ButtonColor = "Primary" | "Default"
 type LabelType = "Text" | "GoogleIcon" | "LocalIcon"
 
