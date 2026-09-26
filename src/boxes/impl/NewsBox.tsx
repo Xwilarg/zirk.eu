@@ -20,16 +20,16 @@ export default function NewsBox({ item }: NewsItemFormProps)
             color: "Primary",
             action: () => { setShowInfo(x => !x) }
         },
-        ...item.links.map(x => ({ type: "Link" as const, label: x.name, link: x.link, labelType: "Text" as const, color: "Default" as const }))
+        ...item.links.map(x => ({ type: "LinkExternal" as const, label: x.name, link: x.link, labelType: "Text" as const, color: "Default" as const }))
     ]
 
     if (showInfo) {
-        return <GenericBox name={item.title} imageCssModifiers="css" text={item.text.join("<br/><br/>")} nsfw={item.nsfw}
+        return <GenericBox name={item.title} achievementId="CARD_NEWS" imageCssModifiers="css" text={item.text.join("<br/><br/>")} nsfw={item.nsfw}
                 buttons={buttons}
             ></GenericBox>
     }
 
-    return <GenericBox name={item.title} imageCssModifiers={item.css} image={item.image} nsfw={item.nsfw}
+    return <GenericBox name={item.title} achievementId="CARD_NEWS" imageCssModifiers={item.css} image={item.image} nsfw={item.nsfw}
             buttons={buttons}
         ></GenericBox>
 };

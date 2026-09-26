@@ -3,16 +3,18 @@ import QuoteComponent from "../components/QuoteComponent";
 import { Link, useSearchParams } from "react-router";
 import { getNavigationNoHook, isNsfw } from "../utils";
 import GenericBox from "../boxes/GenericBox";
-import sheepData from "../../data/json/sheep.json"
-import newsData from "../../data/json/news.json"
 import ImageModalForm from "../components/modal/ImageModalForm";
 import SketchForm from "../computer/SketchForm";
 import NewsBox from "../boxes/impl/NewsBox";
-import gamejamData from "../../data/json/gamejam.json"
-import projectData from "../../data/json/projects.json"
 import type { GameJamItem } from "../models/Gamejam";
 import { getCssModifier, getOverallScore } from "../boxes/impl/GameJamBox";
 import { NavigationLinks } from "../components/NavbarComponent";
+
+import gamejamData from "../../data/json/gamejam.json"
+import projectData from "../../data/json/projects.json"
+import sheepData from "../../data/json/sheep.json"
+import newsData from "../../data/json/news.json"
+import achievementData from "../../data/json/achievements.json"
 
 // @ts-ignore
 import "../../css/title.css";
@@ -21,6 +23,8 @@ export default function MainForm() {
     const [searchParams] = useSearchParams();
     const [showSheep, setShowSheep] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
+
+    const [ unlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
 
     const nsfw = isNsfw();
     
@@ -61,8 +65,8 @@ export default function MainForm() {
     return <div>
         <QuoteComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox name="Sketch" nsfw={false} className="card-first" custom={ <SketchForm isOn={false} loadedGame={null} buttons={[]} isFullscreen={false} onLoad={null} /> } />
-            <GenericBox name="Intro" nsfw={false} className="card-first" custom={<div>
+            <GenericBox name="Sketch" achievementId="CARD_SKETCH" nsfw={false} className="card-first" custom={ <SketchForm isOn={false} loadedGame={null} buttons={[]} isFullscreen={false} onLoad={null} /> } />
+            <GenericBox name="Intro" achievementId="CARD_INTRO" nsfw={false} className="card-first" custom={<div>
                 <h3>Welcome on <span className="gradient-highlight">my amazing website</span>, I am Zirk, a game and software developer</h3>
                 I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigationNoHook("/gamejam", searchParams)}>participating at gamejams</Link><br/>
                 <br/>
@@ -75,7 +79,7 @@ export default function MainForm() {
             </div>} />
             {
                 showSheep ?
-                <GenericBox name="Sheep" nsfw={false} className="card-first" custom={<div className="is-flex">
+                <GenericBox name="Sheep" achievementId="CARD_SHEEP" nsfw={false} className="card-first" custom={<div className="is-flex">
                     {
                         sheepData.map(x =>
                             <div className="sheep-img" key={x.name}>
@@ -91,12 +95,12 @@ export default function MainForm() {
                 </div>} />
                 : <></>
             }
-            <GenericBox name="Navigation" nsfw={false} className="card-dynamic-1" custom={<nav className="is-flex">
+            <GenericBox achievementId="CARD_NAVIGATION" name="Navigation" nsfw={false} className="card-dynamic-1" custom={<nav className="is-flex">
                 {
                     NavigationLinks.map(x => <Link to={getNavigationNoHook(x.to, searchParams)} rel="me" className="button nav-button">{x.label}</Link>)
                 }
             </nav>} />
-            <GenericBox name="Gamejam" nsfw={false} className="card-dynamic-2"
+            <GenericBox achievementId="CARD_SUMMARY" name="Gamejam" nsfw={false} className="card-dynamic-2"
                 custom={<>
                     <div className="text-center">{gamejams.length} entries</div>
                     <table className="table-2col">
@@ -120,11 +124,11 @@ export default function MainForm() {
                 </>}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
-            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3"
+            <GenericBox name="Projects" achievementId="CARD_SUMMARY" nsfw={false} className="card-dynamic-3"
                 image={`/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={() => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
-            <GenericBox name="Katsis" nsfw={false} className="card-dynamic-4"
+            <GenericBox name="Katsis" achievementId="CARD_KATSIS" nsfw={false} className="card-dynamic-4"
                 custom={<div>
                     {
                         katsisApiData
@@ -139,11 +143,14 @@ export default function MainForm() {
                     </div>}
                 buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
             />
-            <div className="card card-placeholder">
-                <h1 className="text-center">Zirk</h1>
-            </div>
-            <GenericBox name="Placeholder" nsfw={false} className="card-last" imageCssModifiers="pixel"
-                image={"/img/broken.png"}
+            <GenericBox name="" achievementId="CARD_NEUTRAL" nsfw={false} className="card-placeholder"
+                custom={<>
+                    <h1 className="text-center">Zirk</h1>
+                </>}
+            />
+            <GenericBox name="Achievements" achievementId="CARD_SUMMARY" nsfw={false} className="card-last"
+                text={`Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
+                buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />
         </div>
         <div className="is-flex flex-center-hor">

@@ -12,6 +12,7 @@ import ProjectForm from './forms/ProjectForm.tsx'
 import OCform from './forms/OCForm.tsx'
 import InfoForm from './forms/InfoForm.tsx'
 import NotFoundForm from './forms/NotFound.tsx'
+import AchievementForm from './forms/AchievementForm.tsx'
 
 function RedirectCompat()
 {
@@ -40,6 +41,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path='/project' element={<ProjectForm/>} />
             <Route path='/oc' element={<OCform/>} />
             <Route path='/info' element={<InfoForm/>} />
+            <Route path='/achievement' element={<AchievementForm/>} />
             <Route path='/secret/quote' element={<SecretQuoteForm />} />
         </Routes>
     </BrowserRouter>

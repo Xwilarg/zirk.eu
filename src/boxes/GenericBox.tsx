@@ -1,8 +1,9 @@
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import type { Button } from "../models/Button";
 import { getNavigationNoHook, isNsfw } from "../utils";
 import { Link, useSearchParams } from "react-router";
 import type { IconInfo } from "../models/IconInfo";
+import { UnlockAchievement } from "../models/Achievement";
 
 interface GenericBoxProps
 {
@@ -23,13 +24,17 @@ interface GenericBoxProps
     onClick?: React.MouseEventHandler<HTMLImageElement> | undefined
     onMouseEnter?: React.MouseEventHandler<HTMLImageElement> | undefined
     onMouseLeave?: React.MouseEventHandler<HTMLImageElement> | undefined
+
+    achievementId: string
 }
 
-export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className } : GenericBoxProps) {
+export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className, achievementId } : GenericBoxProps) {
     let nsfwStatus = isNsfw();
     let hideNsfw = nsfw && nsfwStatus !== "NSFW";
 
     const [ searchParams ] = useSearchParams();
+
+    const [ isClicked, setIsClicked ] = useState(false);
 
     let btnHtml: ReactElement[] = [];
     if (buttons)
@@ -47,7 +52,7 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
             }
             else if (b.type === "LinkInternal")
             {
-                btnHtml.push(<Link key={`btn-${b.label}`} to={getNavigationNoHook(b.link!, searchParams)} target="_blank" className={`button ${b.color === "Primary" ? "primary" : ""}`}>{label}</Link>)
+                btnHtml.push(<Link key={`btn-${b.label}`} to={getNavigationNoHook(b.link!, searchParams)} className={`button ${b.color === "Primary" ? "primary" : ""}`}>{label}</Link>)
             }
             else if (b.type === "Custom")
             {
@@ -89,7 +94,13 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
         mainContent = custom
     }
 
-    return <div className={`card ${className ? className : ""}`}>
+    return <div className={`card ${className ? className : ""}`} onClick={() => {
+        if (!isClicked)
+        {
+            UnlockAchievement(achievementId)
+            setIsClicked(true);
+        }
+    }}>
         <p className={"text-center card-name"}>{hideNsfw ? "" : name}</p>
         <div className="card-content"
             onMouseEnter={onMouseEnter}

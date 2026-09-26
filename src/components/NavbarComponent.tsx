@@ -22,6 +22,9 @@ export const NavigationLinks: Navigation[] = [{
 }, {
     label: "Info",
     to: "/info"
+}, {
+    label: "Achievements",
+    to: "/achievement"
 }]
 
 export default function NavbarComponent() {

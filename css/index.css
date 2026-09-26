@@ -196,6 +196,11 @@ a.ignore-half {
     margin: 0;
 }
 
+.card img:not(.card-img) {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .card-img {
     overflow: hidden;
     border-radius: var(--border-radius);
@@ -432,4 +437,10 @@ a.ignore-half {
 }
 .lifeline-icon-3 {
     color: rgb(232, 233, 156);
+}
+
+/* Achievements */
+
+.title-ach-offset {
+    margin-top: 100px
 }

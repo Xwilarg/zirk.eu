@@ -17,7 +17,7 @@ export default function GameForm() {
         <div className="is-flex flex-center-hor">
             {
                 gameData.train.sort((a, b) => a.name.localeCompare(b.name)).map(x =>
-                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/train/${x.image}`} nsfw={false} onClick={() => setPreview(`/data/img/game/train/${x.image}`)}></GenericBox>
+                    <GenericBox key={x.name} achievementId="CARD_GAME_TRAIN" name={x.name} image={`/data/img/game/train/${x.image}`} nsfw={false} onClick={() => setPreview(`/data/img/game/train/${x.image}`)}></GenericBox>
                 )
             }
         </div>
@@ -27,7 +27,7 @@ export default function GameForm() {
         <div className="is-flex flex-center-hor">
             {
                 gameData.sheep.sort((a, b) => a.name.localeCompare(b.name)).map(x =>
-                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/sheep/${x.image}`} nsfw={false} onClick={() => setPreview(`/data/img/game/sheep/${x.image}`)}></GenericBox>
+                    <GenericBox key={x.name} achievementId="CARD_GAME_SHEEP" name={x.name} image={`/data/img/game/sheep/${x.image}`} nsfw={false} onClick={() => setPreview(`/data/img/game/sheep/${x.image}`)}></GenericBox>
                 )
             }
         </div>

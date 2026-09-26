@@ -7,7 +7,7 @@ import { isNsfw } from "../utils";
 import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";
 
 export default function InfoForm() {
-    const [preview, setPreview] = useState<ImagePreviewInfo[] | null>(null);
+    const [preview, setPreview] = useState<ImageGroupModalInfo | null>(null);
     const [showLifelineUpdate, setShowLifelineUpdate] = useState(true);
     const [aboutMeTab, setAboutMeTab] = useState(1);
 
@@ -54,7 +54,7 @@ export default function InfoForm() {
             To end up a bit about myself <small>(now that you had to scroll down)</small> I love new experiences (especially food related ones), I like happy things and my favorite type of humor is absurd one<br/>
             My tastes in games is quite varried but my favorite genres are FPS, rogue likes, turned based RPG and base-builders, my tastes in music a bit less as I mostly listen to songs that are quite fast<br/>
             <br/>
-            I'm quite on the introvert side and as you can see all around, love boxing things, and think this sentence doesn't need to be fi
+            I'm quite on the introvert side and as you can see all around, love boxing things, I also think this sentence doesn't need to be fi
         </>
     }
 
@@ -80,14 +80,16 @@ export default function InfoForm() {
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox name="Technical specifications" nsfw={false} custom={
+            <GenericBox name="Technical specifications" achievementId="CARD_TECH" nsfw={false} custom={
                 <>
                 This website is using <a href='https://github.com/Astylodon/Shika' target='_blank'>Shika</a> for its analytics<br/>
                 You can see all the data collected <a href='https://astylodon.org/docs/shika/data' target='_blank'>here</a><br/>
                 <br/>
                 This website is now at its 10th iteration:<br/>
                 <div className="is-flex">
-                    { websites.map(x => <img key={x} className="clickable gallery-img" src={x} onClick={() => setPreview(websites.map(y => ({ image: y, nsfw: false })))} />) }
+                    {
+                        websites.map(x => <img key={x} className="clickable gallery-img" src={x} onClick={() => setPreview({ data: websites.map(y => ({ image: y, nsfw: false })) })} />)
+                    }
                 </div>
                 <small>Click to enlarge</small><br/>
                 <br/>
@@ -108,10 +110,10 @@ export default function InfoForm() {
                 color: "Default",
                 label: "github.svg",
                 labelType: "LocalIcon",
-                type: "Link",
+                type: "LinkExternal",
                 link: "https://github.com/Xwilarg/zirk.eu"
             }]} />
-            <GenericBox name="Lifeline" nsfw={false} custom={<LifelineComponent ref={lifelineRef} />}
+            <GenericBox name="Lifeline" achievementId="CARD_LIFELINE" nsfw={false} custom={<LifelineComponent ref={lifelineRef} />}
                 buttons={showLifelineUpdate ? [{
                 type: "Custom",
                 action: () => { (lifelineRef.current! as any).update(); setShowLifelineUpdate(false) },
@@ -119,19 +121,19 @@ export default function InfoForm() {
                 label: "refresh",
                 labelType: "GoogleIcon" }] : []}
             />
-            <GenericBox name="Steam Replay" nsfw={false} custom={
+            <GenericBox name="Steam Replay" achievementId="CARD_STEAM" nsfw={false} custom={
                 <div className="is-flex flex-center-hor">
-                    { replays.map(x => <img key={x} className="clickable card-img" src={x} onClick={() => setPreview(replays.map(y => ({ image: y, nsfw: false })))} />) }
+                    { replays.map(x => <img key={x} className="clickable" src={x} onClick={() => setPreview({ data: replays.map(y => ({ image: y, nsfw: false })) })} />) }
                 </div>}
             />
-            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
+            <GenericBox name="More about me" achievementId="CARD_MORE" nsfw={false} custom={aboutMe} buttons={[
                 { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
                 { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" }
             ]} />
         </div>
         {
             preview !== null ?
-            <ImageGroupModalForm images={preview} unsetImage={setPreview} />
+            <ImageGroupModalForm images={preview.data} unsetImage={setPreview} />
             : <></>
         }
     </>

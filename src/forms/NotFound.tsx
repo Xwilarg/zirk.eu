@@ -1,6 +1,5 @@
-import { Link, useSearchParams } from "react-router"
+import { useSearchParams } from "react-router"
 
-import { getNavigationNoHook } from "../utils";
 import QuoteComponent from "../components/QuoteComponent";
 import GenericBox from "../boxes/GenericBox";
 
@@ -10,7 +9,7 @@ export default function NotFoundForm() {
     return <div>
         <QuoteComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox nsfw={false} name="Not Found" custom={
+            <GenericBox nsfw={false} achievementId="CARD_NOT_FOUND" name="Not Found" custom={
                 <p>
                     Oops looks like the content you're looking for is in another castle<br/>
                     <br/>
@@ -21,7 +20,7 @@ export default function NotFoundForm() {
                 type: "LinkInternal",
                 color: "Primary",
                 labelType: "Text",
-                link: "/main"
+                link: "/"
             }]} />
         </div>
     </div>
