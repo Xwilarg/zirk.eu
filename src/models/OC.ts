@@ -33,7 +33,7 @@ interface OCImageInfo
 {
     title: string
     with: string[]
-    artist: string
+    artist: string | string[]
     date: string | null
     default?: boolean
     images: OCImageDetailInfo[]

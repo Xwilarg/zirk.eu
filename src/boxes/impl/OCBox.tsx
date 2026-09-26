@@ -27,21 +27,21 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
             label: "info",
             labelType: "GoogleIcon",
             type: "Custom",
-            action: () => { setTabShown(x => x === 0 ? 1 : 0) }
+            action: () => { setTabShown(x => x !== 1 ? 1 : 0) }
         },
         {
             color: "Default",
             label: "image",
             labelType: "GoogleIcon",
             type: "Custom",
-            action: () => { setTabShown(x => x === 0 ? 2 : 0) }
+            action: () => { setTabShown(x => x !== 2 ? 2 : 0) }
         },
         {
             color: "Default",
             label: "joystick",
             labelType: "GoogleIcon",
             type: "Custom",
-            action: () => { setTabShown(x => x === 0 ? 3 : 0) },
+            action: () => { setTabShown(x => x !== 3 ? 3 : 0) },
             disabled: item.metadata.media.length === 0
         }
     ];
@@ -90,8 +90,8 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                                 <video src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`}
                                 onClick={() => setPreview({
                                     data: x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
-                                    creditName: x.artist,
-                                    creditUrl: artists[x.artist]
+                                    creditName: Array.isArray(x.artist) ? x.artist.join(", ") : x.artist,
+                                    creditUrl: Array.isArray(x.artist) ? undefined : artists[x.artist]
                                 })} />
                             </div>
                         }
@@ -99,8 +99,8 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                             <img src={`/data/previews/ocs/${item.metadata.folder}/${def.link}`} className={category?.type === "pixel" ? "pixel" : ""}
                             onClick={() => setPreview({
                                 data: x.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
-                                creditName: x.artist,
-                                creditUrl: artists[x.artist]
+                                creditName: Array.isArray(x.artist) ? x.artist.join(", ") : x.artist,
+                                creditUrl: Array.isArray(x.artist) ? undefined : artists[x.artist]
                             })} />
                         </div>
                     })
@@ -136,8 +136,8 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
             imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`}
             onClick={() => setPreview({
                 data: category.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
-                creditName: category.artist,
-                creditUrl: artists[category.artist]
+                creditName: Array.isArray(category.artist) ? category.artist.join(", ") : category.artist,
+                creditUrl: Array.isArray(category.artist) ? undefined : artists[category.artist]
             })}
             buttons={buttons}
         ></GenericBox>

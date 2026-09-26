@@ -1,5 +1,76 @@
-#title h1 {
-    margin-top: 20vh;
-    margin-bottom: 100px;
-    font-size: 4em;
+.card-img.katsis-main-img {
+    width: 23%;
+    height: auto;
+    aspect-ratio: 300 / 450;
+}
+.katsis-main-img img, .gallery-img video {
+    max-width: 100%;
+    object-position: top;
+    height: auto;
+}
+
+.card-img.gamejam-main-img {
+    width: 80%;
+    height: auto;
+    aspect-ratio: 315 / 250;
+}
+.gamejam-main-img img, .gallery-img video {
+    max-width: 100%;
+    object-position: top;
+    height: auto;
+}
+
+.card-first {
+    order: 0;
+}
+.card-dynamic-1 {
+    order: 2;
+}
+.card-dynamic-2 {
+    order: 4;
+}
+.card-dynamic-3 {
+    order: 6;
+}
+.card-dynamic-4 {
+    order: 8;
+}
+.card-last {
+    order: 99;
+}
+
+.card-placeholder {
+    container-type: size;
+    width: 1370px !important;
+    height: 475px !important;
+    order: 9;
+}
+@media (max-width: 2319px) {
+    .card-placeholder {
+        width: 910px !important;
+        order: 7;
+    }
+}
+@media (max-width: 1857px) {
+    .card-placeholder {
+        width: 450px !important;
+        order: 5;
+    }
+}
+@media (max-width: 1395px) {
+    .card-placeholder {
+        width: 910px !important;
+        order: 1;
+    }
+}
+@media (max-width: 933px) {
+    .card-placeholder {
+        width: 100% !important;
+        height: auto !important;
+        order: -1;
+    }
+}
+
+.card-placeholder h1 {
+    margin-top: 20cqh;
 }

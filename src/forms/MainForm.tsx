@@ -14,6 +14,9 @@ import type { GameJamItem } from "../models/Gamejam";
 import { getCssModifier, getOverallScore } from "../boxes/impl/GameJamBox";
 import { NavigationLinks } from "../components/NavbarComponent";
 
+// @ts-ignore
+import "../../css/title.css";
+
 export default function MainForm() {
     const [searchParams] = useSearchParams();
     const [showSheep, setShowSheep] = useState(false);
@@ -58,8 +61,8 @@ export default function MainForm() {
     return <div>
         <QuoteComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox name="Sketch" nsfw={false} custom={ <SketchForm isOn={false} loadedGame={null} buttons={[]} isFullscreen={false} onLoad={null} /> } />
-            <GenericBox name="Intro" nsfw={false} custom={<div>
+            <GenericBox name="Sketch" nsfw={false} className="card-first" custom={ <SketchForm isOn={false} loadedGame={null} buttons={[]} isFullscreen={false} onLoad={null} /> } />
+            <GenericBox name="Intro" nsfw={false} className="card-first" custom={<div>
                 <h3>Welcome on <span className="gradient-highlight">my amazing website</span>, I am Zirk, a game and software developer</h3>
                 I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigationNoHook("/gamejam", searchParams)}>participating at gamejams</Link><br/>
                 <br/>
@@ -72,7 +75,7 @@ export default function MainForm() {
             </div>} />
             {
                 showSheep ?
-                <GenericBox name="Sheep" nsfw={false} custom={<div className="is-flex">
+                <GenericBox name="Sheep" nsfw={false} className="card-first" custom={<div className="is-flex">
                     {
                         sheepData.map(x =>
                             <div className="sheep-img" key={x.name}>
@@ -88,12 +91,12 @@ export default function MainForm() {
                 </div>} />
                 : <></>
             }
-            <GenericBox name="Navigation" nsfw={false} custom={<nav className="is-flex">
+            <GenericBox name="Navigation" nsfw={false} className="card-dynamic-1" custom={<nav className="is-flex">
                 {
                     NavigationLinks.map(x => <Link to={getNavigationNoHook(x.to, searchParams)} rel="me" className="button nav-button">{x.label}</Link>)
                 }
             </nav>} />
-            <GenericBox name="Gamejam" nsfw={false}
+            <GenericBox name="Gamejam" nsfw={false} className="card-dynamic-2"
                 custom={<>
                     <div className="text-center">{gamejams.length} entries</div>
                     <table className="table-2col">
@@ -117,11 +120,11 @@ export default function MainForm() {
                 </>}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
-            <GenericBox name="Projects" nsfw={false}
+            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3"
                 image={`/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={() => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
-            <GenericBox name="Katsis" nsfw={false}
+            <GenericBox name="Katsis" nsfw={false} className="card-dynamic-4"
                 custom={<div>
                     {
                         katsisApiData
@@ -135,6 +138,12 @@ export default function MainForm() {
                     }
                     </div>}
                 buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
+            />
+            <div className="card card-placeholder">
+                <h1 className="text-center">Zirk</h1>
+            </div>
+            <GenericBox name="Placeholder" nsfw={false} className="card-last" imageCssModifiers="pixel"
+                image={"/img/broken.png"}
             />
         </div>
         <div className="is-flex flex-center-hor">

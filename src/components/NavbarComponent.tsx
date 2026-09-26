@@ -27,6 +27,6 @@ export const NavigationLinks: Navigation[] = [{
 export default function NavbarComponent() {
     const [searchParams] = useSearchParams();
     return <div>
-        <Link to={getNavigationNoHook("/main", searchParams)} rel="me">Back</Link>
+        <Link to={getNavigationNoHook("/", searchParams)} rel="me">Back</Link>
     </div>
 }

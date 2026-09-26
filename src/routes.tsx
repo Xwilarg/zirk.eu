@@ -11,7 +11,6 @@ import GameForm from './forms/GameForm.tsx'
 import ProjectForm from './forms/ProjectForm.tsx'
 import OCform from './forms/OCForm.tsx'
 import InfoForm from './forms/InfoForm.tsx'
-import TitleForm from './forms/TitleForm.tsx'
 import NotFoundForm from './forms/NotFound.tsx'
 
 function RedirectCompat()
@@ -35,8 +34,7 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
             <Route path='*' element={<NotFoundForm />} />
 
-            <Route path='/' element={<TitleForm/>} />
-            <Route path='/main' element={<MainForm/>} />
+            <Route path='/' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/game' element={<GameForm/>} />
             <Route path='/project' element={<ProjectForm/>} />

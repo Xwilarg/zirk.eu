@@ -16,6 +16,7 @@ interface GenericBoxProps
     nsfw: boolean
 
     imageCssModifiers?: string
+    className?: string
 
     buttons?: Button[]
 
@@ -24,7 +25,7 @@ interface GenericBoxProps
     onMouseLeave?: React.MouseEventHandler<HTMLImageElement> | undefined
 }
 
-export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave } : GenericBoxProps) {
+export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className } : GenericBoxProps) {
     let nsfwStatus = isNsfw();
     let hideNsfw = nsfw && nsfwStatus !== "NSFW";
 
@@ -88,7 +89,7 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
         mainContent = custom
     }
 
-    return <div className="card">
+    return <div className={`card ${className ? className : ""}`}>
         <p className={"text-center card-name"}>{hideNsfw ? "" : name}</p>
         <div className="card-content"
             onMouseEnter={onMouseEnter}
