@@ -1,3 +1,5 @@
+import { UnlockAchievement } from "../../models/Achievement";
+
 export abstract class AScreen
 {
     canvas: HTMLCanvasElement;
@@ -6,6 +8,8 @@ export abstract class AScreen
     mouseX: number | null = null;
     mouseY: number | null = null;
     refTime: number;
+
+    gotInteraction: boolean = false
 
     clearRect: boolean
 
@@ -30,6 +34,10 @@ export abstract class AScreen
         const relY = e.clientY - bounds.top;
         if (relX >= 0 && relX < this.canvas.width && relY >= 0 && relY < this.canvas.height) {
             this.setMousePos(relX, relY);
+            if (!this.gotInteraction) {
+                this.gotInteraction = true;
+                UnlockAchievement("INTERACT_SKETCH");
+            }
         } else {
             this.mouseX = null;
             this.mouseY = null;

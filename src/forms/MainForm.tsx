@@ -153,7 +153,7 @@ export default function MainForm() {
             />
             <GenericBox name="" nsfw={false} className="card-placeholder"
                 custom={<>
-                    <h1 className="text-center">Zirk</h1>
+                    <h1 className="text-center" onClick={() => UnlockAchievement("CLICK_ZIRK")}>Zirk</h1>
                 </>}
             />
             <GenericBox name="Achievements" nsfw={false} className="card-dynamic-5"
