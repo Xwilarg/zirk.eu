@@ -73,7 +73,7 @@ export default function GameJamForm() {
             }
             </div>
             <div className="is-flex flex-center-hor">
-                <GenericBox name="Help" achievementId="CARD_GAMEJAM_HELP" text={shownSketch!.controls.join("<br/>") + "<br/><br/>" + shownSketch!.help.join("<br/>")} nsfw={false} />
+                <GenericBox name="Help" text={shownSketch!.controls.join("<br/>") + "<br/><br/>" + shownSketch!.help.join("<br/>")} nsfw={false} />
             </div>
         </>
     }

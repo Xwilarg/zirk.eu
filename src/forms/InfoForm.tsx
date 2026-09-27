@@ -80,7 +80,7 @@ export default function InfoForm() {
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox name="Technical specifications" achievementId="CARD_TECH" nsfw={false} custom={
+            <GenericBox name="Technical specifications" nsfw={false} custom={
                 <>
                 This website is using <a href='https://github.com/Astylodon/Shika' target='_blank'>Shika</a> for its analytics<br/>
                 You can see all the data collected <a href='https://astylodon.org/docs/shika/data' target='_blank'>here</a><br/>
@@ -113,7 +113,7 @@ export default function InfoForm() {
                 type: "LinkExternal",
                 link: "https://github.com/Xwilarg/zirk.eu"
             }]} />
-            <GenericBox name="Lifeline" achievementId="CARD_LIFELINE" nsfw={false} custom={<LifelineComponent ref={lifelineRef} />}
+            <GenericBox name="Lifeline" nsfw={false} custom={<LifelineComponent ref={lifelineRef} />}
                 buttons={showLifelineUpdate ? [{
                 type: "Custom",
                 action: () => { (lifelineRef.current! as any).update(); setShowLifelineUpdate(false) },
@@ -121,12 +121,12 @@ export default function InfoForm() {
                 label: "refresh",
                 labelType: "GoogleIcon" }] : []}
             />
-            <GenericBox name="Steam Replay" achievementId="CARD_STEAM" nsfw={false} custom={
+            <GenericBox name="Steam Replay" nsfw={false} custom={
                 <div className="is-flex flex-center-hor">
                     { replays.map(x => <img key={x} className="clickable" src={x} onClick={() => setPreview({ data: replays.map(y => ({ image: y, nsfw: false })) })} />) }
                 </div>}
             />
-            <GenericBox name="More about me" achievementId="CARD_MORE" nsfw={false} custom={aboutMe} buttons={[
+            <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
                 { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
                 { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" }
             ]} />

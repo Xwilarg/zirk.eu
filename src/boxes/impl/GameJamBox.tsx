@@ -101,7 +101,7 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
     if (showInfo) {
         let score = getOverallScore(item);
         
-        return <GenericBox name={item.fullName} achievementId="CARD_GAMEJAM" nsfw={item.nsfw}
+        return <GenericBox name={item.fullName} nsfw={item.nsfw}
                 icons={[{
                     icon: "globe",
                     label: item.location.split(',').at(-1) ?? ""
@@ -125,7 +125,7 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
             ></GenericBox>
     }
 
-    return <GenericBox name={item.fullName} achievementId="CARD_GAMEJAM" image={item.name === null ? "/img/ComingSoon.png" : `/data/img/gamejam/${item.name}.${format}`} nsfw={item.nsfw} imageCssModifiers={pos}
+    return <GenericBox name={item.fullName} image={item.name === null ? "/img/ComingSoon.png" : `/data/img/gamejam/${item.name}.${format}`} nsfw={item.nsfw} imageCssModifiers={pos}
             onMouseEnter={_ => { if (!hideNsfw) setPreviewGif(true); }}
             onMouseLeave={_ => { setPreviewGif(false) } }
             buttons={buttons}

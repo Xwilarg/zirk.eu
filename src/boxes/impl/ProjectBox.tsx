@@ -9,7 +9,7 @@ interface ProjectItemFormProps
 
 export default function ProjectBox({ item, setPreview }: ProjectItemFormProps)
 {
-    return <GenericBox name={item.name} achievementId="CARD_PROJECT" image={`/data/img/projects/${item.images[0].name}`} nsfw={item.nsfw} onClick={() => setPreview(`/data/img/projects/${item.images[0].name}`)}
+    return <GenericBox name={item.name} image={`/data/img/projects/${item.images[0].name}`} nsfw={item.nsfw} onClick={() => setPreview(`/data/img/projects/${item.images[0].name}`)}
             buttons={item.links.map(x => ({ type: "LinkExternal", label: x.name, link: x.content, labelType: "Text", color: "Default" }))}
         ></GenericBox>
 };

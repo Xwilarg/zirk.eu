@@ -24,17 +24,13 @@ interface GenericBoxProps
     onClick?: React.MouseEventHandler<HTMLImageElement> | undefined
     onMouseEnter?: React.MouseEventHandler<HTMLImageElement> | undefined
     onMouseLeave?: React.MouseEventHandler<HTMLImageElement> | undefined
-
-    achievementId: string
 }
 
-export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className, achievementId } : GenericBoxProps) {
+export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className } : GenericBoxProps) {
     let nsfwStatus = isNsfw();
     let hideNsfw = nsfw && nsfwStatus !== "NSFW";
 
     const [ searchParams ] = useSearchParams();
-
-    const [ isClicked, setIsClicked ] = useState(false);
 
     let btnHtml: ReactElement[] = [];
     if (buttons)
@@ -94,13 +90,7 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
         mainContent = custom
     }
 
-    return <div className={`card ${className ? className : ""}`} onClick={() => {
-        if (!isClicked)
-        {
-            UnlockAchievement(achievementId)
-            setIsClicked(true);
-        }
-    }}>
+    return <div className={`card ${className ? className : ""}`}>
         <p className={"text-center card-name"}>{hideNsfw ? "" : name}</p>
         <div className="card-content"
             onMouseEnter={onMouseEnter}

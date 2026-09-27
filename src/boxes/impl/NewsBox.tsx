@@ -24,12 +24,12 @@ export default function NewsBox({ item }: NewsItemFormProps)
     ]
 
     if (showInfo) {
-        return <GenericBox name={item.title} achievementId="CARD_NEWS" imageCssModifiers="css" text={item.text.map(x => `<p>${x}</p>`).join('')} nsfw={item.nsfw}
+        return <GenericBox name={item.title} imageCssModifiers="css" text={item.text.map(x => `<p>${x}</p>`).join('')} nsfw={item.nsfw}
                 buttons={buttons}
             ></GenericBox>
     }
 
-    return <GenericBox name={item.title} achievementId="CARD_NEWS" imageCssModifiers={item.css} image={item.image} nsfw={item.nsfw}
+    return <GenericBox name={item.title} imageCssModifiers={item.css} image={item.image} nsfw={item.nsfw}
             buttons={buttons}
         ></GenericBox>
 };

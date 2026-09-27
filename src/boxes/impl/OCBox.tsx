@@ -47,7 +47,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
     ];
     
     if (tabShown === 1) {
-        return <GenericBox key={item.name} achievementId="CARD_OC" name={item.name} nsfw={false}
+        return <GenericBox key={item.name} name={item.name} nsfw={false}
             icons={[{
                 icon: "globe",
                 label: item.metadata.location
@@ -71,7 +71,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
     if (tabShown === 2) {
-        return <GenericBox key={item.name} achievementId="CARD_OC" name={item.name} nsfw={false}
+        return <GenericBox key={item.name} name={item.name} nsfw={false}
             custom={<div className="is-flex flex-center-hor">
                 {
                     item.images.filter(x => !x.hide && (nsfw !== "FullSFW" || !x.images.find(x => x.default)!.nsfw))
@@ -110,7 +110,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
     if (tabShown === 3) {
-        return <GenericBox key={item.name} achievementId="CARD_OC" name={item.name} nsfw={false}
+        return <GenericBox key={item.name} name={item.name} nsfw={false}
             custom={<div className="is-flex flex-center-hor">
                 {
                     item.metadata.media.filter(x => nsfw !== "FullSFW" || !x.nsfw)
@@ -132,7 +132,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
 
-    return <GenericBox key={item.name} achievementId="CARD_OC" name={item.name} image={`/data/previews/ocs/${item.metadata.folder}/${image.link}`} nsfw={image.nsfw}
+    return <GenericBox key={item.name} name={item.name} image={`/data/previews/ocs/${item.metadata.folder}/${image.link}`} nsfw={image.nsfw}
             imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`}
             onClick={() => setPreview({
                 data: category.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),

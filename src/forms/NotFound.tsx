@@ -1,15 +1,17 @@
-import { useSearchParams } from "react-router"
-
 import QuoteComponent from "../components/QuoteComponent";
 import GenericBox from "../boxes/GenericBox";
+import { useEffect } from "react";
+import { UnlockAchievement } from "../models/Achievement";
 
 export default function NotFoundForm() {
-    const [searchParams] = useSearchParams();
+    useEffect(() => {
+        UnlockAchievement("NOT_FOUND");
+    }, []);
 
     return <div>
         <QuoteComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox nsfw={false} achievementId="CARD_NOT_FOUND" name="Not Found" custom={
+            <GenericBox nsfw={false} name="Not Found" custom={
                 <p>
                     Oops looks like the content you're looking for is in another castle<br/>
                     <br/>

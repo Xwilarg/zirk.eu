@@ -65,8 +65,8 @@ export default function MainForm() {
     return <div>
         <QuoteComponent />
         <div className="is-flex flex-center-hor">
-            <GenericBox name="Sketch" achievementId="CARD_SKETCH" nsfw={false} className="card-first" custom={ <SketchForm isOn={false} loadedGame={null} buttons={[]} isFullscreen={false} onLoad={null} /> } />
-            <GenericBox name="Intro" achievementId="CARD_INTRO" nsfw={false} className="card-first" custom={<div>
+            <GenericBox name="Sketch" nsfw={false} className="card-first" custom={ <SketchForm isOn={false} loadedGame={null} buttons={[]} isFullscreen={false} onLoad={null} /> } />
+            <GenericBox name="Intro" nsfw={false} className="card-first" custom={<div>
                 <h3>Welcome on <span className="gradient-highlight">my amazing website</span>, I am Zirk, a game and software developer</h3>
                 I am probably mostly known for <span className="katsis-highlight">Katsis</span> (which I co-created with Fractal) and <Link to={getNavigationNoHook("/gamejam", searchParams)}>participating at gamejams</Link><br/>
                 <br/>
@@ -79,7 +79,7 @@ export default function MainForm() {
             </div>} />
             {
                 showSheep ?
-                <GenericBox name="Sheep" achievementId="CARD_SHEEP" nsfw={false} className="card-last" custom={<div className="is-flex">
+                <GenericBox name="Sheep" nsfw={false} className="card-last" custom={<div className="is-flex">
                     {
                         sheepData.map(x =>
                             <div className="sheep-img" key={x.name}>
@@ -95,12 +95,12 @@ export default function MainForm() {
                 </div>} />
                 : <></>
             }
-            <GenericBox achievementId="CARD_NAVIGATION" name="Navigation" nsfw={false} className="card-dynamic-1" custom={<nav className="is-flex">
+            <GenericBox name="Navigation" nsfw={false} className="card-dynamic-1" custom={<nav className="is-flex">
                 {
                     NavigationLinks.map(x => <Link to={getNavigationNoHook(x.to, searchParams)} rel="me" className="button nav-button">{x.label}</Link>)
                 }
             </nav>} />
-            <GenericBox achievementId="CARD_SUMMARY" name="Gamejam" nsfw={false} className="card-dynamic-2"
+            <GenericBox name="Gamejam" nsfw={false} className="card-dynamic-2"
                 custom={<>
                     <div className="text-center">{gamejams.length} entries</div>
                     <table className="table-2col">
@@ -124,11 +124,11 @@ export default function MainForm() {
                 </>}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
-            <GenericBox name="Projects" achievementId="CARD_SUMMARY" nsfw={false} className="card-dynamic-3"
+            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3"
                 image={`/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={() => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
-            <GenericBox name="Katsis" achievementId="CARD_KATSIS" nsfw={false} className="card-dynamic-4"
+            <GenericBox name="Katsis" nsfw={false} className="card-dynamic-4"
                 custom={<div>
                     {
                         katsisApiData
@@ -143,12 +143,12 @@ export default function MainForm() {
                     </div>}
                 buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
             />
-            <GenericBox name="" achievementId="CARD_NEUTRAL" nsfw={false} className="card-placeholder"
+            <GenericBox name="" nsfw={false} className="card-placeholder"
                 custom={<>
                     <h1 className="text-center">Zirk</h1>
                 </>}
             />
-            <GenericBox name="Achievements" achievementId="CARD_SUMMARY" nsfw={false} className="card-dynamic-5"
+            <GenericBox name="Achievements" nsfw={false} className="card-dynamic-5"
                 text={`Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />
