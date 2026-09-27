@@ -79,7 +79,7 @@ export default function MainForm() {
             </div>} />
             {
                 showSheep ?
-                <GenericBox name="Sheep" achievementId="CARD_SHEEP" nsfw={false} className="card-first" custom={<div className="is-flex">
+                <GenericBox name="Sheep" achievementId="CARD_SHEEP" nsfw={false} className="card-last" custom={<div className="is-flex">
                     {
                         sheepData.map(x =>
                             <div className="sheep-img" key={x.name}>
@@ -148,7 +148,7 @@ export default function MainForm() {
                     <h1 className="text-center">Zirk</h1>
                 </>}
             />
-            <GenericBox name="Achievements" achievementId="CARD_SUMMARY" nsfw={false} className="card-last"
+            <GenericBox name="Achievements" achievementId="CARD_SUMMARY" nsfw={false} className="card-dynamic-5"
                 text={`Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />

@@ -35,6 +35,9 @@
 .card-dynamic-4 {
     order: 8;
 }
+.card-dynamic-5 {
+    order: 11;
+}
 .card-last {
     order: 99;
 }
@@ -43,9 +46,15 @@
     container-type: size;
     width: 1370px !important;
     height: 475px !important;
-    order: 9;
+    order: 12;
 }
-@media (max-width: 2319px) {
+@media (max-width: 2781px) {
+    .card-placeholder {
+        width: 1370px !important;
+        order: 9;
+    }
+}
+@media (max-width: 2317px) {
     .card-placeholder {
         width: 910px !important;
         order: 7;
@@ -64,6 +73,13 @@
     }
 }
 @media (max-width: 933px) {
+    .card-placeholder {
+        width: 450px !important;
+        height: auto !important;
+        order: -1;
+    }
+}
+@media (max-width: 450px) {
     .card-placeholder {
         width: 100% !important;
         height: auto !important;
