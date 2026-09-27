@@ -18,13 +18,14 @@ import achievementData from "../../data/json/achievements.json"
 
 // @ts-ignore
 import "../../css/title.css";
+import { UnlockAchievement } from "../models/Achievement";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
     const [showSheep, setShowSheep] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
 
-    const [ unlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
+    const [ unlocked, setUnlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
 
     const nsfw = isNsfw();
     
@@ -50,7 +51,14 @@ export default function MainForm() {
         return () => {
             clearInterval(interval)
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (showSheep) {
+            UnlockAchievement("SHOW_SHEEP");
+            setUnlocked(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
+        }
+    }, [ showSheep ])
     
     if (nsfw !== "FullSFW")
     {
