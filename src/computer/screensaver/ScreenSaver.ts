@@ -5,9 +5,12 @@ import { ParticleOrbits } from "./impl/ParticleOrbit";
 import { Gradient } from "./impl/Gradient";
 import { randInt } from "../../utils";
 
+export var Sketches = [ParticleOrbits, BallsScreen, Gradient];
+export var SketchNames = ["ParticleOrbits", "BallsScreen", "Gradient"];
+
 export default function loadScreenSaver(canvasRef: RefObject<HTMLCanvasElement | null>, screenSaverRef: RefObject<AScreen | null>): () => void
 {
-    const elems = [ParticleOrbits, BallsScreen, Gradient];
+    const elems = Sketches;
     const sc = new elems[randInt(elems.length)](canvasRef.current!);
 
     screenSaverRef.current = sc;

@@ -157,4 +157,8 @@ export class BallsScreen extends AScreen {
 
         if (this.squares.length == this.ballCount) clearInterval(this.intervalBallSpawn);
     }
+
+    getName(): string {
+        return this.constructor.name;
+    }
 }

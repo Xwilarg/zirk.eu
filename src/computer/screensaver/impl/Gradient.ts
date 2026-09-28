@@ -96,4 +96,8 @@ export class Gradient extends AScreen {
         this.mouseX = x;
         this.mouseY = y;
     }
+
+    getName(): string {
+        return this.constructor.name;
+    }
 }

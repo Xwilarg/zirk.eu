@@ -116,4 +116,8 @@ export class ParticleOrbits extends AScreen
         this.mouseX = x;
         this.mouseY = y;
     }
+
+    getName(): string {
+        return this.constructor.name;
+    }
 }

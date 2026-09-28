@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
 import friendData from "../../data/json/friends.json"
 import gameData from "../../data/json/game.json"
+import { UnlockAchievement } from "../models/Achievement";
 
 interface FriendData
 {
@@ -174,6 +175,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                                     if (cyrb53(finalStr).toString() === x.lifeline.hash) {
                                         alert("♥");
                                     } else {
+                                        UnlockAchievement("LIFELINE_FAIL");
                                         alert("Invalid ID");
                                     }
                                 }

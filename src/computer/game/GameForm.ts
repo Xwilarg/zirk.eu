@@ -1,4 +1,5 @@
 import { type RefObject } from "react";
+import { UnlockAchievement } from "../../models/Achievement";
 
 export interface ButtonInfo
 {
@@ -67,6 +68,7 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
         {
             loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading, onLoad);
         }
+        UnlockAchievement("PLAY_GAMEJAM");
     }
     catch (e)
     {

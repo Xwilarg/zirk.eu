@@ -24,6 +24,9 @@ export default function AchievementForm() {
                         if (x.type === "image") {
                             return <GenericBox nsfw={false} name={`${x.name}`} image={x.image} />
                         }
+                        if (x.type === "image-pixel") {
+                            return <GenericBox nsfw={false} name={`${x.name}`} image={x.image} imageCssModifiers="pixel" />
+                        }
                         return <GenericBox nsfw={false} name={`${x.id}`} text="Achievement unlocked, but nothing to see here yet..." />
                     }
                 )

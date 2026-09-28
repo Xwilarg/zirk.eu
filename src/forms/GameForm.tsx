@@ -4,6 +4,7 @@ import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
+import { UnlockAchievement } from "../models/Achievement";
 
 export default function GameForm() {
     const [preview, setPreview] = useState<string | null>(null);
@@ -17,7 +18,10 @@ export default function GameForm() {
         <div className="is-flex flex-center-hor">
             {
                 gameData.train.sort((a, b) => a.name.localeCompare(b.name)).map(x =>
-                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/train/${x.image}`} nsfw={false} onClick={() => setPreview(`/data/img/game/train/${x.image}`)}></GenericBox>
+                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/train/${x.image}`} nsfw={false} onClick={() => {
+                        setPreview(`/data/img/game/train/${x.image}`)
+                        if (x.name === "Team Fortress 2") UnlockAchievement("TRAIN_FAVORITE_GAME")
+                    }}></GenericBox>
                 )
             }
         </div>

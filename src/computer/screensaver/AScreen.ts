@@ -1,4 +1,5 @@
 import { UnlockAchievement } from "../../models/Achievement";
+import { Sketches, SketchNames } from "./ScreenSaver";
 
 export abstract class AScreen
 {
@@ -27,6 +28,16 @@ export abstract class AScreen
         this.ctx = this.canvas.getContext("2d", { willReadFrequently: true })!;
     }
 
+    tryStoreName(name: string): string[] {
+        let names = JSON.parse(localStorage.getItem("sk_in") ?? "[]") as string[]
+        if (!names.includes(name)) {
+            names.push(name);
+            localStorage.setItem("sk_in", JSON.stringify(names));
+        }
+
+        return names;
+    }
+
     // https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript/Mouse_controls
     handleMouse(e: MouseEvent) {
         const bounds = this.canvas.getBoundingClientRect();
@@ -36,7 +47,9 @@ export abstract class AScreen
             this.setMousePos(relX, relY);
             if (!this.gotInteraction) {
                 this.gotInteraction = true;
-                UnlockAchievement("INTERACT_SKETCH");
+
+                const names = this.tryStoreName(this.getName());
+                if (SketchNames.every(x => names.includes(x))) UnlockAchievement("INTERACT_ALL_SKETCHES");
             }
         } else {
             this.mouseX = null;
@@ -66,4 +79,5 @@ export abstract class AScreen
 
     abstract render(deltaTime: number): void;
     abstract setMousePos(x: number, y: number): void;
+    abstract getName(): string;
 }

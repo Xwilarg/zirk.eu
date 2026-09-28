@@ -13,6 +13,7 @@ import OCform from './forms/OCForm.tsx'
 import InfoForm from './forms/InfoForm.tsx'
 import NotFoundForm from './forms/NotFound.tsx'
 import AchievementForm from './forms/AchievementForm.tsx'
+import CommonForm from './forms/CommonForm.tsx'
 
 function RedirectCompat()
 {
@@ -32,9 +33,9 @@ function RedirectCompat()
 createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
         <RedirectCompat />
+        <CommonForm />
         <Routes>
             <Route path='*' element={<NotFoundForm />} />
-
             <Route path='/' element={<MainForm/>} />
             <Route path='/gamejam' element={<GameJamForm/>} />
             <Route path='/game' element={<GameForm/>} />
