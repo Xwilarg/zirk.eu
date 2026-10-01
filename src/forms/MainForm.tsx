@@ -25,6 +25,8 @@ export default function MainForm() {
     const [showSheep, setShowSheep] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
 
+    const [showAllNews, setShowAllNews] = useState(false);
+
     const [ unlocked, setUnlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
 
     const nsfw = isNsfw();
@@ -166,9 +168,16 @@ export default function MainForm() {
         </div>
         <div className="is-flex flex-center-hor">
             {
-                newsData.map(x => <NewsBox item={x} />)
+                showAllNews ? newsData.map(x => <NewsBox item={x} setPreview={setPreview} />) : newsData.slice(0, 4).map(x => <NewsBox item={x} setPreview={setPreview} />)
             }
         </div>
+        {
+            !showAllNews ?
+            <div className="is-flex flex-center-hor up-margin">
+                <button onClick={() => { setShowAllNews(true) }}>Show all</button>
+            </div>
+            : <></>
+        }
         {
             preview !== null ?
             <ImageModalForm image={preview} unsetImage={setPreview} />

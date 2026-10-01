@@ -219,6 +219,7 @@ a.ignore-half {
 .card-img.bottom img { object-position: bottom; }
 .card-img.left img { object-position: left; }
 .card-img.right img { object-position: right; }
+.card-img.fit img { object-fit: contain; }
 
 .card-text {
     padding: 10px;
@@ -227,6 +228,10 @@ a.ignore-half {
 .card-buttons {
     margin-top: 10px;
     padding-left: 10px;
+}
+
+.up-margin {
+    margin-top: 10px;
 }
 
 /* Gallery */

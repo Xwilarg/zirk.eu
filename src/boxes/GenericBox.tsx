@@ -3,7 +3,6 @@ import type { Button } from "../models/Button";
 import { getNavigationNoHook, isNsfw } from "../utils";
 import { Link, useSearchParams } from "react-router";
 import type { IconInfo } from "../models/IconInfo";
-import { UnlockAchievement } from "../models/Achievement";
 
 interface GenericBoxProps
 {
