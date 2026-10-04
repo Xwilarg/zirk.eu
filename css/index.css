@@ -77,6 +77,19 @@ body {
     }
 }
 
+.goal-table h4 {
+    margin: 5px 0;
+}
+.card-img.goal-main-img {
+    width: 70%;
+    height: auto;
+}
+.goal-main-img img {
+    max-width: 100%;
+    object-position: top;
+    height: auto;
+}
+
 /* Buttons */
 a.button {
     text-decoration: none;

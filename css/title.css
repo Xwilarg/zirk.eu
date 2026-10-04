@@ -3,7 +3,7 @@
     height: auto;
     aspect-ratio: 300 / 450;
 }
-.katsis-main-img img, .gallery-img video {
+.katsis-main-img img {
     max-width: 100%;
     object-position: top;
     height: auto;
@@ -14,7 +14,7 @@
     height: auto;
     aspect-ratio: 315 / 250;
 }
-.gamejam-main-img img, .gallery-img video {
+.gamejam-main-img img {
     max-width: 100%;
     object-position: top;
     height: auto;
