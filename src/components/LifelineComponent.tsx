@@ -6,6 +6,7 @@ import { UnlockAchievement } from "../models/Achievement";
 interface FriendData
 {
     id: string
+    meet: string
     name: string
     website: string | null
     lifeline: string | LifelineData
@@ -143,12 +144,24 @@ const LifelineComponent = forwardRef((_, ref) => {
         return 3;
     }
 
+    function getTimeColor(meet: Date)
+    {
+        const ms = Date.now() - meet.getTime();
+        let years = ms / (1000 * 60 * 60 * 24 * 365.25);
+
+        if (years > 10) return 3;
+        if (years > 5) return 2;
+        if (years > 2) return 1;
+        return 0;
+    }
+
     interface LifelineBoxInfo
     {
         scoreJam: number
         scoreTravel: number
         scoreGame: number
         scoreSC: number
+        scoreTime: number
 
         html?: ReactElement
     }
@@ -161,7 +174,8 @@ const LifelineComponent = forwardRef((_, ref) => {
                     scoreJam: getGamejamColor(x.boxes.gamejam),
                     scoreTravel: getTravelColor(x.boxes.travel),
                     scoreGame: getGameColor(x.boxes.coop),
-                    scoreSC: getScreenshotsColor(x.id)
+                    scoreSC: getScreenshotsColor(x.id),
+                    scoreTime: getTimeColor(new Date(x.meet))
                 }
                 info.html = <div key={x.id} className="lifeline is-flex flex-center-ver">
                     <div>
@@ -186,11 +200,12 @@ const LifelineComponent = forwardRef((_, ref) => {
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreTravel}`}>travel</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreGame}`}>joystick</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreSC}`}>image</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreTime}`}>calendar_today</span>
                         </div>
                     </div>
                 </div>;
                 return info;
-            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreGame + b.scoreSC) - (a.scoreJam + a.scoreTravel + a.scoreGame + a.scoreSC)).map(x => x.html)
+            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreGame + b.scoreSC + b.scoreTime) - (a.scoreJam + a.scoreTravel + a.scoreGame + a.scoreSC + a.scoreTime)).map(x => x.html)
         }
     </div>
 });
