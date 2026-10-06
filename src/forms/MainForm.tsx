@@ -138,21 +138,26 @@ export default function MainForm() {
                 image={`/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={() => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
-            <GenericBox name="Katsis" nsfw={false} className="card-dynamic-4"
-                custom={<div>
-                    {
-                        katsisApiData
-                        ? 
-                        <div className="is-flex flex-center-hor">
-                            {
-                                katsisApiData.slice(0, 8).map(x => <div className="card-img katsis-main-img is-flex flex-center-hor"><img key={x.id} className={nsfw === "SFW" ? "blur" : ""} src={`https://cdn.katsis.net/${x.thumbnailSmall.filename}`} /></div>)
-                            }
-                        </div>
-                        : <div className="text-center"><br/><br/>Loading...</div>
-                    }
-                    </div>}
-                buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
-            />
+            {
+                nsfw === "FullSFW"
+                ? <></>
+                :
+                <GenericBox name="Katsis" nsfw={false} className="card-dynamic-4"
+                    custom={<div>
+                        {
+                            katsisApiData
+                            ? 
+                            <div className="is-flex flex-center-hor">
+                                {
+                                    katsisApiData.slice(0, 8).map(x => <div className="card-img katsis-main-img is-flex flex-center-hor"><img key={x.id} className={nsfw === "SFW" ? "blur" : ""} src={`https://cdn.katsis.net/${x.thumbnailSmall.filename}`} /></div>)
+                                }
+                            </div>
+                            : <div className="text-center"><br/><br/>Loading...</div>
+                        }
+                        </div>}
+                    buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
+                />
+            }
             <GenericBox name="" nsfw={false} className="card-placeholder"
                 custom={<>
                     <h1 className="text-center" onClick={() => UnlockAchievement("CLICK_ZIRK")}>Zirk</h1>
