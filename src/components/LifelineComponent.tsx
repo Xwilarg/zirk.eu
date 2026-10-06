@@ -104,9 +104,9 @@ const LifelineComponent = forwardRef((_, ref) => {
         return 0;
     }
 
-    function getTravelColor(boxJson: any)
+    function getActivitiesColor(boxJson: any)
     {
-        if (!boxJson) 0;
+        if (!boxJson) return 0;
 
         let score = 0;
         for (let [_, value] of Object.entries(boxJson)) {
@@ -116,6 +116,12 @@ const LifelineComponent = forwardRef((_, ref) => {
         if (score >= 4) return 2;
         if (score >= 2) return 1;
         return 0;
+    }
+
+    function getCountriesColor(countries: string[])
+    {
+        if (countries.length >= 3) return 3;
+        return countries.length;
     }
 
     function getGameColor(boxJson: any)
@@ -158,6 +164,7 @@ const LifelineComponent = forwardRef((_, ref) => {
     interface LifelineBoxInfo
     {
         scoreJam: number
+        scoreActivities: number
         scoreTravel: number
         scoreGame: number
         scoreSC: number
@@ -172,7 +179,8 @@ const LifelineComponent = forwardRef((_, ref) => {
             {
                 let info: LifelineBoxInfo = {
                     scoreJam: getGamejamColor(x.boxes.gamejam),
-                    scoreTravel: getTravelColor(x.boxes.travel),
+                    scoreActivities: getActivitiesColor(x.boxes.activity),
+                    scoreTravel: getCountriesColor(x.boxes.countries),
                     scoreGame: getGameColor(x.boxes.coop),
                     scoreSC: getScreenshotsColor(x.id),
                     scoreTime: getTimeColor(new Date(x.meet))
@@ -185,7 +193,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                                 if (hash)
                                 {
                                     const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
-                                    //console.log(cyrb53(finalStr).toString())
+                                    console.log(cyrb53(finalStr).toString())
                                     if (cyrb53(finalStr).toString() === x.lifeline.hash) {
                                         alert("♥");
                                     } else {
@@ -197,6 +205,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                         </div>
                         <div>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreJam}`}>code</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreActivities}`}>share</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreTravel}`}>travel</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreGame}`}>joystick</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreSC}`}>image</span>
@@ -205,7 +214,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                     </div>
                 </div>;
                 return info;
-            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreGame + b.scoreSC + b.scoreTime) - (a.scoreJam + a.scoreTravel + a.scoreGame + a.scoreSC + a.scoreTime)).map(x => x.html)
+            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreActivities + b.scoreGame + b.scoreSC + b.scoreTime) - (a.scoreJam + a.scoreTravel + a.scoreActivities + a.scoreGame + a.scoreSC + a.scoreTime)).map(x => x.html)
         }
     </div>
 });
