@@ -1,6 +1,7 @@
 import { isNsfw } from "../utils";
 import { useEffect, useState } from "react";
 import type { GameJamItem } from "../models/Gamejam";
+import friendData from "../../data/json/friends.json"
 
 type SortMode = "Date" | "Score" | "Duration";
 type TeamSize = "Solo" | "Group";
@@ -152,11 +153,11 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
         <span className="jam-filter">
             <label htmlFor="teammates">Only made with</label>
             <span id="teammates" className="button-group">
-                <button title="👌" className={"button-icon " + (teammates.includes("AC7EEDA7ACF39B61E8F1D02E06EF0C2A") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "AC7EEDA7ACF39B61E8F1D02E06EF0C2A"))}>👌</button>
-                <button title="🫪" className={"button-icon " + (teammates.includes("AF3A2CED67B5CA5503341879C03519C7") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "AF3A2CED67B5CA5503341879C03519C7"))}>🫪</button>
-                <button title="🌞" className={"button-icon " + (teammates.includes("727AE26E9F43811F390B6BDFEB4C7B66") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "727AE26E9F43811F390B6BDFEB4C7B66"))}>🌞</button>
-                <button title="🫦" className={"button-icon " + (teammates.includes("4E2DE7AC29399B28966B83C11F79533B") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "4E2DE7AC29399B28966B83C11F79533B"))}>🫦</button>
-                <button title="💜" className={"button-icon " + (teammates.includes("EBB7B8C7B09372F858720F944DDC04E1") ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, "EBB7B8C7B09372F858720F944DDC04E1"))}>💜</button>
+            {
+                friendData.filter(x => x.gamejam !== null).map(x =>
+                    <button title={x.name} className={"button-icon " + (teammates.includes(x.gamejam) ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, x.gamejam))}>{x.name}</button>
+                )
+            }
             </span>
         </span>
         {
