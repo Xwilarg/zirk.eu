@@ -23,6 +23,7 @@ export interface GameJamItem
     location: string,
     github: string | null,
     event: string,
+    shortEvent: string,
     imagePosOverrides?: string,
     gifPosOverrides?: string,
     postModification: string | null,

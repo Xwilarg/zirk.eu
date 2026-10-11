@@ -49,6 +49,7 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
     const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX", "PVSnesLib"]);
     const [countries, setCountries] = useState<Country[]>(["Online", "Canada", "United Kingdom", "Sweden", "France", "Japan", "Denmark"])
     const [teammates, setTeammates] = useState<string[]>([])
+    const [shortEvent, setShortEvent] = useState("");
     
     useEffect(() => {
         let jamSFW: Array<string>;
@@ -75,6 +76,7 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
         .filter(x => !teammates ||
             teammates.every(t => x.team.includes(t))
         )
+        .filter(x => shortEvent === "" || x.shortEvent === shortEvent)
         .sort((a, b) => {
             if (sortMode === "Score")
             {
@@ -92,10 +94,11 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
             }
             return 0;
         }));
-    }, [ sortMode, teamSize, duration, sfw, engines, countries, teammates ]);
+    }, [ sortMode, teamSize, duration, sfw, engines, countries, teammates, shortEvent ]);
 
     if (!showFilters) return <button onClick={() => setShowFilters((x: boolean) => !x)}>Show filters</button>
 
+    const events = Object.groupBy(items, ({ shortEvent }) => shortEvent);
     return <div className="is-flex flex-center-hor" id="jam-filters">
         <span className="jam-filter">
             <label htmlFor="sort-mode">Sort mode</label>
@@ -171,5 +174,15 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
                 </span>
             </span>
         }
+        <span className="flex-break"></span>
+        <span className="jam-filter">
+            <label htmlFor="teammates">Event</label>
+            <select value={shortEvent} onChange={(x) => setShortEvent(x.target.value)}>
+                <option value={""}>-- Choose an event --</option>
+                {
+                    Object.entries(events).filter(x => x[1]!.length > 2).sort((a, b) => b[1]!.length - a[1]!.length).map(x => <option key={x[0]} value={x[0]}>{x[0]}</option>)
+                }
+            </select>
+        </span>
     </div>
 }

@@ -78,7 +78,7 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
             <div className="is-flex">
                 {
                     icons.map(x => <div className="is-flex card-iconlabel">
-                        <span className="material-symbols-outlined">{x.icon}</span>
+                        <span className="material-symbols-outlined is-flex flex-center-ver">{x.icon}</span>
                         <p className="is-flex flex flex-center-ver">{x.label}</p>
                     </div>)
                 }

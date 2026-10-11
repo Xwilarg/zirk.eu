@@ -114,9 +114,12 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
                 }, {
                     icon: "settings",
                     label: item.engine
-                }, {
+                /*}, {
                     icon: "calendar_today",
-                    label: item.date
+                    label: item.date*/
+                }, {
+                    icon: "location_on",
+                    label: item.event
                 }, {
                     icon: "leaderboard",
                     label: (score && (!item.rating!.entriesRated || item.rating!.entriesRated > 1)) ? ((score * 100).toFixed(1) + "%") : ""

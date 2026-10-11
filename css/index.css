@@ -125,6 +125,23 @@ button.big, .button.big {
     font-size: 2em;
 }
 
+/* Select */
+select {
+    background-color: transparent;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    color: var(--primary-light);
+    padding: 10px;
+}
+select, ::picker(select) {
+    appearance: base-select;
+    color: var(--primary-light);
+}
+::picker(select) {
+    background-color: #080814;
+
+}
+
 /* Links */
 a:not(.ignore):not(.ignore-half):not(.button) {
     color: rgb(212, 117, 117);
@@ -202,11 +219,14 @@ a.ignore-half {
     flex-direction: row;
     width: calc(50% - 25px);
     padding-left: 20px;
-    margin-top: 60px;
+    margin-top: 50px;
     font-size: larger;
+    height: 50px;
+    overflow-y: hidden;
 }
 .card-iconlabel > p {
     margin: 0;
+    width: 150px;
 }
 
 .card img:not(.card-img) {
