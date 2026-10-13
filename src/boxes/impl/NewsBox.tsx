@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { Button } from "../../models/Button";
 import { UnlockAchievement } from "../../models/Achievement";
 import type { ReactFormState } from "react-dom/client";
+import { isNsfw } from "../../utils";
 
 interface NewsItemFormProps
 {
@@ -25,9 +26,10 @@ export default function NewsBox({ item, setPreview }: NewsItemFormProps)
                 if (!x) UnlockAchievement("READ_NEWS");
                 return !x;
             }) }
-        },
-        ...item.links.map(x => ({ type: "LinkExternal" as const, label: x.name, link: x.link, labelType: "Text" as const, color: "Default" as const }))
+        }
     ]
+    const showAll = !item.nsfw || isNsfw() === "NSFW";
+    if (showAll) buttons.push(...item.links.map(x => ({ type: "LinkExternal" as const, label: x.name, link: x.link, labelType: "Text" as const, color: "Default" as const })))
 
     if (item.orientation === "vertical") item.css = item.css ? `${item.css} fit` : "fit";
     if (showInfo) {
@@ -36,7 +38,7 @@ export default function NewsBox({ item, setPreview }: NewsItemFormProps)
             ></GenericBox>
     }
 
-    return <GenericBox name={item.title} imageCssModifiers={item.css} image={item.image} nsfw={item.nsfw} onClick={() => setPreview(item.image)}
+    return <GenericBox name={item.title} imageCssModifiers={item.css} image={item.image} nsfw={item.nsfw} onClick={() => { if (showAll) setPreview(item.image) }}
             buttons={buttons}
         ></GenericBox>
 };

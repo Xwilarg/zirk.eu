@@ -173,7 +173,7 @@ export default function MainForm() {
         </div>
         <div className="is-flex flex-center-hor">
             {
-                showAllNews ? newsData.map(x => <NewsBox item={x} setPreview={setPreview} />) : newsData.slice(0, 4).map(x => <NewsBox item={x} setPreview={setPreview} />)
+                showAllNews ? newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").map(x => <NewsBox item={x} setPreview={setPreview} />) : newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").slice(0, 5).map(x => <NewsBox item={x} setPreview={setPreview} />)
             }
         </div>
         {
