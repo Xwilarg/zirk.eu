@@ -6,32 +6,29 @@ import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import { UnlockAchievement } from "../models/Achievement";
 
+type Game = keyof typeof gameData;
+
 export default function GameForm() {
     const [preview, setPreview] = useState<string | null>(null);
+    const [filter, setFilter] = useState<Game>("train");
+
+    let small = filter.toLowerCase();
 
     return <>
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
-            <h2>Train</h2>
+            <button onClick={() => { setFilter("train") }}>Train</button>
+            <button onClick={() => { setFilter("sheep") }}>Sheep</button>
         </div>
+        <br/>
         <div className="is-flex flex-center-hor">
             {
-                gameData.train.sort((a, b) => a.name.localeCompare(b.name)).map(x =>
-                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/train/${x.image}`} nsfw={false} onClick={() => {
-                        setPreview(`/data/img/game/train/${x.image}`)
-                        if (x.name === "Team Fortress 2") UnlockAchievement("TRAIN_FAVORITE_GAME")
+                gameData[filter].sort((a, b) => a.name.localeCompare(b.name)).map(x =>
+                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/${filter}/${x.image}`} nsfw={false} onClick={() => {
+                        setPreview(`/data/img/game/${filter}}/${x.image}`)
+                        if (filter === "train" && x.name === "Team Fortress 2") UnlockAchievement("TRAIN_FAVORITE_GAME")
                     }}></GenericBox>
-                )
-            }
-        </div>
-        <div className="is-flex flex-center-hor">
-            <h2>Sheep</h2>
-        </div>
-        <div className="is-flex flex-center-hor">
-            {
-                gameData.sheep.sort((a, b) => a.name.localeCompare(b.name)).map(x =>
-                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/sheep/${x.image}`} nsfw={false} onClick={() => setPreview(`/data/img/game/sheep/${x.image}`)}></GenericBox>
                 )
             }
         </div>
