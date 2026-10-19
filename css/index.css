@@ -206,7 +206,7 @@ a.ignore-half {
     flex-direction: row;
     width: calc(50% - 25px);
     padding-left: 20px;
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: larger;
     height: 50px;
     overflow-y: hidden;

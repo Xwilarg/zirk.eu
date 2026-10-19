@@ -6,9 +6,10 @@ import friendData from "../../data/json/friends.json"
 type SortMode = "Date" | "Score" | "Duration";
 type TeamSize = "Solo" | "Group";
 type JamDuration = "1H" | "1D" | "3D" | "9D" | "1M" | "More";
-type JamSFW = "SFW" | "NSFW"
-type Engine = "Unity" | "Godot" | "Unreal Engine" | "Scratch" | "GB Studio" | "DirectX" | "PVSnesLib"
-type Country = "Online" | "Canada" | "United Kingdom" | "Sweden" | "France" | "Japan" | "Denmark"
+type JamSFW = "SFW" | "NSFW";
+type Engine = "Unity" | "Godot" | "Unreal Engine" | "Scratch" | "GB Studio" | "DirectX" | "PVSnesLib";
+type Country = "Online" | "Canada" | "United Kingdom" | "Sweden" | "France" | "Japan" | "Denmark";
+type AiUse = "None" | "Consulting";
 
 function getOverallScore(item: GameJamItem): number | null {
     if (!item.rating || !item.rating.scores) return null;
@@ -47,7 +48,8 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
     const [duration, setDuration] = useState<JamDuration[]>(["1D", "3D", "9D", "1M", "More"]);
     const [sfw, setSFW] = useState<JamSFW[]>(() => nsfw === "FullSFW" ? [ "SFW" ] : [ "SFW", "NSFW" ]);
     const [engines, setEngines] = useState<Engine[]>(["Unity", "Godot", "Unreal Engine", "Scratch", "GB Studio", "DirectX", "PVSnesLib"]);
-    const [countries, setCountries] = useState<Country[]>(["Online", "Canada", "United Kingdom", "Sweden", "France", "Japan", "Denmark"])
+    const [countries, setCountries] = useState<Country[]>(["Online", "Canada", "United Kingdom", "Sweden", "France", "Japan", "Denmark"]);
+    const [aiUse, setAiUse] = useState<AiUse[]>(["None", "Consulting"]);
     const [teammates, setTeammates] = useState<string[]>([])
     const [shortEvent, setShortEvent] = useState("");
     
@@ -63,6 +65,7 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
         setJamItems(items
         .filter(x => (!x.nsfw && jamSFW.includes("SFW")) || (x.nsfw && jamSFW.includes("NSFW")))
         .filter(x => !engines || engines.includes(x.engine as Engine))
+        .filter(x => !aiUse || aiUse.some(y => y.toLowerCase() === x.ai))
         .filter(x => !countries || countries.includes(x.location.split(", ").at(-1) as Country))
         .filter(x => !teamSize || (x.team.length === 1 && teamSize.includes("Solo")) || (x.team.length > 1 && teamSize.includes("Group")))
         .filter(x => !duration ||
@@ -94,7 +97,7 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
             }
             return 0;
         }));
-    }, [ sortMode, teamSize, duration, sfw, engines, countries, teammates, shortEvent ]);
+    }, [ sortMode, teamSize, duration, sfw, engines, countries, teammates, shortEvent, aiUse ]);
 
     if (!showFilters) return <button onClick={() => setShowFilters((x: boolean) => !x)}>Show filters</button>
 
@@ -163,6 +166,14 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
             }
             </span>
         </span>
+        <span className="jam-filter">
+            <label htmlFor="engines">AI Use</label>
+            <span id="engines" className="button-group">
+                <button title="None" className={"button-icon " + (aiUse.includes("None") ? "active" : "")} onClick={_ => setAiUse(toggleArrayElement(aiUse, "None"))}>None</button>
+                <button title="Consulting" className={"button-icon " + (aiUse.includes("Consulting") ? "active" : "")} onClick={_ => setAiUse(toggleArrayElement(aiUse, "Consulting"))}>Consulting</button>
+            </span>
+        </span>
+        <span className="flex-break"></span>
         {
             nsfw === "FullSFW" ?
             <></> :

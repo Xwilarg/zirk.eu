@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isNsfw } from "../../utils";
+import { isNsfw, toTitleCase } from "../../utils";
 import type { GameJamItem } from "../../models/Gamejam";
 import type { Button } from "../../models/Button";
 import GenericBox from "../GenericBox";
@@ -104,25 +104,36 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
         return <GenericBox name={item.fullName} nsfw={item.nsfw}
                 icons={[{
                     icon: "globe",
-                    label: item.location.split(',').at(-1) ?? ""
+                    label: item.location.split(',').at(-1) ?? "",
+                    alt: "Location"
                 }, {
                     icon: "timer",
-                    label: prettifyDuration(item.duration)
-                }, {
-                    icon: "feedback",
-                    label: item.theme.join(", ")
+                    label: prettifyDuration(item.duration),
+                    alt: "Duration"
                 }, {
                     icon: "settings",
-                    label: item.engine
-                /*}, {
+                    label: item.engine,
+                    alt: "Engine"
+                }, {
                     icon: "calendar_today",
-                    label: item.date*/
+                    label: item.date,
+                    alt: "Date"
                 }, {
                     icon: "location_on",
-                    label: item.event
+                    label: item.event,
+                    alt: "Event"
+                }, {
+                    icon: "smart_toy",
+                    label: toTitleCase(item.ai),
+                    alt: "AI Use"
+                }, {
+                    icon: "feedback",
+                    label: item.theme.join(", "),
+                    alt: "Theme"
                 }, {
                     icon: "leaderboard",
-                    label: (score && (!item.rating!.entriesRated || item.rating!.entriesRated > 1)) ? ((score * 100).toFixed(1) + "%") : ""
+                    label: (score && (!item.rating!.entriesRated || item.rating!.entriesRated > 1)) ? ((score * 100).toFixed(1) + "%") : "",
+                    alt: "Ranking"
                 }]}
                 buttons={buttons}
             ></GenericBox>

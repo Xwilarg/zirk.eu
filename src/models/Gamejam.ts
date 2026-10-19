@@ -28,6 +28,7 @@ export interface GameJamItem
     gifPosOverrides?: string,
     postModification: string | null,
     team: string[]
+    ai: string
 }
 
 export interface GamejamSketch

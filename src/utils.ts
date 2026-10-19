@@ -23,4 +23,12 @@ export function getNavigationNoHook(url: string, searchParams: URLSearchParams, 
     return `${url}?${searchParams}${hash}`;
 }
 
+export function toTitleCase(str: string): string
+{
+    return str.split("_")
+        .filter(x => x !== "")
+        .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+        .join(" ");
+}
+
 export type NsfwStatus = "NSFW" | "SFW" | "FullSFW";
