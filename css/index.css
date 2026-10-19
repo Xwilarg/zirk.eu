@@ -469,3 +469,15 @@ a.ignore-half {
 .title-ach-offset {
     margin-top: 100px
 }
+
+
+.card-img.goal-main-img {
+    width: 90%;
+    height: auto;
+    aspect-ratio: 616 / 353;
+}
+.goal-main-img img {
+    max-width: 100%;
+    object-position: top;
+    height: auto;
+}
