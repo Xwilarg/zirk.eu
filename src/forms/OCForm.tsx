@@ -10,11 +10,15 @@ import jsonFish from "../../data/json/ocs/fish.json"
 import jsonFainir from "../../data/json/ocs/fainir.json"
 import jsonEstelia from "../../data/json/ocs/estelia.json"
 
+import jsonOthers from "../../data/json/ocs/others.json"
+
 import OCBox from "../boxes/impl/OCBox";
 import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";
+import GenericBox from "../boxes/GenericBox";
 
 export default function OCform() {
     const [preview, setPreview] = useState<ImageGroupModalInfo | null>(null);
+    const [showMore, setShowMore] = useState<boolean>(false);
     const characters = [
         jsonSanara, jsonZirk, jsonYuzu, jsonFish, jsonFainir, jsonEstelia
     ]
@@ -25,6 +29,11 @@ export default function OCform() {
         <div className="is-flex flex-center-hor">
             {
                 characters.sort(x => x.images.length).map(x => <OCBox item={x} setPreview={setPreview} artists={artists} />)
+            }
+            {
+                showMore ?
+                    jsonOthers.map(x => <GenericBox name={x.name} text={x.metadata.description.join("\n\n")} nsfw={false} />)
+                    : <></>
             }
         </div>
         {

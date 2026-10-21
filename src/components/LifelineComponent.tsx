@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
 import friendData from "../../data/json/friends.json"
 import gameData from "../../data/json/game.json"
+import goalData from "../../data/json/goal.json"
 import { UnlockAchievement } from "../models/Achievement";
 
 interface FriendData
@@ -161,6 +162,25 @@ const LifelineComponent = forwardRef((_, ref) => {
         return 0;
     }
 
+    function getBoxColor(id: string)
+    {
+        let valid = 0;
+        for (let [category, content] of Object.entries(goalData))
+        {
+            for (let subcategory of Object.values(content.data)) {
+                for (let child of Object.values(subcategory))
+                {
+                    console.log(child)
+                    if (child !== null && child.with.includes(id)) valid++;
+                }
+            }
+        }
+        if (valid > 5) return 3;
+        if (valid > 3) return 2;
+        if (valid > 1) return 1;
+        return 0;
+    }
+
     interface LifelineBoxInfo
     {
         scoreJam: number
@@ -169,6 +189,7 @@ const LifelineComponent = forwardRef((_, ref) => {
         scoreGame: number
         scoreSC: number
         scoreTime: number
+        scoreGoal: number
 
         html?: ReactElement
     }
@@ -183,7 +204,8 @@ const LifelineComponent = forwardRef((_, ref) => {
                     scoreTravel: getCountriesColor(x.boxes.countries),
                     scoreGame: getGameColor(x.boxes.coop),
                     scoreSC: getScreenshotsColor(x.id),
-                    scoreTime: getTimeColor(new Date(x.meet))
+                    scoreTime: getTimeColor(new Date(x.meet)),
+                    scoreGoal: getBoxColor(x.id)
                 }
                 info.html = <div key={x.id} className="lifeline is-flex flex-center-ver">
                     <div>
@@ -209,12 +231,13 @@ const LifelineComponent = forwardRef((_, ref) => {
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreTravel}`}>travel</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreGame}`}>joystick</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreSC}`}>image</span>
+                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreGoal}`}>box</span>
                             <span className={`material-symbols-outlined lifeline-icon-${info.scoreTime}`}>calendar_today</span>
                         </div>
                     </div>
                 </div>;
                 return info;
-            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreActivities + b.scoreGame + b.scoreSC + b.scoreTime) - (a.scoreJam + a.scoreTravel + a.scoreActivities + a.scoreGame + a.scoreSC + a.scoreTime)).map(x => x.html)
+            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreActivities + b.scoreGame + b.scoreSC + b.scoreGoal + b.scoreTime) - (a.scoreJam + a.scoreTravel + a.scoreActivities + a.scoreGame + a.scoreSC + a.scoreGoal + a.scoreTime)).map(x => x.html)
         }
     </div>
 });
