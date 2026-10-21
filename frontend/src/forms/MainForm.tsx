@@ -15,6 +15,7 @@ import "../../css/title.css";
 import { UnlockAchievement } from "../models/Achievement";
 import { useApi } from "../api/useApi";
 import type { NewsItem } from "../models/api/News";
+import type { SheepItem } from "../models/api/Sheep";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
@@ -28,7 +29,7 @@ export default function MainForm() {
     const api = useApi();
 
     const [projects, setProjects] = useState<any[] | null>(null);
-    const [sheep, setSheep] = useState<null>(null);
+    const [sheep, setSheep] = useState<SheepItem[]>([]);
     const [news, setNews] = useState<NewsItem[]>([]);
     const [achievements, setAchievements] = useState<null>(null);
     
@@ -80,6 +81,12 @@ export default function MainForm() {
             });
         }
     }, []);
+
+    useEffect(() => {
+        if (showSheep && sheep.length === 0) {
+            api.getSheep().then(x => setSheep(x));
+        }
+    }, [showSheep])
     
 
     return <div>
@@ -99,9 +106,9 @@ export default function MainForm() {
             </div>} />
             {
                 showSheep ?
-                <GenericBox name="Sheep" nsfw={false} className="card-last" custom={<div className="is-flex">
+                <GenericBox name="Sheep" nsfw={false} className="card-dynamic-1" custom={<div className="is-flex">
                     {
-                        sheepData.map(x =>
+                        sheep.map(x =>
                             <div className="sheep-img" key={x.name}>
                                 {
                                     x.link.value.startsWith("https://")

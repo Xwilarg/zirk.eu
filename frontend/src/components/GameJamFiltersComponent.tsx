@@ -98,7 +98,7 @@ export default function GameJamFiltersComponent({items, setJamItems, friends}: G
             }
             return 0;
         }));
-    }, [ sortMode, teamSize, duration, sfw, engines, countries, teammates, shortEvent, aiUse ]);
+    }, [ items, sortMode, teamSize, duration, sfw, engines, countries, teammates, shortEvent, aiUse ]);
 
     if (!showFilters) return <button onClick={() => setShowFilters((x: boolean) => !x)}>Show filters</button>
 

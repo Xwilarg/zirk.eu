@@ -32,5 +32,11 @@ namespace ZirkBackend.Controllers
         {
             return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetNews(nsfw), options));
         }
+
+        [HttpGet("sheep")]
+        public ActionResult GetSheep()
+        {
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetSheep(), options));
+        }
     }
 }

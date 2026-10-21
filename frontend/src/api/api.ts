@@ -1,6 +1,7 @@
 import type { FriendItem } from "../models/api/Friend";
 import type { GameJamItem } from "../models/api/Gamejam";
 import type { NewsItem } from "../models/api/News";
+import type { SheepItem } from "../models/api/Sheep";
 
 export class Api {
     public getQuote(nsfw: number) {
@@ -17,6 +18,10 @@ export class Api {
 
     public getNews(nsfw: number) {
         return this.get<NewsItem[]>(`/news/${nsfw}`);
+    }
+
+    public getSheep() {
+        return this.get<SheepItem[]>("/sheep");
     }
 
     // Thanks Indra for writing all that good code for Katsis intranet

@@ -10,6 +10,7 @@ public class FileService(JsonSerializerOptions options, Random random)
     private readonly GameJamItem[] _gamejams = JsonSerializer.Deserialize<GameJamInfo>(File.ReadAllText($"{Path}json/gamejam.json"), options)!.Jams;
     private readonly FriendItem[] _friends = JsonSerializer.Deserialize<FriendItem[]>(File.ReadAllText($"{Path}json/friends.json"), options)!;
     private readonly NewsItem[] _news = JsonSerializer.Deserialize<NewsItem[]>(File.ReadAllText($"{Path}json/news.json"), options)!;
+    private readonly SheepItem[] _sheep = JsonSerializer.Deserialize<SheepItem[]>(File.ReadAllText($"{Path}json/sheep.json"), options)!;
 
     private static string Path
         => Debugger.IsAttached ? "../../data/" : "/data/";
@@ -33,5 +34,10 @@ public class FileService(JsonSerializerOptions options, Random random)
     public IEnumerable<NewsItem> GetNews(NsfwStatus nsfw)
     {
         return _news.Where(x => nsfw != NsfwStatus.FullSfw || !x.Nsfw).ToArray();
+    }
+
+    public IEnumerable<SheepItem> GetSheep()
+    {
+        return _sheep.ToArray();
     }
 }
