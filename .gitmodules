@@ -2,7 +2,7 @@
 	path = data
 	url = https://github.com/Xwilarg/zirk.eu-data
 [submodule "public/lifeline"]
-	path = public/lifeline
+	path = frontend/public/lifeline
 	url = https://github.com/Xwilarg/Lifeline
 [submodule "gamejam"]
 	path = gamejam
