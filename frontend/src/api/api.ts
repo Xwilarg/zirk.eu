@@ -1,3 +1,4 @@
+import type { FriendItem } from "../models/api/Friend";
 import type { GameJamItem } from "../models/api/Gamejam";
 
 export class Api {
@@ -7,6 +8,10 @@ export class Api {
 
     public getGamejams(nsfw: number) {
         return this.get<GameJamItem[]>(`/gamejams/${nsfw}`);
+    }
+
+    public getFriends() {
+        return this.get<FriendItem[]>("/friends");
     }
 
     // Thanks Indra for writing all that good code for Katsis intranet

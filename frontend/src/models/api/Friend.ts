@@ -1,4 +1,4 @@
-export interface FriendData
+export interface FriendItem
 {
     meet: string
     name: string

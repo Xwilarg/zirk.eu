@@ -10,6 +10,7 @@ import NavbarComponent from "../components/NavbarComponent";
 import GameJamFiltersComponent from "../components/GameJamFiltersComponent";
 import { useApi } from "../api/useApi";
 import { isNsfwNumber } from "../utils";
+import type { FriendItem } from "../models/api/Friend";
 
 export default function GameJamForm() {
     const api = useApi();
@@ -17,7 +18,9 @@ export default function GameJamForm() {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const [items, setItems] = useState<GameJamItem[]>([]);
+    const [gamejams, setGamejams] = useState<GameJamItem[]>([]);
+    const [filteredGamejams, setFilteredGamejams] = useState<GameJamItem[]>([]);
+    const [friends, setFriends] = useState<FriendItem[]>([]);
     
     const [shownSketch, setShownSketch] = useState<GameJamItem | null>(null);
     const [computerProps, setComputerProps] = useState<SketchFormProps | null>(null);
@@ -25,14 +28,15 @@ export default function GameJamForm() {
     const [embedGotUserClick, setEmbedGotUserClick] = useState(false);
 
     useEffect(() => {
-        api.getGamejams(nsfwNb).then(x => setItems(x));
+        api.getGamejams(nsfwNb).then(x => { setGamejams(x); setFilteredGamejams(x); });
+        api.getFriends().then(x => setFriends(x));
     }, []);
 
     useEffect(() => {
         const game = searchParams.get("share")?.toUpperCase();
 
         if (game) {
-            let target = items.find(x => x.name?.toUpperCase() === game);
+            let target = gamejams.find(x => x.name?.toUpperCase() === game);
             if (target && target.sketch) {
                 setShownSketch(target);
             } else {
@@ -41,7 +45,7 @@ export default function GameJamForm() {
         } else {
             setShownSketch(null);
         }
-    }, [searchParams, items]);
+    }, [searchParams, gamejams]);
     
     useEffect(() => {
         if (shownSketch) {
@@ -91,12 +95,12 @@ export default function GameJamForm() {
             <QuoteComponent />
             <NavbarComponent />
             <div className="is-flex flex-center-hor">
-                <GameJamFiltersComponent items={items} setJamItems={setItems} />
+                <GameJamFiltersComponent items={gamejams} setJamItems={setFilteredGamejams} friends={friends} />
             </div>
-            <h3 className="text-center">{items.length} entr{items.length > 1 ? "ies" : "y"}</h3>
+            <h3 className="text-center">{filteredGamejams.length} entr{filteredGamejams.length > 1 ? "ies" : "y"}</h3>
             <div className="is-flex flex-center-hor">
                 {
-                    items
+                    filteredGamejams
                         .map((x: GameJamItem) => <GameJamBox key={x.fullName} item={x} loadGame={() => {
                             setSearchParams(sp => {
                                 sp.set("share", x.name);

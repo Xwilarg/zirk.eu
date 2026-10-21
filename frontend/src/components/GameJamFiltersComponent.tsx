@@ -1,6 +1,7 @@
 import { isNsfw } from "../utils";
 import { useEffect, useState } from "react";
 import type { GameJamItem } from "../models/api/Gamejam";
+import type { FriendItem } from "../models/api/Friend";
 
 type SortMode = "Date" | "Score" | "Duration";
 type TeamSize = "Solo" | "Group";
@@ -35,9 +36,10 @@ interface GameJamFiltersComponentProps
 {
     items: GameJamItem[]
     setJamItems: React.Dispatch<React.SetStateAction<GameJamItem[]>>
+    friends: FriendItem[]
 }
 
-export default function GameJamFiltersComponent({items, setJamItems}: GameJamFiltersComponentProps) {
+export default function GameJamFiltersComponent({items, setJamItems, friends}: GameJamFiltersComponentProps) {
     const nsfw = isNsfw();
 
     const [showFilters, setShowFilters] = useState<boolean>(false);
@@ -159,8 +161,8 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
             <label htmlFor="teammates">Only made with</label>
             <span id="teammates" className="button-group">
             {
-                friendData.filter(x => x.gamejam !== null).map(x =>
-                    <button title={x.name} className={"button-icon " + (teammates.includes(x.gamejam) ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, x.gamejam))}>{x.name}</button>
+                friends.filter(x => x.gamejam !== null).map(x =>
+                    <button key={x.name} title={x.name} className={"button-icon " + (teammates.includes(x.gamejam) ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, x.gamejam))}>{x.name}</button>
                 )
             }
             </span>

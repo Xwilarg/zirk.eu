@@ -40,7 +40,7 @@ public class GamejamRating
 {
     public int? Entries { set; get; }
     public int? EntriesRated { set; get; }
-    public Dictionary<int, GamejamScore?>? Scores { set; get; }
+    public Dictionary<string, GamejamScore?>? Scores { set; get; }
 }
 
 public class GamejamScore
