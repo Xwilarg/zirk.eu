@@ -1,7 +1,6 @@
 import { isNsfw } from "../utils";
 import { useEffect, useState } from "react";
-import type { GameJamItem } from "../models/Gamejam";
-import friendData from "../../data/json/friends.json"
+import type { GameJamItem } from "../models/api/Gamejam";
 
 type SortMode = "Date" | "Score" | "Duration";
 type TeamSize = "Solo" | "Group";

@@ -6,33 +6,32 @@ import GenericBox from "../boxes/GenericBox";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import SketchForm from "../computer/SketchForm";
 import NewsBox from "../boxes/impl/NewsBox";
-import type { GameJamItem } from "../models/Gamejam";
+import type { GameJamItem } from "../models/api/Gamejam";
 import { getCssModifier, getOverallScore } from "../boxes/impl/GameJamBox";
 import { NavigationLinks } from "../components/NavbarComponent";
-
-import gamejamData from "../../data/json/gamejam.json"
-import projectData from "../../data/json/projects.json"
-import sheepData from "../../data/json/sheep.json"
-import newsData from "../../data/json/news.json"
-import achievementData from "../../data/json/achievements.json"
 
 // @ts-ignore
 import "../../css/title.css";
 import { UnlockAchievement } from "../models/Achievement";
+import { useApi } from "../api/useApi";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
     const [showSheep, setShowSheep] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
-
     const [showAllNews, setShowAllNews] = useState(false);
-
     const [ unlocked, setUnlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
 
     const nsfw = isNsfw();
+    const api = useApi();
+
+    const [projects, setProjects] = useState<any[] | null>(null);
+    const [sheep, setSheep] = useState<null>(null);
+    const [news, setNews] = useState<null>(null);
+    const [achievements, setAchievements] = useState<null>(null);
     
-    const [gamejams] = useState<GameJamItem[]>(gamejamData.jams.filter(x => !x.nsfw || nsfw !== "FullSFW"));
-    const [gamejamsBest] = useState<GameJamItem[]>([...gamejams].sort((a, b) => {
+    const [gamejams, setGamejams] = useState<GameJamItem[] | null>(null);//gamejamData.jams.filter(x => !x.nsfw || nsfw !== "FullSFW"));
+    const [gamejamsBest, setGamejamsBest] = useState<GameJamItem[] | null>(null/*[...gamejams].sort((a, b) => {
         const sa = getOverallScore(a);
         const sb = getOverallScore(b)
 
@@ -40,20 +39,22 @@ export default function MainForm() {
         if (sb === null) return -1;
 
         return sa - sb;
-    }));
+    })*/);
     const [ projectIndex, setProjectIndex ] = useState(0);
 
     const [ katsisApiData, setKatsisApiData ] = useState<any[] | null>(null);
 
     useEffect(() => {
+        if (projects === null) return;
+
         const interval = setInterval(() => {
-            setProjectIndex(x => x == projectData.length - 1 ? 0 : x + 1)
+            setProjectIndex(x => x == projects.length - 1 ? 0 : x + 1)
         }, 5000);
 
         return () => {
             clearInterval(interval)
         }
-    }, []);
+    }, [ projects ]);
 
     useEffect(() => {
         if (showSheep) {
@@ -61,16 +62,19 @@ export default function MainForm() {
             setUnlocked(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
         }
     }, [ showSheep ])
+
+    useEffect(() => {
+        if (nsfw !== "FullSFW")
+        {
+            useEffect(() => {
+                fetch("https://intranet.katsis.net/api/project/public/user/1/all").then(x => x.json())
+                .then(json => {
+                    setKatsisApiData(json)
+                });
+            }, []);
+        }
+    }, []);
     
-    if (nsfw !== "FullSFW")
-    {
-        useEffect(() => {
-            fetch("https://intranet.katsis.net/api/project/public/user/1/all").then(x => x.json())
-            .then(json => {
-                setKatsisApiData(json)
-            });
-        }, []);
-    }
 
     return <div>
         <QuoteComponent />
@@ -111,7 +115,9 @@ export default function MainForm() {
                 }
             </nav>} />
             <GenericBox name="Gamejam" nsfw={false} className="card-dynamic-2"
-                custom={<>
+                custom={
+                gamejams === null ? <>Loading...</> :
+                <>
                     <div className="text-center">{gamejams.length} entries</div>
                     <table className="table-2col">
                         <thead>
@@ -123,11 +129,11 @@ export default function MainForm() {
                         <tbody>
                             <tr>
                                 <td><div className={`card-img gamejam-main-img is-flex flex-center-hor ${getCssModifier(gamejams[0], false)}`}><img key={gamejams[0].name} className={nsfw === "SFW" && gamejams[0].nsfw ? "blur" : ""} src={`/data/img/gamejam/${gamejams[0].name}.${gamejams[0].format ?? "jpg"}`} /></div></td>
-                                <td><div className={`card-img gamejam-main-img is-flex flex-center-hor ${getCssModifier(gamejamsBest[0], false)}`}><img key={gamejamsBest[0].name} className={nsfw === "SFW" && gamejamsBest[0].nsfw ? "blur" : "" } src={`/data/img/gamejam/${gamejamsBest[0].name}.${gamejamsBest[0].format ?? "jpg"}`} /></div></td>
+                                <td><div className={`card-img gamejam-main-img is-flex flex-center-hor ${getCssModifier(gamejamsBest![0], false)}`}><img key={gamejamsBest![0].name} className={nsfw === "SFW" && gamejamsBest![0].nsfw ? "blur" : "" } src={`/data/img/gamejam/${gamejamsBest![0].name}.${gamejamsBest![0].format ?? "jpg"}`} /></div></td>
                             </tr>
                             <tr>
                                 <td><div className={`card-img gamejam-main-img is-flex flex-center-hor ${getCssModifier(gamejams[1], false)}`}><img key={gamejams[1].name} className={nsfw === "SFW" && gamejams[1].nsfw ? "blur" : ""} src={`/data/img/gamejam/${gamejams[1].name}.${gamejams[1].format ?? "jpg"}`} /></div></td>
-                                <td><div className={`card-img gamejam-main-img is-flex flex-center-hor ${getCssModifier(gamejamsBest[1], false)}`}><img key={gamejamsBest[1].name} className={nsfw === "SFW" && gamejamsBest[1].nsfw ? "blur" : ""} src={`/data/img/gamejam/${gamejamsBest[1].name}.${gamejamsBest[1].format ?? "jpg"}`} /></div></td>
+                                <td><div className={`card-img gamejam-main-img is-flex flex-center-hor ${getCssModifier(gamejamsBest![1], false)}`}><img key={gamejamsBest![1].name} className={nsfw === "SFW" && gamejamsBest![1].nsfw ? "blur" : ""} src={`/data/img/gamejam/${gamejamsBest![1].name}.${gamejamsBest![1].format ?? "jpg"}`} /></div></td>
                             </tr>
                         </tbody>
                     </table>
@@ -135,7 +141,7 @@ export default function MainForm() {
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
             <GenericBox name="Projects" nsfw={false} className="card-dynamic-3"
-                image={`/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={() => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
+                image={projects === null ? null : `/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={projects === null ? null : () => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
             {
@@ -164,7 +170,7 @@ export default function MainForm() {
                 </>}
             />
             <GenericBox name="Achievements" nsfw={false} className="card-dynamic-5"
-                text={`Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
+                text={achievements === null ? null : `Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />
         </div>
@@ -173,7 +179,8 @@ export default function MainForm() {
         </div>
         <div className="is-flex flex-center-hor">
             {
-                showAllNews ? newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").map(x => <NewsBox item={x} setPreview={setPreview} />) : newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").slice(0, 5).map(x => <NewsBox item={x} setPreview={setPreview} />)
+                news === null ? "Loading..."
+                : (showAllNews ? newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").map(x => <NewsBox item={x} setPreview={setPreview} />) : newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").slice(0, 5).map(x => <NewsBox item={x} setPreview={setPreview} />))
             }
         </div>
         {

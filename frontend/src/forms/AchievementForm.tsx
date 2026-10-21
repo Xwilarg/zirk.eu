@@ -2,7 +2,6 @@ import { useState } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 
-import achievementData from "../../data/json/achievements.json"
 import GenericBox from "../boxes/GenericBox";
 
 export default function AchievementForm() {

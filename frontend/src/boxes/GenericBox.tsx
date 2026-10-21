@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import type { Button } from "../models/Button";
 import { getNavigationNoHook, isNsfw } from "../utils";
 import { Link, useSearchParams } from "react-router";

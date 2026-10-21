@@ -1,15 +1,18 @@
-import quotesData from "../../data/json/quotes.json"
-import { useState } from "react";
-import { isNsfw, randInt } from "../utils";
-
-const quotes = quotesData;
+import { useEffect, useState } from "react";
+import { useApi } from "../api/useApi";
 
 export default function QuoteComponent() {
-    const flattenQuotes = quotes.filter(x => isNsfw() === "NSFW" || x.id !== "nsfw").map(x => x.data).reduce((a, b) => a.concat(b));
+    const api = useApi();
 
-    const [quoteIndex, setQuoteIndex] = useState(randInt(flattenQuotes.length));
+    const [quote, setQuote] = useState<string | null>();
+
+    useEffect(() => {
+        api.getQuote().then(x => setQuote(x));
+    }, []);
+
+    if (quote === null) return <></>;
 
     return <div id="intro-quote-container">
-        <p id="intro-quote" dangerouslySetInnerHTML={{ __html: flattenQuotes[quoteIndex] }}></p>
+        <p id="intro-quote" dangerouslySetInnerHTML={{ __html: quote! }}></p>
     </div>
 }

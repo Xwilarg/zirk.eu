@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { isNsfw, toTitleCase } from "../../utils";
-import type { GameJamItem } from "../../models/Gamejam";
+import type { GameJamItem } from "../../models/api/Gamejam";
 import type { Button } from "../../models/Button";
 import GenericBox from "../GenericBox";
 

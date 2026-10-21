@@ -1,7 +1,4 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
-import friendData from "../../data/json/friends.json"
-import gameData from "../../data/json/game.json"
-import goalData from "../../data/json/goal.json"
 import { UnlockAchievement } from "../models/Achievement";
 
 interface FriendData

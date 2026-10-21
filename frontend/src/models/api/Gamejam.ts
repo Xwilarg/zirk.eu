@@ -14,7 +14,6 @@ export interface GameJamItem
     nsfw: boolean,
     theme: string[],
     website: string | null,
-    gameplay: string[],
     sketch: GamejamSketch | null,
     rating: GamejamRating | null,
     help: string[],

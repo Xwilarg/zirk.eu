@@ -1,20 +1,72 @@
+using System.Text.Json;
+using ZirkBackend.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddSingleton(new JsonSerializerOptions()
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+});
+builder.Services.AddSingleton<Random>();
+builder.Services.AddSingleton<FileService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("debug", p =>
+    {
+        p.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
+    });
+    options.AddPolicy("prod", p =>
+    {
+        p.WithOrigins("https://zirk.eu").SetIsOriginAllowedToAllowWildcardSubdomains().AllowAnyHeader().AllowAnyMethod();
+    });
+});
 
-// Configure the HTTP request pipeline.
+var app = builder.Build();
+/*
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.IncludeErrorDetails = true;
+
+    using var scope = app!.Services.CreateScope();
+    var data = Encoding.UTF8.GetBytes(scope.ServiceProvider.GetRequiredService<ConfigManager>().GetConfig().SecurityKey);
+    var securityKey = new SymmetricSecurityKey(data);
+
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ClockSkew = TimeSpan.Zero,
+
+        ValidateLifetime = true,
+
+        ValidateAudience = false,
+        ValidateIssuer = false,
+
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = securityKey
+    };
+});
+*/
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseCors("debug");
+    app.UseFileServer();
 }
-
-app.UseHttpsRedirection();
+else
+{
+    app.UseHttpsRedirection();
+    app.UseCors("prod");
+}
 
 app.UseAuthorization();
 

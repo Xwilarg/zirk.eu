@@ -1,4 +1,3 @@
-import projectData from "../../data/json/projects.json"
 import QuoteComponent from "../components/QuoteComponent";
 import NavbarComponent from "../components/NavbarComponent";
 import type { ProjectItem } from "../models/Project";

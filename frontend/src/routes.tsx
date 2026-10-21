@@ -15,6 +15,7 @@ import NotFoundForm from './forms/NotFound.tsx'
 import AchievementForm from './forms/AchievementForm.tsx'
 import CommonForm from './forms/CommonForm.tsx'
 import GoalForm from './forms/GoalForm.tsx'
+import ApiProvider from './api/ApiContext.tsx'
 
 function RedirectCompat()
 {
@@ -32,20 +33,22 @@ function RedirectCompat()
 }
 
 createRoot(document.getElementById('root')!).render(
-    <BrowserRouter>
-        <RedirectCompat />
-        <CommonForm />
-        <Routes>
-            <Route path='*' element={<NotFoundForm />} />
-            <Route path='/' element={<MainForm/>} />
-            <Route path='/gamejam' element={<GameJamForm/>} />
-            <Route path='/game' element={<GameForm/>} />
-            <Route path='/project' element={<ProjectForm/>} />
-            <Route path='/oc' element={<OCform/>} />
-            <Route path='/info' element={<InfoForm/>} />
-            <Route path='/achievement' element={<AchievementForm/>} />
-            <Route path='/goal' element={<GoalForm/>} />
-            <Route path='/secret/quote' element={<SecretQuoteForm />} />
-        </Routes>
-    </BrowserRouter>
+    <ApiProvider>
+        <BrowserRouter>
+            <RedirectCompat />
+            <CommonForm />
+            <Routes>
+                <Route path='*' element={<NotFoundForm />} />
+                <Route path='/' element={<MainForm/>} />
+                <Route path='/gamejam' element={<GameJamForm/>} />
+                <Route path='/game' element={<GameForm/>} />
+                <Route path='/project' element={<ProjectForm/>} />
+                <Route path='/oc' element={<OCform/>} />
+                <Route path='/info' element={<InfoForm/>} />
+                <Route path='/achievement' element={<AchievementForm/>} />
+                <Route path='/goal' element={<GoalForm/>} />
+                <Route path='/secret/quote' element={<SecretQuoteForm />} />
+            </Routes>
+        </BrowserRouter>
+    </ApiProvider>
 )

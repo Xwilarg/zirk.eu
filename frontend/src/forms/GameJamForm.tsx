@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import gamejamData from "../../data/json/gamejam.json"
 import { useSearchParams } from "react-router";
-import type { GameJamItem } from "../models/Gamejam";
+import type { GameJamItem } from "../models/api/Gamejam";
 import type { SketchFormProps } from "../computer/SketchForm";
 import GameJamBox from "../boxes/impl/GameJamBox";
 import QuoteComponent from "../components/QuoteComponent";

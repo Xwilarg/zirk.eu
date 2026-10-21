@@ -1,5 +1,4 @@
 import { useState } from "react";
-import gameData from "../../data/json/game.json"
 import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";

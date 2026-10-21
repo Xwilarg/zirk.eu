@@ -2,6 +2,7 @@ import { useState } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 
+/*
 import artists from "../../data/json/ocs/artists.json"
 import jsonSanara from "../../data/json/ocs/sanara.json"
 import jsonZirk from "../../data/json/ocs/zirk.json"
@@ -11,6 +12,7 @@ import jsonFainir from "../../data/json/ocs/fainir.json"
 import jsonEstelia from "../../data/json/ocs/estelia.json"
 
 import jsonOthers from "../../data/json/ocs/others.json"
+*/
 
 import OCBox from "../boxes/impl/OCBox";
 import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";

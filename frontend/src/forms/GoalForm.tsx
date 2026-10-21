@@ -2,7 +2,6 @@ import { useState, type JSX } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
-import goalData from "../../data/json/goal.json"
 import GenericBox from "../boxes/GenericBox";
 import { toTitleCase } from "../utils";
 
