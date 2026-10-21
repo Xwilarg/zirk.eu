@@ -1,8 +1,3 @@
-export interface GameJamInfo
-{
-    jams: GameJamItem[]
-}
-
 export interface GameJamItem
 {
     name: string,

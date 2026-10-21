@@ -242,7 +242,8 @@ a.ignore-half {
 .card-img.fit img { object-fit: contain; }
 
 .card-text {
-    padding: 10px;
+    padding: 0;
+    margin: 0;
 }
 
 .card-buttons {

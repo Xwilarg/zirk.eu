@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import QuoteComponent from "../components/QuoteComponent";
 import { Link, useSearchParams } from "react-router";
-import { getNavigationNoHook, isNsfw } from "../utils";
+import { getNavigationNoHook, isNsfw, isNsfwNumber } from "../utils";
 import GenericBox from "../boxes/GenericBox";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import SketchForm from "../computer/SketchForm";
@@ -23,6 +23,7 @@ export default function MainForm() {
     const [ unlocked, setUnlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
 
     const nsfw = isNsfw();
+    const nsfwNb = isNsfwNumber();
     const api = useApi();
 
     const [projects, setProjects] = useState<any[] | null>(null);
@@ -30,16 +31,8 @@ export default function MainForm() {
     const [news, setNews] = useState<null>(null);
     const [achievements, setAchievements] = useState<null>(null);
     
-    const [gamejams, setGamejams] = useState<GameJamItem[] | null>(null);//gamejamData.jams.filter(x => !x.nsfw || nsfw !== "FullSFW"));
-    const [gamejamsBest, setGamejamsBest] = useState<GameJamItem[] | null>(null/*[...gamejams].sort((a, b) => {
-        const sa = getOverallScore(a);
-        const sb = getOverallScore(b)
-
-        if (sa === null) return 1;
-        if (sb === null) return -1;
-
-        return sa - sb;
-    })*/);
+    const [gamejams, setGamejams] = useState<GameJamItem[] | null>(null);
+    const [gamejamsBest, setGamejamsBest] = useState<GameJamItem[] | null>(null);
     const [ projectIndex, setProjectIndex ] = useState(0);
 
     const [ katsisApiData, setKatsisApiData ] = useState<any[] | null>(null);
@@ -64,14 +57,25 @@ export default function MainForm() {
     }, [ showSheep ])
 
     useEffect(() => {
+        api.getGamejams(nsfwNb).then(x => {
+            setGamejams(x);
+            setGamejamsBest([...x].sort((a, b) => {
+                const sa = getOverallScore(a);
+                const sb = getOverallScore(b)
+
+                if (sa === null) return 1;
+                if (sb === null) return -1;
+
+                return sa - sb;
+            }))
+        })
+
         if (nsfw !== "FullSFW")
         {
-            useEffect(() => {
-                fetch("https://intranet.katsis.net/api/project/public/user/1/all").then(x => x.json())
-                .then(json => {
-                    setKatsisApiData(json)
-                });
-            }, []);
+            fetch("https://intranet.katsis.net/api/project/public/user/1/all").then(x => x.json())
+            .then(json => {
+                setKatsisApiData(json)
+            });
         }
     }, []);
     
@@ -111,7 +115,7 @@ export default function MainForm() {
             }
             <GenericBox name="Navigation" nsfw={false} className="card-dynamic-1" custom={<nav className="is-flex">
                 {
-                    NavigationLinks.map(x => <Link to={getNavigationNoHook(x.to, searchParams)} rel="me" className="button nav-button">{x.label}</Link>)
+                    NavigationLinks.map(x => <Link key={x.to} to={getNavigationNoHook(x.to, searchParams)} rel="me" className="button nav-button">{x.label}</Link>)
                 }
             </nav>} />
             <GenericBox name="Gamejam" nsfw={false} className="card-dynamic-2"
@@ -140,7 +144,7 @@ export default function MainForm() {
                 </>}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
-            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3"
+            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3" text={projects === null ? "Loading..." : null}
                 image={projects === null ? null : `/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={projects === null ? null : () => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
@@ -149,18 +153,11 @@ export default function MainForm() {
                 ? <></>
                 :
                 <GenericBox name="Katsis" nsfw={false} className="card-dynamic-4"
-                    custom={<div>
+                    custom={katsisApiData ? <div className="is-flex flex-center-hor">
                         {
-                            katsisApiData
-                            ? 
-                            <div className="is-flex flex-center-hor">
-                                {
-                                    katsisApiData.slice(0, 8).map(x => <div className="card-img katsis-main-img is-flex flex-center-hor"><img key={x.id} className={nsfw === "SFW" ? "blur" : ""} src={`https://cdn.katsis.net/${x.thumbnailSmall.filename}`} /></div>)
-                                }
-                            </div>
-                            : <div className="text-center"><br/><br/>Loading...</div>
+                            katsisApiData.slice(0, 8).map(x => <div className="card-img katsis-main-img is-flex flex-center-hor"><img key={x.id} className={nsfw === "SFW" ? "blur" : ""} src={`https://cdn.katsis.net/${x.thumbnailSmall.filename}`} /></div>)
                         }
-                        </div>}
+                    </div> : null} text={katsisApiData ? null : "Loading..."}
                     buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
                 />
             }
@@ -170,7 +167,7 @@ export default function MainForm() {
                 </>}
             />
             <GenericBox name="Achievements" nsfw={false} className="card-dynamic-5"
-                text={achievements === null ? null : `Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
+                text={achievements === null ? "Loading..." : `Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />
         </div>

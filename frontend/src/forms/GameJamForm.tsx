@@ -8,8 +8,13 @@ import SketchForm from "../computer/SketchForm";
 import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import GameJamFiltersComponent from "../components/GameJamFiltersComponent";
+import { useApi } from "../api/useApi";
+import { isNsfwNumber } from "../utils";
 
 export default function GameJamForm() {
+    const api = useApi();
+    const nsfwNb = isNsfwNumber();
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [items, setItems] = useState<GameJamItem[]>([]);
@@ -20,10 +25,14 @@ export default function GameJamForm() {
     const [embedGotUserClick, setEmbedGotUserClick] = useState(false);
 
     useEffect(() => {
+        api.getGamejams(nsfwNb).then(x => setItems(x));
+    }, []);
+
+    useEffect(() => {
         const game = searchParams.get("share")?.toUpperCase();
 
         if (game) {
-            let target = gamejamData.jams.find(x => x.name?.toUpperCase() === game);
+            let target = items.find(x => x.name?.toUpperCase() === game);
             if (target && target.sketch) {
                 setShownSketch(target);
             } else {
@@ -32,7 +41,7 @@ export default function GameJamForm() {
         } else {
             setShownSketch(null);
         }
-    }, [searchParams]);
+    }, [searchParams, items]);
     
     useEffect(() => {
         if (shownSketch) {
@@ -82,7 +91,7 @@ export default function GameJamForm() {
             <QuoteComponent />
             <NavbarComponent />
             <div className="is-flex flex-center-hor">
-                <GameJamFiltersComponent items={gamejamData.jams} setJamItems={setItems} />
+                <GameJamFiltersComponent items={items} setJamItems={setItems} />
             </div>
             <h3 className="text-center">{items.length} entr{items.length > 1 ? "ies" : "y"}</h3>
             <div className="is-flex flex-center-hor">

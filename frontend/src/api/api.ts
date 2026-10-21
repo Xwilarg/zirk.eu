@@ -1,17 +1,22 @@
+import type { GameJamItem } from "../models/api/Gamejam";
 
 export class Api {
-    public getQuote() {
-        return this.get<string>("/info/quote");
+    public getQuote(nsfw: number) {
+        return this.get<string>(`/quote/${nsfw}`);
+    }
+
+    public getGamejams(nsfw: number) {
+        return this.get<GameJamItem[]>(`/gamejams/${nsfw}`);
     }
 
     // Thanks Indra for writing all that good code for Katsis intranet
 
     private token?: string
-    private baseUrl = this.getEndpoint() + "/api/data"
+    private baseUrl = this.getEndpoint() + "/api/info"
 
     private getEndpoint() {
         return window.location.origin.startsWith("http://localhost")
-            ? `http://localhost:5167` // Used for local debugging
+            ? `http://localhost:5081` // Used for local debugging
             : ""
     }
 

@@ -184,7 +184,6 @@ export default function GameJamFiltersComponent({items, setJamItems}: GameJamFil
                 </span>
             </span>
         }
-        <span className="flex-break"></span>
         <span className="jam-filter">
             <label htmlFor="teammates">Event</label>
             <select value={shortEvent} onChange={(x) => setShortEvent(x.target.value)}>

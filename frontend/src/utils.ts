@@ -17,6 +17,15 @@ export function isNsfw(): NsfwStatus {
     return "SFW"
 }
 
+export function isNsfwNumber(): number {
+    const [searchParams] = useSearchParams();
+
+    const s = searchParams.get("s");
+    if (s === "0") return 0;
+    if (s === "2") return 2;
+    return 1;
+}
+
 export function getNavigationNoHook(url: string, searchParams: URLSearchParams, hash: string = "", deleteGameParam: boolean = true): string {
     if (deleteGameParam) searchParams.delete("share");
 

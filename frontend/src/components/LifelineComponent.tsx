@@ -1,22 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
 import { UnlockAchievement } from "../models/Achievement";
 
-interface FriendData
-{
-    id: string
-    meet: string
-    name: string
-    website: string | null
-    lifeline: string | LifelineData
-    gamejam: string
-}
-
-interface LifelineData
-{
-    id: string
-    hash: string | null
-}
-
 // https://stackoverflow.com/a/52171480
 const cyrb53 = (str: string, seed = 0): number => {
     let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
