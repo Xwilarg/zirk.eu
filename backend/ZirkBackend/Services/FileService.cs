@@ -9,6 +9,7 @@ public class FileService(JsonSerializerOptions options, Random random)
     private readonly QuoteItem[] _quotes = JsonSerializer.Deserialize<QuoteItem[]>(File.ReadAllText($"{Path}json/quotes.json"), options)!;
     private readonly GameJamItem[] _gamejams = JsonSerializer.Deserialize<GameJamInfo>(File.ReadAllText($"{Path}json/gamejam.json"), options)!.Jams;
     private readonly FriendItem[] _friends = JsonSerializer.Deserialize<FriendItem[]>(File.ReadAllText($"{Path}json/friends.json"), options)!;
+    private readonly NewsItem[] _news = JsonSerializer.Deserialize<NewsItem[]>(File.ReadAllText($"{Path}json/news.json"), options)!;
 
     private static string Path
         => Debugger.IsAttached ? "../../data/" : "/data/";
@@ -21,11 +22,16 @@ public class FileService(JsonSerializerOptions options, Random random)
 
     public IEnumerable<GameJamItem> GetGamejams(NsfwStatus nsfw)
     {
-        return _gamejams.Where(x => nsfw == NsfwStatus.Nsfw || !x.Nsfw).ToArray();
+        return _gamejams.Where(x => nsfw != NsfwStatus.FullSfw || !x.Nsfw).ToArray();
     }
 
     public IEnumerable<FriendItem> GetFriends()
     {
         return _friends.ToArray();
+    }
+
+    public IEnumerable<NewsItem> GetNews(NsfwStatus nsfw)
+    {
+        return _news.Where(x => nsfw != NsfwStatus.FullSfw || !x.Nsfw).ToArray();
     }
 }

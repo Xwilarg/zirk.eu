@@ -14,6 +14,7 @@ import { NavigationLinks } from "../components/NavbarComponent";
 import "../../css/title.css";
 import { UnlockAchievement } from "../models/Achievement";
 import { useApi } from "../api/useApi";
+import type { NewsItem } from "../models/api/News";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
@@ -28,7 +29,7 @@ export default function MainForm() {
 
     const [projects, setProjects] = useState<any[] | null>(null);
     const [sheep, setSheep] = useState<null>(null);
-    const [news, setNews] = useState<null>(null);
+    const [news, setNews] = useState<NewsItem[]>([]);
     const [achievements, setAchievements] = useState<null>(null);
     
     const [gamejams, setGamejams] = useState<GameJamItem[] | null>(null);
@@ -68,7 +69,8 @@ export default function MainForm() {
 
                 return sa - sb;
             }))
-        })
+        });
+        api.getNews(nsfwNb).then(x => setNews(x));
 
         if (nsfw !== "FullSFW")
         {
@@ -176,8 +178,7 @@ export default function MainForm() {
         </div>
         <div className="is-flex flex-center-hor">
             {
-                news === null ? "Loading..."
-                : (showAllNews ? newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").map(x => <NewsBox item={x} setPreview={setPreview} />) : newsData.filter(x => !x.nsfw || nsfw !== "FullSFW").slice(0, 5).map(x => <NewsBox item={x} setPreview={setPreview} />))
+                showAllNews ? news.map(x => <NewsBox item={x} setPreview={setPreview} />) : news.filter(x => !x.nsfw || nsfw !== "FullSFW").slice(0, 5).map(x => <NewsBox item={x} setPreview={setPreview} />)
             }
         </div>
         {

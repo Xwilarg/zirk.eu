@@ -1,5 +1,5 @@
 import GenericBox from "../GenericBox";
-import type { NewsItem } from "../../models/News";
+import type { NewsItem } from "../../models/api/News";
 import { useState } from "react";
 import type { Button } from "../../models/Button";
 import { UnlockAchievement } from "../../models/Achievement";

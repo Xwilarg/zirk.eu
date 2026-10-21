@@ -2,6 +2,7 @@ export interface NewsItem
 {
     date: string
     title: string
+    subtitle?: string
     image: string
     orientation?: string
     text: string[]

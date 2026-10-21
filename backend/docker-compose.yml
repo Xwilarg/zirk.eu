@@ -2,9 +2,8 @@ services:
   backend:
     build:
       context: .
-      dockerfile: api/Dockerfile
-    user: "1000:1000"
+      dockerfile: ZirkBackend/Dockerfile
     ports:
-      - "5000:8080"
+      - "6643:8080"
     volumes:
-      - ./data:/euphonia/data
+      - ./data:/data

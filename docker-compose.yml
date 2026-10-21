@@ -1,9 +1,0 @@
-services:
-  backend:
-    build:
-      context: .
-      dockerfile: ZirkBackend/Dockerfile
-    ports:
-      - "6643:8080"
-    volumes:
-      - ./data:/data
