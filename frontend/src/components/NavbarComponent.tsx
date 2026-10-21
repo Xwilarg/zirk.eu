@@ -10,7 +10,7 @@ export interface Navigation
 export const NavigationLinks: Navigation[] = [{
     label: "Gamejam",
     to: "/gamejam"
-}, {
+}/*, {
     label: "Projects",
     to: "/project"
 }, {
@@ -25,7 +25,7 @@ export const NavigationLinks: Navigation[] = [{
 }, {
     label: "Achievements",
     to: "/achievement"
-}]
+}*/]
 
 export default function NavbarComponent() {
     const [searchParams] = useSearchParams();
