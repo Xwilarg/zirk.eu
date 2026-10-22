@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  frontend:
+    environment: production
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'true'
+        token: ${{ secrets.TOKEN }}
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    - run: sudo apt-get update
+    - run: sudo apt-get install -y imagemagick gifsicle
+    - run: mkdir -p public/data/
+    - run: cp -r ../data/img/ public/data/
+    - run: bash oc.sh
+      working-directory: frontend/scripts
+    - run: bash jamimg.sh
+      working-directory: frontend/scripts
+    - run: bash jamgif.sh
+      working-directory: frontend/scripts
+    - run: npm ci
+    - run: npm run build
+    - uses: appleboy/scp-action@v1
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        source: "frontend/dist/*"
+        target: ${{ secrets.FRONTEND_PATH }}
+        strip_components: 2
+
