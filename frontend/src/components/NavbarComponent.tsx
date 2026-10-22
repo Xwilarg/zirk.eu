@@ -10,13 +10,13 @@ export interface Navigation
 export const NavigationLinks: Navigation[] = [{
     label: "Gamejam",
     to: "/gamejam"
-}/*, {
+}, {
     label: "Projects",
     to: "/project"
 }, {
     label: "Games",
     to: "/game"
-}, {
+}/*, {
     label: "OCs",
     to: "/oc"
 }, {

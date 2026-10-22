@@ -1,29 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import { UnlockAchievement } from "../models/Achievement";
-
-type Game = keyof typeof gameData;
+import type { GameItem } from "../models/api/Game";
+import { useApi } from "../api/useApi";
+import { toTitleCase } from "../utils";
 
 export default function GameForm() {
-    const [preview, setPreview] = useState<string | null>(null);
-    const [filter, setFilter] = useState<Game>("train");
+    const api = useApi();
 
-    let small = filter.toLowerCase();
+    const [games, setGames] = useState<{ [id: string] : GameItem[]; }>({});
+    const [preview, setPreview] = useState<string | null>(null);
+    const [filter, setFilter] = useState<string | null>(null);
+
+    useEffect(() => {
+        api.getGames().then(x => { setGames(x); setFilter(Object.keys(x)[0]); });
+    }, []);
 
     return <>
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
-            <button onClick={() => { setFilter("train") }}>Train</button>
-            <button onClick={() => { setFilter("sheep") }}>Sheep</button>
+            {
+                Object.keys(games).map(x => <button key={x} onClick={() => { setFilter(x) }}>{ toTitleCase(x) }</button>)
+            }
         </div>
         <br/>
         <div className="is-flex flex-center-hor">
             {
-                gameData[filter].sort((a, b) => a.name.localeCompare(b.name)).map(x =>
+                filter === null ? <></> :
+                games[filter].sort((a, b) => a.name.localeCompare(b.name)).map(x =>
                     <GenericBox key={x.name} name={x.name} image={`/data/img/game/${filter}/${x.image}`} nsfw={false} onClick={() => {
                         setPreview(`/data/img/game/${filter}/${x.image}`)
                         if (filter === "train" && x.name === "Team Fortress 2") UnlockAchievement("TRAIN_FAVORITE_GAME")

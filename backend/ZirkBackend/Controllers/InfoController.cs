@@ -44,5 +44,11 @@ namespace ZirkBackend.Controllers
         {
             return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetProjects(nsfw), options));
         }
+
+        [HttpGet("games")]
+        public ActionResult GetGames()
+        {
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGames(), options));
+        }
     }
 }
