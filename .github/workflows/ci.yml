@@ -21,7 +21,7 @@ jobs:
         password: ${{ secrets.SSH_PASSWORD }}
         source: "data/json"
         target: ${{ secrets.DATA_PATH }}
-        strip_components: 2
+        strip_components: 1
     - uses: appleboy/scp-action@v1
       with:
         host: ${{ secrets.SSH_HOST }}
