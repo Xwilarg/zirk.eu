@@ -37,7 +37,7 @@ jobs:
     - run: npm run build
     - uses: appleboy/scp-action@v1
       with:
-        host: ${{ secrets.HOST }}
+        host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
         source: "frontend/dist/*"
