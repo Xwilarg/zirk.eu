@@ -1,5 +1,5 @@
 import GenericBox from "../GenericBox";
-import type { ProjectItem } from "../../models/Project";
+import type { ProjectItem } from "../../models/api/Project";
 
 interface ProjectItemFormProps
 {

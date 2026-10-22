@@ -16,6 +16,7 @@ import { UnlockAchievement } from "../models/Achievement";
 import { useApi } from "../api/useApi";
 import type { NewsItem } from "../models/api/News";
 import type { SheepItem } from "../models/api/Sheep";
+import type { ProjectItem } from "../models/api/Project";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
@@ -28,7 +29,7 @@ export default function MainForm() {
     const nsfwNb = isNsfwNumber();
     const api = useApi();
 
-    const [projects, setProjects] = useState<any[] | null>(null);
+    const [projects, setProjects] = useState<ProjectItem[] | null>(null);
     const [sheep, setSheep] = useState<SheepItem[]>([]);
     const [news, setNews] = useState<NewsItem[]>([]);
     const [achievements, setAchievements] = useState<null>(null);
@@ -72,6 +73,7 @@ export default function MainForm() {
             }))
         });
         api.getNews(nsfwNb).then(x => setNews(x));
+        api.getProjects(nsfwNb).then(x => setProjects(x));
 
         if (nsfw !== "FullSFW")
         {
@@ -153,8 +155,8 @@ export default function MainForm() {
                 </>}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/gamejam" }]}
             />
-            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3" text={projects === null ? "Loading..." : null}
-                image={projects === null ? null : `/data/img/projects/${projectData[projectIndex].images[0].name}`} onClick={projects === null ? null : () => setPreview(`/data/img/projects/${projectData[projectIndex].images[0].name}`)}
+            <GenericBox name="Projects" nsfw={false} className="card-dynamic-3" text={projects === null ? "Loading..." : undefined}
+                image={projects === null ? null : `/data/img/projects/${projects[projectIndex].images[0].name}`} onClick={projects === null ? undefined : () => setPreview(`/data/img/projects/${projects[projectIndex].images[0].name}`)}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/project" }]}
             />
             {
@@ -166,7 +168,7 @@ export default function MainForm() {
                         {
                             katsisApiData.slice(0, 8).map(x => <div className="card-img katsis-main-img is-flex flex-center-hor"><img key={x.id} className={nsfw === "SFW" ? "blur" : ""} src={`https://cdn.katsis.net/${x.thumbnailSmall.filename}`} /></div>)
                         }
-                    </div> : null} text={katsisApiData ? null : "Loading..."}
+                    </div> : undefined} text={katsisApiData ? undefined : "Loading..."}
                     buttons={nsfw === "NSFW" ? [{label: "See more", type: "LinkExternal", labelType: "Text", color: "Primary", link: "https://zirk.katsis.net/" }] : []}
                 />
             }

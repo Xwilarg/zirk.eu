@@ -1,6 +1,6 @@
 import QuoteComponent from "../components/QuoteComponent";
 import NavbarComponent from "../components/NavbarComponent";
-import type { ProjectItem } from "../models/Project";
+import type { ProjectItem } from "../models/api/Project";
 import ProjectBox from "../boxes/impl/ProjectBox";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import { useState } from "react";

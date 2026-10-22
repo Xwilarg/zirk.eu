@@ -11,6 +11,7 @@ public class FileService(JsonSerializerOptions options, Random random)
     private readonly FriendItem[] _friends = JsonSerializer.Deserialize<FriendItem[]>(File.ReadAllText($"{Path}json/friends.json"), options)!;
     private readonly NewsItem[] _news = JsonSerializer.Deserialize<NewsItem[]>(File.ReadAllText($"{Path}json/news.json"), options)!;
     private readonly SheepItem[] _sheep = JsonSerializer.Deserialize<SheepItem[]>(File.ReadAllText($"{Path}json/sheep.json"), options)!;
+    private readonly ProjectItem[] _projects = JsonSerializer.Deserialize<ProjectItem[]>(File.ReadAllText($"{Path}json/projects.json"), options)!;
 
     private static string Path
         => Debugger.IsAttached ? "../../data/" : "/data/";
@@ -39,5 +40,10 @@ public class FileService(JsonSerializerOptions options, Random random)
     public IEnumerable<SheepItem> GetSheep()
     {
         return _sheep.ToArray();
+    }
+
+    public IEnumerable<ProjectItem> GetProjects(NsfwStatus nsfw)
+    {
+        return _projects.Where(x => nsfw != NsfwStatus.FullSfw || !x.Nsfw).ToArray();
     }
 }
