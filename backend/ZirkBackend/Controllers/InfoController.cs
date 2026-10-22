@@ -72,5 +72,11 @@ namespace ZirkBackend.Controllers
                 JsonSerializer.Serialize(achs.Select(x => body.Ids.Contains(x.Id) ? x : null), options)
             );
         }
+
+        [HttpGet("ocs")]
+        public ActionResult GetOCs()
+        {
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetOCs(), options));
+        }
     }
 }

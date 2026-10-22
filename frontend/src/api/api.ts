@@ -4,6 +4,7 @@ import type { FriendItem } from "../models/api/Friend";
 import type { GameItem } from "../models/api/Game";
 import type { GameJamItem } from "../models/api/Gamejam";
 import type { NewsItem } from "../models/api/News";
+import type { OCInfo } from "../models/api/OC";
 import type { ProjectItem } from "../models/api/Project";
 import type { SheepItem } from "../models/api/Sheep";
 
@@ -42,6 +43,10 @@ export class Api {
 
     public getAchievementInfo(ids: string[]) {
         return this.post<AchievementItem[]>("/achievements/get", { ids });
+    }
+
+    public getOCs() {
+        return this.get<OCInfo>("/ocs");
     }
 
     // Thanks Indra for writing all that good code for Katsis intranet

@@ -1,5 +1,5 @@
 import GenericBox from "../GenericBox";
-import type { OCInfo } from "../../models/api/OC";
+import type { OCItem } from "../../models/api/OC";
 import { useState } from "react";
 import type { Button } from "../../models/Button";
 import { isNsfw } from "../../utils";
@@ -9,7 +9,7 @@ import { UnlockAchievement } from "../../models/Achievement";
 interface OCItemFormProps
 {
     artists: { [id: string] : string; }
-    item: OCInfo,
+    item: OCItem,
     setPreview: (images: ImageGroupModalInfo) => void
 }
 
@@ -17,8 +17,8 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
 {
     const [tabShown, setTabShown] = useState(0);
 
-    const category = item.images.find(x => x.default)!;
-    const image = category.images.find(x => x.default)!;
+    const category = item.images!.find(x => x.default)!;
+    const image = category?.images?.find(x => x.default)!;
 
     const nsfw = isNsfw();
 
@@ -43,12 +43,12 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
             labelType: "GoogleIcon",
             type: "Custom",
             action: () => { setTabShown(x => x !== 3 ? 3 : 0) },
-            disabled: item.metadata.media.length === 0
+            disabled: item.metadata.media!.length === 0
         }
     ];
     
     if (tabShown === 1) {
-        return <GenericBox key={item.name} name={item.name} nsfw={false}
+        return <GenericBox name={item.name} nsfw={false}
             icons={[{
                 icon: "globe",
                 label: item.metadata.location
@@ -57,10 +57,10 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                 label: item.metadata.gender
             }, {
                 icon: "height",
-                label: (item.metadata.height / 100).toFixed(2) + "m"
+                label: item.metadata.height === null ? "???" : ((item.metadata.height! / 100).toFixed(2) + "m")
             }, {
                 icon: "explicit",
-                label: item.metadata.orientation
+                label: item.metadata.orientation!
             }, {
                 icon: "person",
                 label: item.metadata.species
@@ -72,10 +72,10 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
     if (tabShown === 2) {
-        return <GenericBox key={item.name} name={item.name} nsfw={false}
+        return <GenericBox name={item.name} nsfw={false}
             custom={<div className="is-flex flex-center-hor">
                 {
-                    item.images.filter(x => !x.hide && (nsfw !== "FullSFW" || !x.images.find(x => x.default)!.nsfw))
+                    item.images!.filter(x => !x.hide && (nsfw !== "FullSFW" || !x.images.find(x => x.default)!.nsfw))
                     .sort((a, b) => new Date(b.date ?? "1970-01-01").getTime() - new Date(a.date ?? "1970-01-01").getTime())
                     .map(x => {
                         const def = x.images.find(x => x.default)!;
@@ -111,10 +111,10 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
     if (tabShown === 3) {
-        return <GenericBox key={item.name} name={item.name} nsfw={false}
+        return <GenericBox name={item.name} nsfw={false}
             custom={<div className="is-flex flex-center-hor">
                 {
-                    item.metadata.media.filter(x => nsfw !== "FullSFW" || !x.nsfw)
+                    item.metadata.media!.filter(x => nsfw !== "FullSFW" || !x.nsfw)
                     .map(x => {
                         const isBlurry = nsfw === "SFW" && x.nsfw;
 
@@ -133,7 +133,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
 
-    return <GenericBox key={item.name} name={item.name} image={`/data/previews/ocs/${item.metadata.folder}/${image.link}`} nsfw={image.nsfw}
+    return <GenericBox name={item.name} image={category ? `/data/previews/ocs/${item.metadata.folder}/${image.link}` : undefined} nsfw={image?.nsfw ?? false}
             imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`}
             onClick={() => {
                 if (item.name == "Fish") UnlockAchievement("OC_FISH");

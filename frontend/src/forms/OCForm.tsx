@@ -1,40 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
-
-/*
-import artists from "../../data/json/ocs/artists.json"
-import jsonSanara from "../../data/json/ocs/sanara.json"
-import jsonZirk from "../../data/json/ocs/zirk.json"
-import jsonYuzu from "../../data/json/ocs/yuzu.json"
-import jsonFish from "../../data/json/ocs/fish.json"
-import jsonFainir from "../../data/json/ocs/fainir.json"
-import jsonEstelia from "../../data/json/ocs/estelia.json"
-
-import jsonOthers from "../../data/json/ocs/others.json"
-*/
 
 import OCBox from "../boxes/impl/OCBox";
 import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";
 import GenericBox from "../boxes/GenericBox";
+import { useApi } from "../api/useApi";
+import type { OCInfo } from "../models/api/OC";
 
 export default function OCform() {
+    const api = useApi();
+
     const [preview, setPreview] = useState<ImageGroupModalInfo | null>(null);
     const [showMore, setShowMore] = useState<boolean>(false);
-    const characters = [
-        jsonSanara, jsonZirk, jsonYuzu, jsonFish, jsonFainir, jsonEstelia
-    ]
+    const [info, setInfo] = useState<OCInfo>({ artists: {}, ocs: [] });
+
+    useEffect(() => {
+        api.getOCs().then(x => setInfo(x));
+    }, []);
 
     return <>
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
             {
-                characters.sort(x => x.images.length).map(x => <OCBox item={x} setPreview={setPreview} artists={artists} />)
+                info.ocs.filter(x => x.metadata.folder !== null).sort(x => x.images!.length).map(x => <OCBox key={x.name} item={x} setPreview={setPreview} artists={info.artists} />)
             }
             {
                 showMore ?
-                    jsonOthers.map(x => <GenericBox name={x.name} text={x.metadata.description.join("\n\n")} nsfw={false} />)
+                    info.ocs.filter(x => x.metadata.folder === null).map(x => <GenericBox name={x.name} text={x.metadata.description!.join("\n\n")} nsfw={false} />)
                     : <></>
             }
         </div>
