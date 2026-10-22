@@ -1,25 +1,40 @@
 export interface OCInfo
 {
+    artists: { [id: string] : string; }
+    ocs: OCItem[]
+}
+
+export interface OCItem
+{
     name: string
     metadata: OCMetadataInfo
-    images: OCImageInfo[]
+    images?: OCImageInfo[]
 }
 
 interface OCMetadataInfo
 {
-    coauthors: string[]
     gender: string
     location: string
-    folder: string
-    description: string[]
+    species: string
+
+    description?: string[]
+
+    coauthors?: string[]
+    folder?: string
     history?: string[]
     personality?: string[]
     sexuality?: string[]
-    height: number
-    species: string
-    orientation: string
-    media: OCMediaInfo[]
+    height?: number
+    orientation?: string
+    media?: OCMediaInfo[]
     power?: string
+    versions?: OCVersionInfo[]
+}
+
+interface OCVersionInfo
+{
+    name: string
+    description: string
 }
 
 interface OCMediaInfo

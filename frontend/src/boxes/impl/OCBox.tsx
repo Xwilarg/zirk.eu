@@ -1,5 +1,5 @@
 import GenericBox from "../GenericBox";
-import type { OCInfo } from "../../models/OC";
+import type { OCInfo } from "../../models/api/OC";
 import { useState } from "react";
 import type { Button } from "../../models/Button";
 import { isNsfw } from "../../utils";
