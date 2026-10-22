@@ -63,5 +63,14 @@ namespace ZirkBackend.Controllers
                 Unlocked = achs.Count(x => body.Ids.Contains(x.Id))
             }, options));
         }
+
+        [HttpPost("achievements/get")]
+        public ActionResult GetAchievementsInfo([FromBody] IdsRequest body)
+        {
+            var achs = fileService.GetAchievements();
+            return StatusCode(StatusCodes.Status200OK,
+                JsonSerializer.Serialize(achs.Select(x => body.Ids.Contains(x.Id) ? x : null), options)
+            );
+        }
     }
 }

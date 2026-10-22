@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 
 import GenericBox from "../boxes/GenericBox";
+import type { AchievementItem } from "../models/Achievement";
+import { useApi } from "../api/useApi";
 
 export default function AchievementForm() {
-    const [ unlocked, setUnlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
+    const api = useApi();
+
+    const [achievements, setAchievements] = useState<AchievementItem[]>([]);
+
+    useEffect(() => {
+        api.getAchievementInfo(JSON.parse(localStorage.getItem("achievements") ?? "[]")).then(x => setAchievements(x));
+    }, []);
 
     return <>
         <QuoteComponent />
         <NavbarComponent />
         <div className="is-flex flex-center-hor">
             {
-                achievementData.map(x =>
+                achievements.map(x =>
                     {
-                        if (!unlocked.includes(x.id)) {
+                        if (x === null) {
                             return <GenericBox nsfw={false} name={""} />
                         }
                         if (x.type === "html") {

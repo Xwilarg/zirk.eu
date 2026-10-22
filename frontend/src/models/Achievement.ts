@@ -1,7 +1,10 @@
 export interface AchievementItem
 {
     id: string
-    category: string
+    name: string
+    type: string
+    html?: string
+    image?: string
 }
 
 export function UnlockAchievement(key: string)
