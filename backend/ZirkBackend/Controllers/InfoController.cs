@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using ZirkBackend.Models;
+using ZirkBackend.Models.Requests;
+using ZirkBackend.Models.Responses;
 using ZirkBackend.Services;
 
 namespace ZirkBackend.Controllers
@@ -49,6 +51,17 @@ namespace ZirkBackend.Controllers
         public ActionResult GetGames()
         {
             return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGames(), options));
+        }
+
+        [HttpPost("achievements/count")]
+        public ActionResult GetAchievementsCount([FromBody] IdsRequest body)
+        {
+            var achs = fileService.GetAchievements();
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(new AchievementCountResponse()
+            {
+                Total = achs.Length,
+                Unlocked = achs.Count(x => body.Ids.Contains(x.Id))
+            }, options));
         }
     }
 }

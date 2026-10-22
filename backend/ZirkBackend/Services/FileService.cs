@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.Json;
 using ZirkBackend.Models;
 
@@ -14,6 +13,7 @@ public class FileService(JsonSerializerOptions options, Random random)
     private readonly IEnumerable<SheepItem> _sheep = JsonSerializer.Deserialize<IEnumerable<SheepItem>>(File.ReadAllText($"{Path}json/sheep.json"), options)!;
     private readonly IEnumerable<ProjectItem> _projects = JsonSerializer.Deserialize<IEnumerable<ProjectItem>>(File.ReadAllText($"{Path}json/projects.json"), options)!;
     private readonly IReadOnlyDictionary<string, GameItem[]> _games = JsonSerializer.Deserialize<IReadOnlyDictionary<string, GameItem[]>>(File.ReadAllText($"{Path}json/game.json"), options)!;
+    private readonly AchievementItem[] _achievements = JsonSerializer.Deserialize<IEnumerable<AchievementItem>>(File.ReadAllText($"{Path}json/achievements.json"), options)!.ToArray();
 
     private static string Path
         => Debugger.IsAttached ? "../../data/" : "/data/";
@@ -52,5 +52,10 @@ public class FileService(JsonSerializerOptions options, Random random)
     public IReadOnlyDictionary<string, GameItem[]> GetGames()
     {
         return _games;
+    }
+
+    public AchievementItem[] GetAchievements()
+    {
+        return _achievements;
     }
 }

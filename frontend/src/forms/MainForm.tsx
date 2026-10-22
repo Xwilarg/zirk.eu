@@ -17,13 +17,15 @@ import { useApi } from "../api/useApi";
 import type { NewsItem } from "../models/api/News";
 import type { SheepItem } from "../models/api/Sheep";
 import type { ProjectItem } from "../models/api/Project";
+import type { AchievementCountResponse } from "../models/AchievementCountResponse";
 
 export default function MainForm() {
     const [searchParams] = useSearchParams();
     const [showSheep, setShowSheep] = useState(false);
     const [preview, setPreview] = useState<string | null>(null);
     const [showAllNews, setShowAllNews] = useState(false);
-    const [ unlocked, setUnlocked ] = useState<string[]>(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
+
+    const [achievements, setAchievements] = useState<AchievementCountResponse | null>(null);
 
     const nsfw = isNsfw();
     const nsfwNb = isNsfwNumber();
@@ -32,13 +34,12 @@ export default function MainForm() {
     const [projects, setProjects] = useState<ProjectItem[] | null>(null);
     const [sheep, setSheep] = useState<SheepItem[]>([]);
     const [news, setNews] = useState<NewsItem[]>([]);
-    const [achievements, setAchievements] = useState<null>(null);
     
     const [gamejams, setGamejams] = useState<GameJamItem[] | null>(null);
     const [gamejamsBest, setGamejamsBest] = useState<GameJamItem[] | null>(null);
-    const [ projectIndex, setProjectIndex ] = useState(0);
+    const [projectIndex, setProjectIndex] = useState(0);
 
-    const [ katsisApiData, setKatsisApiData ] = useState<any[] | null>(null);
+    const [katsisApiData, setKatsisApiData] = useState<any[] | null>(null);
 
     useEffect(() => {
         if (projects === null) return;
@@ -55,7 +56,6 @@ export default function MainForm() {
     useEffect(() => {
         if (showSheep) {
             UnlockAchievement("SHOW_SHEEP");
-            setUnlocked(JSON.parse(localStorage.getItem("achievements") ?? "[]"));
         }
     }, [ showSheep ])
 
@@ -74,6 +74,7 @@ export default function MainForm() {
         });
         api.getNews(nsfwNb).then(x => setNews(x));
         api.getProjects(nsfwNb).then(x => setProjects(x));
+        api.getAchievementCount(JSON.parse(localStorage.getItem("achievements") ?? "[]")).then(x => setAchievements(x));
 
         if (nsfw !== "FullSFW")
         {
@@ -178,7 +179,7 @@ export default function MainForm() {
                 </>}
             />
             <GenericBox name="Achievements" nsfw={false} className="card-dynamic-5"
-                text={achievements === null ? "Loading..." : `Unlocked: ${unlocked.filter(x => achievementData.some(y => y.id === x)).length} / ${achievementData.length}`}
+                text={achievements === null ? "Loading..." : `Unlocked: ${achievements.unlocked} / ${achievements.total}`}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />
         </div>

@@ -1,3 +1,4 @@
+import type { AchievementCountResponse } from "../models/AchievementCountResponse";
 import type { FriendItem } from "../models/api/Friend";
 import type { GameItem } from "../models/api/Game";
 import type { GameJamItem } from "../models/api/Gamejam";
@@ -32,6 +33,10 @@ export class Api {
 
     public getGames() {
         return this.get<{ [id: string] : GameItem[]; }>("/games");
+    }
+
+    public getAchievementCount(ids: string[]) {
+        return this.post<AchievementCountResponse>("/achievements/count", { ids });
     }
 
     // Thanks Indra for writing all that good code for Katsis intranet
