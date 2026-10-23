@@ -162,7 +162,7 @@ export default function GameJamFiltersComponent({items, setJamItems, friends}: G
             <span id="teammates" className="button-group">
             {
                 friends.filter(x => x.gamejam !== null).map(x =>
-                    <button key={x.name} title={x.name} className={"button-icon " + (teammates.includes(x.gamejam) ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, x.gamejam))}>{x.name}</button>
+                    <button key={x.lit} title={x.name} className={"button-icon " + (teammates.includes(x.gamejam) ? "active" : "")} onClick={_ => setTeammates(toggleArrayElement(teammates, x.gamejam))}>{x.name}</button>
                 )
             }
             </span>

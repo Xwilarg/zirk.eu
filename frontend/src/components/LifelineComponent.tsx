@@ -197,11 +197,11 @@ const LifelineComponent = forwardRef((_, ref) => {
                     scoreActivities: getActivitiesColor(x.boxes.activity),
                     scoreTravel: getCountriesColor(x.boxes.countries),
                     scoreGame: getGameColor(x.boxes.coop),
-                    scoreSC: getScreenshotsColor(x.id),
+                    scoreSC: getScreenshotsColor(x.lit),
                     scoreTime: getTimeColor(new Date(x.meet)),
-                    scoreGoal: getBoxColor(x.id)
+                    scoreGoal: getBoxColor(x.lit)
                 }
-                info.html = <div key={x.id} className="lifeline is-flex flex-center-ver">
+                info.html = <div key={x.lit} className="lifeline is-flex flex-center-ver">
                     <div>
                         <div className="lifeline-title is-flex flex-center-ver">
                             <span className="lifeline-name">{x.name}</span> {x.lifeline.type === "static" ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.hash ? <button className="button" onClick={_ => {
