@@ -24,6 +24,7 @@ public class FileService(JsonSerializerOptions options, Random random)
             ..JsonSerializer.Deserialize<IEnumerable<OCItem>>(File.ReadAllText($"{Path}json/ocs/others.json"), options)!
         ]
     };
+    private readonly IReadOnlyDictionary<string, GoalCategoryItem> _goals = JsonSerializer.Deserialize<IReadOnlyDictionary<string, GoalCategoryItem>>(File.ReadAllText($"{Path}json/goal.json"), options)!;
 
     private static string Path
         => Debugger.IsAttached ? "../../data/" : "/data/";
@@ -72,5 +73,10 @@ public class FileService(JsonSerializerOptions options, Random random)
     public OCInfo GetOCs()
     {
         return _ocs;
+    }
+
+    public IReadOnlyDictionary<string, GoalCategoryItem> GetGoals()
+    {
+        return _goals;
     }
 }

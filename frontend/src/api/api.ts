@@ -3,6 +3,7 @@ import type { AchievementCountResponse } from "../models/AchievementCountRespons
 import type { FriendItem } from "../models/api/Friend";
 import type { GameItem } from "../models/api/Game";
 import type { GameJamItem } from "../models/api/Gamejam";
+import type { GoalCategoryItem } from "../models/api/Goal";
 import type { NewsItem } from "../models/api/News";
 import type { OCInfo } from "../models/api/OC";
 import type { ProjectItem } from "../models/api/Project";
@@ -18,7 +19,7 @@ export class Api {
     }
 
     public getFriends() {
-        return this.get<FriendItem[]>("/friends");
+        return this.get<FriendItem[]>("/lifeline");
     }
 
     public getNews(nsfw: number) {
@@ -47,6 +48,10 @@ export class Api {
 
     public getOCs() {
         return this.get<OCInfo>("/ocs");
+    }
+
+    public getGoals() {
+        return this.get<{ [id: string]: GoalCategoryItem }>("/goals");
     }
 
     // Thanks Indra for writing all that good code for Katsis intranet

@@ -23,8 +23,14 @@ namespace ZirkBackend.Controllers
             return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGamejams(nsfw), options));
         }
 
-        [HttpGet("friends")]
+        [HttpGet("lifeline")]
         public ActionResult GetFriends()
+        {
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetFriends(), options));
+        }
+
+        [HttpGet("lifeline/static/hash")]
+        public ActionResult ValidateLifeline(string hash)
         {
             return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetFriends(), options));
         }
@@ -77,6 +83,12 @@ namespace ZirkBackend.Controllers
         public ActionResult GetOCs()
         {
             return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetOCs(), options));
+        }
+
+        [HttpGet("goals")]
+        public ActionResult GetGoals()
+        {
+            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGoals(), options));
         }
     }
 }

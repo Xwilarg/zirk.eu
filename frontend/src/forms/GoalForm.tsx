@@ -1,16 +1,22 @@
-import { useState, type JSX } from "react";
+import { useEffect, useState } from "react";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import GenericBox from "../boxes/GenericBox";
 import { toTitleCase } from "../utils";
-
-type Goal = keyof typeof goalData;
+import type { GoalCategoryItem } from "../models/api/Goal";
+import { useApi } from "../api/useApi";
 
 export default function GoalForm() {
-    const [filter, setFilter] = useState<Goal | null>(null);
+    const api = useApi();
+
+    const [goals, setGoals] = useState<{ [id: string]: GoalCategoryItem }>({});
+    const [filter, setFilter] = useState<string | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
 
+    useEffect(() => {
+        api.getGoals().then(x => { setGoals(x); setFilter(Object.keys(x)[0]) });
+    }, []);
 
     return <>
         <QuoteComponent />
@@ -18,12 +24,12 @@ export default function GoalForm() {
         <div className="is-flex flex-center-hor">
             <button onClick={() => { setFilter(null) }}>Overview</button>
             {
-                Object.keys(goalData).map(x => <button key={x} onClick={() => { setFilter(x as Goal) }}>{toTitleCase(x)}</button>)
+                Object.keys(goals).map(x => <button key={x} onClick={() => { setFilter(x) }}>{toTitleCase(x)}</button>)
             }
         </div>
         <br />
         {
-            filter ? Object.entries(goalData[filter].data).map(([category, content]) => 
+            filter ? Object.entries(goals[filter].data).map(([category, content]) => 
                 <span key={category}>
                     <div className="is-flex flex-center-hor">
                         <h4>{toTitleCase(category)}</h4>
@@ -36,13 +42,13 @@ export default function GoalForm() {
                                         return <GenericBox key={title} name={toTitleCase(title)} nsfw={false} />;
                                     }
                                     if (data.image) {
-                                        return <GenericBox key={title} name={toTitleCase(title)} nsfw={false} image={data.image} onClick={() => setPreview(data.image)} />
+                                        return <GenericBox key={title} name={toTitleCase(title)} nsfw={false} image={data.image} onClick={() => setPreview(data.image!)} />
                                     }
                                     if (data.youtube) {
                                         return <GenericBox key={title} name={toTitleCase(title)} nsfw={false} custom={
                                             <iframe width="100%" height="95%"
                                                 src={`https://www.youtube-nocookie.com/embed/${data.youtube}?showInfo=0`}
-                                                frameborder="0" allow="picture-in-picture; web-share" allowfullscreen></iframe>
+                                                frameBorder="0" allow="picture-in-picture; web-share" allowFullScreen></iframe>
                                         } />
                                     }
                                     if (data.images) {
@@ -80,7 +86,7 @@ export default function GoalForm() {
             )
             : <div className="is-flex flex-center-hor">
                 {
-                    Object.entries(goalData).map(([category, content]) => {
+                    Object.entries(goals).map(([category, content]) => {
                         let valid = 0;
                         let total = 0;
 
@@ -96,7 +102,7 @@ export default function GoalForm() {
                             <div className="is-flex flex-center-hor">
                                 <h3>{valid} / {total}</h3>
                             </div>
-                        } buttons={[ { type: "Custom", labelType: "GoogleIcon", label: "info", color: "Primary", action: () => { setFilter(category as Goal) }} ]} />
+                        } buttons={[ { type: "Custom", labelType: "GoogleIcon", label: "info", color: "Primary", action: () => { setFilter(category) }} ]} />
                     })
                 }
             </div>

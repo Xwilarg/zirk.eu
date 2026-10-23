@@ -2,6 +2,8 @@ import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement
 import { UnlockAchievement } from "../models/Achievement";
 import type { GameItem } from "../models/api/Game";
 import { useApi } from "../api/useApi";
+import type { FriendItem } from "../models/api/Friend";
+import SecretQuoteForm from "../forms/secrets/SecretQuoteForm";
 
 // https://stackoverflow.com/a/52171480
 const cyrb53 = (str: string, seed = 0): number => {
@@ -22,11 +24,12 @@ const cyrb53 = (str: string, seed = 0): number => {
 const LifelineComponent = forwardRef((_, ref) => {
     const api = useApi();
     
-    const [lifelineData, setLifelineData] = useState<FriendData[]>([]);
+    const [lifelineData, setLifelineData] = useState<FriendItem[]>([]);
     const [games, setGames] = useState<{ [id: string] : GameItem[]; }>({});
 
     useEffect(() => {
         api.getGames().then(x => setGames(x));
+        api.getFriends().then(x => setLifelineData(x));
     });
 
     useImperativeHandle(ref, () => {
@@ -132,8 +135,8 @@ const LifelineComponent = forwardRef((_, ref) => {
     function getScreenshotsColor(id: string)
     {
         const count = [
-            ...gameData.sheep.filter(x => x.with.includes(id)),
-            ...gameData.train.filter(x => x.with.includes(id))
+            ...games.sheep.filter(x => x.with.includes(id)),
+            ...games.train.filter(x => x.with.includes(id))
         ].length;
         if (count === 0) return 0;
         if (count <= 5) return 1;
