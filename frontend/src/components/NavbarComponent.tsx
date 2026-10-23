@@ -19,10 +19,10 @@ export const NavigationLinks: Navigation[] = [{
 }, {
     label: "OCs",
     to: "/oc"
-}/*, {
+}, {
     label: "Info",
     to: "/info"
-}*/, {
+}, {
     label: "Achievements",
     to: "/achievement"
 }]

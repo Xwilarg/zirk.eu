@@ -1,5 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
 import { UnlockAchievement } from "../models/Achievement";
+import type { GameItem } from "../models/api/Game";
+import { useApi } from "../api/useApi";
 
 // https://stackoverflow.com/a/52171480
 const cyrb53 = (str: string, seed = 0): number => {
@@ -18,7 +20,14 @@ const cyrb53 = (str: string, seed = 0): number => {
 };
 
 const LifelineComponent = forwardRef((_, ref) => {
+    const api = useApi();
+    
     const [lifelineData, setLifelineData] = useState<FriendData[]>([]);
+    const [games, setGames] = useState<{ [id: string] : GameItem[]; }>({});
+
+    useEffect(() => {
+        api.getGames().then(x => setGames(x));
+    });
 
     useImperativeHandle(ref, () => {
         return {
@@ -29,7 +38,7 @@ const LifelineComponent = forwardRef((_, ref) => {
     }, [ lifelineData ]);
 
     useEffect(() => {
-        fetch('/lifeline/status.php')
+        /*fetch('/lifeline/status.php')
         .then(resp => resp.json())
         .then(json => {
             const data: FriendData[] = [];
@@ -58,11 +67,11 @@ const LifelineComponent = forwardRef((_, ref) => {
             }
 
             setLifelineData(data);
-        });
+        });*/
     }, [ ]);
 
     function updateDynamicLifelines() {
-        fetch('/lifeline/send.php')
+        /*fetch('/lifeline/send.php')
         .then(resp => resp.json())
         .then(json => {
             for (let key of Object.keys(json)) {
@@ -73,7 +82,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                 }
             }
             setLifelineData([...lifelineData]);
-        });
+        });*/
     }
 
     function getGamejamColor(boxJson: any)

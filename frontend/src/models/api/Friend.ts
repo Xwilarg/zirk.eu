@@ -1,6 +1,6 @@
 export interface FriendItem
 {
-    meet: string
     name: string
+    meet: string
     gamejam: string
 }
