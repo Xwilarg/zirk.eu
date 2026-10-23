@@ -20,7 +20,6 @@ export default function InfoForm() {
     let aboutMe = <></>;
     if (aboutMeTab === 0) {
         aboutMe = <>
-            <h3>History</h3>
             I was bornt in 1998 in Essone, France and during my school years quickly became interested first with video games<br/>
             Following that, I then became interested by game development, first picking C and C++ thanks to the <a href="https://en.wikipedia.org/wiki/OpenClassrooms" target="_blank">Site du Zéro</a> and quickly jumped into Ti-Basic to make my amazing first game on calculator:<br/><a href="/data/img/projects-old/TQOZ.png" target="_blank">The Quest of Zirk</a><br/>
             <br/>
@@ -46,7 +45,6 @@ export default function InfoForm() {
     }
     else if (aboutMeTab === 1) {
         aboutMe = <>
-            <h3>Today</h3>
             In like I'm a backend developer, but outside of that my main occupation and goal is first <span className="katsis-highlight">Katsis</span> where I mainly work on the infrastructure such as the intranet or the website (but still sometimes help with games too)<br/>
             <br/>
             To speak a bit about myself I love new experiences (especially food related ones), I like happy things and my favorite type of humor is absurd one<br/>
@@ -57,8 +55,7 @@ export default function InfoForm() {
     }
     else if (aboutMeTab === 2) {
         aboutMe = <>
-            <h3>Hobbies</h3>
-            My speciality hobby wise is to get 100% intto something then dropping it a few months after, but despite that I got a few hobbies that managed to stick around
+            My speciality hobby wise is to get 100% into something then dropping it a few months after, but despite that I got a few hobbies that managed to stick around
             <h4>Gamejams</h4>
             The idea of a gamejam is to make a game from scratch given a theme and a time constraint<br/>
             The opportunity to build a game with people given constraints is definitly something I love (and I have a <Link to={getNavigationNoHook("/gamejam", searchParams)}>whole page about that</Link>)<br/>
