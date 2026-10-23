@@ -3,7 +3,7 @@ import { UnlockAchievement } from "../models/Achievement";
 import type { GameItem } from "../models/api/Game";
 import { useApi } from "../api/useApi";
 import type { FriendItem } from "../models/api/Friend";
-import SecretQuoteForm from "../forms/secrets/SecretQuoteForm";
+import type { GoalCategoryItem } from "../models/api/Goal";
 
 // https://stackoverflow.com/a/52171480
 const cyrb53 = (str: string, seed = 0): number => {
@@ -25,12 +25,14 @@ const LifelineComponent = forwardRef((_, ref) => {
     const api = useApi();
     
     const [lifelineData, setLifelineData] = useState<FriendItem[]>([]);
-    const [games, setGames] = useState<{ [id: string] : GameItem[]; }>({});
+    const [games, setGames] = useState<{ [id: string] : GameItem[] }>({});
+    const [goals, setGoals] = useState<{ [id: string]: GoalCategoryItem }>({});
 
     useEffect(() => {
         api.getGames().then(x => setGames(x));
         api.getFriends().then(x => setLifelineData(x));
-    });
+        api.getGoals().then(x => setGoals(x));
+    }, []);
 
     useImperativeHandle(ref, () => {
         return {
@@ -158,12 +160,11 @@ const LifelineComponent = forwardRef((_, ref) => {
     function getBoxColor(id: string)
     {
         let valid = 0;
-        for (let [category, content] of Object.entries(goalData))
+        for (let [category, content] of Object.entries(goals))
         {
             for (let subcategory of Object.values(content.data)) {
                 for (let child of Object.values(subcategory))
                 {
-                    console.log(child)
                     if (child !== null && child.with.includes(id)) valid++;
                 }
             }
@@ -203,7 +204,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                 info.html = <div key={x.id} className="lifeline is-flex flex-center-ver">
                     <div>
                         <div className="lifeline-title is-flex flex-center-ver">
-                            <span className="lifeline-name">{x.name}</span> {x.lifeline.hash ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.hash ? <button className="button" onClick={_ => {
+                            <span className="lifeline-name">{x.name}</span> {x.lifeline.type === "static" ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.hash ? <button className="button" onClick={_ => {
                                 const hash = prompt("Enter your hash");
                                 if (hash)
                                 {
