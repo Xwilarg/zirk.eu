@@ -4,9 +4,6 @@
 [submodule "gamejam"]
 	path = gamejam
 	url = https://github.com/Xwilarg/zirk.eu-gamejam
-[submodule "frontend/public/lifeline"]
-	path = frontend/public/lifeline
-	url = https://github.com/Xwilarg/Lifeline
 [submodule "frontend/public/projects"]
 	path = frontend/public/projects
 	url = https://github.com/Xwilarg/zirk.eu-projects

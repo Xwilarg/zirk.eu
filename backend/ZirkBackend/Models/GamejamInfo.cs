@@ -21,7 +21,7 @@ public class GameJamItem
     public required string[] Controls { set; get; }
     public required string Date { set; get; }
     public required string Location { set; get; }
-    public string? GitHub { set; get; }
+    public string? Github { set; get; }
     public required string Event { set; get; }
     public required string ShortEvent { set; get; }
     public string? ImagePosOverrides { set; get; }
