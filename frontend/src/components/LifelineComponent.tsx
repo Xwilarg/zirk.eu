@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement
 import { UnlockAchievement } from "../models/Achievement";
 import type { GameItem } from "../models/api/Game";
 import { useApi } from "../api/useApi";
-import type { FriendItem } from "../models/api/Friend";
+import type { FriendItem, FriendLifelineItem } from "../models/api/Friend";
 import type { GoalCategoryItem } from "../models/api/Goal";
 
 const LifelineComponent = forwardRef((_, ref) => {
@@ -27,16 +27,16 @@ const LifelineComponent = forwardRef((_, ref) => {
     }, [ lifelineData ]);
 
     useEffect(() => {
-        /*fetch('/lifeline/status.php')
+        fetch('/lifeline/status')
         .then(resp => resp.json())
-        .then(json => {
-            const data: FriendData[] = [];
+        .then((json: FriendLifelineItem[]) => {
+            const data: FriendItem[] = [];
 
-            for (let d of friendData)
+            for (let d of lifelineData)
             {
-                if (d.lifeline?.type === "dynamic")
+                if (d.lifeline.type === "dynamic")
                 {
-                    d.lifeline.id = json.find(x => x.name === d.lifeline?.name)?.id ?? "Broken :(";
+                    d.lifeline.id = json.find(x => x.name === d.lit)?.id ?? "Broken :(";
                 }
                 data.push(d);
             }
@@ -44,9 +44,9 @@ const LifelineComponent = forwardRef((_, ref) => {
             setLifelineData(data);
         })
         .catch(_ => {
-            const data: FriendData[] = [];
+            const data: FriendItem[] = [];
 
-            for (let d of friendData)
+            for (let d of lifelineData)
             {
                 if (d.lifeline?.type === "dynamic")
                 {
@@ -56,13 +56,13 @@ const LifelineComponent = forwardRef((_, ref) => {
             }
 
             setLifelineData(data);
-        });*/
+        });
     }, [ ]);
 
     function updateDynamicLifelines() {
-        /*fetch('/lifeline/send.php')
+        fetch('/lifeline/send')
         .then(resp => resp.json())
-        .then(json => {
+        .then((json: { [name: string]: FriendLifelineItem }) => {
             for (let key of Object.keys(json)) {
                 const match = lifelineData.find(x => x.lifeline?.name === key);
                 
@@ -71,7 +71,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                 }
             }
             setLifelineData([...lifelineData]);
-        });*/
+        });
     }
 
     function getGamejamColor(boxJson: any)
@@ -121,8 +121,8 @@ const LifelineComponent = forwardRef((_, ref) => {
     function getScreenshotsColor(id: string)
     {
         const count = [
-            ...games.sheep.filter(x => x.with.includes(id)),
-            ...games.train.filter(x => x.with.includes(id))
+            ...games.sheep?.filter(x => x.with.includes(id)) ?? [],
+            ...games.train?.filter(x => x.with.includes(id)) ?? []
         ].length;
         if (count === 0) return 0;
         if (count <= 5) return 1;
