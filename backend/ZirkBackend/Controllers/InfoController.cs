@@ -26,13 +26,51 @@ namespace ZirkBackend.Controllers
         [HttpGet("lifeline")]
         public ActionResult GetFriends()
         {
-            return StatusCode(StatusCodes.Status200OK, fileService.GetFriends());
+            var lifelines = fileService.GetFriends();
+            foreach (var l in lifelines)
+            {
+                l.Lifeline.Hash = null;
+            }
+            return StatusCode(StatusCodes.Status200OK, lifelines);
         }
 
-        [HttpGet("lifeline/static/hash")]
-        public ActionResult ValidateLifeline(string hash)
+        // https://stackoverflow.com/a/52171480
+        private static long Cyrb53(string str)
         {
-            return StatusCode(StatusCodes.Status200OK, fileService.GetFriends());
+            unchecked
+            {
+                uint h1 = 0xdeadbeefu;
+                uint h2 = 0x41c6ce57u;
+
+                foreach (char ch in str)
+                {
+                    h1 = (h1 ^ ch) * 2654435761u;
+                    h2 = (h2 ^ ch) * 1597334677u;
+                }
+
+                h1 = (h1 ^ (h1 >> 16)) * 2246822507u;
+                h1 ^= (h2 ^ (h2 >> 13)) * 3266489909u;
+                h2 = (h2 ^ (h2 >> 16)) * 2246822507u;
+                h2 ^= (h1 ^ (h1 >> 13)) * 3266489909u;
+
+                return 4294967296L * (2097151u & h2) + (h1 >>> 0);
+            }
+        }
+        [HttpGet("lifeline/static/{id}/{hash}")]
+        public ActionResult ValidateLifeline(string id, string hash)
+        {
+            var lifeline = fileService.GetFriends().FirstOrDefault(x => x.Lifeline.Id == id);
+            if (lifeline == null) return StatusCode(StatusCodes.Status400BadRequest, "Invalid ID");
+
+            var finalStr = lifeline.Lifeline.Id!.CompareTo(hash) < 0 ? $"{lifeline.Lifeline.Id}{hash}" : $"{hash}{lifeline.Lifeline.Id}";
+            if (Cyrb53(finalStr).ToString() == lifeline.Lifeline.Hash)
+            {
+                return StatusCode(StatusCodes.Status204NoContent);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "Invalid hash");
+            }
         }
 
         [HttpGet("news/{nsfw}")]

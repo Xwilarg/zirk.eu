@@ -11,5 +11,6 @@ export interface FriendItem
 
 export interface FriendLifelineItem
 {
+    id: string
     type: string
 }

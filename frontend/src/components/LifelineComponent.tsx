@@ -5,22 +5,6 @@ import { useApi } from "../api/useApi";
 import type { FriendItem } from "../models/api/Friend";
 import type { GoalCategoryItem } from "../models/api/Goal";
 
-// https://stackoverflow.com/a/52171480
-const cyrb53 = (str: string, seed = 0): number => {
-    let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
-    for(let i = 0, ch; i < str.length; i++) {
-        ch = str.charCodeAt(i);
-        h1 = Math.imul(h1 ^ ch, 2654435761);
-        h2 = Math.imul(h2 ^ ch, 1597334677);
-    }
-    h1  = Math.imul(h1 ^ (h1 >>> 16), 2246822507);
-    h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-    h2  = Math.imul(h2 ^ (h2 >>> 16), 2246822507);
-    h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-
-    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
-};
-
 const LifelineComponent = forwardRef((_, ref) => {
     const api = useApi();
     
@@ -204,18 +188,18 @@ const LifelineComponent = forwardRef((_, ref) => {
                 info.html = <div key={x.lit} className="lifeline is-flex flex-center-ver">
                     <div>
                         <div className="lifeline-title is-flex flex-center-ver">
-                            <span className="lifeline-name">{x.name}</span> {x.lifeline.type === "static" ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.hash ? <button className="button" onClick={_ => {
-                                const hash = prompt("Enter your hash");
+                            <span className="lifeline-name">{x.name}</span> {x.lifeline.type === "static" ? "" : <span className="lifeline-hash">{x.lifeline.id}</span>} {x.lifeline.type === "static" ? <button className="button" onClick={_ => {
+                                const hash = prompt("Enter your code");
                                 if (hash)
                                 {
-                                    const finalStr = x.lifeline.id!.localeCompare(hash) < 0 ? `${x.lifeline.id}${hash}` : `${hash}${x.lifeline.id}`;
-                                    console.log(cyrb53(finalStr).toString())
-                                    if (cyrb53(finalStr).toString() === x.lifeline.hash) {
-                                        alert("♥");
-                                    } else {
-                                        UnlockAchievement("LIFELINE_FAIL");
-                                        alert("Invalid ID");
-                                    }
+                                    api.validatePath(x.lifeline.id, hash)
+                                        .then(() => {
+                                            alert("♥");
+                                        })
+                                        .catch(() => {
+                                            UnlockAchievement("LIFELINE_FAIL");
+                                            alert("Invalid ID");
+                                        })
                                 }
                             }}><span className="material-symbols-outlined">check_circle</span></button> : ""}
                         </div>

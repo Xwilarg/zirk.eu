@@ -54,6 +54,10 @@ export class Api {
         return this.get<{ [id: string]: GoalCategoryItem }>("/goals");
     }
 
+    public validatePath(id: string, hash: string) {
+        return this.get(`/lifeline/static/${id}/${hash}`);
+    }
+
     // Thanks Indra for writing all that good code for Katsis intranet
 
     private token?: string
