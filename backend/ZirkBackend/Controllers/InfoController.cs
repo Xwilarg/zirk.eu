@@ -9,86 +9,84 @@ namespace ZirkBackend.Controllers
 {
     [ApiController]
     [Route("/api/info")]
-    public class InfoController(FileService fileService, JsonSerializerOptions options) : ControllerBase
+    public class InfoController(FileService fileService) : ControllerBase
     {
         [HttpGet("quote/{nsfw}")]
         public ActionResult GetRandomQuote(NsfwStatus nsfw)
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetRandomQuote(nsfw), options));
+            return new JsonResult(fileService.GetRandomQuote(nsfw));
         }
 
         [HttpGet("gamejams/{nsfw}")]
         public ActionResult GetGamejams(NsfwStatus nsfw)
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGamejams(nsfw), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetGamejams(nsfw));
         }
 
         [HttpGet("lifeline")]
         public ActionResult GetFriends()
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetFriends(), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetFriends());
         }
 
         [HttpGet("lifeline/static/hash")]
         public ActionResult ValidateLifeline(string hash)
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetFriends(), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetFriends());
         }
 
         [HttpGet("news/{nsfw}")]
         public ActionResult GetNews(NsfwStatus nsfw)
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetNews(nsfw), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetNews(nsfw));
         }
 
         [HttpGet("sheep")]
         public ActionResult GetSheep()
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetSheep(), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetSheep());
         }
 
         [HttpGet("projects/{nsfw}")]
         public ActionResult GetProjects(NsfwStatus nsfw)
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetProjects(nsfw), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetProjects(nsfw));
         }
 
         [HttpGet("games")]
         public ActionResult GetGames()
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGames(), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetGames());
         }
 
         [HttpPost("achievements/count")]
         public ActionResult GetAchievementsCount([FromBody] IdsRequest body)
         {
             var achs = fileService.GetAchievements();
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(new AchievementCountResponse()
+            return StatusCode(StatusCodes.Status200OK, new AchievementCountResponse()
             {
                 Total = achs.Length,
                 Unlocked = achs.Count(x => body.Ids.Contains(x.Id))
-            }, options));
+            });
         }
 
         [HttpPost("achievements/get")]
         public ActionResult GetAchievementsInfo([FromBody] IdsRequest body)
         {
             var achs = fileService.GetAchievements();
-            return StatusCode(StatusCodes.Status200OK,
-                JsonSerializer.Serialize(achs.Select(x => body.Ids.Contains(x.Id) ? x : null), options)
-            );
+            return StatusCode(StatusCodes.Status200OK, achs.Select(x => body.Ids.Contains(x.Id) ? x : null));
         }
 
         [HttpGet("ocs")]
         public ActionResult GetOCs()
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetOCs(), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetOCs());
         }
 
         [HttpGet("goals")]
         public ActionResult GetGoals()
         {
-            return StatusCode(StatusCodes.Status200OK, JsonSerializer.Serialize(fileService.GetGoals(), options));
+            return StatusCode(StatusCodes.Status200OK, fileService.GetGoals());
         }
     }
 }
