@@ -14,7 +14,40 @@ const LifelineComponent = forwardRef((_, ref) => {
 
     useEffect(() => {
         api.getGames().then(x => setGames(x));
-        api.getFriends().then(x => setLifelineData(x));
+        api.getFriends().then(x => {
+            setLifelineData(x);
+
+            fetch('/lifeline/status')
+                .then(resp => resp.json())
+                .then((json: FriendLifelineItem[]) => {
+                    const data: FriendItem[] = [];
+
+                    for (let d of x)
+                    {
+                        if (d.lifeline.type === "dynamic")
+                        {
+                            d.lifeline.id = json.find(x => x.name === d.lit)?.id ?? "Broken :(";
+                        }
+                        data.push(d);
+                    }
+
+                    setLifelineData(data);
+                })
+                .catch(_ => {
+                    const data: FriendItem[] = [];
+
+                    for (let d of x)
+                    {
+                        if (d.lifeline?.type === "dynamic")
+                        {
+                            d.lifeline.id = "Unknown";
+                        }
+                        data.push(d);
+                    }
+
+                    setLifelineData(data);
+                });
+        });
         api.getGoals().then(x => setGoals(x));
     }, []);
 
@@ -26,45 +59,14 @@ const LifelineComponent = forwardRef((_, ref) => {
         };
     }, [ lifelineData ]);
 
-    useEffect(() => {
-        fetch('/lifeline/status')
-        .then(resp => resp.json())
-        .then((json: FriendLifelineItem[]) => {
-            const data: FriendItem[] = [];
-
-            for (let d of lifelineData)
-            {
-                if (d.lifeline.type === "dynamic")
-                {
-                    d.lifeline.id = json.find(x => x.name === d.lit)?.id ?? "Broken :(";
-                }
-                data.push(d);
-            }
-
-            setLifelineData(data);
-        })
-        .catch(_ => {
-            const data: FriendItem[] = [];
-
-            for (let d of lifelineData)
-            {
-                if (d.lifeline?.type === "dynamic")
-                {
-                    d.lifeline.id = "Unknown";
-                }
-                data.push(d);
-            }
-
-            setLifelineData(data);
-        });
-    }, [ ]);
-
     function updateDynamicLifelines() {
-        fetch('/lifeline/send')
+        fetch('/lifeline/send', {
+            method: 'POST'
+        })
         .then(resp => resp.json())
         .then((json: { [name: string]: FriendLifelineItem }) => {
             for (let key of Object.keys(json)) {
-                const match = lifelineData.find(x => x.lifeline?.name === key);
+                const match = lifelineData.find(x => x.lit === key);
                 
                 if (match && match?.lifeline?.type === "dynamic") {
                     match.lifeline.id = json[key].id ?? "Broken :(";
