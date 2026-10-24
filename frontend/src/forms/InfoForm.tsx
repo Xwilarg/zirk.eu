@@ -60,20 +60,19 @@ export default function InfoForm() {
             The idea of a gamejam is to make a game from scratch given a theme and a time constraint<br/>
             The opportunity to build a game with people given constraints is definitly something I love (and I have a <Link to={getNavigationNoHook("/gamejam", searchParams)}>whole page about that</Link>)<br/>
             <br/>
-            My main love about that is getting new experiences, the <a href="https://globalgamejam.org/" target="_blank">Global Game Jam</a> being my favorite for that, giving me the opportunity to travel, meet new people, and make a game with them<br/>
-            I also love experimenting with new engines, or just making things totally from scratch
+            My favorite one is the <a href="https://globalgamejam.org/" target="_blank">Global Game Jam</a>, it's a cool opportunity to travel and meet new people, then make game with them<br/>
+            I also love experimenting with new engines and various technical constraints
             <h4>Playing games</h4>
-            Playing games is also my 2nd main hobby, in general I play a bit of everything and my likes can change a lot over the years<br/>
-            It's a bit hard to pinpoint what I love but I would say in general either games that give me a story/world I will love, games that force me to act fast (hero shooters) or strategize (base builders) (but not both at the same time) or just games that are fun too play with friends<br/>
-            I would love to speak of all the games I love but it's hard to think of them all but I'm not even sure which I would speak of, the one that got the most impact over me was probably <a href="https://store.steampowered.com/app/440/Team_Fortress_2/" target="_blank">Team Fortress 2</a>, even if I don't play much of it anymore<br/>
+            Playing games is also my 2nd main hobby<br/>
+            It's a bit hard to pinpoint what I love but I would say in general either games that give me a story/world I will get into, games that force me to act fast (hero shooters) or strategize (base builders) or just games that are fun to play with friends<br/>
+            Overall the one that got the most impact over me was probably <a href="https://store.steampowered.com/app/440/Team_Fortress_2/" target="_blank">Team Fortress 2</a>, even if I don't play much of it anymore<br/>
             <br/>
             I also love to find new ways to play, I did <a href="https://youtu.be/KAtmTxX4OR8?si=UOPpqrZsPkhFvwKI" target="_blank">some speedrun</a> (and would love to do more), I would also love to explore more the world of randomizers
             <h4>Reading</h4>
             Along with video games, reading is a hobby I carry since a really loooong time, during a very long time is was mostly manga, then I turned toward visual and light novels<br/>
             Of this era, my favorite novel probably still is <a href="https://anilist.co/manga/105388/Yagate-Kimi-ni-Naru-Saeki-Sayaka-ni-Tsuite" target="_blank">Bloom into You by Hitomi Haruma</a><br/>
             <br/>
-            Since then, I have been extending my reach a lot more, I like lot of different genres so it's a bit hard to pinpoint what, my current favorite is <a href="https://en.wikipedia.org/wiki/The_Safekeep" target="_blank">The Safekeeper by Yael van der Wouden</a><br/>
-            On the time I'm writing that, I have been switching to a new kind of book: history of countries
+            Since then, I have been extending my reach a lot more, I like lot of different genres so it's a bit hard to pinpoint what, my current favorite is <a href="https://en.wikipedia.org/wiki/The_Safekeep" target="_blank">The Safekeeper by Yael van der Wouden</a>
         </>
     }
 
