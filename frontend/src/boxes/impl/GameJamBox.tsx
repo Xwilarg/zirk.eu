@@ -54,8 +54,6 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
 
     let pos = getCssModifier(item, previewGif)
 
-    let score = getOverallScore(item);
-
     let buttons: Button[] = [];
     if (!hideNsfw)
     {
@@ -107,10 +105,6 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
                     label: item.location.split(',').at(-1) ?? "",
                     alt: "Location"
                 }, {
-                    icon: "timer",
-                    label: prettifyDuration(item.duration),
-                    alt: "Duration"
-                }, {
                     icon: "settings",
                     label: item.engine,
                     alt: "Engine"
@@ -135,6 +129,11 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
                     label: (score && (!item.rating!.entriesRated || item.rating!.entriesRated > 1)) ? ((score * 100).toFixed(1) + "%") : "",
                     alt: "Ranking"
                 }]}
+                highlight={{
+                    icon: "timer",
+                    label: prettifyDuration(item.duration),
+                    alt: "Duration"
+                }}
                 buttons={buttons}
             ></GenericBox>
     }
@@ -143,5 +142,10 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
             onMouseEnter={_ => { if (!hideNsfw) setPreviewGif(true); }}
             onMouseLeave={_ => { setPreviewGif(false) } }
             buttons={buttons}
+            highlight={{
+                icon: "timer",
+                label: prettifyDuration(item.duration),
+                alt: "Duration"
+            }}
         ></GenericBox>
 };

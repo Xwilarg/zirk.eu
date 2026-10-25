@@ -6,26 +6,29 @@ import type { IconInfo } from "../models/IconInfo";
 
 interface GenericBoxProps
 {
-    name: string
+    name: string // On top of the box
 
-    text?: string
+    // Only one of these elements at the same time
+    text?: string // Raw HTML
     image?: string | null
-    icons?: IconInfo[]
+    icons?: IconInfo[] // Set of icons (8 preferably)
     custom?: ReactElement
 
-    nsfw: boolean
+    highlight?: IconInfo, // If set, shown on the right of buttons
 
-    imageCssModifiers?: string
-    className?: string
+    nsfw: boolean // Blur image, hide names and buttons
 
-    buttons?: Button[]
+    imageCssModifiers?: string // CSS modifier added to the image
+    className?: string // Global CSS modifier to the whole box
+
+    buttons?: Button[] // Buttons shown at the bottom
 
     onClick?: React.MouseEventHandler<HTMLImageElement> | undefined
     onMouseEnter?: React.MouseEventHandler<HTMLImageElement> | undefined
     onMouseLeave?: React.MouseEventHandler<HTMLImageElement> | undefined
 }
 
-export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className } : GenericBoxProps) {
+export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className, highlight } : GenericBoxProps) {
     let nsfwStatus = isNsfw();
     let hideNsfw = nsfw && nsfwStatus !== "NSFW";
 
@@ -97,6 +100,16 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
             onClick={onClick}>
             { mainContent }
         </div>
-        <div className="card-buttons is-flex">{ btnHtml }</div>
+        <div className="card-buttons is-flex">
+            {
+                btnHtml
+            }
+            {
+                highlight ? <div className="is-flex card-iconlabel card-highlight">
+                    <span className="material-symbols-outlined is-flex flex-center-ver" title={highlight.alt}>{highlight.icon}</span>
+                    <p className="is-flex flex flex-center-ver">{highlight.label}</p>
+                </div> : <></>
+            }
+        </div>
     </div>
 }

@@ -46,13 +46,15 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
             disabled: item.metadata.media!.length === 0
         }
     ];
+
+    const highlight = {
+        icon: "globe",
+        label: item.metadata.location
+    };
     
     if (tabShown === 1) {
         return <GenericBox name={item.name} nsfw={false}
             icons={[{
-                icon: "globe",
-                label: item.metadata.location
-            }, {
                 icon: "transgender",
                 label: item.metadata.gender
             }, {
@@ -69,6 +71,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                 label: item.metadata.power ?? ""
             }]}
             buttons={buttons}
+            highlight={highlight}
         ></GenericBox>
     }
     if (tabShown === 2) {
@@ -108,6 +111,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                 }
             </div>}
             buttons={buttons}
+            highlight={highlight}
         ></GenericBox>
     }
     if (tabShown === 3) {
@@ -130,6 +134,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                 }
             </div>}
             buttons={buttons}
+            highlight={highlight}
         ></GenericBox>
     }
 
@@ -144,5 +149,6 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
                 })
             }}
             buttons={buttons}
+            highlight={highlight}
         ></GenericBox>
 };

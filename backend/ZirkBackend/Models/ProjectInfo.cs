@@ -7,6 +7,7 @@ public class ProjectItem
     public required ProjectImageItem[] Images { set; get; }
     public required ProjectLinkItem[] Links { set; get; }
     public required bool Nsfw { set; get; }
+    public required string Ai { set; get; }
 }
 
 public class ProjectImageItem

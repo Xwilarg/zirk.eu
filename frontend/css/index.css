@@ -249,6 +249,17 @@ a.ignore-half {
 .card-buttons {
     margin-top: 10px;
     padding-left: 10px;
+    position: relative;
+    height: 45px;
+}
+
+
+.card-highlight {
+    height: 100%;
+    width: 200px;
+    position: absolute;
+    right: -60px;
+    bottom: -2px;
 }
 
 .up-margin {
