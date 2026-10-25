@@ -213,7 +213,7 @@ a.ignore-half {
 }
 .card-iconlabel > p {
     margin: 0;
-    width: 150px;
+    max-width: 150px;
 }
 
 .card img:not(.card-img) {
@@ -257,8 +257,9 @@ a.ignore-half {
     height: 100%;
     width: 200px;
     position: absolute;
-    right: -45px;
+    right: 10px;
     bottom: -2px;
+    justify-content: right;
 }
 
 .up-margin {
