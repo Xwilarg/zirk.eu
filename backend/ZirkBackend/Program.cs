@@ -1,4 +1,6 @@
 using System.Text.Json;
+using ZirkBackend.Database;
+using ZirkBackend.Helpers;
 using ZirkBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Services.AddSingleton(new JsonSerializerOptions()
 });
 builder.Services.AddSingleton<Random>();
 builder.Services.AddSingleton<FileService>();
+builder.Services.AddScoped<ApiUpdater>();
+builder.Services.AddDbContext<SqliteContext>();
+builder.Services.AddHttpClient();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -27,6 +32,13 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+{
+    using var scope = app.Services.CreateScope();
+    if (!Directory.Exists(PathHelper.DataPath)) Directory.CreateDirectory(PathHelper.DataPath);
+    var db = scope.ServiceProvider.GetRequiredService<SqliteContext>();
+    db.Database.EnsureCreated();
+}
 /*
 builder.Services.AddAuthentication(options =>
 {

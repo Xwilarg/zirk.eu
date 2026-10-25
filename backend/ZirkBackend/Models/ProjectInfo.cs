@@ -8,6 +8,7 @@ public class ProjectItem
     public required ProjectLinkItem[] Links { set; get; }
     public required bool Nsfw { set; get; }
     public required string Ai { set; get; }
+    public required string Github { set; get; }
 }
 
 public class ProjectImageItem

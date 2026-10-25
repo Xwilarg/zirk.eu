@@ -9,7 +9,7 @@ namespace ZirkBackend.Controllers
 {
     [ApiController]
     [Route("/api/info")]
-    public class InfoController(FileService fileService) : ControllerBase
+    public class InfoController(FileService fileService, ApiUpdater apiUpdater) : ControllerBase
     {
         [HttpGet("quote/{nsfw}")]
         public ActionResult GetRandomQuote(NsfwStatus nsfw)
@@ -89,6 +89,12 @@ namespace ZirkBackend.Controllers
         public ActionResult GetProjects(NsfwStatus nsfw)
         {
             return StatusCode(StatusCodes.Status200OK, fileService.GetProjects(nsfw));
+        }
+
+        [HttpGet("projects/{nsfw}/commits")]
+        public async Task<ActionResult> GetProjectsCommits(NsfwStatus nsfw)
+        {
+            return StatusCode(StatusCodes.Status200OK, await apiUpdater.GetGithubCommitsInfoAsync(fileService.GetProjects(nsfw).ToArray()));
         }
 
         [HttpGet("games")]

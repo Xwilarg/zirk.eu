@@ -6,7 +6,7 @@ import type { GameJamItem } from "../models/api/Gamejam";
 import type { GoalCategoryItem } from "../models/api/Goal";
 import type { NewsItem } from "../models/api/News";
 import type { OCInfo } from "../models/api/OC";
-import type { ProjectItem } from "../models/api/Project";
+import type { ProjectCommitsItem, ProjectItem } from "../models/api/Project";
 import type { SheepItem } from "../models/api/Sheep";
 
 export class Api {
@@ -32,6 +32,10 @@ export class Api {
 
     public getProjects(nsfw: number) {
         return this.get<ProjectItem[]>(`/projects/${nsfw}`);
+    }
+
+    public getProjectsCommits(nsfw: number) {
+        return this.get<{ [name: string]: ProjectCommitsItem }>(`/projects/${nsfw}/commits`);
     }
 
     public getGames() {

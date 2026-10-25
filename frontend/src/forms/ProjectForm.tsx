@@ -1,6 +1,6 @@
 import QuoteComponent from "../components/QuoteComponent";
 import NavbarComponent from "../components/NavbarComponent";
-import type { ProjectItem } from "../models/api/Project";
+import type { ProjectCommitsItem, ProjectItem } from "../models/api/Project";
 import ProjectBox from "../boxes/impl/ProjectBox";
 import ImageModalForm from "../components/modal/ImageModalForm";
 import { useEffect, useState } from "react";
@@ -13,9 +13,13 @@ export default function ProjectForm() {
 
     const [preview, setPreview] = useState<string | null>(null);
     const [projects, setProjects] = useState<ProjectItem[]>([]);
+    const [commits, setCommits] = useState<{ [name: string]: ProjectCommitsItem }>({});
 
     useEffect(() => {
-        api.getProjects(nsfwNb).then(x => setProjects(x));
+        api.getProjects(nsfwNb).then(x => {
+            setProjects(x);
+            api.getProjectsCommits(nsfwNb).then(y => setCommits(y));
+        });
     }, [])
 
     return (
@@ -24,7 +28,7 @@ export default function ProjectForm() {
             <NavbarComponent />
             <div className="is-flex flex-center-hor">
                 {
-                    projects.map((x: ProjectItem) => <ProjectBox key={x.name} item={x} setPreview={setPreview} />)
+                    projects.map((x: ProjectItem) => <ProjectBox key={x.name} item={x} setPreview={setPreview} commits={x.name in commits ? commits[x.name] : null} />)
                 }
             </div>
             {

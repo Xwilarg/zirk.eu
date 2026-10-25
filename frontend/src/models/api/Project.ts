@@ -18,3 +18,9 @@ interface ProjectLinkItem
     name: string
     content: string
 }
+
+export interface ProjectCommitsItem
+{
+    lastCommitDate: Date
+    lastCommitMessage: string
+}
