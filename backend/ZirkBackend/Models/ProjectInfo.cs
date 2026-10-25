@@ -19,6 +19,6 @@ public class ProjectImageItem
 
 public class ProjectLinkItem
 {
-    public required string Name { set; get; }
+    public required string Type { set; get; }
     public required string Content { set; get; }
 }

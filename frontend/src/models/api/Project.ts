@@ -15,12 +15,12 @@ interface ProjectImageItem
 
 interface ProjectLinkItem
 {
-    name: string
+    type: string
     content: string
 }
 
 export interface ProjectCommitsItem
 {
-    lastCommitDate: Date
+    lastCommitDate: string
     lastCommitMessage: string
 }

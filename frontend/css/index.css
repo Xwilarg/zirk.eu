@@ -253,12 +253,11 @@ a.ignore-half {
     height: 45px;
 }
 
-
 .card-highlight {
     height: 100%;
     width: 200px;
     position: absolute;
-    right: -60px;
+    right: -45px;
     bottom: -2px;
 }
 
