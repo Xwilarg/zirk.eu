@@ -202,6 +202,9 @@ a.ignore-half {
     scrollbar-width: var(--scrollbar-width);
     scrollbar-color: var(--primary-light) transparent;
 }
+.card-content * {
+    overflow-x: hidden;
+}
 .card-iconlabel {
     flex-direction: row;
     width: calc(50% - 25px);
@@ -211,9 +214,14 @@ a.ignore-half {
     height: 50px;
     overflow-y: hidden;
 }
+@media (max-width: 400px) {
+    .card-iconlabel {
+        margin-top: 10px;
+    }
+}
 .card-iconlabel > p {
     margin: 0;
-    max-width: 150px;
+    max-width: min(150px, calc(100% - 50px));
 }
 
 .card img:not(.card-img) {
