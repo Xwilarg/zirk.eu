@@ -3,9 +3,9 @@ import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import LifelineComponent from "../components/LifelineComponent";
-import { getNavigationNoHook, isNsfw } from "../utils";
+import { isNsfw } from "../utils";
 import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";
-import { Link, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 export default function InfoForm() {
     const [searchParams] = useSearchParams();
@@ -45,34 +45,12 @@ export default function InfoForm() {
     }
     else if (aboutMeTab === 1) {
         aboutMe = <>
-            In like I'm a backend developer, but outside of that my main occupation and goal is first <span className="katsis-highlight">Katsis</span> where I mainly work on the infrastructure such as the intranet or the website (but still sometimes help with games too)<br/>
+            In life I'm a backend developer, but outside of that my main occupation and goal is first <span className="katsis-highlight">Katsis</span> where I mainly work on the infrastructure such as the intranet or the website, or help with our gamejam<br/>
             <br/>
-            To speak a bit about myself I love new experiences (especially food related ones), I like happy things and my favorite type of humor is absurd one<br/>
-            I have lot of hobbies (detailed in the next tab) but in general I love programming, participating in gamejams and playing games<br/>
+            Outside of that my main hobbies are gamejams (making a game given a time and thematic constraint) and playing games, along with that there are lot of others things I like such as reading, mahjong and trains<br/>
             <br/>
-            I'm quite on the introvert side and as you can see all around, love boxing things, don't hesitate to visit around more to learn more about me :)
-        </>
-    }
-    else if (aboutMeTab === 2) {
-        aboutMe = <>
-            My speciality hobby wise is to get 100% into something then dropping it a few months after, but despite that I got a few hobbies that managed to stick around
-            <h4>Gamejams</h4>
-            The idea of a gamejam is to make a game from scratch given a theme and a time constraint<br/>
-            The opportunity to build a game with people given constraints is definitly something I love (and I have a <Link to={getNavigationNoHook("/gamejam", searchParams)}>whole page about that</Link>)<br/>
-            <br/>
-            My favorite one is the <a href="https://globalgamejam.org/" target="_blank">Global Game Jam</a>, it's a cool opportunity to travel and meet new people, then make game with them<br/>
-            I also love experimenting with new engines and various technical constraints
-            <h4>Playing games</h4>
-            Playing games is also my 2nd main hobby<br/>
-            It's a bit hard to pinpoint what I love but I would say in general either games that give me a story/world I will get into, games that force me to act fast (hero shooters) or strategize (base builders) or just games that are fun to play with friends<br/>
-            Overall the one that got the most impact over me was probably <a href="https://store.steampowered.com/app/440/Team_Fortress_2/" target="_blank">Team Fortress 2</a>, even if I don't play much of it anymore<br/>
-            <br/>
-            I also love to find new ways to play, I did <a href="https://youtu.be/KAtmTxX4OR8?si=UOPpqrZsPkhFvwKI" target="_blank">some speedrun</a> (and would love to do more), I would also love to explore more the world of randomizers
-            <h4>Reading</h4>
-            Along with video games, reading is a hobby I carry since a really loooong time, during a very long time is was mostly manga, then I turned toward visual and light novels<br/>
-            Of this era, my favorite novel probably still is <a href="https://anilist.co/manga/105388/Yagate-Kimi-ni-Naru-Saeki-Sayaka-ni-Tsuite" target="_blank">Bloom into You by Hitomi Haruma</a><br/>
-            <br/>
-            Since then, I have been extending my reach a lot more, I like lot of different genres so it's a bit hard to pinpoint what, my current favorite is <a href="https://en.wikipedia.org/wiki/The_Safekeep" target="_blank">The Safekeeper by Yael van der Wouden</a>
+            To speak a bit more about myself I love new experiences (especially food related ones), I like happy things and my favorite type of humor is absurd one<br/>
+            Don't hesitate to visit around more to learn more about me :)
         </>
     }
 
@@ -147,7 +125,6 @@ export default function InfoForm() {
             <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
                 { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
                 { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" },
-                { type: "Custom", action: () => { setAboutMeTab(2) }, color: aboutMeTab === 2 ? "Primary" : "Default", label: "Hobbies", labelType: "Text" },
             ]} />
         </div>
         {

@@ -15,7 +15,7 @@ export default function GoalForm() {
     const [preview, setPreview] = useState<string | null>(null);
 
     useEffect(() => {
-        api.getGoals().then(x => { setGoals(x); setFilter(Object.keys(x)[0]) });
+        api.getGoals().then(x => { setGoals(x); });
     }, []);
 
     return <>

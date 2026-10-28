@@ -203,7 +203,7 @@ a.ignore-half {
     scrollbar-color: var(--primary-light) transparent;
 }
 .card-content * {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 .card-iconlabel {
     flex-direction: row;
@@ -498,6 +498,6 @@ a.ignore-half {
 }
 .goal-main-img img {
     max-width: 100%;
-    object-position: top;
+    object-position: center;
     height: auto;
 }
