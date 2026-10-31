@@ -1,5 +1,6 @@
 import type { AchievementItem } from "../models/Achievement";
 import type { AchievementCountResponse } from "../models/AchievementCountResponse";
+import type { ArchipelagoItem } from "../models/api/Archipelago";
 import type { FriendItem } from "../models/api/Friend";
 import type { GameItem } from "../models/api/Game";
 import type { GameJamItem } from "../models/api/Gamejam";
@@ -56,6 +57,10 @@ export class Api {
 
     public getGoals() {
         return this.get<{ [id: string]: GoalCategoryItem }>("/goals");
+    }
+
+    public getArchipelagos() {
+        return this.get<ArchipelagoItem[]>("/archipelagos");
     }
 
     public validatePath(id: string, hash: string) {

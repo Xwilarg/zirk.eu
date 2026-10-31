@@ -132,5 +132,11 @@ namespace ZirkBackend.Controllers
         {
             return StatusCode(StatusCodes.Status200OK, fileService.GetGoals());
         }
+
+        [HttpGet("archipelagos")]
+        public ActionResult GetArchipelagos()
+        {
+            return StatusCode(StatusCodes.Status200OK, fileService.GetArchipelagos());
+        }
     }
 }

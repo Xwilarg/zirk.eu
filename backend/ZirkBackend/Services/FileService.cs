@@ -25,6 +25,7 @@ public class FileService(JsonSerializerOptions options, Random random)
         ]
     };
     private readonly IReadOnlyDictionary<string, GoalCategoryItem> _goals = JsonSerializer.Deserialize<IReadOnlyDictionary<string, GoalCategoryItem>>(File.ReadAllText($"{Path}json/goal.json"), options)!;
+    private readonly IEnumerable<ArchipelagoItem> _archipelagos = JsonSerializer.Deserialize<IEnumerable<ArchipelagoItem>>(File.ReadAllText($"{Path}json/archipelago.json"), options)!;
 
     private static string Path
         => Debugger.IsAttached ? "../../data/" : "/data/";
@@ -78,5 +79,10 @@ public class FileService(JsonSerializerOptions options, Random random)
     public IReadOnlyDictionary<string, GoalCategoryItem> GetGoals()
     {
         return _goals;
+    }
+
+    public IEnumerable<ArchipelagoItem> GetArchipelagos()
+    {
+        return _archipelagos;
     }
 }

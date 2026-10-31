@@ -501,3 +501,26 @@ a.ignore-half {
     object-position: center;
     height: auto;
 }
+
+/* Archipelago */
+.archipelago-item {
+    border: var(--border);
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+}
+.archipelago-person-item {
+    height: 100px;
+    width: 150px;
+}
+.archipelago-person-item > * {
+    display: inline-block;
+    width: 150px;
+}
+.archipelago-person-item h4 {
+    font-size: small;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    margin: 10px 0 0 0;
+}

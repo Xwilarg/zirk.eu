@@ -1,21 +1,32 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import LifelineComponent from "../components/LifelineComponent";
 import { isNsfw } from "../utils";
 import ImageGroupModalForm, { type ImageGroupModalInfo } from "../components/modal/ImageGroupModalForm";
-import { useSearchParams } from "react-router";
+import type { ArchipelagoItem } from "../models/api/Archipelago";
+import { useApi } from "../api/useApi";
+import type { FriendItem } from "../models/api/Friend";
 
 export default function InfoForm() {
-    const [searchParams] = useSearchParams();
+    const api = useApi();
+
     const [preview, setPreview] = useState<ImageGroupModalInfo | null>(null);
     const [showLifelineUpdate, setShowLifelineUpdate] = useState(true);
     const [aboutMeTab, setAboutMeTab] = useState(1);
 
+    const [archipelagos, setArchipelagos] = useState<ArchipelagoItem[]>([]);
+    const [friends, setFriends] = useState<FriendItem[]>([]);
+
     const lifelineRef = useRef(null);
 
     const nsfw = isNsfw();
+
+    useEffect(() => {
+        api.getArchipelagos().then(x => setArchipelagos(x));
+        api.getFriends().then(x => setFriends(x));
+    }, [])
 
     let aboutMe = <></>;
     if (aboutMeTab === 0) {
@@ -122,6 +133,17 @@ export default function InfoForm() {
                     { replays.map(x => <img key={x} className="clickable" src={x} onClick={() => setPreview({ data: replays.map(y => ({ image: y, nsfw: false })) })} />) }
                 </div>}
             />
+            <GenericBox name="Archipelago" nsfw={false} custom={
+                <div className="is-flex flex-center-hor">
+                    { archipelagos.map(x =>
+                        <div className="is-flex archipelago-item">
+                            { x.with.sort((a, b) => a.game.localeCompare(b.game)).map(y => <div className="archipelago-person-item">
+                                <h4 className="text-center">{y.game}</h4>
+                                <small className="text-center">By { friends.find(f => f.lit === y.name)?.name ?? (y.name === "self" ? "me" : null) }</small>
+                            </div>) }
+                        </div>) }
+                </div>
+            }/>
             <GenericBox name="More about me" nsfw={false} custom={aboutMe} buttons={[
                 { type: "Custom", action: () => { setAboutMeTab(0) }, color: aboutMeTab === 0 ? "Primary" : "Default", label: "History", labelType: "Text" },
                 { type: "Custom", action: () => { setAboutMeTab(1) }, color: aboutMeTab === 1 ? "Primary" : "Default", label: "Today", labelType: "Text" },
