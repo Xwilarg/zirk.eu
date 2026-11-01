@@ -12,7 +12,6 @@ import { NavigationLinks } from "../components/NavbarComponent";
 
 // @ts-ignore
 import "../../css/title.css";
-import { UnlockAchievement } from "../models/Achievement";
 import { useApi } from "../api/useApi";
 import type { NewsItem } from "../models/api/News";
 import type { SheepItem } from "../models/api/Sheep";
@@ -55,7 +54,7 @@ export default function MainForm() {
 
     useEffect(() => {
         if (showSheep) {
-            UnlockAchievement("SHOW_SHEEP");
+            api.unlockAchievement("SHOW_SHEEP");
         }
     }, [ showSheep ])
 
@@ -184,7 +183,7 @@ export default function MainForm() {
             }
             <GenericBox name="" nsfw={false} className="card-placeholder"
                 custom={<>
-                    <h1 className="text-center" onClick={() => UnlockAchievement("CLICK_ZIRK")}>Zirk</h1>
+                    <h1 className="text-center" onClick={() => api.unlockAchievement("CLICK_ZIRK")}>Zirk</h1>
                 </>}
             />
             <GenericBox name="You" nsfw={false} className="card-dynamic-5"

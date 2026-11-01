@@ -12,65 +12,84 @@ import type { SheepItem } from "../models/api/Sheep";
 
 export class Api {
     public getQuote(nsfw: number) {
-        return this.get<string>(`/quote/${nsfw}`);
+        return this.get<string>(`/info/quote/${nsfw}`);
     }
 
     public getGamejams(nsfw: number) {
-        return this.get<GameJamItem[]>(`/gamejams/${nsfw}`);
+        return this.get<GameJamItem[]>(`/info/gamejams/${nsfw}`);
     }
 
     public getFriends() {
-        return this.get<FriendItem[]>("/lifeline");
+        return this.get<FriendItem[]>("/info/lifeline");
     }
 
     public getNews(nsfw: number) {
-        return this.get<NewsItem[]>(`/news/${nsfw}`);
+        return this.get<NewsItem[]>(`/info/news/${nsfw}`);
     }
 
     public getSheep() {
-        return this.get<SheepItem[]>("/sheep");
+        return this.get<SheepItem[]>("/info/sheep");
     }
 
     public getProjects(nsfw: number) {
-        return this.get<ProjectItem[]>(`/projects/${nsfw}`);
+        return this.get<ProjectItem[]>(`/info/projects/${nsfw}`);
     }
 
     public getProjectsCommits(nsfw: number) {
-        return this.get<{ [name: string]: ProjectCommitsItem }>(`/projects/${nsfw}/commits`);
+        return this.get<{ [name: string]: ProjectCommitsItem }>(`/info/projects/${nsfw}/commits`);
     }
 
     public getGames() {
-        return this.get<{ [id: string] : GameItem[]; }>("/games");
+        return this.get<{ [id: string] : GameItem[]; }>("/info/games");
     }
 
     public getAchievementCount(ids: string[]) {
-        return this.post<AchievementCountResponse>("/achievements/count", { ids });
+        return this.post<AchievementCountResponse>("/info/achievements/count", { ids });
     }
 
     public getAchievementInfo(ids: string[]) {
-        return this.post<AchievementItem[]>("/achievements/get", { ids });
+        return this.post<AchievementItem[]>("/info/achievements/get", { ids });
     }
 
     public getOCs() {
-        return this.get<OCInfo>("/ocs");
+        return this.get<OCInfo>("/info/ocs");
     }
 
     public getGoals() {
-        return this.get<{ [id: string]: GoalCategoryItem }>("/goals");
+        return this.get<{ [id: string]: GoalCategoryItem }>("/info/goals");
     }
 
     public getArchipelagos() {
-        return this.get<ArchipelagoItem[]>("/archipelagos");
+        return this.get<ArchipelagoItem[]>("/info/archipelagos");
     }
 
     public validatePath(id: string, hash: string) {
-        return this.get(`/lifeline/static/${id}/${hash}`);
+        return this.get(`/info/lifeline/static/${id}/${hash}`);
+    }
+    
+    private unlockAchievementInternal(key: string)
+    {
+        this.achievements.push(key);
+        localStorage.setItem("achievements", JSON.stringify(this.achievements));
     }
 
-    // Thanks Indra for writing all that good code for Katsis intranet
+    public unlockAchievement(key: string)
+    {
+        if (!this.achievements.includes(key))
+        {
+            if (this.isLoggedIn()) {
+                this.put(`/achievement/${key}`, {})
+                    .then(_ => this.unlockAchievementInternal(key))
+                    .catch(e => console.error(`Failed to unlock ${key}: ${e}`))
+            } else {
+                this.unlockAchievementInternal(key);
+            }
+        }
+    }
 
+    private achievements: string[] = JSON.parse(localStorage.getItem("achievements") ?? "[]");
     private token: string | null = localStorage.getItem("token");
-    private baseUrl = this.getEndpoint() + "/api/info"
+    private baseUrl = this.getEndpoint() + "/api"
     private displayName: string | null = localStorage.getItem("displayName");
 
     public isLoggedIn(): boolean {
@@ -91,11 +110,12 @@ export class Api {
      * Set the authorization token
      * @param token The new token
      */
-    public setToken(token: string, displayName: string) {
+    public setToken(token: string, displayName: string, achievements: string[], nsfwPreference: number | null) {
         this.token = token
         this.displayName = displayName;
         localStorage.setItem("token", token);
         localStorage.setItem("displayName", displayName);
+        localStorage.setItem("achievements", JSON.stringify(achievements));
     }
 
     public unsetToken() {
@@ -104,6 +124,8 @@ export class Api {
         localStorage.removeItem("token");
         localStorage.removeItem("displayName");
     }
+
+    // Thanks Indra for writing all that good code for Katsis intranet
 
     /**
      * Send a GET request to the path and return the response

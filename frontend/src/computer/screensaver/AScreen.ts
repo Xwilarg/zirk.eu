@@ -1,5 +1,5 @@
-import { UnlockAchievement } from "../../models/Achievement";
-import { Sketches, SketchNames } from "./ScreenSaver";
+import { SketchNames } from "./ScreenSaver";
+import { Api } from "../../api/api"
 
 export abstract class AScreen
 {
@@ -13,8 +13,10 @@ export abstract class AScreen
     gotInteraction: boolean = false
 
     clearRect: boolean
+    api: Api
 
-    constructor(canvas: HTMLCanvasElement) {
+    constructor(api: Api, canvas: HTMLCanvasElement) {
+        this.api = api;
         this.mouseX = null;
         this.mouseY = null;
 
@@ -49,7 +51,7 @@ export abstract class AScreen
                 this.gotInteraction = true;
 
                 const names = this.tryStoreName(this.getName());
-                if (SketchNames.every(x => names.includes(x))) UnlockAchievement("INTERACT_ALL_SKETCHES");
+                if (SketchNames.every(x => names.includes(x))) this.api.unlockAchievement("INTERACT_ALL_SKETCHES");
             }
         } else {
             this.mouseX = null;

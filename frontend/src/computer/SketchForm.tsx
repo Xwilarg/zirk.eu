@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useRef, useState, type RefObject } from "react";
 import { loadSketch, type ButtonInfo } from "./game/GameForm";
 import type { AScreen } from "./screensaver/AScreen";
 import loadScreenSaver from "./screensaver/ScreenSaver";
+import { useApi } from "../api/useApi";
 
 export interface LoadedGame
 {
@@ -24,6 +25,7 @@ const SketchForm = forwardRef((
     { isOn, loadedGame, buttons, isFullscreen, onLoad }: SketchFormProps,
     _
 ) => {
+    const api = useApi();
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const canvasRefUnity2019 = useRef<HTMLDivElement | null>(null);
     const screenSaverRef = useRef<AScreen | null>(null);
@@ -45,9 +47,9 @@ const SketchForm = forwardRef((
         canvasRef.current.id = "canvas";
         canvasParent!.appendChild(canvasRef.current);
         if (showScreenSaver) {
-            screenSaverDtorRef.current = loadScreenSaver(canvasRef, screenSaverRef)
+            screenSaverDtorRef.current = loadScreenSaver(api, canvasRef, screenSaverRef)
         } else if (loadedGame && !isTrace && typeof loadedGame !== "string") {
-            loadSketch(canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion, onLoad);
+            loadSketch(api, canvasRef, sketchInstance, loadedScripts, loadedGame.defaultResFolder, loadedGame.defaultFilename, loadedGame.defaultEngine, loadedGame.defaultUnityVersion, onLoad);
         }
 
         return () => {

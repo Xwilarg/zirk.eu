@@ -2,9 +2,9 @@ import GenericBox from "../GenericBox";
 import type { NewsItem } from "../../models/api/News";
 import { useState } from "react";
 import type { Button } from "../../models/Button";
-import { UnlockAchievement } from "../../models/Achievement";
 import type { ReactFormState } from "react-dom/client";
 import { isNsfw } from "../../utils";
+import { useApi } from "../../api/useApi";
 
 interface NewsItemFormProps
 {
@@ -15,6 +15,7 @@ interface NewsItemFormProps
 export default function NewsBox({ item, setPreview }: NewsItemFormProps)
 {
     const [showInfo, setShowInfo] = useState(false);
+    const api = useApi();
 
     const buttons: Button[] = [
         {
@@ -23,7 +24,7 @@ export default function NewsBox({ item, setPreview }: NewsItemFormProps)
             labelType: "GoogleIcon",
             color: "Primary",
             action: () => { setShowInfo(x => {
-                if (!x) UnlockAchievement("READ_NEWS");
+                if (!x) api.unlockAchievement("READ_NEWS");
                 return !x;
             }) }
         }

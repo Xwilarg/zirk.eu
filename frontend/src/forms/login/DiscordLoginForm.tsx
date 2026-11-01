@@ -10,8 +10,8 @@ export function DiscordLoginForm() {
     useEffect(() => {
         fetch("/api/auth/discord/token")
             .then(async r => r.ok ? r.json() : Promise.reject(await r.text()))
-            .then(({ token, displayName }) => {
-                api.setToken(token, displayName)
+            .then(({ token, displayName, achievements, nsfwLevel }) => {
+                api.setToken(token, displayName, achievements, nsfwLevel)
                 window.close();
             })
             .catch((e) => setError(e))

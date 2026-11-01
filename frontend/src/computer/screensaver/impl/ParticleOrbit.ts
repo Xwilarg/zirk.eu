@@ -1,4 +1,5 @@
 import { AScreen } from "../AScreen";
+import { Api } from "../../../api/api"
 
 class Particle {
     constructor() {
@@ -28,8 +29,8 @@ export class ParticleOrbits extends AScreen
     intervalSpawn: number;
     globalSpeed: number;
 
-    constructor(canvas: HTMLCanvasElement) {
-        super(canvas);
+    constructor(api: Api, canvas: HTMLCanvasElement) {
+        super(api, canvas);
 
         this.canvasCenterX = this.canvas.width / 2;
         this.canvasCenterY = this.canvas.height / 2;

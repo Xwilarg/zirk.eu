@@ -1,5 +1,6 @@
 import { randInt } from "../../../utils";
 import { AScreen } from "../AScreen";
+import { Api } from "../../../api/api"
 
 class Color {
     constructor(r: number, g: number, b: number) {
@@ -31,8 +32,8 @@ export class Gradient extends AScreen {
         return new Color(randInt(255), randInt(255), randInt(255));
     }
 
-    constructor(canvas: HTMLCanvasElement) {
-        super(canvas);
+    constructor(api: Api, canvas: HTMLCanvasElement) {
+        super(api, canvas);
 
         this.clearRect = false;
 

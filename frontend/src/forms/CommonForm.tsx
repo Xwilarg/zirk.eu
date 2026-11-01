@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { UnlockAchievement } from "../models/Achievement";
 import { useLocation } from "react-router";
 import { NavigationLinks } from "../components/NavbarComponent";
+import { useApi } from "../api/useApi";
 
 export default function CommonForm() {
 
     const { pathname } = useLocation();
+    const api = useApi();
 
     function tryStorePage(name: string): string[] {
         let names = JSON.parse(localStorage.getItem("pa_vi") ?? "[]") as string[]
@@ -19,11 +20,11 @@ export default function CommonForm() {
 
     useEffect(() => {
         const achTimeout = setTimeout(() => {
-            UnlockAchievement("AFK");
+            api.unlockAchievement("AFK");
         }, 3_600_000);
 
         const urls = tryStorePage(pathname)
-        if (NavigationLinks.every(x => urls.includes(x.to))) UnlockAchievement("ALL_NAVIGATION")
+        if (NavigationLinks.every(x => urls.includes(x.to))) api.unlockAchievement("ALL_NAVIGATION")
 
         return () => {
             clearTimeout(achTimeout);

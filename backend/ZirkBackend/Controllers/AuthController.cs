@@ -52,6 +52,12 @@ public class AuthController(JsonSerializerOptions opts, SqliteContext ctx, FileS
             expires: DateTime.UtcNow.AddDays(7),
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)));
 
-        return StatusCode(StatusCodes.Status200OK, new LoginResponse() { DisplayName = dbId.DisplayName, Token = jwt });
+        return StatusCode(StatusCodes.Status200OK, new LoginResponse()
+        {
+            DisplayName = dbId.DisplayName,
+            Token = jwt,
+            Achievements = dbId.Achievements,
+            NsfwLevel = dbId.NsfwLevel
+        });
     }
 }

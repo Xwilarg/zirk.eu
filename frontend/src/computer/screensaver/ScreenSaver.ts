@@ -4,14 +4,15 @@ import { BallsScreen } from "./impl/BallsScreen";
 import { ParticleOrbits } from "./impl/ParticleOrbit";
 import { Gradient } from "./impl/Gradient";
 import { randInt } from "../../utils";
+import { Api } from "../../api/api"
 
 export var Sketches = [ParticleOrbits, BallsScreen, Gradient];
 export var SketchNames = ["ParticleOrbits", "BallsScreen", "Gradient"];
 
-export default function loadScreenSaver(canvasRef: RefObject<HTMLCanvasElement | null>, screenSaverRef: RefObject<AScreen | null>): () => void
+export default function loadScreenSaver(api: Api, canvasRef: RefObject<HTMLCanvasElement | null>, screenSaverRef: RefObject<AScreen | null>): () => void
 {
     const elems = Sketches;
-    const sc = new elems[randInt(elems.length)](canvasRef.current!);
+    const sc = new elems[randInt(elems.length)](api, canvasRef.current!);
 
     screenSaverRef.current = sc;
     const listenerMouseMove = sc.handleMouse.bind(sc);

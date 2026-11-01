@@ -59,6 +59,10 @@ namespace ZirkBackend.Migrations
                     b.Property<DateTime>("AccountCreation")
                         .HasColumnType("TEXT");
 
+                    b.PrimitiveCollection<string>("Achievements")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("DiscordId")
                         .HasColumnType("TEXT");
 
@@ -67,6 +71,9 @@ namespace ZirkBackend.Migrations
 
                     b.Property<string>("Emoji")
                         .HasColumnType("TEXT");
+
+                    b.Property<int?>("NsfwLevel")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("UseDisplayName")
                         .HasColumnType("INTEGER");

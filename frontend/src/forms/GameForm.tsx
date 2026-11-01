@@ -3,7 +3,6 @@ import GenericBox from "../boxes/GenericBox";
 import NavbarComponent from "../components/NavbarComponent";
 import QuoteComponent from "../components/QuoteComponent";
 import ImageModalForm from "../components/modal/ImageModalForm";
-import { UnlockAchievement } from "../models/Achievement";
 import type { GameItem } from "../models/api/Game";
 import { useApi } from "../api/useApi";
 import { toTitleCase } from "../utils";
@@ -34,7 +33,7 @@ export default function GameForm() {
                 games[filter].sort((a, b) => a.name.localeCompare(b.name)).map(x =>
                     <GenericBox key={x.name} name={x.name} image={`/data/img/game/${filter}/${x.image}`} nsfw={false} onClick={() => {
                         setPreview(`/data/img/game/${filter}/${x.image}`)
-                        if (filter === "train" && x.name === "Team Fortress 2") UnlockAchievement("TRAIN_FAVORITE_GAME")
+                        if (filter === "train" && x.name === "Team Fortress 2") api.unlockAchievement("TRAIN_FAVORITE_GAME")
                     }}></GenericBox>
                 )
             }

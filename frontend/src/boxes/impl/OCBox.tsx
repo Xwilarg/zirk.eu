@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { Button } from "../../models/Button";
 import { isNsfw } from "../../utils";
 import type { ImageGroupModalInfo } from "../../components/modal/ImageGroupModalForm";
-import { UnlockAchievement } from "../../models/Achievement";
+import { useApi } from "../../api/useApi";
 
 interface OCItemFormProps
 {
@@ -15,6 +15,7 @@ interface OCItemFormProps
 
 export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
 {
+    const api = useApi();
     const [tabShown, setTabShown] = useState(0);
 
     const category = item.images!.find(x => x.default)!;
@@ -141,7 +142,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
     return <GenericBox name={item.name} image={category ? `/data/previews/ocs/${item.metadata.folder}/${image.link}` : undefined} nsfw={image?.nsfw ?? false}
             imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`}
             onClick={() => {
-                if (item.name == "Fish") UnlockAchievement("OC_FISH");
+                if (item.name == "Fish") api.unlockAchievement("OC_FISH");
                 setPreview({
                     data: category.images.filter(x => nsfw !== "FullSFW" || !x.nsfw).map(x => ({ image: `/data/img/ocs/${item.metadata.folder}/${x.link}`, nsfw: x.nsfw })),
                     creditName: Array.isArray(category.artist) ? category.artist.join(", ") : category.artist,

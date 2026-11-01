@@ -1,5 +1,5 @@
 import { type RefObject } from "react";
-import { UnlockAchievement } from "../../models/Achievement";
+import { Api } from "../../api/api"
 
 export interface ButtonInfo
 {
@@ -13,10 +13,10 @@ export interface ButtonInfo
 
 export type ButtonType = "ChangeScene" | "GiveInfo" | "Custom" | "Fullscreen"
 
-export function loadSketch(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>,
+export function loadSketch(api: Api, canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>,
     resFolder: string, filename: string, engine: string, version: string, onLoad: ((instance: RefObject<any> | null) => void) | null
 ) {
-    loadProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, engine, version, onLoad);
+    loadProjectInternal(api, canvasRef, sketchInstance, loadedScripts, resFolder, filename, engine, version, onLoad);
 }
 
 export function getLoaderFiles(resFolder: string, filename: string, engine: string, version: string): string[] // Used by desktop mode
@@ -38,7 +38,7 @@ export function getLoaderFiles(resFolder: string, filename: string, engine: stri
     return [ `${resFolder}${filename}.loader.js` ];
 }
 
-function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string, onLoad: ((instance: RefObject<any> | null) => void) | null)
+function loadProjectInternal(api: Api, canvasRef: RefObject<HTMLCanvasElement | null>, sketchInstance: RefObject<any>, loadedScripts: RefObject<HTMLScriptElement[]>, resFolder: string, filename: string, engine: string, version: string, onLoad: ((instance: RefObject<any> | null) => void) | null)
 {
     const loading = document.createElement("div");
     loading.style = "position: absolute; top: 10px; left: 10px;";
@@ -68,7 +68,7 @@ function loadProjectInternal(canvasRef: RefObject<HTMLCanvasElement | null>, ske
         {
             loadUnityProjectInternal(canvasRef, sketchInstance, loadedScripts, resFolder, filename, version, loading, onLoad);
         }
-        UnlockAchievement("PLAY_GAMEJAM");
+        api.unlockAchievement("PLAY_GAMEJAM");
     }
     catch (e)
     {

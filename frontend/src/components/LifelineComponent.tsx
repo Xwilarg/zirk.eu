@@ -1,5 +1,4 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactElement } from "react";
-import { UnlockAchievement } from "../models/Achievement";
 import type { GameItem } from "../models/api/Game";
 import { useApi } from "../api/useApi";
 import type { FriendItem, FriendLifelineItem } from "../models/api/Friend";
@@ -199,7 +198,7 @@ const LifelineComponent = forwardRef((_, ref) => {
                                             alert("♥");
                                         })
                                         .catch(() => {
-                                            UnlockAchievement("LIFELINE_FAIL");
+                                            api.unlockAchievement("LIFELINE_FAIL");
                                             alert("Invalid ID");
                                         })
                                 }

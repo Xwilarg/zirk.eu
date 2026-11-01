@@ -1,5 +1,6 @@
 import { randInt } from "../../../utils";
 import { AScreen } from "../AScreen";
+import { Api } from "../../../api/api"
 
 class Square
 {
@@ -64,8 +65,8 @@ export class BallsScreen extends AScreen {
     mouseSize: number;
     ballCount: number
 
-    constructor(canvas: HTMLCanvasElement) {
-        super(canvas);
+    constructor(api: Api, canvas: HTMLCanvasElement) {
+        super(api, canvas);
 
         this.squares = [];
         this.mouseSize = 10;

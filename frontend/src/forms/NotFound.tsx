@@ -1,11 +1,13 @@
 import QuoteComponent from "../components/QuoteComponent";
 import GenericBox from "../boxes/GenericBox";
 import { useEffect } from "react";
-import { UnlockAchievement } from "../models/Achievement";
+import { useApi } from "../api/useApi";
 
 export default function NotFoundForm() {
+    const api = useApi();
+
     useEffect(() => {
-        UnlockAchievement("NOT_FOUND");
+        api.unlockAchievement("NOT_FOUND");
     }, []);
 
     return <div>

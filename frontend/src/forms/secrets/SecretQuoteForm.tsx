@@ -1,9 +1,11 @@
 import { useEffect } from "react"
-import { UnlockAchievement } from "../../models/Achievement"
+import { useApi } from "../../api/useApi";
 
 export default function SecretQuoteForm() {
+    const api = useApi();
+
     useEffect(() => {
-        UnlockAchievement("CANT_CLICK_QUOTE");
+        api.unlockAchievement("CANT_CLICK_QUOTE");
     }, []);
 
     return <>
