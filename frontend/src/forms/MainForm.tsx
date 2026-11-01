@@ -44,7 +44,13 @@ export default function MainForm() {
         if (projects === null) return;
 
         const interval = setInterval(() => {
-            setProjectIndex(x => x == projects.length - 1 ? 0 : x + 1)
+            setProjectIndex(x => {
+                let newX = x;
+                do {
+                    newX = newX == projects.length - 1 ? 0 : newX + 1
+                } while (projects[newX].images.length === 0);
+                return newX;
+            })
         }, 5000);
 
         return () => {

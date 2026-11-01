@@ -101,6 +101,12 @@ else
 {
     app.UseHttpsRedirection();
     app.UseCors("prod");
+    app.Use((ctx, next) =>
+    {
+        ctx.Request.Scheme = "https";
+        ctx.Request.Host = new HostString("zirk.eu");
+        return next();
+    });
 }
 
 app.UseAuthentication();
