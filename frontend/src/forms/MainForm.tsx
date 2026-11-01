@@ -93,14 +93,11 @@ export default function MainForm() {
 
     useEffect(() => {
         if (api.isLoggedIn()) return;
-        const interval = setInterval(() => {
-            if (api.isLoggedIn()) {
-                window.location.reload();
-            }
-        }, 1000);
-        return () => {
-            clearInterval(interval);
-        }
+        const onStorage = (e: StorageEvent) => {
+            if (e.key === "token") window.location.reload();
+        };
+        window.addEventListener("storage", onStorage);
+        return () => window.removeEventListener("storage", onStorage);
     }, []);
     
 
@@ -198,7 +195,7 @@ export default function MainForm() {
                             <>
                                 Welcome {api.getDisplayName()}<br/>
                                 <button onClick={() => {
-                                    api.setToken(null, null);
+                                    api.unsetToken();
                                     window.location.reload();
                                 }}>Logout</button>
                             </>
