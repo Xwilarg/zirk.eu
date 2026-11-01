@@ -14,10 +14,7 @@ public class ApiUpdater(SqliteContext ctx)
     {
         var client = new HttpClient();
         client.DefaultRequestHeaders.UserAgent.ParseAdd("zirk.eu backend");
-        var token = JsonSerializer.Deserialize<Credentials>(File.ReadAllText($"{PathHelper.DataPath}credentials.json"), new JsonSerializerOptions()
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        })!.GithubToken;
+        var token = PathHelper.GetCredentials(new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }).GithubToken;
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         return client;
     });

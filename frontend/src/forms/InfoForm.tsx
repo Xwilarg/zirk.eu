@@ -138,7 +138,7 @@ export default function InfoForm() {
                     { archipelagos.map(x =>
                         <div className="is-flex archipelago-item">
                             { x.with.sort((a, b) => a.game.localeCompare(b.game)).map(y => <div className="archipelago-person-item">
-                                <h4 className="text-center">{y.game}</h4>
+                                <h4 className="text-center" title={y.game}>{y.game}</h4>
                                 <small className="text-center">By { friends.find(f => f.lit === y.name)?.name ?? (y.name === "self" ? "me" : null) }</small>
                             </div>) }
                         </div>) }

@@ -16,6 +16,7 @@ import AchievementForm from './forms/AchievementForm.tsx'
 import CommonForm from './forms/CommonForm.tsx'
 import GoalForm from './forms/GoalForm.tsx'
 import ApiProvider from './api/ApiContext.tsx'
+import { DiscordLoginForm } from './forms/login/DiscordLoginForm.tsx';
 
 function RedirectCompat()
 {
@@ -48,6 +49,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='/achievement' element={<AchievementForm/>} />
                 <Route path='/goal' element={<GoalForm/>} />
                 <Route path='/secret/quote' element={<SecretQuoteForm />} />
+                <Route path='/login/discord' element={<DiscordLoginForm/>} />
             </Routes>
         </BrowserRouter>
     </ApiProvider>

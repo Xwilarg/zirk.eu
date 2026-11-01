@@ -49,6 +49,32 @@ namespace ZirkBackend.Migrations
 
                     b.ToTable("Projects");
                 });
+
+            modelBuilder.Entity("ZirkBackend.Database.UserContext", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("AccountCreation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DiscordId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Emoji")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("UseDisplayName")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 #pragma warning restore 612, 618
         }
     }

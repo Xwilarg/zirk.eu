@@ -7,6 +7,7 @@ public class FriendItem
     public required string Meet { set; get; }
     public required string Lit { set; get; }
     public required string Name { set; get; }
+    public string? Discord { set; get; }
     public string? Gamejam { set; get; }
 
     public required FriendLifelineItem Lifeline { set; get; }

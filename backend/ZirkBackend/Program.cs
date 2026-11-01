@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json;
 using ZirkBackend.Database;
 using ZirkBackend.Helpers;
@@ -5,10 +10,11 @@ using ZirkBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton(new JsonSerializerOptions()
+var opts = new JsonSerializerOptions()
 {
     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-});
+};
+builder.Services.AddSingleton(opts);
 builder.Services.AddSingleton<Random>();
 builder.Services.AddSingleton<FileService>();
 builder.Services.AddScoped<ApiUpdater>();
@@ -31,48 +37,65 @@ builder.Services.AddCors(options =>
     });
 });
 
+{
+
+    var creds = PathHelper.GetCredentials(opts);
+
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.IncludeErrorDetails = true;
+
+        var data = Encoding.UTF8.GetBytes(creds.SecurityKey);
+        var securityKey = new SymmetricSecurityKey(data);
+
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ClockSkew = TimeSpan.Zero,
+
+            ValidateLifetime = true,
+
+            ValidateAudience = false,
+            ValidateIssuer = false,
+
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = securityKey
+        };
+    })
+    .AddCookie("Cookies")
+    .AddDiscord(x =>
+    {
+        x.ClientId = creds.Discord.Id;
+        x.ClientSecret = creds.Discord.Secret;
+        x.Scope.Add("identify");
+        x.SignInScheme = "Cookies";
+        x.CallbackPath = "/api/auth/discord";
+        x.SaveTokens = true;
+    });
+}
+
 var app = builder.Build();
 
 {
     using var scope = app.Services.CreateScope();
     if (!Directory.Exists(PathHelper.DataPath)) Directory.CreateDirectory(PathHelper.DataPath);
     var db = scope.ServiceProvider.GetRequiredService<SqliteContext>();
-    db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
-/*
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.IncludeErrorDetails = true;
-
-    using var scope = app!.Services.CreateScope();
-    var data = Encoding.UTF8.GetBytes(scope.ServiceProvider.GetRequiredService<ConfigManager>().GetConfig().SecurityKey);
-    var securityKey = new SymmetricSecurityKey(data);
-
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ClockSkew = TimeSpan.Zero,
-
-        ValidateLifetime = true,
-
-        ValidateAudience = false,
-        ValidateIssuer = false,
-
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = securityKey
-    };
-});
-*/
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseCors("debug");
     app.UseFileServer();
+    app.UseForwardedHeaders(new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedProto
+    });
 }
 else
 {
@@ -80,6 +103,7 @@ else
     app.UseCors("prod");
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

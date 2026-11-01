@@ -89,7 +89,19 @@ export default function MainForm() {
         if (showSheep && sheep.length === 0) {
             api.getSheep().then(x => setSheep(x));
         }
-    }, [showSheep])
+    }, [showSheep]);
+
+    useEffect(() => {
+        if (api.isLoggedIn()) return;
+        const interval = setInterval(() => {
+            if (api.isLoggedIn()) {
+                window.location.reload();
+            }
+        }, 1000);
+        return () => {
+            clearInterval(interval);
+        }
+    }, []);
     
 
     return <div>
@@ -178,8 +190,29 @@ export default function MainForm() {
                     <h1 className="text-center" onClick={() => UnlockAchievement("CLICK_ZIRK")}>Zirk</h1>
                 </>}
             />
-            <GenericBox name="Achievements" nsfw={false} className="card-dynamic-5"
-                text={achievements === null ? "Loading..." : `Unlocked: ${achievements.unlocked} / ${achievements.total}`}
+            <GenericBox name="You" nsfw={false} className="card-dynamic-5"
+                custom={<>
+                    <p>
+                        {
+                            api.isLoggedIn() ?
+                            <>
+                                Welcome {api.getDisplayName()}<br/>
+                                <button onClick={() => {
+                                    api.setToken(null, null);
+                                    window.location.reload();
+                                }}>Logout</button>
+                            </>
+                            : <>
+                                Login<br/>
+                                <small>This will use cookies</small><br/>
+                                <a className="button" href="/api/login/discord" target="_blank">Discord</a>
+                            </>
+                        }
+                    </p>
+                    <p>
+                        Achievements: {achievements === null ? "Loading..." : `${achievements.unlocked} / ${achievements.total}`}
+                    </p>
+                </>}
                 buttons={[{label: "See more", type: "LinkInternal", labelType: "Text", color: "Primary", link: "/achievement" }]}
             />
         </div>

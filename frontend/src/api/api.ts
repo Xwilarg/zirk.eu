@@ -69,8 +69,17 @@ export class Api {
 
     // Thanks Indra for writing all that good code for Katsis intranet
 
-    private token?: string
+    private token: string | null = null
     private baseUrl = this.getEndpoint() + "/api/info"
+    private displayName: string | null = null
+
+    public isLoggedIn(): boolean {
+        return this.token !== null;
+    }
+
+    public getDisplayName() {
+        return this.displayName;
+    }
 
     private getEndpoint() {
         return window.location.origin.startsWith("http://localhost")
@@ -82,8 +91,9 @@ export class Api {
      * Set the authorization token
      * @param token The new token
      */
-    public setToken(token: string) {
+    public setToken(token: string | null, displayName: string | null) {
         this.token = token
+        this.displayName = displayName;
     }
 
     /**
@@ -151,7 +161,7 @@ export class Api {
             }
         }
 
-        if (this.token) {
+        if (this.token !== null) {
             headers.append("Authorization", "Bearer " + this.token)
         }
 

@@ -7,6 +7,7 @@ public class SqliteContext : DbContext
 {
     internal DbSet<ProjectContext> Projects { set; get; }
     internal DbSet<ApiUpdateContext> Updates { set; get; }
+    internal DbSet<UserContext> Users { set; get; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
