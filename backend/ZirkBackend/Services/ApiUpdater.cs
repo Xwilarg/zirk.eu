@@ -8,7 +8,7 @@ using ZirkBackend.Models.Responses;
 
 namespace ZirkBackend.Services;
 
-public class ApiUpdater(SqliteContext ctx)
+public class ApiUpdater(SqliteContext ctx, IServiceScopeFactory scopeFactory)
 {
     private static Lazy<HttpClient> _githubHttpClient = new(() =>
     {
@@ -22,8 +22,10 @@ public class ApiUpdater(SqliteContext ctx)
     public async Task<Dictionary<string, ProjectGithubResponse>> GetGithubCommitsInfoAsync(ProjectItem[] projects)
     {
         var checkState = ctx.Updates.FirstOrDefault(x => x.Key == "project");
+        var needUpdate = false;
         if (checkState == null)
         {
+            needUpdate = true;
             ctx.Updates.Add(new()
             {
                 IsChecking = true,
@@ -33,75 +35,83 @@ public class ApiUpdater(SqliteContext ctx)
             ctx.SaveChanges();
             checkState = ctx.Updates.First(x => x.Key == "project");
         }
-        else if (checkState.IsChecking || checkState.LastCheck > DateTime.UtcNow.Subtract(TimeSpan.FromHours(1)))
+        else if (!checkState.IsChecking && checkState.LastCheck <= DateTime.UtcNow.Subtract(TimeSpan.FromHours(1)))
         {
-            return projects.ToDictionary(x => x.Name, x =>
-            {
-                var projectInfo = ctx.Projects.FirstOrDefault(p => p.Name == x.Name);
-                if (projectInfo == null) return new ProjectGithubResponse()
-                {
-                    LastCommitDate = DateTime.MinValue,
-                    LastCommitMessage = null
-                };
-                return new ProjectGithubResponse()
-                {
-                    LastCommitDate = projectInfo.LastModification,
-                    LastCommitMessage = projectInfo.LastCommitMessage
-                }; 
-            });
-        }
-        else
-        {
+            needUpdate = true;
             checkState.IsChecking = true;
             ctx.SaveChanges();
         }
 
-        Dictionary<string, ProjectGithubResponse> ret = new();
-        foreach (var p in projects)
+        var res = projects.ToDictionary(x => x.Name, x =>
         {
-            var project = ctx.Projects.FirstOrDefault(x => x.Name == p.Name);
-            GithubInfo[] json;
+            var projectInfo = ctx.Projects.FirstOrDefault(p => p.Name == x.Name);
+            if (projectInfo == null) return new ProjectGithubResponse()
+            {
+                LastCommitDate = DateTime.MinValue,
+                LastCommitMessage = null
+            };
+            return new ProjectGithubResponse()
+            {
+                LastCommitDate = projectInfo.LastModification,
+                LastCommitMessage = projectInfo.LastCommitMessage
+            };
+        });
 
-            try
+        if (needUpdate)
+        {
+            _ = Task.Run(async () =>
             {
-                json = await _githubHttpClient.Value.GetFromJsonAsync<GithubInfo[]>($"https://api.github.com/repos/{p.Github}/commits?per_page=1");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to contact {p.Github}: {ex.Message}");
-                continue;
-            }
+                using var scope = scopeFactory.CreateScope();
+                var ctxScope = scope.ServiceProvider.GetRequiredService<SqliteContext>();
+                checkState = ctxScope.Updates.First(x => x.Key == "project");
+                try
+                {
+                    Dictionary<string, ProjectGithubResponse> ret = new();
+                    foreach (var p in projects)
+                    {
+                        var project = ctxScope.Projects.FirstOrDefault(x => x.Name == p.Name);
+                        GithubInfo[] json;
 
-            if (project == null)
-            {
-                var pCtx = new ProjectContext()
+                        try
+                        {
+                            json = await _githubHttpClient.Value.GetFromJsonAsync<GithubInfo[]>($"https://api.github.com/repos/{p.Github}/commits?per_page=1");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Failed to contact {p.Github}: {ex.Message}");
+                            continue;
+                        }
+
+                        if (project == null)
+                        {
+                            var pCtx = new ProjectContext()
+                            {
+                                Name = p.Name,
+                                LastCommitMessage = json[0].Commit.Message,
+                                LastModification = json[0].Commit.Committer.Date
+                            };
+                            ctxScope.Projects.Add(pCtx);
+                        }
+                        else
+                        {
+                            project.LastCommitMessage = json[0].Commit.Message;
+                            project.LastModification = json[0].Commit.Committer.Date;
+                        }
+                    }
+                    Console.WriteLine($"{DateTime.Now} Project update completed");
+                }
+                catch (Exception ex)
                 {
-                    Name = p.Name,
-                    LastCommitMessage = json[0].Commit.Message,
-                    LastModification = json[0].Commit.Committer.Date
-                };
-                ctx.Projects.Add(pCtx);
-                ret.Add(p.Name, new()
+                    Console.WriteLine(ex);
+                }
+                finally
                 {
-                    LastCommitDate = pCtx.LastModification,
-                    LastCommitMessage = pCtx.LastCommitMessage
-                });
-            }
-            else
-            {
-                project.LastCommitMessage = json[0].Commit.Message;
-                project.LastModification = json[0].Commit.Committer.Date;
-                ret.Add(p.Name, new()
-                {
-                    LastCommitDate = project.LastModification,
-                    LastCommitMessage = project.LastCommitMessage
-                });
-            }
+                    checkState.LastCheck = DateTime.UtcNow;
+                    checkState.IsChecking = false;
+                    ctxScope.SaveChanges();
+                }
+            });
         }
-
-        checkState.LastCheck = DateTime.UtcNow;
-        checkState.IsChecking = false;
-        ctx.SaveChanges();
-        return ret;
+        return res;
     }
 }

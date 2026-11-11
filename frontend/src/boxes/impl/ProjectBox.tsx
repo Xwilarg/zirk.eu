@@ -32,6 +32,6 @@ export default function ProjectBox({ item, setPreview, commits }: ProjectItemFor
                     color: "Default"
                 })
             })}
-            highlight={commits ? { icon: "update", alt: "Last update", label: new Date(commits.lastCommitDate).toISOString().slice(0, 10) } : undefined}
+            highlight={commits && commits.lastCommitMessage !== null ? { icon: "update", alt: commits.lastCommitMessage, label: new Date(commits.lastCommitDate).toISOString().slice(0, 10) } : undefined}
         ></GenericBox>
 };

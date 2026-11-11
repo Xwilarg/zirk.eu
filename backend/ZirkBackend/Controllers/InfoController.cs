@@ -93,7 +93,8 @@ public class InfoController(FileService fileService, ApiUpdater apiUpdater) : Co
     [HttpGet("projects/{nsfw}/commits")]
     public async Task<ActionResult> GetProjectsCommits(NsfwStatus nsfw)
     {
-        return StatusCode(StatusCodes.Status200OK, await apiUpdater.GetGithubCommitsInfoAsync(fileService.GetProjects(nsfw).ToArray()));
+        var data = await apiUpdater.GetGithubCommitsInfoAsync(fileService.GetProjects(nsfw).ToArray());
+        return StatusCode(StatusCodes.Status200OK, data);
     }
 
     [HttpGet("games")]
