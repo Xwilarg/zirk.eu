@@ -13,6 +13,8 @@ export default function ProjectForm() {
 
     const [preview, setPreview] = useState<string | null>(null);
     const [projects, setProjects] = useState<ProjectItem[]>([]);
+    const [oldProjects, setOldProjects] = useState<ProjectItem[]>([]);
+    const [showOldProjects, setShowOldProjects] = useState(false);
     const [commits, setCommits] = useState<{ [name: string]: ProjectCommitsItem }>({});
 
     useEffect(() => {
@@ -28,9 +30,22 @@ export default function ProjectForm() {
             <NavbarComponent />
             <div className="is-flex flex-center-hor">
                 {
-                    projects.map((x: ProjectItem) => <ProjectBox key={x.name} item={x} setPreview={setPreview} commits={x.name in commits ? commits[x.name] : null} />)
+                    projects.map((x: ProjectItem) => <ProjectBox key={x.name} item={x} setPreview={setPreview} folder="projects" commits={x.name in commits ? commits[x.name] : null} />)
                 }
             </div>
+            {
+                showOldProjects ? 
+                <div className="is-flex flex-center-hor">
+                    <div className="margin"></div>
+                    {
+                        oldProjects.map((x: ProjectItem) => <ProjectBox key={x.name} item={x} setPreview={setPreview} folder="projects-old" commits={x.name in commits ? commits[x.name] : null} />)
+                    }
+                </div>
+                : <div className="is-flex flex-center-hor"><div className="margin"></div><button onClick={() => {
+                    setShowOldProjects(true);
+                    api.getOldProjects(nsfwNb).then(x => setOldProjects(x))
+                }}>See old projects</button></div>
+            }
             {
                 preview !== null ?
                 <ImageModalForm image={preview} unsetImage={setPreview} />

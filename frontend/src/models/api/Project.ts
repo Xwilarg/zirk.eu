@@ -6,6 +6,12 @@ export interface ProjectItem
     images: ProjectImageItem[]
     links: ProjectLinkItem[]
     nsfw: boolean
+    metadata: ProjectMetadataItem
+}
+
+interface ProjectMetadataItem
+{
+    end: string
 }
 
 interface ProjectImageItem

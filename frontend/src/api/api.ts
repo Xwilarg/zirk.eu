@@ -35,6 +35,10 @@ export class Api {
         return this.get<ProjectItem[]>(`/info/projects/${nsfw}`);
     }
 
+    public getOldProjects(nsfw: number) {
+        return this.get<ProjectItem[]>(`/info/projects/${nsfw}/old`);
+    }
+
     public getProjectsCommits(nsfw: number) {
         return this.get<{ [name: string]: ProjectCommitsItem }>(`/info/projects/${nsfw}/commits`);
     }

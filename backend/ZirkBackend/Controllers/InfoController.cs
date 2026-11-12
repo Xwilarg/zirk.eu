@@ -90,6 +90,12 @@ public class InfoController(FileService fileService, ApiUpdater apiUpdater) : Co
         return StatusCode(StatusCodes.Status200OK, fileService.GetProjects(nsfw));
     }
 
+    [HttpGet("projects/{nsfw}/old")]
+    public ActionResult GetOldProjects(NsfwStatus nsfw)
+    {
+        return StatusCode(StatusCodes.Status200OK, fileService.GetOldProjects(nsfw));
+    }
+
     [HttpGet("projects/{nsfw}/commits")]
     public async Task<ActionResult> GetProjectsCommits(NsfwStatus nsfw)
     {

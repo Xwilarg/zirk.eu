@@ -9,7 +9,14 @@ public class ProjectItem
     public required ProjectLinkItem[] Links { set; get; }
     public required bool Nsfw { set; get; }
     public required string Ai { set; get; }
-    public required string Github { set; get; }
+    public string? Github { set; get; }
+
+    public ProjectMetadataItem? Metadata { set; get; }
+}
+
+public class ProjectMetadataItem
+{
+    public string? End { set; get; }
 }
 
 public class ProjectImageItem

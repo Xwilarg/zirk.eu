@@ -12,6 +12,7 @@ public class FileService(JsonSerializerOptions options, Random random)
     private readonly IEnumerable<NewsItem> _news = JsonSerializer.Deserialize<IEnumerable<NewsItem>>(File.ReadAllText($"{Path}json/news.json"), options)!;
     private readonly IEnumerable<SheepItem> _sheep = JsonSerializer.Deserialize<IEnumerable<SheepItem>>(File.ReadAllText($"{Path}json/sheep.json"), options)!;
     private readonly IEnumerable<ProjectItem> _projects = JsonSerializer.Deserialize<IEnumerable<ProjectItem>>(File.ReadAllText($"{Path}json/projects.json"), options)!;
+    private readonly IEnumerable<ProjectItem> _oldProjects = JsonSerializer.Deserialize<IEnumerable<ProjectItem>>(File.ReadAllText($"{Path}json/projects-old.json"), options)!;
     private readonly IReadOnlyDictionary<string, GameItem[]> _games = JsonSerializer.Deserialize<IReadOnlyDictionary<string, GameItem[]>>(File.ReadAllText($"{Path}json/game.json"), options)!;
     private readonly AchievementItem[] _achievements = JsonSerializer.Deserialize<IEnumerable<AchievementItem>>(File.ReadAllText($"{Path}json/achievements.json"), options)!.ToArray();
     private readonly OCInfo _ocs = new()
@@ -59,6 +60,11 @@ public class FileService(JsonSerializerOptions options, Random random)
     public IEnumerable<ProjectItem> GetProjects(NsfwStatus nsfw)
     {
         return _projects.Where(x => nsfw != NsfwStatus.FullSfw || !x.Nsfw);
+    }
+
+    public IEnumerable<ProjectItem> GetOldProjects(NsfwStatus nsfw)
+    {
+        return _oldProjects.Where(x => nsfw != NsfwStatus.FullSfw || !x.Nsfw);
     }
 
     public IReadOnlyDictionary<string, GameItem[]> GetGames()
