@@ -7,6 +7,7 @@ import type { IconInfo } from "../models/IconInfo";
 interface GenericBoxProps
 {
     name: string // On top of the box
+    subtitle?: string
 
     // Only one of these elements at the same time
     text?: string // Raw HTML
@@ -28,7 +29,7 @@ interface GenericBoxProps
     onMouseLeave?: React.MouseEventHandler<HTMLImageElement> | undefined
 }
 
-export default function GenericBox({ name, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className, highlight } : GenericBoxProps) {
+export default function GenericBox({ name, subtitle, text, image, icons, custom, nsfw, buttons, imageCssModifiers, onClick, onMouseEnter, onMouseLeave, className, highlight } : GenericBoxProps) {
     let nsfwStatus = isNsfw();
     let hideNsfw = nsfw && nsfwStatus !== "NSFW";
 
@@ -93,7 +94,8 @@ export default function GenericBox({ name, text, image, icons, custom, nsfw, but
     }
 
     return <div className={`card ${className ? className : ""}`}>
-        <p className={"text-center card-name"}>{hideNsfw ? "" : name}</p>
+        <p className="text-center card-name">{hideNsfw ? "" : name}</p>
+        <small className="text-center card-subtitle" title={hideNsfw ? undefined : subtitle}>{hideNsfw ? "" : subtitle}</small>
         <div className="card-content"
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}

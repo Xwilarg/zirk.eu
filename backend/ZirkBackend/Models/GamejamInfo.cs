@@ -9,6 +9,7 @@ public class GameJamItem
 {
     public required string Name { set; get; }
     public required string FullName { set; get; }
+    public string? Subtitle { set; get; }
     public required float Duration { set; get; }
     public required string Engine { set; get; }
     public string? Format { set; get; }

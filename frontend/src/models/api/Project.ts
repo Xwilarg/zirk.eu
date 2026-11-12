@@ -1,6 +1,7 @@
 export interface ProjectItem
 {
     name: string
+    description: string
     category: string
     images: ProjectImageItem[]
     links: ProjectLinkItem[]

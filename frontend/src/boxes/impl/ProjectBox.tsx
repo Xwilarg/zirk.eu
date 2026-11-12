@@ -10,7 +10,7 @@ interface ProjectItemFormProps
 
 export default function ProjectBox({ item, setPreview, commits }: ProjectItemFormProps)
 {
-    return <GenericBox name={item.name} image={item.images.length > 0 ? `/data/img/projects/${item.images[0].name}` : undefined} nsfw={item.nsfw} onClick={() => setPreview(`/data/img/projects/${item.images[0].name}`)}
+    return <GenericBox name={item.name} subtitle={item.description} image={item.images.length > 0 ? `/data/img/projects/${item.images[0].name}` : undefined} nsfw={item.nsfw} onClick={() => setPreview(`/data/img/projects/${item.images[0].name}`)}
             buttons={item.links.map(x => {
                 let label;
                 switch (x.type)

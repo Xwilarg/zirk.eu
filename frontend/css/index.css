@@ -189,7 +189,19 @@ a.ignore-half {
 
 .card-name {
     height: 20px;
+    padding: 5px 0;
+    margin: 0;
     width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+}
+.card-subtitle {
+    height: 15px;
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    display: block;
+    width: calc(100% - 20px);
     overflow: hidden;
     text-overflow: ellipsis;
     text-wrap: nowrap;

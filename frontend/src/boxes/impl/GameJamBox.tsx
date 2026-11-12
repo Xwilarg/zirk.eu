@@ -138,7 +138,7 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
             ></GenericBox>
     }
 
-    return <GenericBox name={item.fullName} image={item.name === null ? "/img/ComingSoon.png" : `/data/img/gamejam/${item.name}.${format}`} nsfw={item.nsfw} imageCssModifiers={pos}
+    return <GenericBox name={item.fullName} subtitle={item.subtitle ?? undefined} image={item.name === null ? "/img/ComingSoon.png" : `/data/img/gamejam/${item.name}.${format}`} nsfw={item.nsfw} imageCssModifiers={pos}
             onMouseEnter={_ => { if (!hideNsfw) setPreviewGif(true); }}
             onMouseLeave={_ => { setPreviewGif(false) } }
             buttons={buttons}

@@ -31,7 +31,7 @@ export default function GameForm() {
             {
                 filter === null ? <></> :
                 games[filter].sort((a, b) => a.name.localeCompare(b.name)).map(x =>
-                    <GenericBox key={x.name} name={x.name} image={`/data/img/game/${filter}/${x.image}`} nsfw={false} onClick={() => {
+                    <GenericBox key={x.name} subtitle={x.comment} name={x.name} image={`/data/img/game/${filter}/${x.image}`} nsfw={false} onClick={() => {
                         setPreview(`/data/img/game/${filter}/${x.image}`)
                         if (filter === "train" && x.name === "Team Fortress 2") api.unlockAchievement("TRAIN_FAVORITE_GAME")
                     }}></GenericBox>
