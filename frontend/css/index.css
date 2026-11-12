@@ -484,6 +484,13 @@ a.ignore-half {
     color: rgb(217, 201, 117);
 }
 
+.lifeline-color {
+    display: block;
+    width: 40px;
+    height: 20px;
+    border-radius: var(--border-radius);
+}
+
 /* Achievements */
 
 .title-ach-offset {

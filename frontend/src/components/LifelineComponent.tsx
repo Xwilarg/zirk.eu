@@ -3,16 +3,20 @@ import type { GameItem } from "../models/api/Game";
 import { useApi } from "../api/useApi";
 import type { FriendItem, FriendLifelineItem } from "../models/api/Friend";
 import type { GoalCategoryItem } from "../models/api/Goal";
+import type { GameJamItem } from "../models/api/Gamejam";
+import { isNsfw } from "../utils";
 
 const LifelineComponent = forwardRef((_, ref) => {
     const api = useApi();
     
     const [lifelineData, setLifelineData] = useState<FriendItem[]>([]);
+    const [gamejamData, setGamejamData] = useState<GameJamItem[]>([]);
     const [games, setGames] = useState<{ [id: string] : GameItem[] }>({});
     const [goals, setGoals] = useState<{ [id: string]: GoalCategoryItem }>({});
 
     useEffect(() => {
         api.getGames().then(x => setGames(x));
+        api.getGamejams(1).then(x => setGamejamData(x));
         api.getFriends().then(x => {
             setLifelineData(x);
 
@@ -75,17 +79,22 @@ const LifelineComponent = forwardRef((_, ref) => {
         });
     }
 
-    function getGamejamColor(boxJson: any)
+    function getGamejamColor(gamejamData: GameJamItem[])
     {
-        if (!boxJson) return 0;
+        let score = 0;
 
-        if (boxJson.duo && boxJson.offline) return 3;
-        if (boxJson.duo || boxJson.offline) return 2;
-        if (boxJson.catch) return 1;
-        return 0;
+        if (gamejamData.some(x => x.team.length === 2)) score++;
+        if (gamejamData.some(x => x.duration === 1)) score++;
+        if (gamejamData.some(x => x.duration >= 24 && x.duration <= 72)) score++;
+        if (gamejamData.some(x => x.duration >= 360)) score++;
+        if (gamejamData.length >= 10) score += 3;
+        else if (gamejamData.length >= 5) score += 2;
+        else if (gamejamData.length >= 3) score += 1;
+
+        return score / 7.0 * 255.0;
     }
 
-    function getActivitiesColor(boxJson: any)
+    function getActivitiesColor(boxJson: any, countries: string[])
     {
         if (!boxJson) return 0;
 
@@ -93,42 +102,35 @@ const LifelineComponent = forwardRef((_, ref) => {
         for (let [_, value] of Object.entries(boxJson)) {
             if (value) score++;
         }
-        if (score >= 6) return 3;
-        if (score >= 4) return 2;
-        if (score >= 2) return 1;
-        return 0;
+        if (score >= 6) score = 3;
+        else if (score >= 4) score = 2;
+        else if (score >= 2) score = 1;
+
+        if (countries.length > 3) score += 3;
+        else score += countries.length;
+
+        return score / 6.0 * 255.0;
     }
 
-    function getCountriesColor(countries: string[])
-    {
-        if (countries.length >= 3) return 3;
-        return countries.length;
-    }
-
-    function getGameColor(boxJson: any)
+    function getGameColor(boxJson: any, id: string)
     {
         if (!boxJson) return 0;
 
-        const score =
+        let score =
             (boxJson.time >= 10 ? 1 : 0) +
             (boxJson.duo ? 1 : 0) +
             (boxJson.full ? 1 : 0);
-        if (score === 0) return 0;
-        if (score === 1) return 1;
-        if (score === 2) return 2;
-        return 3;
-    }
 
-    function getScreenshotsColor(id: string)
-    {
+
         const count = [
             ...games.sheep?.filter(x => x.with.includes(id)) ?? [],
             ...games.train?.filter(x => x.with.includes(id)) ?? []
         ].length;
-        if (count === 0) return 0;
-        if (count <= 5) return 1;
-        if (count <= 10) return 2;
-        return 3;
+        if (count <= 5) score += 1;
+        else if (count <= 10) score += 2;
+        else score += 3;
+
+        return score / 6.0 * 255.0;
     }
 
     function getTimeColor(meet: Date)
@@ -145,7 +147,7 @@ const LifelineComponent = forwardRef((_, ref) => {
     function getBoxColor(id: string)
     {
         let valid = 0;
-        for (let [category, content] of Object.entries(goals))
+        for (let [_category, content] of Object.entries(goals))
         {
             for (let subcategory of Object.values(content.data)) {
                 for (let child of Object.values(subcategory))
@@ -163,10 +165,9 @@ const LifelineComponent = forwardRef((_, ref) => {
     interface LifelineBoxInfo
     {
         scoreJam: number
-        scoreActivities: number
-        scoreTravel: number
         scoreGame: number
-        scoreSC: number
+        scoreActivities: number
+
         scoreTime: number
         scoreGoal: number
 
@@ -178,11 +179,10 @@ const LifelineComponent = forwardRef((_, ref) => {
             lifelineData.map(x =>
             {
                 let info: LifelineBoxInfo = {
-                    scoreJam: getGamejamColor(x.boxes.gamejam),
-                    scoreActivities: getActivitiesColor(x.boxes.activity),
-                    scoreTravel: getCountriesColor(x.boxes.countries),
-                    scoreGame: getGameColor(x.boxes.coop),
-                    scoreSC: getScreenshotsColor(x.lit),
+                    scoreJam: getGamejamColor(gamejamData.filter(g => g.team.includes(x.gamejam))),
+                    scoreGame: getGameColor(x.boxes.coop, x.lit),
+                    scoreActivities: getActivitiesColor(x.boxes.activity, x.boxes.countries),
+
                     scoreTime: getTimeColor(new Date(x.meet)),
                     scoreGoal: getBoxColor(x.lit)
                 }
@@ -205,18 +205,14 @@ const LifelineComponent = forwardRef((_, ref) => {
                             }}><span className="material-symbols-outlined">check_circle</span></button> : ""}
                         </div>
                         <div>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreJam}`}>code</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreActivities}`}>share</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreTravel}`}>travel</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreGame}`}>joystick</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreSC}`}>image</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreGoal}`}>box</span>
-                            <span className={`material-symbols-outlined lifeline-icon-${info.scoreTime}`}>calendar_today</span>
+                            <span className="lifeline-color" style={{
+                                backgroundColor: `rgb(${info.scoreJam}, ${info.scoreGame}, ${info.scoreActivities})`
+                            }}></span>
                         </div>
                     </div>
                 </div>;
                 return info;
-            }).sort((a, b) => (b.scoreJam + b.scoreTravel + b.scoreActivities + b.scoreGame + b.scoreSC + b.scoreGoal + b.scoreTime) - (a.scoreJam + a.scoreTravel + a.scoreActivities + a.scoreGame + a.scoreSC + a.scoreGoal + a.scoreTime)).map(x => x.html)
+            }).sort((a, b) => (b.scoreJam + b.scoreActivities + b.scoreGame + (b.scoreGoal / 3.0 * 255.0) + (b.scoreTime / 3.0 * 255.0)) - (a.scoreJam + a.scoreActivities + a.scoreGame + (a.scoreGoal / 3.0 * 255.0) + (a.scoreTime / 3.0 * 255.0))).map(x => x.html)
         }
     </div>
 });
