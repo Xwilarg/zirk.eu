@@ -125,6 +125,10 @@ export default function GameJamBox({ item, loadGame }: GameJamItemFormProps)
                     label: item.theme.join(", "),
                     alt: "Theme"
                 }, {
+                    icon: "group",
+                    label: item.team.length.toString(),
+                    alt: "Team size"
+                }, {
                     icon: "leaderboard",
                     label: (score && (!item.rating!.entriesRated || item.rating!.entriesRated > 1)) ? ((score * 100).toFixed(1) + "%") : "",
                     alt: "Ranking"

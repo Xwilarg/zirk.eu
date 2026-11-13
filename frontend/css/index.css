@@ -226,9 +226,9 @@ a.ignore-half {
     flex-direction: row;
     width: calc(50% - 25px);
     padding-left: 20px;
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: larger;
-    height: 50px;
+    height: 75px;
     overflow-y: hidden;
 }
 @media (max-width: 400px) {

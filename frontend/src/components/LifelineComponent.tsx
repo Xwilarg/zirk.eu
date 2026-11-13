@@ -83,7 +83,7 @@ const LifelineComponent = forwardRef((_, ref) => {
     {
         let score = 0;
 
-        if (gamejamData.some(x => x.team.length === 2)) score++;
+        if (gamejamData.some(x => x.team.length === 2 && x.duration >= 20)) score++;
         if (gamejamData.some(x => x.duration === 1)) score++;
         if (gamejamData.some(x => x.duration >= 24 && x.duration <= 72)) score++;
         if (gamejamData.some(x => x.duration >= 360)) score++;

@@ -11,18 +11,21 @@ public class OCItem
     public required string Name { set; get; }
     public string? Full { set; get; }
     public string? Subtitle { set; get; }
-    public string? Hobbies { set; get; }
     public required OCMetadataInfo Metadata { set; get; }
     public OCImageInfo[]? Images { set; get; }
 }
 
 public class OCMetadataInfo
 {
+    public string? Birth { set; get; }
+    public string? Death { set; get; }
+
     public required string Gender { set; get; }
     public required string Location { set; get; }
     public required string Species { set; get; }
 
 
+    public string[]? Hobbies { set; get; }
     public string[]? Coauthors { set; get; }
     public string? Folder { set; get; }
     //public string[]? History { set; get; }

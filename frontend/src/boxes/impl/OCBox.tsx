@@ -54,21 +54,38 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
     };
     
     if (tabShown === 1) {
-        return <GenericBox name={item.name} nsfw={false}
+        return <GenericBox name={item.name} subtitle={item.subtitle} nsfw={false}
             icons={[{
-                icon: "transgender",
-                label: item.metadata.gender
+                icon: "badge",
+                alt: "Full name",
+                label: item.full
             }, {
                 icon: "height",
+                alt: item.name === "Fish" ? "Size" : "Height",
                 label: item.metadata.height === null ? "???" : ((item.metadata.height! / 100).toFixed(2) + "m")
             }, {
+                icon: "transgender",
+                alt: "Gender",
+                label: item.metadata.gender
+            }, {
                 icon: "explicit",
+                alt: "Sexual orientation",
                 label: item.metadata.orientation!
             }, {
                 icon: "person",
+                alt: "Species",
                 label: item.metadata.species
             }, {
+                icon: "joystick",
+                alt: "Hobbies",
+                label: item.metadata.hobbies?.join(", ") ?? ""
+            }, {
+                icon: "calendar_today",
+                alt: "Dates",
+                label: item.metadata.birth === null ? "" : item.metadata.birth + " – " + (item.metadata.death ?? "")
+            }, {
                 icon: "visibility",
+                alt: "Oculus power",
                 label: item.metadata.power ?? ""
             }]}
             buttons={buttons}
@@ -76,7 +93,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
     if (tabShown === 2) {
-        return <GenericBox name={item.name} nsfw={false}
+        return <GenericBox name={item.name} subtitle={item.subtitle} nsfw={false}
             custom={<div className="is-flex flex-center-hor">
                 {
                     item.images!.filter(x => !x.hide && (nsfw !== "FullSFW" || !x.images.find(x => x.default)!.nsfw))
@@ -116,7 +133,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
     if (tabShown === 3) {
-        return <GenericBox name={item.name} nsfw={false}
+        return <GenericBox name={item.name} subtitle={item.subtitle} nsfw={false}
             custom={<div className="is-flex flex-center-hor">
                 {
                     item.metadata.media!.filter(x => nsfw !== "FullSFW" || !x.nsfw)
@@ -139,7 +156,7 @@ export default function OCBox({ item, setPreview, artists }: OCItemFormProps)
         ></GenericBox>
     }
 
-    return <GenericBox name={item.name} image={category ? `/data/previews/ocs/${item.metadata.folder}/${image.link}` : undefined} nsfw={image?.nsfw ?? false}
+    return <GenericBox name={item.name} subtitle={item.subtitle} image={category ? `/data/previews/ocs/${item.metadata.folder}/${image.link}` : undefined} nsfw={image?.nsfw ?? false}
             imageCssModifiers={`top ${category?.type === "pixel" ? "pixel" : ""}`}
             onClick={() => {
                 if (item.name == "Fish") api.unlockAchievement("OC_FISH");

@@ -7,6 +7,8 @@ export interface OCInfo
 export interface OCItem
 {
     name: string
+    full: string
+    subtitle: string
     metadata: OCMetadataInfo
     images?: OCImageInfo[]
 }
@@ -17,10 +19,14 @@ interface OCMetadataInfo
     location: string
     species: string
 
+    birth?: string
+    death?: string
+
     description?: string[]
 
     coauthors?: string[]
     folder?: string
+    hobbies?: string[]
     history?: string[]
     personality?: string[]
     sexuality?: string[]
