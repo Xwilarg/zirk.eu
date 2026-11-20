@@ -17,8 +17,8 @@ export const NavigationLinks: Navigation[] = [{
     label: "Games",
     to: "/game"
 }, {
-    label: "OCs",
-    to: "/oc"
+    label: "Lore",
+    to: "/lore"
 }, {
     label: "Info",
     to: "/info"

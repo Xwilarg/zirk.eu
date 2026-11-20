@@ -9,7 +9,7 @@ import GameJamForm from './forms/GameJamForm'
 import { getNavigationNoHook } from './utils'
 import GameForm from './forms/GameForm.tsx'
 import ProjectForm from './forms/ProjectForm.tsx'
-import OCform from './forms/OCForm.tsx'
+import LoreForm from './forms/LoreForm.tsx'
 import InfoForm from './forms/InfoForm.tsx'
 import NotFoundForm from './forms/NotFound.tsx'
 import AchievementForm from './forms/AchievementForm.tsx'
@@ -44,7 +44,7 @@ createRoot(document.getElementById('root')!).render(
                 <Route path='/gamejam' element={<GameJamForm/>} />
                 <Route path='/game' element={<GameForm/>} />
                 <Route path='/project' element={<ProjectForm/>} />
-                <Route path='/oc' element={<OCform/>} />
+                <Route path='/lore' element={<LoreForm/>} />
                 <Route path='/info' element={<InfoForm/>} />
                 <Route path='/achievement' element={<AchievementForm/>} />
                 <Route path='/goal' element={<GoalForm/>} />

@@ -228,7 +228,7 @@ export default function MainForm() {
         </div>
         {
             !showAllNews ?
-            <div className="is-flex flex-center-hor up-margin">
+            <div className="is-flex flex-center-hor margin">
                 <button onClick={() => { setShowAllNews(true) }}>Show all</button>
             </div>
             : <></>
